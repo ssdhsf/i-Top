@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>UMeng</key>
+	<dict>
+		<key>UMengAppKey</key>
+		<string>5a5f28dd8f4a9d147800095e</string>
+		<key>UMengChannel</key>
+		<string>App Store</string>
+	</dict>
+	<key>ApiSettings</key>
+	<dict>
+		<key>Develop</key>
+		<dict>
+			<key>protocol</key>
+			<string>http</string>
+			<key>host</key>
+			<string>125.88.152.77:8028</string>
+		</dict>
+		<key>Testing</key>
+		<dict>
+			<key>protocol</key>
+			<string>http</string>
+			<key>host</key>
+			<string>192.168.7.100:8028</string>
+		</dict>
+		<key>Product</key>
+		<dict>
+			<key>protocol</key>
+			<string>http</string>
+			<key>host</key>
+			<string>192.168.7.100:8028</string>
+		</dict>
+	</dict>
+	<key>WeChat</key>
+	<dict>
+		<key>Product</key>
+		<dict>
+			<key>appId</key>
+			<string>wxda140f3bda79bf0c</string>
+			<key>appSecret</key>
+			<string>993a49d60eb9d6e12a6d5a74604a1d5f</string>
+		</dict>
+	</dict>
+	<key>BaiduMap</key>
+	<dict>
+		<key>AKAPKEY</key>
+		<string>kvdmuWnKoPLtuqSCGjqZIWXIPFrC8bsN</string>
+	</dict>
+</dict>
+</plist>

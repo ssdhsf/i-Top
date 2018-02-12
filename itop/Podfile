@@ -1,0 +1,23 @@
+platform:ios,'8.0'
+target 'itop' do
+    
+pod 'JSONModel', '~> 1.1.0'
+pod 'AFNetworking', '~> 3.1.0'
+pod 'UMengAnalytics-NO-IDFA'
+pod 'MJRefresh', '~> 2.3.2'
+pod 'WechatOpenSDK'
+pod 'Reachability', '~> 3.2'
+pod 'MBProgressHUD', '1.1.0'
+pod 'Toast', '~> 2.4'
+pod 'BMKLocationKit'
+pod 'SDWebImage', '~> 3.7.3'
+pod 'IQKeyboardManager'
+pod 'UIAlertView+Blocks', '~> 0.8.1'
+
+#pod 'Charts'
+#use_frameworks!
+# Uncomment this line if you're using Swift or would like to use dynamic frameworks
+#end
+
+
+end
