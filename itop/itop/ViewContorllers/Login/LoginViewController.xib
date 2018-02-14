@@ -16,6 +16,7 @@
                 <outlet property="loginButton" destination="G52-VB-N0r" id="jyn-IO-cQo"/>
                 <outlet property="passwordImage" destination="1Tl-Fw-5zM" id="G9w-NN-MsT"/>
                 <outlet property="passwordTF" destination="UkW-8N-b8b" id="frj-Jd-6Mo"/>
+                <outlet property="seeIcon" destination="EAc-XP-IUf" id="bzk-Rs-7z4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

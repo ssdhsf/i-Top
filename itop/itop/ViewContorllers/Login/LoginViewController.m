@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
+@property (weak, nonatomic) IBOutlet UIButton *seeIcon;
 
 @end
 
@@ -96,6 +97,17 @@
 
 //密码可见
 - (IBAction)visible:(UIButton *)sender {
+    
+//    BOOL b = sender.selected;
+    _seeIcon.selected = !sender.selected;
+    _passwordTF.secureTextEntry = _seeIcon.selected;
+    if (_seeIcon.selected) {
+        
+        [_seeIcon setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
+        
+    } else {
+        [_seeIcon setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
+    }
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
