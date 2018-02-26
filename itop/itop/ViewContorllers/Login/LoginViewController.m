@@ -33,7 +33,6 @@
     _loginButton.layer.masksToBounds = YES;
     _accountTF.tag = 1;
     _passwordTF.tag = 2;
-
 }
 
 -(void)initData{

@@ -32,7 +32,7 @@
     [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
     
     [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@""]];
-    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"UsersSigningViewController"]];
+    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"CompanySigningViewController"]];
     [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"意见反馈" imageName:@"me_icon_comment" vcName:@""]];
     [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"设置" imageName:@"me_icon_set" vcName:@""]];
     

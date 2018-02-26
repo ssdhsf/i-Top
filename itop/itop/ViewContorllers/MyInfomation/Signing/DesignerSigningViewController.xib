@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DesignerSigningViewController">
             <connections>
+                <outlet property="goodAtTitleLabel" destination="gcL-gL-Lrs" id="DYG-JV-zFw"/>
+                <outlet property="submitButton" destination="OI9-AZ-ESl" id="vGi-gC-Kek"/>
+                <outlet property="verificationCodeButton" destination="a84-Bd-Snb" id="h5y-Gq-yFZ"/>
                 <outlet property="view" destination="nSS-yK-AUV" id="h9J-zu-B8Z"/>
             </connections>
         </placeholder>

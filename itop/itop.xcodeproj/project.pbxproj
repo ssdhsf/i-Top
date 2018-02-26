@@ -76,6 +76,12 @@
 		77723A3520308ABC006294E8 /* UsersSigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A3320308ABC006294E8 /* UsersSigningViewController.xib */; };
 		77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A37203179A5006294E8 /* DesignerSigningViewController.m */; };
 		77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A38203179A5006294E8 /* DesignerSigningViewController.xib */; };
+		77723A402033E1AD006294E8 /* YZTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3D2033E1AD006294E8 /* YZTagButton.m */; };
+		77723A412033E1AD006294E8 /* YZTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3F2033E1AD006294E8 /* YZTagList.m */; };
+		77723A44203EF219006294E8 /* SpecialityTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A43203EF219006294E8 /* SpecialityTag.m */; };
+		77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A46203FC0AF006294E8 /* CompanySigningViewController.m */; };
+		77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A47203FC0AF006294E8 /* CompanySigningViewController.xib */; };
+		77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A4B20415531006294E8 /* CompanySigningStore.m */; };
 		7777E55420294413008FA348 /* Leave.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777E55320294413008FA348 /* Leave.m */; };
 		7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777E5562029F026008FA348 /* LeaveDetailViewController.m */; };
 		7777E5592029F026008FA348 /* LeaveDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7777E5572029F026008FA348 /* LeaveDetailViewController.xib */; };
@@ -370,6 +376,17 @@
 		77723A36203179A5006294E8 /* DesignerSigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerSigningViewController.h; sourceTree = "<group>"; };
 		77723A37203179A5006294E8 /* DesignerSigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerSigningViewController.m; sourceTree = "<group>"; };
 		77723A38203179A5006294E8 /* DesignerSigningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DesignerSigningViewController.xib; sourceTree = "<group>"; };
+		77723A3C2033E1AD006294E8 /* YZTagButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTagButton.h; sourceTree = "<group>"; };
+		77723A3D2033E1AD006294E8 /* YZTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagButton.m; sourceTree = "<group>"; };
+		77723A3E2033E1AD006294E8 /* YZTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTagList.h; sourceTree = "<group>"; };
+		77723A3F2033E1AD006294E8 /* YZTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagList.m; sourceTree = "<group>"; };
+		77723A42203EF219006294E8 /* SpecialityTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialityTag.h; sourceTree = "<group>"; };
+		77723A43203EF219006294E8 /* SpecialityTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialityTag.m; sourceTree = "<group>"; };
+		77723A45203FC0AF006294E8 /* CompanySigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySigningViewController.h; sourceTree = "<group>"; };
+		77723A46203FC0AF006294E8 /* CompanySigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySigningViewController.m; sourceTree = "<group>"; };
+		77723A47203FC0AF006294E8 /* CompanySigningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanySigningViewController.xib; sourceTree = "<group>"; };
+		77723A4A20415531006294E8 /* CompanySigningStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySigningStore.h; sourceTree = "<group>"; };
+		77723A4B20415531006294E8 /* CompanySigningStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySigningStore.m; sourceTree = "<group>"; };
 		7777E55220294413008FA348 /* Leave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leave.h; sourceTree = "<group>"; };
 		7777E55320294413008FA348 /* Leave.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Leave.m; sourceTree = "<group>"; };
 		7777E5552029F026008FA348 /* LeaveDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveDetailViewController.h; sourceTree = "<group>"; };
@@ -850,8 +867,22 @@
 				77723A36203179A5006294E8 /* DesignerSigningViewController.h */,
 				77723A37203179A5006294E8 /* DesignerSigningViewController.m */,
 				77723A38203179A5006294E8 /* DesignerSigningViewController.xib */,
+				77723A45203FC0AF006294E8 /* CompanySigningViewController.h */,
+				77723A46203FC0AF006294E8 /* CompanySigningViewController.m */,
+				77723A47203FC0AF006294E8 /* CompanySigningViewController.xib */,
 			);
 			path = Signing;
+			sourceTree = "<group>";
+		};
+		77723A3B2033E1A3006294E8 /* keywordsView */ = {
+			isa = PBXGroup;
+			children = (
+				77723A3C2033E1AD006294E8 /* YZTagButton.h */,
+				77723A3D2033E1AD006294E8 /* YZTagButton.m */,
+				77723A3E2033E1AD006294E8 /* YZTagList.h */,
+				77723A3F2033E1AD006294E8 /* YZTagList.m */,
+			);
+			path = keywordsView;
 			sourceTree = "<group>";
 		};
 		777AF1AA200D9686009729AD /* InterfaceBase */ = {
@@ -944,6 +975,8 @@
 				77848AF1202EE3C300C0CCD2 /* UserProduct.m */,
 				77848AF3202EE43E00C0CCD2 /* ProductTag.h */,
 				77848AF4202EE43E00C0CCD2 /* ProductTag.m */,
+				77723A42203EF219006294E8 /* SpecialityTag.h */,
+				77723A43203EF219006294E8 /* SpecialityTag.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -977,6 +1010,8 @@
 				7777E5632029F3C4008FA348 /* LeaveDetailStore.m */,
 				77CE7C7D202AEB990067D284 /* InfomationStore.h */,
 				77CE7C7E202AEB990067D284 /* InfomationStore.m */,
+				77723A4A20415531006294E8 /* CompanySigningStore.h */,
+				77723A4B20415531006294E8 /* CompanySigningStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1263,6 +1298,7 @@
 		77E8A85C2011DC5B00E253CC /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				77723A3B2033E1A3006294E8 /* keywordsView */,
 				77484AC420233DD900BAC567 /* JSBadgeView */,
 				77E00A62201705BE004BBD49 /* SegmentTapView */,
 				775909952016350300F9D8EA /* LineChart */,
@@ -1484,6 +1520,7 @@
 				77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */,
 				775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
+				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
 				77369CE3200F546E0092AEAC /* LoginViewController.xib in Resources */,
 				77E8A894201580D100E253CC /* StatisticalDataViewController.xib in Resources */,
 				77484A802020478000BAC567 /* RecommendedTableViewCell.xib in Resources */,
@@ -1574,6 +1611,7 @@
 				77E8A8822011DCB000E253CC /* ViewController+MASAdditions.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
 				77E8A89F20158D9700E253CC /* StatisticalDataDataSource.m in Sources */,
+				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
 				77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */,
 				77484AC32023200B00BAC567 /* UINavigationBar+Awesome.m in Sources */,
@@ -1584,6 +1622,7 @@
 				77484AB72022BB9200BAC567 /* LoginMannager.m in Sources */,
 				7777E5612029F369008FA348 /* LeaveDetail.m in Sources */,
 				77369CD2200F52AF0092AEAC /* HotViewController.m in Sources */,
+				77723A44203EF219006294E8 /* SpecialityTag.m in Sources */,
 				77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */,
 				77E8A8792011DCB000E253CC /* MASCompositeConstraint.m in Sources */,
 				77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */,
@@ -1660,6 +1699,7 @@
 				77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */,
 				777AF1D4200E0B8C009729AD /* UserInfomation.m in Sources */,
 				777AF1CD200DFCEB009729AD /* ThemeNavigationController.m in Sources */,
+				77723A412033E1AD006294E8 /* YZTagList.m in Sources */,
 				77369CAD200F04BF0092AEAC /* BaseViewController.m in Sources */,
 				7792B716201ACB3800587399 /* HomeCollectionViewCell.m in Sources */,
 				77DA83492019750400E7CB36 /* H5ListCollectionViewCell.m in Sources */,
@@ -1670,6 +1710,7 @@
 				7777E55D2029F17F008FA348 /* LeaveDateilCell.m in Sources */,
 				77E8A87A2011DCB000E253CC /* MASConstraint.m in Sources */,
 				77369CE6200F987F0092AEAC /* AppDelegate+WeChat.m in Sources */,
+				77723A402033E1AD006294E8 /* YZTagButton.m in Sources */,
 				77DA83402018857800E7CB36 /* DesignerList.m in Sources */,
 				777AF1C3200DCA40009729AD /* UserManager.m in Sources */,
 				77484A8F2020B75100BAC567 /* BaseCollectionViewController+DisposeSubView.m in Sources */,
@@ -1706,6 +1747,7 @@
 				77B86FF6202868370096FB28 /* LeaveDataSource.m in Sources */,
 				77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */,
 				775909A32016350300F9D8EA /* PXLineChartConst.m in Sources */,
+				77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */,
 				77369CB0200F05BC0092AEAC /* UIViewController+BarItem.m in Sources */,
 				77484AA2202192E200BAC567 /* Article.m in Sources */,
 				77369CDC200F536C0092AEAC /* MyWorksViewCotroller.m in Sources */,

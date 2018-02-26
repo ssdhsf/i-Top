@@ -46,7 +46,7 @@ _errorFailure(__id_obj); }
 
 - (BOOL)isLogin{
     
-//    if ([self crrentUserInfomation] != nil) return YES;
+    if ([self crrentUserInfomation] != nil) return YES;
     return NO;
 //    return YES;
 }

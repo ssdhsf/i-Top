@@ -8,6 +8,7 @@
 
 #import "UsersSigningViewController.h"
 
+#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 @interface UsersSigningViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *verificationCodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *protcolbutton;
@@ -63,19 +64,21 @@
 
 -(void)setupViewsData{
     
-    _nameTF.placeholder = @"请输入姓名";
-    _workTF.placeholder = @"请输入职位";
-    _mobiliTF.placeholder = @"请输入手机号码";
-    _verificationCodeTF.placeholder = @"请输入验证码";
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _nameTF.placeholder = TIPSMESSEGE(@"姓名");
+    _workTF.placeholder = TIPSMESSEGE(@"职位");
+    _mobiliTF.placeholder = TIPSMESSEGE(@"手机号");
+    _verificationCodeTF.placeholder =TIPSMESSEGE(@"验证码");
 }
 
 - (IBAction)agreedProtcol:(UIButton *)sender {
     
+    _agreedbutton.selected = !_agreedbutton.selected;
+    if (_agreedbutton.selected) {
+        
+        _agreedView.backgroundColor = UIColorFromRGB(0xfda5ed);
+    } else {
+        _agreedView.backgroundColor = UIColorFromRGB(0xe0e3e6);
+    }
     NSLog(@"ddddd");
 }
 
@@ -85,13 +88,56 @@
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
+   
+    if ([Global stringIsNullWithString:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
+        return;
+    }
+
+    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+        
+        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+        NSLog(@"%@",obj);
+    };
+}
+
+- (IBAction)protocol:(UIButton *)sender {
+   
     
     
 }
 
-- (IBAction)protocol:(UIButton *)sender {
+- (IBAction)subMit:(UIButton *)sender {
+   
+    if ([Global stringIsNullWithString:_nameTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"姓名")];
+        return;
+    }
     
+    if ([Global stringIsNullWithString:_workTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"职位")];
+        return;
+    }
+    if ([Global stringIsNullWithString:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
+        return;
+    }
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"验证码")];
+        return;
+    }
     
+    if (!_agreedbutton.selected) {
+        
+        [self showToastWithMessage:@"您还没有同意入驻协议"];
+        return;
+    }
 }
 
 @end

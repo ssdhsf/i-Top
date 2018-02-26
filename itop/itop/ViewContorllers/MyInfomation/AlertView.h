@@ -8,13 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSInteger, PickViewType) { //首页Tag类型
+typedef NS_ENUM(NSInteger, PickViewType) { //选择个人信息Type
     PickViewTypeNickName = 2, //
     PickViewTypeName = 3, //
-    PickViewTypeSex , //默认
-    PickViewTypeAge ,//作品
-    PickViewTypeProvince,//热点
+    PickViewTypeSex , //性别
+    PickViewTypeAge ,//年龄
+    PickViewTypeProvince,//选择城市
 };
+
+
+typedef NS_ENUM(NSInteger, SignPickViewType) { //选择个人信息Type
+    SignPickViewTypeIndustry = 1, //选择所属行业
+    SignPickViewTypeCompnySize = 2, //选择企业规模
+    SignPickViewTypeProvince , //选择城市
+};
+
 
 typedef void(^AlertResult)(NSInteger index , PickViewType pickViewType);
 

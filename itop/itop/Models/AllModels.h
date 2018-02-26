@@ -35,5 +35,6 @@
 #import "InfomationModel.h"
 #import "ProductModel.h"
 #import "ProductDetail.h"
+#import "SpecialityTag.h"
 
 #endif /* AllModels_h */
