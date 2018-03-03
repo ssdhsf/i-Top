@@ -51,4 +51,17 @@ typedef void (^failure_t)(NSError *error);
                 completion:(void (^)(id object))completion
                    failure:(void (^)(NSError * error))failure;
 
+/**
+ *    WeChat请求统一入口
+ *
+ *    @param api         请求接口
+ *    @param parameters  请求参数
+ *    @param completion  请求成功回调
+ *    @param failure       请求失败回调
+ */
+- (void)requestWeChatDataWithApi:(NSString *)api
+                      parameters:(NSDictionary *)parameters
+                      completion:(void (^)(id object))completion
+                         failure:(void (^)(NSError * error))failure;
+
 @end

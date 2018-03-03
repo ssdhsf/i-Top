@@ -33,7 +33,8 @@
 //如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终
 //端程序界面。
 -(void) onResp:(BaseResp*)resp{
-    
+   
+    NSLog(@"dfdf");
 }
 
 //-(BOOL) sendReq:(BaseReq*)req{

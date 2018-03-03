@@ -128,7 +128,7 @@ CGFloat const imageViewWH = 20;
         tagButton.layer.borderWidth = _borderWidth;
     }
     
-    
+    tagButton.selected = tagStr.selecteTag;
     tagButton.layer.borderColor = _borderColor.CGColor;
     tagButton.clipsToBounds = YES;
     tagButton.tag = self.tagButtons.count;
@@ -180,9 +180,8 @@ CGFloat const imageViewWH = 20;
 
 // 点击标签
 - (void)clickTag:(UIButton *)button{
-    
     if (_clickTagBlock && ![button.currentTitle isEqualToString:@"最多选3个"]) {
-        _clickTagBlock(button.currentTitle);
+        _clickTagBlock(button.currentTitle, button.selected);
     }
 }
 

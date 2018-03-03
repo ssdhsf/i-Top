@@ -8,10 +8,9 @@
 
 #import "BaseTableViewController.h"
 
-typedef NS_ENUM(NSInteger, GetLeaveListType) { //获取H5List入口
+typedef NS_ENUM(NSInteger, GetLeaveListType) { //获取留资入口
     GetLeaveListTypeMyLeave = 0,
     GetLeaveListTypeProduct = 1, //获取作品H5
-    //获取TagH5
 };
 
 @interface LeaveViewController : BaseTableViewController

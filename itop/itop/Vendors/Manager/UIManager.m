@@ -12,6 +12,7 @@
 #import "DesignerInfoViewController.h"
 #import "DesignerListViewController.h"
 #import "LeaveViewController.h"
+#import "SigningStateViewController.h"
 
 @implementation UIManager
 
@@ -201,6 +202,14 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
++ (void)signingStateWithShowViewType:(ShowViewType)type{
+    
+    SigningStateViewController *vc = [[SigningStateViewController alloc]init];
+    vc.showView_type = type;
+    [UIManager showViewController:vc Animated:YES];
+}
+
+
 +(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;{
     
     LeaveViewController *vc = [[LeaveViewController alloc]init];
@@ -209,5 +218,13 @@
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }
+
++ (UINavigationController *)getNavigationController{
+    
+    AppDelegate * appDelegate = [[self class] appDelegate];
+    UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
+    return nav;
+}
+
 
 @end

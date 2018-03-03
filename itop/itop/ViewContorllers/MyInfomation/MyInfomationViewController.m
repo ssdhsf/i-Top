@@ -54,7 +54,8 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 -(void)initData{
     
     [super initData];
-    self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithMenu:nil];
+    UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
+    self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
 }
 
 -(void)steupCollectionView{

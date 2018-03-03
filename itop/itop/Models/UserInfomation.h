@@ -27,6 +27,9 @@
 @property (nonatomic, strong) NSString <Optional>*price;
 @property (nonatomic, strong) NSString <Optional>*create_datetime;
 @property (nonatomic, strong) NSString <Optional>*update_datetime;
+@property (nonatomic, strong) NSString <Optional>*total_reward_price;
+
+
 
 
 //"id": 8,

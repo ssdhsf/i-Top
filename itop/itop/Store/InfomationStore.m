@@ -19,7 +19,33 @@
     });
     return store;
 }
-- (NSMutableArray *)configurationMenuWithInfo:(InfomationModel *)info{
+
+
+- (NSMutableArray *)configurationMenuWithUserInfo:(InfomationModel *)info userType:(UserType )user_type{
+    
+    NSMutableArray *sectionArray = [NSMutableArray array];
+    switch (user_type) {
+        case UserTypeDefault:
+            return [self configurationAverageUserMenu:info];
+            break;
+        case UserTypeDesigner:
+            return [self configurationDesignerMenu:info];
+            break;
+        case UserTypeEnterprise:
+            return [self configurationCompenyMenu:info];
+            break;
+        case UserTypeMarketing:
+            return [self configurationMarktingMenu:info];
+            break;
+        default:
+            break;
+    }
+    return sectionArray;
+}
+
+//一般用户
+-(NSMutableArray *)configurationAverageUserMenu:(InfomationModel *)info{
+    
     NSMutableArray *sectionArray = [NSMutableArray array];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" ]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@""]];
@@ -28,7 +54,54 @@
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"性别" content:[self sexWithIndex:info.user_info.sex] isEditor:YES sendKey:@"Sex"]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age"]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所在城市" content:[self provinceAppdingCity:info.user_info.province city:info.user_info.city] isEditor:YES sendKey:@""]];
+    return sectionArray;
+}
+
+
+//企业信息
+-(NSMutableArray *)configurationCompenyMenu:(InfomationModel *)info{
     
+    NSMutableArray *sectionArray = [NSMutableArray array];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"LOGO" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" ]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@""]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userVersionWithVersion:info.other_info.version] isEditor:NO sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"企业名称" content:info.other_info.name isEditor:YES sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"企业简称" content:info.user_info.nickname isEditor:YES sendKey:@"Name"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所属行业" content:info.other_info.trade isEditor:YES sendKey:@"Name"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"企业规模" content:info.other_info.scale isEditor:YES sendKey:@"Age"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所在城市" content:[self provinceAppdingCity:info.other_info.province city:info.other_info.city] isEditor:YES sendKey:@""]];
+    return sectionArray;
+}
+
+//设计师信息
+-(NSMutableArray *)configurationDesignerMenu:(InfomationModel *)info{
+    
+    NSMutableArray *sectionArray = [NSMutableArray array];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" ]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@""]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:info.user_info.nickname isEditor:YES sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"擅长领域" content:info.other_info.field isEditor:YES sendKey:@"Sex"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所在城市" content:[self provinceAppdingCity:info.user_info.province city:info.user_info.city] isEditor:YES sendKey:@""]];
+    return sectionArray;
+}
+
+//自营销人信息
+-(NSMutableArray *)configurationMarktingMenu:(InfomationModel *)info{
+    
+    NSMutableArray *sectionArray = [NSMutableArray array];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" ]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@""]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userLevelWithLevel:info.other_info.level] isEditor:NO sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所属行业" content:info.other_info.trade isEditor:YES sendKey:@"Name"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所在城市" content:[self provinceAppdingCity:info.user_info.province city:info.user_info.city] isEditor:YES sendKey:@""]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"渠道资源" content:nil isEditor:YES sendKey:@"Sex"]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"简介" content:nil isEditor:YES sendKey:@"Sex"]];
     return sectionArray;
 }
 
@@ -81,6 +154,34 @@
         userType = [user_type integerValue];
     }
     return userTypeArray[userType];
+}
+
+//用户等级
+-(NSString *)userLevelWithLevel:(NSString*)level{
+    
+    NSArray *userLevelArray = @[@"未知",@"初级",@"中级",@"高级"];
+    NSInteger userType ;
+    if ([Global stringIsNullWithString:level]) {
+        
+        userType = 0;
+    }else{
+        userType = [level integerValue];
+    }
+    return userLevelArray[userType];
+}
+
+//企业等级
+-(NSString *)userVersionWithVersion:(NSString*)version{
+    
+    NSArray *userVersionArray = @[@"免费版",@"粉钻版",@"蓝钻版",@"黑钻版"];
+    NSInteger user ;
+    if ([Global stringIsNullWithString:version]) {
+        
+        user = 0;
+    }else{
+        user = [version integerValue];
+    }
+    return userVersionArray[user];
 }
 
 -(NSString*)provinceAppdingCity:(NSString *)province city:(NSString *)city{

@@ -89,16 +89,23 @@
 // 字母数字
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
-
 //背景图
 #define PlaceholderImage [UIImage imageNamed:@"default_man"]
 #define H5PlaceholderImage [UIImage imageNamed:@"h5"]
-
 
 #define FOCUSSTATETITLE_NOFOCUS @"关 注"
 #define FOCUSSTATETITLE_FOCUS @"已关注"
 #define FOCUSSTATETITLE_SUCCESSFOCUS @"关注成功"
 #define FOCUSSTATETITLE_CANCELFOCUS @"已取消关注"
+
+#define WX_ACCESS_TOKEN @"WX_access_token"
+#define WXOPENID @"WX_open_id"
+#define WX_REFRESH_TOKEN @"WX_refresh_token"
+#define WX_BASE_URL @"https://api.weixin.qq.com"
+
+
+
+
 
 //#define  WeakSelf() __weak typeof(self) weakSelf = self;
 

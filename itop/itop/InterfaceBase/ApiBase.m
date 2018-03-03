@@ -55,6 +55,7 @@ static AFHTTPSessionManager *_sharedSessionManager = nil;
                 security.allowInvalidCertificates = YES;
                 
                 _sharedSessionManager.securityPolicy = security;
+                _sharedSessionManager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", @"text/plain", nil];
                 
             }
         }

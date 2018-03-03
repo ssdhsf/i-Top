@@ -10,4 +10,5 @@
 
 @interface InfomationViewController : BaseTableViewController
 
+
 @end

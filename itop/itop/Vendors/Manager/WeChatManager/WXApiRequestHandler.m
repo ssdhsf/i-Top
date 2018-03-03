@@ -37,6 +37,15 @@
                      delegate:[WXApiManager sharedManager]];
 }
 
+
++ (BOOL)sendAuthRequestScope:(NSString *)scope
+                       State:(NSString *)state{
+    SendAuthReq* req = [[SendAuthReq alloc] init];
+    req.scope = scope; // @"post_timeline,sns"
+    req.state = state;
+    return [WXApi sendReq:req];
+}
+
 + (BOOL)sendLinkURL:(NSString *)urlString
             TagName:(NSString *)tagName
               Title:(NSString *)title

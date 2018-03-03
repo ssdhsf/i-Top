@@ -13,6 +13,7 @@ pod 'BMKLocationKit'
 pod 'SDWebImage', '~> 3.7.3'
 pod 'IQKeyboardManager'
 pod 'UIAlertView+Blocks', '~> 0.8.1'
+pod 'UITextView+Placeholder', '~> 1.0.6'
 
 #pod 'Charts'
 #use_frameworks!

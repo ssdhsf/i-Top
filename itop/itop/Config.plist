@@ -38,9 +38,16 @@
 		<key>Product</key>
 		<dict>
 			<key>appId</key>
-			<string>wxda140f3bda79bf0c</string>
+			<string>wx3f8bce8de11318fc</string>
 			<key>appSecret</key>
-			<string>993a49d60eb9d6e12a6d5a74604a1d5f</string>
+			<string>bbc986637486a54899ef0930258d16aa</string>
+		</dict>
+		<key>Testing</key>
+		<dict>
+			<key>appId</key>
+			<string>wx3f8bce8de11318fc</string>
+			<key>appSecret</key>
+			<string>bbc986637486a54899ef0930258d16aa</string>
 		</dict>
 	</dict>
 	<key>BaiduMap</key>

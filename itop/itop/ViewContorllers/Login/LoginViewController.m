@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UIColor+CAGradientLayer.h"
+#import "InterfaceBase.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,WXApiManagerDelegate>
 
@@ -33,6 +34,8 @@
     _loginButton.layer.masksToBounds = YES;
     _accountTF.tag = 1;
     _passwordTF.tag = 2;
+    _seeIcon.selected = YES;
+    [self seePassword];
 }
 
 -(void)initData{
@@ -71,7 +74,7 @@
 //微信登陆
 - (IBAction)weChatLogin:(UIButton *)sender {
     
-        [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
+    [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
                                             State:@"itop"
                                            OpenID:WECHAT_APP_ID
                                  InViewController:self];
@@ -97,8 +100,12 @@
 //密码可见
 - (IBAction)visible:(UIButton *)sender {
     
-//    BOOL b = sender.selected;
     _seeIcon.selected = !sender.selected;
+    [self seePassword];
+}
+
+-(void)seePassword{
+    
     _passwordTF.secureTextEntry = _seeIcon.selected;
     if (_seeIcon.selected) {
         
@@ -136,16 +143,23 @@
 
 //微信登陆回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
-    NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];
-    
-    NSLog(@"strTitle-%@:strMsg-%@",strTitle,strMsg);
-    
+
     if (response.errCode == 0) {
-        
-        [UIManager goMianViewController];
+
+//        NSString *refreshUrlStr = [NSString stringWithFormat:@"%@/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WX_BASE_URL, WECHAT_APP_ID,WECHAT_APP_SECRET,response.code];
+        NSString *refreshUrlStr = [NSString stringWithFormat:@"%@/sns/oauth2/access_token?",WX_BASE_URL];
+        NSDictionary *parameters = @{@"appid":WECHAT_APP_ID,@"secret":WECHAT_APP_SECRET,@"code":response.code,@"grant_type":@"authorization_code"};
+        [[InterfaceBase sharedSingleton]requestWeChatDataWithApi:refreshUrlStr parameters:parameters completion:^(id object) {
+            //
+                        NSLog(@"%@",object);
+            
+             [UIManager goMianViewController];
+                    } failure:^(NSError *error) {
+                        NSLog(@"%@",error);
+                    }];
     } else {
-        
+        NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
+        NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
                                                         message:strMsg
                                                        delegate:self

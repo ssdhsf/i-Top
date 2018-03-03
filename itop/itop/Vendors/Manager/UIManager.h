@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "UserManager.h"
 #import "LeaveViewController.h"
+#import "SigningStateViewController.h"
 
 @interface UIManager : NSObject
 
@@ -73,17 +74,41 @@
  */
 + (void)showVC:(NSString *)vcName;
 
+/**
+ *  获取tabbar高度
+ *
+ */
 +(CGFloat)getTabBarHeight;
 
 
 //设计师信息
 + (void)designerDetailWithDesignerId:(NSString*)designer_id;
 
-//设计师list
+/**
+ *  设计师列表
+ *
+ *  @param type 获取设计师list入口Type
+ */
 + (void)designerListWithDesignerListType:(DesignerListType)type;
 
-//留资list
+/**
+ *  入驻状态
+ *
+ *  @param type 展示入驻状态类型
+ */
++ (void)signingStateWithShowViewType:(ShowViewType)type;
+
+/**
+ *  入驻状态
+ *
+ *  @param leaveType //获取留资入口类型
+ */
 +(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;
 
+/**
+ *  获取当前导航栏
+ *
+ */
++ (UINavigationController *)getNavigationController;
 
 @end

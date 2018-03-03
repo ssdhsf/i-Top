@@ -127,6 +127,6 @@
 /**
  *  点击标签，执行Block
  */
-@property (nonatomic, strong) void(^clickTagBlock)(NSString *tag);
+@property (nonatomic, strong) void(^clickTagBlock)(NSString *tag,BOOL select);
 
 @end

@@ -28,7 +28,6 @@
     
     [[Global sharedSingleton] delUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];//登陆获取的用户信息
     [[Global sharedSingleton] delUserDefaultsWithKey:UD_CACHE_COOKIE];
-    
 }
 
 #pragma mark 返回登陆页
@@ -38,6 +37,7 @@
     LoginViewController *vc = [[LoginViewController alloc] init];
     ThemeNavigationController* loginNavigation = [[ThemeNavigationController alloc] initWithRootViewController:vc];
     appdelegat.window.rootViewController = loginNavigation;
+    appdelegat.tabBarController = nil;
 }
 
 @end

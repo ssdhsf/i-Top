@@ -9,8 +9,14 @@
 #import "CompanySigningViewController.h"
 #import "AlertView.h"
 #import "CompanySigningStore.h"
+#import "SubmitFileManager.h"
+#import "MessagePhotoView.h"
 
-@interface CompanySigningViewController ()<UIAlertViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
+#define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
+#define TIPSMESSEGEADD(__CONTENT) [NSString stringWithFormat:@"请添加%@",__CONTENT]
+
+@interface CompanySigningViewController ()<UIAlertViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource,SubmitFileManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *addProveButton;
 @property (weak, nonatomic) IBOutlet UIButton *permissionButton;
@@ -41,22 +47,34 @@
 
 @property (nonatomic, strong)NSString *industry; //选择的行业／父级
 @property (nonatomic, strong)NSString *subIndustry; //选择的行业／子级
-@property (nonatomic, strong)NSString *selectCompanySize; //选择的行业／子级
+@property (nonatomic, strong)NSString *selectCompanySize; //选择的企业的大小
+@property (weak, nonatomic) IBOutlet UIButton *addImageButton;
+@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
+
+@property (weak, nonatomic) IBOutlet UIButton *verificationCodeButton;
+@property (weak, nonatomic) IBOutlet UIButton *protcolbutton;
+@property (weak, nonatomic) IBOutlet UIButton *agreedbutton;
+@property (weak, nonatomic) IBOutlet UIView *agreedView;
+@property (weak, nonatomic) IBOutlet UIButton *subMitButton;
+@property (weak, nonatomic) IBOutlet UITextField *nameTF;
+@property (weak, nonatomic) IBOutlet UITextField *mobiliTF;
+@property (weak, nonatomic) IBOutlet UITextField *verificationCodeTF;
+
+@property (strong, nonatomic) NSArray *views;
 
 @end
 
 @implementation CompanySigningViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    
-    
     // Do any additional setup after loading the view from its nib.
 }
 
 -(void)initNavigationBarItems{
     
-    self.title = @"入驻申请";
+    self.title = @"企业入驻申请";
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -82,6 +100,9 @@
 -(void)initView{
     
     [super initView];
+    
+    _views = [[NSBundle mainBundle] loadNibNamed:@"CompanySigningViewController" owner:self options:nil];
+    self.view = [_views firstObject];
     _scrollView.contentSize = CGSizeMake(ScreenWidth, CGRectGetMaxY(_nextButton.frame)+50);
     _permissionButton.selected = !_permissionButton.selected;
     _permissionView.backgroundColor = UIColorFromRGB(0xfda5ed);
@@ -93,10 +114,28 @@
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
     [_nextButton.layer addSublayer:[UIColor setGradualChangingColor: _nextButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
-    [_addProveButton.layer addSublayer:[self buttonSublayer]];
+    [self buttonSublayer];
+    [_addProveButton.layer addSublayer:_currentShapeLayer];
+    [SubmitFileManager sheardSubmitFileManager].delegate = self;
+    [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_addImageButton];
+    [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
+    [self setupViews];
 }
 
--(CAShapeLayer *)buttonSublayer{
+-(void)setupViews{
+    
+    [_verificationCodeButton.layer addSublayer:[UIColor setGradualChangingColor: _verificationCodeButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_subMitButton.layer addSublayer:[UIColor setGradualChangingColor: _subMitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    _verificationCodeButton.layer.masksToBounds = YES;
+    _subMitButton.layer.masksToBounds = YES;
+    _agreedView.layer.masksToBounds = YES;
+    _verificationCodeButton.layer.cornerRadius = _verificationCodeButton.height/2;
+    _subMitButton.layer.cornerRadius = _subMitButton.height/2;
+    _agreedView.layer.cornerRadius = _agreedView.height/2;
+    [_agreedbutton bringSubviewToFront:_agreedbutton];;
+}
+
+-(void)buttonSublayer{
     
     CAShapeLayer *borderLayer = [CAShapeLayer layer];
     borderLayer.bounds = CGRectMake(0, 0, _addProveButton.size.width, _addProveButton.size.height);//虚线框的大小
@@ -109,7 +148,7 @@
     //    borderLayer.lineDashPattern = nil;
     borderLayer.fillColor = [UIColor clearColor].CGColor;
     borderLayer.strokeColor = [UIColor grayColor].CGColor;
-    return borderLayer;
+    _currentShapeLayer = borderLayer;
 }
 
 - (IBAction)permission:(UIButton *)sender {
@@ -151,6 +190,16 @@
     
     [self showAlertViewWithItem:sender];
     
+}
+
+- (IBAction)addImage:(UIButton *)sender {
+    
+    if ([sender.imageView.image isEqual:[UIImage imageNamed:@"ruzhu_icon_add"]]) {
+        [[SubmitFileManager sheardSubmitFileManager]popupsSelectPhotoTipsView];
+    } else {
+        
+        [[SubmitFileManager sheardSubmitFileManager]browsePicturesWithPictureArray:nil];
+    }
 }
 
 -(void)showAlertViewWithItem:(UIButton*)button{
@@ -270,7 +319,7 @@
         if ([industryp isEqualToString:arr[0]]) {
             
             index = [self.industryArray indexOfObject:industryp];
-            self.cityArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
+            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
         }
     }
     [self.pickView selectRow:index inComponent:0 animated:NO];
@@ -411,5 +460,159 @@
         }
     }
 }
+
+#pragma Mark-提交获取图片url的协议方法
+-(void)compressionAndTransferPicturesWithArray:(NSArray *)array{
+    
+    if (array.count == 0) {
+        
+        [_addImageButton setImage:[UIImage imageNamed:@"ruzhu_icon_add"] forState:UIControlStateNormal];
+        [_addProveButton.layer addSublayer:_currentShapeLayer];
+
+    }else {
+       
+        [_currentShapeLayer removeFromSuperlayer];
+        [_addImageButton setImage:[array lastObject] forState:UIControlStateNormal];
+    }
+}
+
+- (IBAction)submitSigin:(UIButton *)sender {
+    
+    if ([Global stringIsNullWithString:_companyNameTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"企业名称")];
+        return;
+    }
+    if ([Global stringIsNullWithString:_companyAbbreviationTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"企业简称")];
+        return;
+    }
+    
+    if ([_selectIndustryButton.titleLabel.text isEqualToString:TIPSMESSEGESELECT(@"行业")]) {
+        
+        [self showToastWithMessage:TIPSMESSEGESELECT(@"行业")];
+        return;
+    }
+    
+    if ([_selectCompanySizeButton.titleLabel.text isEqualToString:TIPSMESSEGESELECT(@"企业规模")]) {
+        
+        [self showToastWithMessage:TIPSMESSEGESELECT(@"企业规模")];
+        return;
+    }
+    
+    if ([_selectProvinceButton.titleLabel.text isEqualToString:TIPSMESSEGESELECT(@"地区")]) {
+        
+        [self showToastWithMessage:TIPSMESSEGESELECT(@"地区")];
+        return;
+    }
+    
+    if ([sender.imageView.image isEqual:[UIImage imageNamed:@"ruzhu_icon_add"]]) {
+        
+        [self showToastWithMessage:TIPSMESSEGEADD(@"文件")];
+        return;
+    }
+    self.view = [_views lastObject];
+}
+
+- (IBAction)agreedProtcol:(UIButton *)sender {
+    
+    _agreedbutton.selected = !_agreedbutton.selected;
+    if (_agreedbutton.selected) {
+        
+        _agreedView.backgroundColor = UIColorFromRGB(0xfda5ed);
+    } else {
+        _agreedView.backgroundColor = UIColorFromRGB(0xe0e3e6);
+    }
+}
+
+- (IBAction)browseProtcol:(UIButton *)sender {
+    
+    NSLog(@"dsd");
+}
+
+- (IBAction)verificationCode:(UIButton *)sender {
+    
+    if ([Global stringIsNullWithString:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
+        return;
+    }
+    
+    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+        
+        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+        NSLog(@"%@",obj);
+    };
+}
+
+- (IBAction)subMit:(UIButton *)sender {
+    
+    if ([Global stringIsNullWithString:_nameTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"姓名")];
+        return;
+    }
+    
+    if ([Global stringIsNullWithString:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
+        return;
+    }
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"验证码")];
+        return;
+    }
+    
+    if (!_agreedbutton.selected) {
+        
+        [self showToastWithMessage:@"您还没有同意入驻协议"];
+        return;
+    }
+    
+    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
+    [UserManager shareUserManager].submitFileSuccess = ^ (id obj){
+        
+        NSString *fileUrl = [NSString stringWithFormat:@"%@",obj];
+        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+        NSString * certificatesType = _permissionButton.selected ? @"2" : @"10";
+        [parameters setObject:fileUrl forKey:@"Certificates_url"];
+        [parameters setObject:_companyNameTF.text forKey:@"Enterprise_name"];
+        [parameters setObject:_companyAbbreviationTF.text forKey:@"Short_name"];
+        [parameters setObject:_selectCompanySize forKey:@"Scale"];
+        [parameters setObject:_selectIndustryButton.titleLabel.text forKey:@"Trade"];
+        [parameters setObject:_province.address forKey:@"Province"];
+        [parameters setObject:_city.address forKey:@"City"];
+        [parameters setObject:certificatesType forKey:@"Certificates_type"];
+        [parameters setObject:_city.address forKey:@"City"];
+        [parameters setObject:fileUrl forKey:@"Certificates_url"];
+        [parameters setObject:_nameTF.text forKey:@"Name"];
+        [parameters setObject:_mobiliTF.text forKey:@"Phone"];
+        [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
+        
+        [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeCompany];
+        [UserManager shareUserManager].signingSuccess =  ^(id obj){
+            
+            [UIManager signingStateWithShowViewType:ShowViewTypeNext];
+            
+        };
+        
+    };
+}
+
+-(void)back{
+    
+    if (self.view == [_views lastObject]) {
+        
+        self.view  = [_views firstObject];
+    }else {
+        
+        [super back];
+    }
+}
+
+
 
 @end

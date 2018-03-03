@@ -92,17 +92,15 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 -(void)initData{
     
-    [[UserManager shareUserManager] userInfomation];
+    UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
+    [[UserManager shareUserManager]userInfomationWithUserType:[user.user_type integerValue]];
     [UserManager shareUserManager].userInfoSuccess = ^(id obj){
        
-        InfomationModel *info = [[InfomationModel alloc]initWithDictionary:obj
-                                                                     error:nil];
-        self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithInfo:info];
+        InfomationModel *info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
+        self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:info userType:[info.user_type integerValue]];
         [self setupSelectItmeWith:info];
         [self steupTableView];
-        NSLog(@"%@",obj);
     };
-
     _sexArray = @[@"男",@"女"];
     self.ageArray = [NSMutableArray array];
     for (int i = 0; i<101; i ++) {
@@ -478,7 +476,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
-
 }
 
 @end

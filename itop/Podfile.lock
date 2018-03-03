@@ -25,6 +25,7 @@ PODS:
   - SDWebImage/Core (3.7.6)
   - Toast (2.4)
   - UIAlertView+Blocks (0.8.1)
+  - UITextView+Placeholder (1.0.9)
   - UMengAnalytics-NO-IDFA (4.2.5)
   - WechatOpenSDK (1.8.0)
 
@@ -39,6 +40,7 @@ DEPENDENCIES:
   - SDWebImage (~> 3.7.3)
   - Toast (~> 2.4)
   - UIAlertView+Blocks (~> 0.8.1)
+  - UITextView+Placeholder (~> 1.0.6)
   - UMengAnalytics-NO-IDFA
   - WechatOpenSDK
 
@@ -53,9 +55,10 @@ SPEC CHECKSUMS:
   SDWebImage: c325cf02c30337336b95beff20a13df489ec0ec9
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
+  UITextView+Placeholder: 83895056749372c96febfb43f536c9b1aae3e08e
   UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
 
-PODFILE CHECKSUM: 5791cd3d88bb6b60374a905929dda09764cab9cd
+PODFILE CHECKSUM: 2d7ae746bb029c9b2cd0335ddd741cbe7a2a3df2
 
 COCOAPODS: 1.1.1

@@ -22,15 +22,17 @@
         self.editorImage.hidden = !info.isEdit;
         
         [self.iconImage sd_setImageWithURL:[NSURL URLWithString:info.content] placeholderImage:PlaceholderImage];
-//        self.iconImage.image = [UIImage imageNamed:info.content];
         self.iconImage.layer.masksToBounds = YES;
         self.iconImage.layer.cornerRadius = self.iconImage.height/2;
-    }else if (!info.isEdit && row == 1){
+    }
+//    else if (!info.isEdit && row == 1){
+//        self.editorImage.hidden = !info.isEdit;
+//        self.iconImage.hidden = !info.isEdit;
+//        self.contentLabel.text = info.content;
+//    }
+    else{
+        self.iconImage.hidden = !info.isEdit;
         self.editorImage.hidden = !info.isEdit;
-        self.iconImage.hidden = !info.isEdit;
-        self.contentLabel.text = info.content;
-    }else{
-        self.iconImage.hidden = !info.isEdit;
         self.contentLabel.text = info.content;
     }
     self.titleLabel.text = info.title;

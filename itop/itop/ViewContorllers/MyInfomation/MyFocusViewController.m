@@ -146,6 +146,10 @@
                 _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _videoVc.itemType = VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeFocus;
+                _videoVc.pushH5DetailControl = ^ (NSString *hotDetails_id){
+                    
+                    [weakSelf showToastWithMessage:@"暂未开放"];
+                };
             }
             [_scroll addSubview:_videoVc.view];
             break;

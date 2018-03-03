@@ -10,7 +10,6 @@
 
 @interface LoginMannager : NSObject
 
-
 +(instancetype)sheardLoginMannager;
 
 //- (NSDictionary *) parametersToApiWithUserName:(NSString *)userNameStr password:(NSString*)passwordStr;

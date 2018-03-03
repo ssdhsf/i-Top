@@ -12,7 +12,6 @@
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *content;
-//@property(nonatomic) BOOL isHide; //是否显示右箭头
 @property(nonatomic) BOOL isEdit; //是否可以编辑
 @property(nonatomic ,strong) NSString *sendKey; //提交的Key
 

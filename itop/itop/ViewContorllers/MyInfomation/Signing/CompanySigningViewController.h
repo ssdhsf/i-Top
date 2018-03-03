@@ -10,4 +10,7 @@
 
 @interface CompanySigningViewController : BaseViewController
 
+
+//@property (strong,nonatomic) NSMutableDictionary *parameters;
+
 @end

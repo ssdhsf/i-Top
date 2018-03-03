@@ -65,6 +65,19 @@ typedef NS_ENUM(NSInteger, CollectionType) { //收藏文章状态
      CollectionTypeCollection = 1,//收藏
 };
 
+typedef NS_ENUM(NSInteger, SigningType) { //入驻申请
+    SigningTypeDesigner = 0, //设计师
+    SigningTypeCompany = 1,//企业
+    SigningTypeMarketing ,//自营销人
+};
+
+typedef NS_ENUM(NSInteger, UserType) { //用户类型
+    UserTypeDefault = 0, //一般用户
+    UserTypeDesigner = 1,//设计师
+    UserTypeEnterprise,//企业
+    UserTypeMarketing//自营销
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -114,11 +127,14 @@ typedef void (^MyProductListSuccess)(id obj);
 typedef void (^MyProductListFailure)(id obj);
 typedef void (^LeaveProductSuccess)(id obj);
 typedef void (^LeaveProductFailure)(id obj);
-
+typedef void (^SubmitFileSuccess)(id obj);
+typedef void (^SubmitFileFailure)(id obj);
+typedef void (^SigningSuccess)(id obj);
+typedef void (^SigningFailure)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
-
+@class UserModel;
 @interface UserManager : NSObject
 /*----------------全局错误信息————————————————————————*/
 @property (nonatomic, copy) ErrorFailure  errorFailure;
@@ -198,6 +214,12 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------作品留资————————————————————————*/
 @property (nonatomic, copy) LeaveProductSuccess leaveProductSuccess;
 @property (nonatomic, copy) LeaveProductFailure LeaveProductFailure;
+/*----------------提交base64文件————————————————————————*/
+@property (nonatomic, copy) SubmitFileSuccess submitFileSuccess;
+@property (nonatomic, copy) SubmitFileFailure submitFileFailure;
+/*----------------入驻————————————————————————*/
+@property (nonatomic, copy) SigningSuccess signingSuccess;
+@property (nonatomic, copy) SigningFailure signingFailure;
 
 + (instancetype)shareUserManager;
 
@@ -208,6 +230,11 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (BOOL)isLogin;
 
+/**
+ *  判断用户是否登录
+ *
+ */
+- (UserModel*)crrentUserInfomation;
 /**
  *  用户登录
  *
@@ -242,9 +269,9 @@ typedef void (^ErrorFailure)(id obj);
 
 /**
  *  获取用户信息
- *
+ *  @param user_type 用户类型
  */
-- (void)userInfomation;
+- (void)userInfomationWithUserType:(UserType)user_type;
 
 /**
  *  注册
@@ -414,6 +441,19 @@ typedef void (^ErrorFailure)(id obj);
                         PageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount;
 
+/**
+ *  提交Base64文件
+ *
+ *  @param parameters 文件参数 Base64文件／尾缀
+ */
+- (void)submitFileWithParameters:(NSDictionary *)parameters;
 
+/**
+ *  提交入驻申请
+ *
+ *  @param parameters 文件参数
+ *  @param signingType 申请类型
+ */
+- (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType;
 
 @end

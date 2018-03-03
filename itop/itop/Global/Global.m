@@ -404,6 +404,4 @@
     return [pinYin substringToIndex:1];
 }
 
-
-
 @end

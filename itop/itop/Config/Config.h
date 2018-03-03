@@ -36,6 +36,7 @@
 #define AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
 // WeChat
 #define WECHAT_APP_ID     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appId"]
+#define WECHAT_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appSecret"]
 
 // 触发token自动更新的剩余有效时长，默认2小时
 #define kTokenValidTime 7200

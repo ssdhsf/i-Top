@@ -37,11 +37,12 @@ _errorFailure(__id_obj); }
 }
 
 #pragma mark - 获取用户基本信息
-- (UserInfomation*)crrentUserInfomation{
+- (UserModel*)crrentUserInfomation{
     
-    UserInfomation * info = (UserInfomation *)[[Global sharedSingleton]
-               getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION ];
-    return info;
+     NSString * infoString = [[Global sharedSingleton]
+               getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];
+    UserModel *user= [[UserModel alloc]initWithString:infoString error:nil];
+    return user;
 }
 
 - (BOOL)isLogin{
@@ -168,15 +169,31 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
         
     }];
-
 }
 
-- (void)userInfomation{
+- (void)userInfomationWithUserType:(UserType)user_type{
     
     SHOW_GET_DATA
     NSString *api = @"/api/user/getinfo";
-    NSDictionary *parameters = @{};
-    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+    
+//    switch (user_type) {
+//        case UserTypeDefault:
+//            api = @"/api/user/getinfo";
+//            break;
+//        case UserTypeDesigner:
+//            api = @"/api/userdesigner/get";
+//            break;
+//        case UserTypeEnterprise:
+//            api = @"/api/userenterprise/get";
+//            break;
+//        case UserTypeMarketing:
+//            api = @"/api/usermarketing/getinfo";
+//            break;
+//            
+//        default:
+//            break;
+//    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:nil completion:^(id object) {
         
         HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
@@ -708,5 +725,72 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 }
+
+
+- (void)submitFileWithParameters:(NSDictionary *)parameters{
+    
+    SHOW_GET_DATA
+    NSString *api =@"/api/common/uploadbase64";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _submitFileSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType{
+    
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    switch (signingType) {
+        
+        case SigningTypeDesigner:
+            api = @"/api/userdesigner/apply";
+            break;
+        case SigningTypeCompany:
+            api = @"/api/userenterprise/apply";
+            break;
+        case SigningTypeMarketing:
+            api = @"/api/usermarketing/apply";
+            break;
+        default:
+            break;
+    }
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _signingSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+
+}
+
 
 @end

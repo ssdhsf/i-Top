@@ -12,7 +12,8 @@
 
 + (instancetype)shearInfomationStore;
 
-- (NSMutableArray *)configurationMenuWithInfo:(InfomationModel *)info;
+//- (NSMutableArray *)configurationMenuWithInfomationModel:(InfomationModel *)info;
+- (NSMutableArray *)configurationMenuWithUserInfo:(InfomationModel *)info userType:(UserType )user_type;
 
 - (NSInteger)indexWithSex:(NSString *)sex;
 
@@ -20,4 +21,5 @@
 //- (NSString*)provinceAppdingCity:(NSString *)province city:(NSString *)city;
 
 -(NSArray *)sexArray;
+
 @end

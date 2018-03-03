@@ -61,6 +61,7 @@
 #import "UIView+Extension.h"
 #import "UINavigationBar+Awesome.h"
 #import <UIAlertView+Blocks.h>
+#import "NSData+Base64.h"
 
 #import "ThemeNavigationController.h"
 
