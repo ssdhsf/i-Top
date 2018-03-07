@@ -10,6 +10,7 @@
 #import "UserManager.h"
 #import "LeaveViewController.h"
 #import "SigningStateViewController.h"
+#import "ProtocolViewController.h"
 
 @interface UIManager : NSObject
 
@@ -104,6 +105,13 @@
  *  @param leaveType //获取留资入口类型
  */
 +(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;
+
+/**
+ *  入驻状态
+ *
+ *  @param protocolType //协议类型类型
+ */
++(void)protocolWithProtocolType:(ProtocolType)protocolType;
 
 /**
  *  获取当前导航栏

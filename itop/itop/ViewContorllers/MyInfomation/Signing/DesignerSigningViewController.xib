@@ -56,7 +56,7 @@
                                         <constraint firstAttribute="height" constant="0.5" id="fa9-hx-yKr"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mUz-Sj-aPd">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入姓名" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mUz-Sj-aPd">
                                     <rect key="frame" x="90" y="0.0" width="250" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="gck-rN-lPS"/>
@@ -102,7 +102,7 @@
                                         <constraint firstAttribute="height" constant="0.5" id="wSP-5l-tJE"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e1n-bg-4AZ">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e1n-bg-4AZ">
                                     <rect key="frame" x="90" y="0.0" width="250" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="YNQ-Dm-KPF"/>
@@ -148,7 +148,7 @@
                                     <rect key="frame" x="85" y="30" width="175" height="1"/>
                                     <color key="backgroundColor" red="0.85490196080000003" green="0.87058823529999996" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </view>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="arG-Yb-r8u">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="arG-Yb-r8u">
                                     <rect key="frame" x="90" y="0.0" width="175" height="21"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="21" id="gsq-RF-gF6"/>
@@ -396,6 +396,9 @@
                     <state key="normal" title="I-Top设计师协议">
                         <color key="titleColor" red="0.32941176470588235" green="0.76470588235294112" blue="0.94509803921568625" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="Protcol:" destination="-1" eventType="touchUpInside" id="8d8-XQ-Hxr"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Va3-EL-rTw">
                     <rect key="frame" x="25" y="394" width="10" height="10"/>

@@ -11,6 +11,8 @@
 #import "InfomationStore.h"
 #import "InfomationTableViewCell.h"
 #import "AlertView.h"
+#import "CompanySigningStore.h"
+#import "DesignerSigningStore.h"
 
 static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
@@ -18,55 +20,35 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 @property (nonatomic, strong)InfomationDataSource *infomationDataSource;
 @property (nonatomic, strong)UIPickerView *pickView;
-@property (nonatomic, strong)NSMutableArray *provinceArray; // 省份
-@property (nonatomic, strong)NSMutableArray *cityArray;//城市
+@property (nonatomic, strong)NSArray *provinceArray; // 省份
+@property (nonatomic, strong)NSArray *cityArray;//城市
 @property (nonatomic, strong)NSMutableArray *ageArray; //年龄
 @property (nonatomic, strong)NSArray *sexArray; //性别
 @property (nonatomic, strong)Province *province; //选择省份
 @property (nonatomic, strong)Province *city; //选择的城市
+
+@property (nonatomic, strong)NSArray *industryArray; // 行业／1级
+@property (nonatomic, strong)NSArray *industrySubArray;//行业／子级
+@property (nonatomic, strong)NSString *industryString; // 选中的行业／1级
+@property (nonatomic, strong)NSString *industrySubString;//选中的行业／子级
+
 @property (nonatomic, strong)NSString *selectSex; //选择的性别
 @property (nonatomic, strong)NSString *selectAge; //选择的年龄
 @property (nonatomic, strong)Infomation *editorItem; //选择弹窗的itme
 @property (nonatomic, strong)UITextField *inputNameTF; //选择类型
 @property (nonatomic, assign)PickViewType pickViewType; //选择类型
+@property (nonatomic, assign)NSInteger selectRow; //选择类型
+@property (nonatomic, strong)InfomationModel *info; //选择类型
+
+
 
 @end
 
 @implementation InfomationViewController
 
 - (void)viewDidLoad {
+   
     [super viewDidLoad];
-    
-    NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"city-picker.data" ofType:@"json"]];
-    NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:nil];
-    NSLog(@"%@",dataArray);
-    NSDictionary *dic = dataArray[@"86"];
-    NSMutableArray *tempProvinceArray = [NSMutableArray array];
-    [tempProvinceArray addObjectsFromArray:(NSArray *)dic[@"A-G"]];
-    [tempProvinceArray addObjectsFromArray:(NSArray *)dic[@"H-K"]];
-    [tempProvinceArray addObjectsFromArray:(NSArray *)dic[@"L-S"]];
-    [tempProvinceArray addObjectsFromArray:(NSArray *)dic[@"T-Z"]];
-    
-     _provinceArray = [NSMutableArray array];
-    _cityArray = [NSMutableArray array];
-    for (NSDictionary *dic in tempProvinceArray) {
-        
-        Province *province = [[Province alloc]initWithDictionary:dic error:nil];
-        NSDictionary *cityDic = dataArray[province.code];
-        NSMutableArray *tmpeCityArray = [NSMutableArray array];
-        NSArray *key = [cityDic allKeys];
-        for (NSString *cityCode in key) {
-            
-            Province *city = [[Province alloc]init];
-            city.code = cityCode;
-            city.address = cityDic[cityCode];
-            [tmpeCityArray addObject:city];
-        }
-        province.cityArray = tmpeCityArray;
-        [_provinceArray addObject:province];
-    }
-    Province *province = _provinceArray[0];
-    [_cityArray addObjectsFromArray:province.cityArray];
 }
 
 -(void)initNavigationBarItems{
@@ -96,9 +78,9 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [[UserManager shareUserManager]userInfomationWithUserType:[user.user_type integerValue]];
     [UserManager shareUserManager].userInfoSuccess = ^(id obj){
        
-        InfomationModel *info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
-        self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:info userType:[info.user_type integerValue]];
-        [self setupSelectItmeWith:info];
+        _info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
+        self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
+        [self setupSelectItme];
         [self steupTableView];
     };
     _sexArray = @[@"男",@"女"];
@@ -107,41 +89,45 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         
         [_ageArray addObject:[NSString stringWithFormat:@"%ld",(long)i]];
     }
+    
+    _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
+    Province *province = _provinceArray[0];
+    _cityArray = province.cityArray;
+
+    _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
+    NSString *industryKey = _industryArray[0];
+    _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
+
 }
 
--(void)setupSelectItmeWith:(InfomationModel *)info{
+-(void)setupSelectItme{
     
-    if (![Global stringIsNullWithString:info.user_info.province]) {
+    for (Infomation *info in self.dataArray) {
         
-        for (Province *province in _provinceArray) {
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"所在城市"]) {
+            NSArray *arr = [info.content componentsSeparatedByString:@","];
+            for (Province *province in _provinceArray) {
+                
+                if ([province.address isEqualToString:arr[0]]) {
+                    _province = province;
+                    self.cityArray = province.cityArray;
+                }
+            }
             
-            if ([province.address isEqualToString:info.user_info.province]) {
-                _province = province;
-                [self.cityArray removeAllObjects];
-                [self.cityArray addObjectsFromArray:province.cityArray];
+            if (arr.count > 1) {
+               
+                for (Province *city in _cityArray) {
+                    
+                    if ([city.address isEqualToString:arr[1]]) {
+                        _city = city;
+                    }
+                }
             }
         }
-    }
-    
-    if (![Global stringIsNullWithString:info.user_info.city]) {
         
-        for (Province *city in _cityArray) {
-            
-            if ([city.address isEqualToString:info.user_info.city]) {
-                _city = city;
-            }
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"性别"]) {
+            _selectSex = [[InfomationStore shearInfomationStore]sexWithIndex:info.content] ;
         }
-        
-    }
-    if (![Global stringIsNullWithString:info.user_info.sex]) {
-        
-//        NSInteger index = [info.user_info.sex integerValue];
-        _selectSex = [[InfomationStore shearInfomationStore]sexWithIndex:info.user_info.sex] ;
-    }
-    
-    if (![Global stringIsNullWithString:info.user_info.age]) {
-        
-        _selectAge = info.user_info.age;
     }
 }
 
@@ -153,11 +139,10 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     self.navigationController.navigationBar.translucent = NO;
 }
 
-
 #pragma mark 重新加载数据时将有数据的itme赋给已选择的temp
--(void)initPickViewWith:(PickViewType)pickView{
+-(void)initPickViewWith:(Infomation*)info{
     
-    if (_pickViewType == PickViewTypeSex) {
+    if (info.pickViewType == PickViewTypeSex) {
       
          self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 60)];
         
@@ -170,11 +155,11 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     self.pickView.dataSource = self;
     self.pickView.showsSelectionIndicator = YES;
     [self.pickView reloadAllComponents];
-    Infomation *info = self.dataArray[pickView];
+//    Infomation *info = self.dataArray[pickView];
     NSInteger index ;
-    if (info != nil) {
+    if (![Global stringIsNullWithString:info.content]) {
         
-        switch (pickView) {
+        switch (info.pickViewType) {
             case PickViewTypeAge:
                 
                 index = [self.ageArray indexOfObject:info.content];
@@ -189,9 +174,24 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 }
                 [self.pickView selectRow:index inComponent:0 animated:NO];
                 break;
+            case PickViewTypeCompnySize:
+                
+                index = [[[CompanySigningStore shearCompanySigningStore]companySizeArray] indexOfObject:info.content];
+                [self.pickView selectRow:index inComponent:0 animated:NO];
+                break;
+            case PickViewTypeField:
+                
+                index = [[[DesignerSigningStore shearDesignerSigningStore]fieldArray] indexOfObject:info.content];
+                [self.pickView selectRow:index inComponent:0 animated:NO];
+                break;
+                
             case PickViewTypeProvince:
                 
-                [self positioningwithindex:info];
+                [self positioningProvinceWithindex:info];
+                break;
+            case PickViewTypeIndustry:
+                
+                [self positioningIndustryWithindex:info];
                 break;
                 
             default:
@@ -200,8 +200,8 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     }
 }
 
-#pragma mark 选择数据时将有数据的itme赋给已选择的temp
--(void)positioningwithindex:(Infomation *)info{
+#pragma mark 选择数据时将有数据的城市赋给已选择的temp
+-(void)positioningProvinceWithindex:(Infomation *)info{
     
     NSArray *arr = [info.content componentsSeparatedByString:@","];
     NSInteger index = 0 ;
@@ -211,8 +211,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         if ([province.address isEqualToString:arr[0]]) {
             
             index = [self.provinceArray indexOfObject:province];
-            [self.cityArray removeAllObjects];
-            [self.cityArray addObjectsFromArray:province.cityArray];
+            self.cityArray =province.cityArray;
         }
     }
     [self.pickView selectRow:index inComponent:0 animated:NO];
@@ -224,6 +223,35 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             if ([province.address isEqualToString:arr[1]]) {
                 
                 inde2 = [self.cityArray indexOfObject:province];
+            }
+        }
+        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
+    }
+}
+
+#pragma mark 选择数据时将有数据的行业赋给已选择的temp
+-(void)positioningIndustryWithindex:(Infomation *)info{
+    
+    NSArray *arr = [info.content componentsSeparatedByString:@","];
+    NSInteger index = 0 ;
+    NSInteger inde2 = 0 ;
+    for (NSString *industryp in self.industryArray ) {
+        
+        if ([industryp isEqualToString:arr[0]]) {
+            
+            index = [self.industryArray indexOfObject:industryp];
+            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+    
+    if (arr.count > 1) {
+        
+        for (NSString *subIndustryp in self.cityArray ) {
+            
+            if ([subIndustryp isEqualToString:arr[1]]) {
+                
+                inde2 = [self.industrySubArray indexOfObject:subIndustryp];
             }
         }
         [self.pickView selectRow:inde2 inComponent:1 animated:NO];
@@ -263,27 +291,27 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-
-    if (indexPath.row > 1) {
+    _selectRow = indexPath.row;
+    _editorItem = [_infomationDataSource itemAtIndexPath:indexPath];
+    if (_editorItem.isEdit) {
         
-        _editorItem = [_infomationDataSource itemAtIndexPath:indexPath];
-        [self showAlertViewWithItem:indexPath.row];
+        [self showAlertViewWithItem:_editorItem];
     }
 }
 
--(void)showAlertViewWithItem:(NSInteger)row{
+-(void)showAlertViewWithItem:(Infomation *)info{
     
-    _pickViewType = row;
+//    _pickViewType = row;
     UIView *view = [[UIView alloc] init];
     NSString *string ;
-    if (_pickViewType <= PickViewTypeName) {
+    if (info.pickViewType <= PickViewTypeEdit) {
         
         string  = [NSString stringWithFormat:@"请输入%@",_editorItem.title];
         [self initInputNameTFWithPlaceholder:string];
         view.frame = self.inputNameTF.frame;
         [view addSubview:self.inputNameTF];
     }else {
-        [self initPickViewWith:row];
+        [self initPickViewWith:info];
         view.frame = self.pickView.frame;
         [view addSubview:self.pickView];
         string  = [NSString stringWithFormat:@"请选择%@",_editorItem.title];
@@ -293,13 +321,15 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                                                    message:view
                                                    sureBtn:@"确定"
                                                  cancleBtn:@"取消"
-                                              pickViewType:row];
+                                              pickViewType:info.pickViewType];
     alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
         
-        if (index == 2) {
+        if (index == 2 && picViewType == PickViewTypeIndustry | picViewType == PickViewTypeProvince | picViewType == PickViewTypeEdit) {
             
              [self updataInfomationWithUpdataItem:picViewType];
-//            NSLog(@"取消选项");
+        } else {
+            
+            [self.tableView reloadData];
         }
     };
     [alertView showXLAlertView];
@@ -308,7 +338,8 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 #pragma mark 数据源 Method numberOfComponentsInPickerView
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
     
-    return _pickViewType == PickViewTypeProvince ? 2 : 1;
+    Infomation *info = self.dataArray[_selectRow];
+    return info.pickViewType == PickViewTypeProvince || info.pickViewType == PickViewTypeIndustry ? 2 : 1;
 }
 
 -(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
@@ -332,98 +363,159 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
     
-    if (component==0){ //省
-        if (_pickViewType == PickViewTypeProvince) {
-            
-            return self.provinceArray.count;
-        } else if (_pickViewType == PickViewTypeSex){
-            return self.sexArray.count;
-        } else{
-            return self.ageArray.count;
+    Infomation *info = self.dataArray[_selectRow];
+    if (component==0){
+        switch (info.pickViewType) {
+            case PickViewTypeAge:
+                
+                return self.ageArray.count;
+                break;
+            case PickViewTypeSex:
+                
+                return self.sexArray.count;
+                break;
+            case PickViewTypeCompnySize:
+                
+                return [[CompanySigningStore shearCompanySigningStore]companySizeArray].count ;
+                break;
+            case PickViewTypeField:
+                
+                return [[DesignerSigningStore shearDesignerSigningStore]fieldArray].count;
+                break;
+                
+            case PickViewTypeProvince:
+                
+                return self.provinceArray.count;
+                break;
+            case PickViewTypeIndustry:
+                
+                return self.provinceArray.count;
+                break;
         }
     }else{
-        //市
-        return _cityArray.count;
+        
+        if (info.pickViewType == PickViewTypeProvince) {
+            
+            return _cityArray.count;//省份对应的市区
+        } else {
+            
+            return self.industrySubArray.count;
+        }
     }
+    
+    return 0;
 }
 
 #pragma mark delegate 显示信息的方法
-
 -(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
     
+    Infomation *info = self.dataArray[_selectRow];
     if (component==0){
-    
-        if (_pickViewType == PickViewTypeProvince) {
-            
-            Province *province = self.provinceArray[row];
-            _province = province;
-            return province.address;
-            
-        } else if (_pickViewType == PickViewTypeSex){
-            
-            _selectSex = [[InfomationStore shearInfomationStore]sexArray][row+1];
-            return [[InfomationStore shearInfomationStore]sexArray][row+1];
-            
-        } else{
-            _selectAge = self.ageArray[row];
-            return self.ageArray[row];
+        switch (info.pickViewType) {
+            case PickViewTypeAge:
+                
+                return self.ageArray[row];
+                break;
+            case PickViewTypeSex:
+                
+                return self.sexArray[row];
+                break;
+            case PickViewTypeCompnySize:
+                
+                return [[CompanySigningStore shearCompanySigningStore]companySizeArray][row] ;
+                break;
+            case PickViewTypeField:
+                
+                return [[DesignerSigningStore shearDesignerSigningStore]fieldArray][row];
+                break;
+                
+            case PickViewTypeProvince:
+                _province = self.provinceArray[row];
+                return _province.address;
+                break;
+            case PickViewTypeIndustry:
+                
+                _industryString = self.industryArray[row];
+                return self.industryArray[row];
+                break;
         }
-        //选择的省份
         
     }else{
         
-        Province *city = self.cityArray[row];
-        _city = city;
-        return city.address;//省份对应的市区
+        if (info.pickViewType == PickViewTypeProvince) {
+            
+            _city = self.cityArray[row];
+            return _city.address;//省份对应的市区
+        } else {
+            
+            _industrySubString = self.industrySubArray[row];
+            return _industrySubString;
+        }
     }
+    
+    return nil;
 }
 
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
+   
+    Infomation *info = self.dataArray[_selectRow];
     if (component==0){
-    
-        if (_pickViewType == PickViewTypeProvince) {
-            _province = self.provinceArray[row];
-            [self.cityArray removeAllObjects];
-            [self.cityArray addObjectsFromArray:_province.cityArray];
-            [self.pickView reloadComponent:1];
-            
-        } else if (_pickViewType == PickViewTypeSex){
-            
-           _selectSex = [[InfomationStore shearInfomationStore]sexArray][row+1];
-            
-        } else{
-            
-            _selectAge = self.ageArray[row];
+        switch (info.pickViewType) {
+            case PickViewTypeAge:
+                
+                info.content = self.ageArray[row];
+                break;
+            case PickViewTypeSex:
+                
+                info.content = self.sexArray[row];
+                break;
+            case PickViewTypeCompnySize:
+                
+                info.content = [[CompanySigningStore shearCompanySigningStore]companySizeArray][row] ;
+                break;
+            case PickViewTypeField:
+                
+                info.content = [[DesignerSigningStore shearDesignerSigningStore]fieldArray][row];
+                break;
+                
+            case PickViewTypeProvince:
+                _province = self.provinceArray[row];
+                self.cityArray =_province.cityArray;
+                [self.pickView reloadComponent:1];
+                break;
+            case PickViewTypeIndustry:
+                
+                _industryString = self.industryArray[row];
+                _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][self.industryArray[row]];
+                [self.pickView reloadComponent:1];
+                break;
         }
-
     }else{
-        _city = self.cityArray[row];
-
+    
+        if (info.pickViewType == PickViewTypeProvince) {
+           
+             _city = self.cityArray[row];
+        } else {
+            
+            _industrySubString = self.industrySubArray[row];
+            
+        }
     }
 }
 
 -(void)updataInfomationWithUpdataItem:(PickViewType )pickViewType{
     
-    Infomation *info = self.dataArray[pickViewType];
+    Infomation *info = self.dataArray[_selectRow];
     
     switch (pickViewType) {
         case PickViewTypeProvince:
             info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
             break;
-        case PickViewTypeSex:
-            info.content = [NSString stringWithFormat:@"%@",_selectSex];
-            break;
-        case PickViewTypeName :
-            
+        case PickViewTypeEdit :
             info.content = [NSString stringWithFormat:@"%@",_inputNameTF.text];
             break;
-        case PickViewTypeNickName:
-            
-            info.content = [NSString stringWithFormat:@"%@",_inputNameTF.text];
-            break;
-        case PickViewTypeAge:
-            info.content = [NSString stringWithFormat:@"%@",_selectAge];
+        case PickViewTypeIndustry:
+            info.content = [NSString stringWithFormat:@"%@,%@",_industryString,_industrySubString];
             break;
         default:
             break;
@@ -431,6 +523,31 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     [self.tableView reloadData];
 }
+
+//-(NSArray *)showItemAletViewWithItemViewType:(PickViewType )pickViewType{
+//    
+//    Infomation *info = self.dataArray[_selectRow];
+//    
+//    switch (pickViewType) {
+//        case PickViewTypeProvince:
+//            info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
+//            break;
+//        case PickViewTypeSex:
+//            info.content = [NSString stringWithFormat:@"%@",_selectSex];
+//            break;
+//        case PickViewTypeEdit :
+//            
+//            info.content = [NSString stringWithFormat:@"%@",_inputNameTF.text];
+//            break;
+//        case PickViewTypeAge:
+//            info.content = [NSString stringWithFormat:@"%@",_selectAge];
+//            break;
+//        default:
+//            break;
+//    }
+//    
+//    [self.tableView reloadData];
+//}
 
 -(void)submitInfomation{
  
@@ -441,24 +558,32 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             
             [[Global sharedSingleton]showToastInTop:self.view withMessage:@"年龄不能为空"];
             return;
-            
-        }else {
-            
-            if ([info.title isEqualToString:@"性别"]) {
+        }
+
+        switch (info.pickViewType) {
+            case PickViewTypeAge :
+            case PickViewTypeCompnySize :
+            case PickViewTypeField :
+            case PickViewTypeEdit:
+            case PickViewTypeIndustry:
+                if (![Global stringIsNullWithString:info.content]) {
+                   
+                    [dic setObject:info.content forKey:info.sendKey];
+                }
+              
+                break;
+            case PickViewTypeSex:
                 
-                [dic setObject:@([[InfomationStore shearInfomationStore]indexWithSex:_selectSex]) forKey:info.sendKey];
-            } else if([info.title isEqualToString:@"所在城市"]) {
+                [dic setObject:@([[InfomationStore shearInfomationStore]indexWithSex:info.content]) forKey:info.sendKey];
+                break;
                 
+         case PickViewTypeProvince:
                 [dic setObject:_province.address forKey:@"Province"];
                 [dic setObject:_city.address forKey:@"City"];
-            }else if(![info.title isEqualToString:@"头像"] && ![Global stringIsNullWithString:info.content]){
-                
-                [dic setObject:info.content forKey:info.sendKey];
-            }
+                break;   
         }
     }
-
-    [[UserManager shareUserManager]updataInfoWithKeyValue:dic];
+    [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
     [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
 
         [self AlertOperation];

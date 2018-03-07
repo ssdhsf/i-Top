@@ -49,7 +49,14 @@ _errorFailure(__id_obj); }
     
     if ([self crrentUserInfomation] != nil) return YES;
     return NO;
-//    return YES;
+}
+
+- (BOOL)isWechatLogin{
+    
+    NSString *string = [[Global sharedSingleton]
+                        getUserDefaultsWithKey:UD_KEY_LAST_WECHTLOGIN_CODE];
+    if (string != nil) return YES;
+    return NO;
 }
 
 #pragma mark - 登录
@@ -83,6 +90,91 @@ _errorFailure(__id_obj); }
     }];
 }
 
+-(void)wechatLoginWithCallBackCode:(NSString *)code{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/wechatlogin";
+    NSDictionary *parameters = @{@"code" : code,
+                                 @"type" : @"app" };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+//            _loginFailure(object);
+            
+        } else {
+            
+            _loginSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)bindPhoneWithMobili:(NSString *)mobili
+              verificationCode:(NSString *)verificationCode{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/bindphone";
+    NSString *cacheKey = [[Global sharedSingleton]
+                          getUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY];
+    NSDictionary *parameters = @{@"phone" : mobili,
+                                 @"cacheKey" : cacheKey,
+                                 @"phoneCode" : verificationCode
+                                 };
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            _bindPhoneSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+        
+    }];
+}
+
+
+- (void)changePassWithOriginalPass:(NSString *)originalPass
+                           newPass:(NSString *)newPass {
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/changepassword";
+    NSDictionary *parameters = @{@"oldPassword" : originalPass,
+                                 @"newPassword" : newPass};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _changePassSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 -(void)loginOut{
     
     SHOW_GET_DATA
@@ -96,12 +188,7 @@ _errorFailure(__id_obj); }
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
             
         } else {
-            
-//            UserModel *user = [[UserModel alloc]initWithDictionary:object error:nil];
-//            [[Global sharedSingleton]
-//             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
-//             andValue:[user toJSONString]];
-            
+
             _loginSuccess(object);
         }
         
@@ -110,7 +197,6 @@ _errorFailure(__id_obj); }
         HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
-
 }
 
 #pragma mark - 获取验证码
@@ -211,10 +297,27 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)updataInfoWithKeyValue:(NSDictionary *)parameters{
+- (void)updataInfoWithKeyValue:(NSDictionary *)parameters
+                      userType:(UserType)userType{
     
     SHOW_GET_DATA
-    NSString *api = @"/api/user/updateinfo";
+    NSString *api = [NSString string];
+    switch (userType) {
+            
+        case UserTypeEnterprise:
+            api = @"/api/userenterprise/updateinfo";
+            break;
+        case UserTypeMarketing:
+            api = @"/api/usermarketing/updateinfo";
+            break;
+        case UserTypeDefault:
+        case UserTypeDesigner:
+            api = @"/api/user/updateinfo";
+            break;
+        default:
+            break;
+    }
+
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         HIDDEN_GET_DATA

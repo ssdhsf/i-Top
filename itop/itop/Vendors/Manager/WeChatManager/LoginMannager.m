@@ -28,6 +28,8 @@
     
     [[Global sharedSingleton] delUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];//登陆获取的用户信息
     [[Global sharedSingleton] delUserDefaultsWithKey:UD_CACHE_COOKIE];
+    [[Global sharedSingleton] delUserDefaultsWithKey:UD_KEY_LAST_WECHTLOGIN_CODE];
+    [[Global sharedSingleton] delUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY];
 }
 
 #pragma mark 返回登陆页

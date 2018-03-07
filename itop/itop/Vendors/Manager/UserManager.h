@@ -82,6 +82,10 @@ typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
 typedef void (^VerificationFailure)(id obj);
+typedef void (^BindPhoneSuccess)(id obj);
+typedef void (^BindPhoneFailure)(id obj);
+typedef void (^ChangePassSuccess)(id obj);
+typedef void (^ChangePassFailure)(id obj);
 typedef void (^RegisteredSuccess)(id obj);
 typedef void (^RegisteredFailure)(id obj);
 typedef void (^UserInfoSuccess)(id obj);
@@ -146,6 +150,14 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取验证码————————————————————————*/
 @property (nonatomic, copy) VerificationSuccess verificationSuccess;
 @property (nonatomic, copy) VerificationFailure verificationFailure;
+
+/*----------------bindPhone————————————————————————*/
+@property (nonatomic, copy) BindPhoneSuccess bindPhoneSuccess;
+@property (nonatomic, copy) BindPhoneFailure bindPhoneFailure;
+
+/*----------------ChangePass————————————————————————*/
+@property (nonatomic, copy) ChangePassSuccess changePassSuccess;
+@property (nonatomic, copy) ChangePassFailure changePassFailure;
 
 /*----------------注册————————————————————————*/
 @property (nonatomic, copy) RegisteredSuccess registeredSuccess;
@@ -231,10 +243,18 @@ typedef void (^ErrorFailure)(id obj);
 - (BOOL)isLogin;
 
 /**
+ *  判断用户是否微信登录
+ *
+ *  @return YSE or No
+ */
+- (BOOL)isWechatLogin;
+
+/**
  *  判断用户是否登录
  *
  */
 - (UserModel*)crrentUserInfomation;
+
 /**
  *  用户登录
  *
@@ -242,6 +262,31 @@ typedef void (^ErrorFailure)(id obj);
  *  @param password 密码
  */
 - (void)loginWithUserName:(NSString *)userName passWord:(NSString *)password;
+
+/**
+ *  微信授权后上传code到服务器
+ *
+ *  @param code 微信授权后的code
+ */
+-(void)wechatLoginWithCallBackCode:(NSString *)code;
+
+/**
+ *  绑定手机号码
+ *
+ *  @param mobili 手机号码
+ *  @param verificationCode 验证码
+ */
+- (void)bindPhoneWithMobili:(NSString *)mobili
+           verificationCode:(NSString *)verificationCode;
+
+/**
+ *  绑定手机号码
+ *
+ *  @param originalPass 旧密码
+ *  @param newPass 新密码
+ */
+- (void)changePassWithOriginalPass:(NSString *)originalPass
+                           newPass:(NSString *)newPass;
 
 /**
  *  用户登出
@@ -278,7 +323,8 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param parameters 需要修改的itme
  */
-- (void)updataInfoWithKeyValue:(NSDictionary *)parameters;
+- (void)updataInfoWithKeyValue:(NSDictionary *)parameters
+                      userType:(UserType)userType;
 
 /**
  *  重置

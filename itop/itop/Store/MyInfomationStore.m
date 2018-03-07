@@ -48,12 +48,12 @@
 -(NSMutableArray *)configurationItopMenuWithUserType:(UserType)user_type{
     
     NSMutableArray *array = [NSMutableArray array];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@"ShearViewController"]];
     if (user_type == UserTypeDefault) {
         [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"SigningTypeViewController"]];
     }
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"意见反馈" imageName:@"me_icon_comment" vcName:@"CustomerServiceViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"设置" imageName:@"me_icon_set" vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"设置" imageName:@"me_icon_set" vcName:@"SetupHomeViewController"]];
     
     return array;
 }

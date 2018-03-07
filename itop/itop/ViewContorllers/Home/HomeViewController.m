@@ -48,8 +48,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong) NSString *loctionString;
 @property (nonatomic, assign) BOOL isFirst;
 
-
-
 @end
 
 @implementation HomeViewController
@@ -73,14 +71,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     self.navigationController.navigationBar.translucent = YES;
     [self setNavBar];
     
-    if (self.collectionView) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        CGFloat offsetY = self.collectionView.contentOffset.y ;
-        NSLog(@"%lf",offsetY);
-        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
-        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-
-    }
+//    if (self.collectionView) {
+//        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        CGFloat offsetY = self.collectionView.contentOffset.y ;
+//        NSLog(@"%lf",offsetY);
+//        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
+//        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
+//
+//    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -93,6 +91,15 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [super viewDidDisappear:animated];
     if (_bannerView) {
         [_bannerView stopTimer];
+    }
+    
+    if (self.collectionView) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+        CGFloat offsetY = self.collectionView.contentOffset.y ;
+        NSLog(@"%lf",offsetY);
+        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
+        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
+        
     }
 }
 
@@ -134,7 +141,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)refreshData{
 
-     self.collectionView.scrollEnabled =NO;
+    self.collectionView.scrollEnabled =NO;
     [[UserManager shareUserManager] homeBanner];
     [UserManager shareUserManager].homeBannerSuccess  = ^(NSArray * arr){
         
@@ -146,7 +153,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [UserManager shareUserManager].errorFailure = ^(id obj){
         
-      
         [self collectionEndRefreshing];
     };
 }
@@ -644,7 +650,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation{
     
     UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
-    [self.navigationController setNavigationBarHidden:animation animated:YES];
+    [self.navigationController setNavigationBarHidden:animation animated:NO];
     if (animation) { //背景为黑色
         
         [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
@@ -665,13 +671,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loginOut{
     
-    [[UserManager shareUserManager]loginOut];
-    [UserManager shareUserManager].loginSuccess = ^ (id obj){
-        
-        [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
-        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
-
-    };
 }
 
 -(void)loadinH5ListWithH5Type:(GetH5ListType)type index:(NSInteger)index title:(NSString *)title{

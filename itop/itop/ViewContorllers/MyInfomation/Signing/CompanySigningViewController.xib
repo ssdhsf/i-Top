@@ -639,6 +639,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="9"/>
                     <state key="normal" title="I-Top企业入驻协议"/>
                     <connections>
+                        <action selector="Protcol:" destination="-1" eventType="touchUpInside" id="62S-q8-mVU"/>
                         <action selector="browseProtcol:" destination="-1" eventType="touchUpInside" id="Btu-iR-yzg"/>
                     </connections>
                 </button>

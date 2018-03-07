@@ -41,7 +41,7 @@
     _submitButton.layer.masksToBounds = YES;
     [_submitButton.layer addSublayer:[UIColor setGradualChangingColor: _submitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
     _submitButton.layer.cornerRadius = _submitButton.height/2;
-    _contentTV.placeholderText = @"请输入反馈内容，200字以内";
+    _contentTV.placeholder = @"请输入反馈内容，200字以内";
 
 }
 
@@ -50,14 +50,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)submit:(UIButton *)sender {
+    
+    NSLog(@"123");
 }
-*/
 
 @end

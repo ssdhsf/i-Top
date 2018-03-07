@@ -94,7 +94,6 @@
     UIViewController *vc = [UIManager viewControllerWithName:@"ResetPasswordViewController"];
     [self.navigationController pushViewController:vc animated:YES];
     [self hiddenNavigationController:NO];
-
 }
 
 //密码可见
@@ -109,10 +108,10 @@
     _passwordTF.secureTextEntry = _seeIcon.selected;
     if (_seeIcon.selected) {
         
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
+        [_seeIcon setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
         
     } else {
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
+        [_seeIcon setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
     }
 }
 
@@ -146,17 +145,33 @@
 
     if (response.errCode == 0) {
 
-//        NSString *refreshUrlStr = [NSString stringWithFormat:@"%@/sns/oauth2/access_token?appid=%@&secret=%@&code=%@&grant_type=authorization_code",WX_BASE_URL, WECHAT_APP_ID,WECHAT_APP_SECRET,response.code];
-        NSString *refreshUrlStr = [NSString stringWithFormat:@"%@/sns/oauth2/access_token?",WX_BASE_URL];
-        NSDictionary *parameters = @{@"appid":WECHAT_APP_ID,@"secret":WECHAT_APP_SECRET,@"code":response.code,@"grant_type":@"authorization_code"};
-        [[InterfaceBase sharedSingleton]requestWeChatDataWithApi:refreshUrlStr parameters:parameters completion:^(id object) {
-            //
-                        NSLog(@"%@",object);
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_WECHTLOGIN_CODE
+         andValue:response.code];
+        [[UserManager shareUserManager]wechatLoginWithCallBackCode:response.code];
+        [UserManager shareUserManager].loginSuccess = ^ (id obj){
             
-             [UIManager goMianViewController];
-                    } failure:^(NSError *error) {
-                        NSLog(@"%@",error);
-                    }];
+            if ([obj isKindOfClass:[NSString class]]) {
+                
+                NSString *cacheKey = [NSString stringWithFormat:@"%@",obj];
+                [[Global sharedSingleton]
+                 setUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY
+                 andValue:cacheKey];
+                UIViewController *vc = [UIManager viewControllerWithName:@"BindPhoneViewController"];
+                [self.navigationController pushViewController:vc animated:YES];
+                [self hiddenNavigationController:NO];
+            } else {
+                
+                NSDictionary *dic = (NSDictionary *)obj;
+                UserModel *user = [[UserModel alloc]initWithDictionary:dic error:nil];
+                [[Global sharedSingleton]
+                 setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
+                 andValue:[user toJSONString]];
+                [UIManager goMianViewController];
+            }
+            NSLog(@"%@",obj);
+        };
+        
     } else {
         NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
         NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];

@@ -602,6 +602,11 @@
     };
 }
 
+- (IBAction)Protcol:(UIButton *)sender {
+    
+   [UIManager protocolWithProtocolType:ProtocolTypeCompany];
+}
+
 -(void)back{
     
     if (self.view == [_views lastObject]) {
@@ -612,7 +617,5 @@
         [super back];
     }
 }
-
-
 
 @end

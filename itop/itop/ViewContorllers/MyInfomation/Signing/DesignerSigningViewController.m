@@ -8,6 +8,7 @@
 
 #import "DesignerSigningViewController.h"
 #import "YZTagList.h"
+#import "DesignerSigningStore.h"
 
 #define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 
@@ -50,9 +51,9 @@
     
     _views = [[NSBundle mainBundle] loadNibNamed:@"DesignerSigningViewController" owner:self options:nil];
     self.view = [_views firstObject];
-    NSArray *data = @[@"企业宣传",@"企业招聘",@"产品介绍",@"活动促销",@"报名培训",@"会议邀请",@"品牌推广",@"节日传情",@"商务科技",@"扁平简约",@"清新文艺",@"卡通手绘",@"时尚炫酷",@"中国风",@"最多选3个"];
+//    NSArray *data = @[@"企业宣传",@"企业招聘",@"产品介绍",@"活动促销",@"报名培训",@"会议邀请",@"品牌推广",@"节日传情",@"商务科技",@"扁平简约",@"清新文艺",@"卡通手绘",@"时尚炫酷",@"中国风",@"最多选3个"];
     _tagArray = [NSMutableArray array];
-    for (NSString *tag in data) {
+    for (NSString *tag in [[DesignerSigningStore shearDesignerSigningStore]fieldArray]) {
         
         SpecialityTag *specialityTag = [[SpecialityTag alloc]init];
         specialityTag.tag = tag;
@@ -220,6 +221,11 @@
         _agreedView.backgroundColor = UIColorFromRGB(0xe0e3e6);
     }
     NSLog(@"ddddd");
+}
+
+- (IBAction)Protcol:(UIButton *)sender {
+    
+    [UIManager protocolWithProtocolType:ProtocolTypeDesginer];
 }
 
 -(void)back{

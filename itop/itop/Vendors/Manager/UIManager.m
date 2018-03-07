@@ -50,7 +50,7 @@
     AppDelegate * appDelegate = [[self class] appDelegate];
     appDelegate.window = [[self class] newWindow];
     
-    if([[UserManager shareUserManager] isLogin]) {
+    if([[UserManager shareUserManager] isLogin] || [[UserManager shareUserManager]isWechatLogin]) {
         MyTabBarController*tabBarController=[[MyTabBarController alloc]init];
         ThemeNavigationController *nav1 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"HomeViewController"]];
         ThemeNavigationController *nav2 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"HotViewController"]];
@@ -215,6 +215,14 @@
     LeaveViewController *vc = [[LeaveViewController alloc]init];
     vc.product_id = product_id;
     vc.getLeaveListType = GetLeaveListTypeProduct;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
++(void)protocolWithProtocolType:(ProtocolType)protocolType{
+    
+    ProtocolViewController *vc = [[ProtocolViewController alloc]init];
+    vc.protocolType = protocolType;
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }

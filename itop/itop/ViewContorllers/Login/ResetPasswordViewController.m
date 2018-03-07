@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIImageView *verificationCodeImage;
+@property (weak, nonatomic) IBOutlet UIButton *passwordVisibleButton;
 
 
 @end
@@ -82,10 +83,24 @@
         [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
         NSLog(@"%@",obj);
     };
-
 }
 
 - (IBAction)passwordVisible:(UIButton *)sender {
+    
+    _passwordVisibleButton.selected = !sender.selected;
+    [self seePassword];
+}
+
+-(void)seePassword{
+    
+    _passwordTF.secureTextEntry = _passwordVisibleButton.selected;
+    if (_passwordVisibleButton.selected) {
+        
+        [_passwordVisibleButton setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
+        
+    } else {
+        [_passwordVisibleButton setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
+    }
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{

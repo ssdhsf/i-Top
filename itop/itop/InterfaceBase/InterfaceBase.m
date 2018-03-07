@@ -147,8 +147,8 @@
                    failure:(void (^)(NSError * error))failure{
     
     completion_t _completion = ^(id resultObject, NSInteger code, NSString *description) {
-        if (code == SUCCESS_RESULT) {
-
+        if (code == SUCCESS_RESULT || code == WECHTLOGINSUCCESS_RESULT) {
+ 
             completion(resultObject);
             
         } else {

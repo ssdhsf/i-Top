@@ -62,6 +62,17 @@
 		77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77484AD52024B3AA00BAC567 /* WebViewController.m */; };
 		77484AD82024B3AA00BAC567 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77484AD62024B3AA00BAC567 /* WebViewController.xib */; };
 		77484AE0202556BC00BAC567 /* DesignerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77484ADF202556BC00BAC567 /* DesignerInfo.m */; };
+		774B87E5204D7ADD00F602E3 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B87E3204D7ADD00F602E3 /* ChangePasswordViewController.m */; };
+		774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B87E4204D7ADD00F602E3 /* ChangePasswordViewController.xib */; };
+		774B87EA204E43AC00F602E3 /* AboutItopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B87E8204E43AC00F602E3 /* AboutItopViewController.m */; };
+		774B87EB204E43AC00F602E3 /* AboutItopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B87E9204E43AC00F602E3 /* AboutItopViewController.xib */; };
+		774B87EF204E821700F602E3 /* ProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B87ED204E821700F602E3 /* ProtocolViewController.m */; };
+		774B87F0204E821700F602E3 /* ProtocolViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B87EE204E821700F602E3 /* ProtocolViewController.xib */; };
+		774B880D204FC2AE00F602E3 /* ShearView.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B880B204FC2AE00F602E3 /* ShearView.m */; };
+		774B880E204FC2AE00F602E3 /* ShearView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B880C204FC2AE00F602E3 /* ShearView.xib */; };
+		774B8812204FC2BA00F602E3 /* ShearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B8810204FC2BA00F602E3 /* ShearViewController.m */; };
+		774B8813204FC2BA00F602E3 /* ShearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B8811204FC2BA00F602E3 /* ShearViewController.xib */; };
+		774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B8815204FC2F100F602E3 /* ShearViewManager.m */; };
 		775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775909982016350300F9D8EA /* PXChartBackgroundView.m */; };
 		775909A32016350300F9D8EA /* PXLineChartConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 7759099B2016350300F9D8EA /* PXLineChartConst.m */; };
 		775909A42016350300F9D8EA /* PXLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7759099D2016350300F9D8EA /* PXLineChartView.m */; };
@@ -195,6 +206,17 @@
 		77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B86FFB20287A010096FB28 /* LMJDropdownMenu.m */; };
 		77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */; };
 		77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */; };
+		77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F7B204C2BF400D77DBD /* SecurityViewController.m */; };
+		77C07F7E204C2BF400D77DBD /* SecurityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F7C204C2BF400D77DBD /* SecurityViewController.xib */; };
+		77C07F81204CF00A00D77DBD /* DesignerSigningStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F80204CF00A00D77DBD /* DesignerSigningStore.m */; };
+		77C07F85204D391F00D77DBD /* SetupHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F83204D391F00D77DBD /* SetupHomeViewController.m */; };
+		77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F84204D391F00D77DBD /* SetupHomeViewController.xib */; };
+		77C07F8A204D3A4D00D77DBD /* SetupHomeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F88204D3A4D00D77DBD /* SetupHomeTableViewCell.m */; };
+		77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F89204D3A4D00D77DBD /* SetupHomeTableViewCell.xib */; };
+		77C07F8E204D3A7300D77DBD /* SetupHomeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F8D204D3A7300D77DBD /* SetupHomeStore.m */; };
+		77C07F91204D3A9B00D77DBD /* SetupHomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F90204D3A9B00D77DBD /* SetupHomeDataSource.m */; };
+		77C07F95204D573300D77DBD /* BindPhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F93204D573300D77DBD /* BindPhoneViewController.m */; };
+		77C07F96204D573300D77DBD /* BindPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F94204D573300D77DBD /* BindPhoneViewController.xib */; };
 		77C764C92026C21D00F88A03 /* TemplateDetaulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C764C72026C21D00F88A03 /* TemplateDetaulViewController.m */; };
 		77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C764C82026C21D00F88A03 /* TemplateDetaulViewController.xib */; };
 		77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE7C6E202AE6EA0067D284 /* InfomationViewController.m */; };
@@ -403,6 +425,23 @@
 		77484AD62024B3AA00BAC567 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		77484ADE202556BC00BAC567 /* DesignerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerInfo.h; sourceTree = "<group>"; };
 		77484ADF202556BC00BAC567 /* DesignerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerInfo.m; sourceTree = "<group>"; };
+		774B87E2204D7ADD00F602E3 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
+		774B87E3204D7ADD00F602E3 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
+		774B87E4204D7ADD00F602E3 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
+		774B87E7204E43AC00F602E3 /* AboutItopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutItopViewController.h; sourceTree = "<group>"; };
+		774B87E8204E43AC00F602E3 /* AboutItopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutItopViewController.m; sourceTree = "<group>"; };
+		774B87E9204E43AC00F602E3 /* AboutItopViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutItopViewController.xib; sourceTree = "<group>"; };
+		774B87EC204E821700F602E3 /* ProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolViewController.h; sourceTree = "<group>"; };
+		774B87ED204E821700F602E3 /* ProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProtocolViewController.m; sourceTree = "<group>"; };
+		774B87EE204E821700F602E3 /* ProtocolViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProtocolViewController.xib; sourceTree = "<group>"; };
+		774B880A204FC2AE00F602E3 /* ShearView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearView.h; sourceTree = "<group>"; };
+		774B880B204FC2AE00F602E3 /* ShearView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearView.m; sourceTree = "<group>"; };
+		774B880C204FC2AE00F602E3 /* ShearView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShearView.xib; sourceTree = "<group>"; };
+		774B880F204FC2BA00F602E3 /* ShearViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearViewController.h; sourceTree = "<group>"; };
+		774B8810204FC2BA00F602E3 /* ShearViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearViewController.m; sourceTree = "<group>"; };
+		774B8811204FC2BA00F602E3 /* ShearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShearViewController.xib; sourceTree = "<group>"; };
+		774B8814204FC2F100F602E3 /* ShearViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearViewManager.h; sourceTree = "<group>"; };
+		774B8815204FC2F100F602E3 /* ShearViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearViewManager.m; sourceTree = "<group>"; };
 		775909962016350300F9D8EA /* PointItemProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointItemProtocol.h; sourceTree = "<group>"; };
 		775909972016350300F9D8EA /* PXChartBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXChartBackgroundView.h; sourceTree = "<group>"; };
 		775909982016350300F9D8EA /* PXChartBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXChartBackgroundView.m; sourceTree = "<group>"; };
@@ -642,6 +681,24 @@
 		77C07F74204AD85200D77DBD /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerServiceViewController.xib; sourceTree = "<group>"; };
+		77C07F7A204C2BF400D77DBD /* SecurityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecurityViewController.h; sourceTree = "<group>"; };
+		77C07F7B204C2BF400D77DBD /* SecurityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecurityViewController.m; sourceTree = "<group>"; };
+		77C07F7C204C2BF400D77DBD /* SecurityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SecurityViewController.xib; sourceTree = "<group>"; };
+		77C07F7F204CF00A00D77DBD /* DesignerSigningStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerSigningStore.h; sourceTree = "<group>"; };
+		77C07F80204CF00A00D77DBD /* DesignerSigningStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerSigningStore.m; sourceTree = "<group>"; };
+		77C07F82204D391F00D77DBD /* SetupHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupHomeViewController.h; sourceTree = "<group>"; };
+		77C07F83204D391F00D77DBD /* SetupHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupHomeViewController.m; sourceTree = "<group>"; };
+		77C07F84204D391F00D77DBD /* SetupHomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupHomeViewController.xib; sourceTree = "<group>"; };
+		77C07F87204D3A4D00D77DBD /* SetupHomeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupHomeTableViewCell.h; sourceTree = "<group>"; };
+		77C07F88204D3A4D00D77DBD /* SetupHomeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupHomeTableViewCell.m; sourceTree = "<group>"; };
+		77C07F89204D3A4D00D77DBD /* SetupHomeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupHomeTableViewCell.xib; sourceTree = "<group>"; };
+		77C07F8C204D3A7300D77DBD /* SetupHomeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupHomeStore.h; sourceTree = "<group>"; };
+		77C07F8D204D3A7300D77DBD /* SetupHomeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupHomeStore.m; sourceTree = "<group>"; };
+		77C07F8F204D3A9B00D77DBD /* SetupHomeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupHomeDataSource.h; sourceTree = "<group>"; };
+		77C07F90204D3A9B00D77DBD /* SetupHomeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupHomeDataSource.m; sourceTree = "<group>"; };
+		77C07F92204D573300D77DBD /* BindPhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BindPhoneViewController.h; sourceTree = "<group>"; };
+		77C07F93204D573300D77DBD /* BindPhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BindPhoneViewController.m; sourceTree = "<group>"; };
+		77C07F94204D573300D77DBD /* BindPhoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BindPhoneViewController.xib; sourceTree = "<group>"; };
 		77C764C62026C21D00F88A03 /* TemplateDetaulViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetaulViewController.h; sourceTree = "<group>"; };
 		77C764C72026C21D00F88A03 /* TemplateDetaulViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetaulViewController.m; sourceTree = "<group>"; };
 		77C764C82026C21D00F88A03 /* TemplateDetaulViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateDetaulViewController.xib; sourceTree = "<group>"; };
@@ -892,6 +949,7 @@
 		77369CC8200F512F0092AEAC /* MyInfomation */ = {
 			isa = PBXGroup;
 			children = (
+				77C07F79204C2BC300D77DBD /* Setup */,
 				77723A3020308A77006294E8 /* Signing */,
 				77369CD4200F530F0092AEAC /* MyInfomationViewController.h */,
 				77369CD5200F530F0092AEAC /* MyInfomationViewController.m */,
@@ -915,6 +973,9 @@
 				77C07F74204AD85200D77DBD /* CustomerServiceViewController.h */,
 				77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */,
 				77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */,
+				774B880F204FC2BA00F602E3 /* ShearViewController.h */,
+				774B8810204FC2BA00F602E3 /* ShearViewController.m */,
+				774B8811204FC2BA00F602E3 /* ShearViewController.xib */,
 			);
 			path = MyInfomation;
 			sourceTree = "<group>";
@@ -955,6 +1016,9 @@
 				77E8A88B20137F2900E253CC /* ResetPasswordViewController.h */,
 				77E8A88C20137F2900E253CC /* ResetPasswordViewController.m */,
 				77E8A88D20137F2900E253CC /* ResetPasswordViewController.xib */,
+				77C07F92204D573300D77DBD /* BindPhoneViewController.h */,
+				77C07F93204D573300D77DBD /* BindPhoneViewController.m */,
+				77C07F94204D573300D77DBD /* BindPhoneViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1019,6 +1083,9 @@
 				77A436A42045394900620F58 /* SigningTypeViewController.h */,
 				77A436A52045394900620F58 /* SigningTypeViewController.m */,
 				77A436A62045394900620F58 /* SigningTypeViewController.xib */,
+				774B87EC204E821700F602E3 /* ProtocolViewController.h */,
+				774B87ED204E821700F602E3 /* ProtocolViewController.m */,
+				774B87EE204E821700F602E3 /* ProtocolViewController.xib */,
 			);
 			path = Signing;
 			sourceTree = "<group>";
@@ -1259,8 +1326,12 @@
 				77CE7C7E202AEB990067D284 /* InfomationStore.m */,
 				77723A4A20415531006294E8 /* CompanySigningStore.h */,
 				77723A4B20415531006294E8 /* CompanySigningStore.m */,
+				77C07F7F204CF00A00D77DBD /* DesignerSigningStore.h */,
+				77C07F80204CF00A00D77DBD /* DesignerSigningStore.m */,
 				77F078A92046A61F004C0596 /* MarketingStore.h */,
 				77F078AA2046A61F004C0596 /* MarketingStore.m */,
+				77C07F8C204D3A7300D77DBD /* SetupHomeStore.h */,
+				77C07F8D204D3A7300D77DBD /* SetupHomeStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1330,6 +1401,8 @@
 		777AF1B4200D991C009729AD /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				774B8814204FC2F100F602E3 /* ShearViewManager.h */,
+				774B8815204FC2F100F602E3 /* ShearViewManager.m */,
 				77723AF52043CB65006294E8 /* SubmitFileManager.h */,
 				77723AF62043CB65006294E8 /* SubmitFileManager.m */,
 				77B2F46D20109CA300EF4119 /* WeChatManager */,
@@ -1467,6 +1540,9 @@
 		7792B72A201F2AE800587399 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				774B880A204FC2AE00F602E3 /* ShearView.h */,
+				774B880B204FC2AE00F602E3 /* ShearView.m */,
+				774B880C204FC2AE00F602E3 /* ShearView.xib */,
 				7792B730201F3C7C00587399 /* DesignerInfoViewController.h */,
 				7792B731201F3C7C00587399 /* DesignerInfoViewController.m */,
 				7792B732201F3C7C00587399 /* DesignerInfoViewController.xib */,
@@ -1509,6 +1585,28 @@
 			path = WeChatManager;
 			sourceTree = "<group>";
 		};
+		77C07F79204C2BC300D77DBD /* Setup */ = {
+			isa = PBXGroup;
+			children = (
+				77C07F7A204C2BF400D77DBD /* SecurityViewController.h */,
+				77C07F7B204C2BF400D77DBD /* SecurityViewController.m */,
+				77C07F7C204C2BF400D77DBD /* SecurityViewController.xib */,
+				77C07F82204D391F00D77DBD /* SetupHomeViewController.h */,
+				77C07F83204D391F00D77DBD /* SetupHomeViewController.m */,
+				77C07F84204D391F00D77DBD /* SetupHomeViewController.xib */,
+				77C07F87204D3A4D00D77DBD /* SetupHomeTableViewCell.h */,
+				77C07F88204D3A4D00D77DBD /* SetupHomeTableViewCell.m */,
+				77C07F89204D3A4D00D77DBD /* SetupHomeTableViewCell.xib */,
+				774B87E2204D7ADD00F602E3 /* ChangePasswordViewController.h */,
+				774B87E3204D7ADD00F602E3 /* ChangePasswordViewController.m */,
+				774B87E4204D7ADD00F602E3 /* ChangePasswordViewController.xib */,
+				774B87E7204E43AC00F602E3 /* AboutItopViewController.h */,
+				774B87E8204E43AC00F602E3 /* AboutItopViewController.m */,
+				774B87E9204E43AC00F602E3 /* AboutItopViewController.xib */,
+			);
+			path = Setup;
+			sourceTree = "<group>";
+		};
 		77E00A62201705BE004BBD49 /* SegmentTapView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1549,6 +1647,8 @@
 				77CE7C78202AEB570067D284 /* InfomationDataSource.m */,
 				77F078A62046A4CB004C0596 /* MarketingDataSource.h */,
 				77F078A72046A4CB004C0596 /* MarketingDataSource.m */,
+				77C07F8F204D3A9B00D77DBD /* SetupHomeDataSource.h */,
+				77C07F90204D3A9B00D77DBD /* SetupHomeDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1742,6 +1842,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77B86FF32028621E0096FB28 /* LeaveTableViewCell.xib in Resources */,
+				774B87EB204E43AC00F602E3 /* AboutItopViewController.xib in Resources */,
 				77723AE12043BBB2006294E8 /* mss_browseLoading@2x.png in Resources */,
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
 				77723ABA2043BB42006294E8 /* AssetsPickerVideo@2x.png in Resources */,
@@ -1750,6 +1851,8 @@
 				77723AB92043BB42006294E8 /* AssetsPickerLocked@2x.png in Resources */,
 				77DA8345201974C100E7CB36 /* H5ListViewController.xib in Resources */,
 				77723AB42043BB42006294E8 /* 2.png in Resources */,
+				774B8813204FC2BA00F602E3 /* ShearViewController.xib in Resources */,
+				77C07F96204D573300D77DBD /* BindPhoneViewController.xib in Resources */,
 				77369CD3200F52AF0092AEAC /* HotViewController.xib in Resources */,
 				77723ABE2043BB42006294E8 /* fanhui.png in Resources */,
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
@@ -1763,20 +1866,24 @@
 				77723AB72043BB42006294E8 /* AssetsPickerChecked@2x.png in Resources */,
 				77723AB62043BB42006294E8 /* addImage.png in Resources */,
 				77F078A020464A79004C0596 /* MarketingViewController.xib in Resources */,
+				77C07F7E204C2BF400D77DBD /* SecurityViewController.xib in Resources */,
 				777D517D200CC52700CB2A8A /* LaunchScreen.storyboard in Resources */,
 				77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */,
 				77369CCE200F52810092AEAC /* HomeViewController.xib in Resources */,
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
 				77E8A8552011997800E253CC /* ThemeCustomViewCollectionViewCell.xib in Resources */,
+				774B880E204FC2AE00F602E3 /* ShearView.xib in Resources */,
 				77B86FE9202803140096FB28 /* TagView.xib in Resources */,
 				77E8A8B12015BEEC00E253CC /* 气泡.png in Resources */,
 				77723AE22043BBB2006294E8 /* mss_browseLoading@3x.png in Resources */,
 				77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */,
+				774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */,
 				77E8A88A20136B9B00E253CC /* registeredViewController.xib in Resources */,
 				77484A992020BDB900BAC567 /* HotDetailsCell.xib in Resources */,
 				7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */,
 				77484A7B2020473E00BAC567 /* RecommendedViewController.xib in Resources */,
+				774B87F0204E821700F602E3 /* ProtocolViewController.xib in Resources */,
 				77E8A8992015893200E253CC /* StatisticalDataCell.xib in Resources */,
 				7792B717201ACB3800587399 /* HomeCollectionViewCell.xib in Resources */,
 				777D517A200CC52700CB2A8A /* Assets.xcassets in Resources */,
@@ -1797,12 +1904,14 @@
 				7777E55E2029F17F008FA348 /* LeaveDateilCell.xib in Resources */,
 				77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
+				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				777D5178200CC52700CB2A8A /* Main.storyboard in Resources */,
 				77723AB52043BB42006294E8 /* add_photo.png in Resources */,
 				77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */,
 				775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */,
+				77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
 				77369CE3200F546E0092AEAC /* LoginViewController.xib in Resources */,
@@ -1883,6 +1992,7 @@
 				77848AEC202EE20800C0CCD2 /* ProductModel.m in Sources */,
 				775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */,
 				77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */,
+				774B87E5204D7ADD00F602E3 /* ChangePasswordViewController.m in Sources */,
 				77E8A88920136B9A00E253CC /* registeredViewController.m in Sources */,
 				77484AB42022111D00BAC567 /* MyWorksStore.m in Sources */,
 				77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */,
@@ -1904,6 +2014,7 @@
 				77484AC32023200B00BAC567 /* UINavigationBar+Awesome.m in Sources */,
 				77723AEC2043BBB2006294E8 /* MSSBrowseZoomScrollView.m in Sources */,
 				77E8A893201580D100E253CC /* StatisticalDataViewController.m in Sources */,
+				77C07F81204CF00A00D77DBD /* DesignerSigningStore.m in Sources */,
 				77CE7C8B202B14290067D284 /* Province.m in Sources */,
 				77F078A82046A4CB004C0596 /* MarketingDataSource.m in Sources */,
 				77723B0E2043CC77006294E8 /* CDRTranslucentSideBar.m in Sources */,
@@ -1935,8 +2046,10 @@
 				77CE7C85202B02DF0067D284 /* AlertView.m in Sources */,
 				77484ABD2022F8C600BAC567 /* TagList.m in Sources */,
 				77826B992019DBE500F53E28 /* MyInfomation.m in Sources */,
+				774B87EF204E821700F602E3 /* ProtocolViewController.m in Sources */,
 				77848AE6202EA07600C0CCD2 /* BaseViewController+ErrorMassager.m in Sources */,
 				77E8A8AD2015BEEC00E253CC /* SNChart.m in Sources */,
+				77C07F95204D573300D77DBD /* BindPhoneViewController.m in Sources */,
 				77DA833D2018839800E7CB36 /* DesignerListDataSource.m in Sources */,
 				77369CE2200F546E0092AEAC /* LoginViewController.m in Sources */,
 				77B86FF9202868560096FB28 /* LeaveStore.m in Sources */,
@@ -1956,6 +2069,7 @@
 				77369CB3200F06840092AEAC /* UIView+DYExtension.m in Sources */,
 				775909A62016350300F9D8EA /* PXYview.m in Sources */,
 				77723AE72043BBB2006294E8 /* MSSBrowseLoadingImageView.m in Sources */,
+				77C07F85204D391F00D77DBD /* SetupHomeViewController.m in Sources */,
 				77DA833120187BD200E7CB36 /* DesignerListViewController.m in Sources */,
 				77E8A87B2011DCB000E253CC /* MASConstraintMaker.m in Sources */,
 				77B86FE7202803080096FB28 /* TagView.m in Sources */,
@@ -1965,9 +2079,11 @@
 				77723AE32043BBB2006294E8 /* MSSBrowseActionSheet.m in Sources */,
 				77484A86202054D800BAC567 /* RecommendedDataSource.m in Sources */,
 				77E8A85820119C3200E253CC /* ThemeCustom.m in Sources */,
+				77C07F91204D3A9B00D77DBD /* SetupHomeDataSource.m in Sources */,
 				77484ABA2022C54100BAC567 /* UserArticle.m in Sources */,
 				77484A832020543500BAC567 /* Recommended.m in Sources */,
 				77484A9C202162D800BAC567 /* BaseTableViewController+DisposeSubView.m in Sources */,
+				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
 				77484AC720233DE300BAC567 /* JSBadgeView.m in Sources */,
@@ -2005,6 +2121,7 @@
 				777AF1CD200DFCEB009729AD /* ThemeNavigationController.m in Sources */,
 				77723A412033E1AD006294E8 /* YZTagList.m in Sources */,
 				77369CAD200F04BF0092AEAC /* BaseViewController.m in Sources */,
+				774B87EA204E43AC00F602E3 /* AboutItopViewController.m in Sources */,
 				7792B716201ACB3800587399 /* HomeCollectionViewCell.m in Sources */,
 				77DA83492019750400E7CB36 /* H5ListCollectionViewCell.m in Sources */,
 				77C764C92026C21D00F88A03 /* TemplateDetaulViewController.m in Sources */,
@@ -2024,11 +2141,15 @@
 				77F0789F20464A79004C0596 /* MarketingViewController.m in Sources */,
 				77E8A8AE2015BEEC00E253CC /* SNChartBar.m in Sources */,
 				77484AAE2021F26A00BAC567 /* HomeBanner.m in Sources */,
+				77C07F8E204D3A7300D77DBD /* SetupHomeStore.m in Sources */,
 				77369CB9200F227B0092AEAC /* ApplicationTableViewDataSource.m in Sources */,
 				77E8A87F2011DCB000E253CC /* NSArray+MASAdditions.m in Sources */,
 				777AF1D7200E0C5A009729AD /* UserModel.m in Sources */,
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
+				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
+				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,
 				77E00A6D2018269A004BBD49 /* CarouselScrollView.m in Sources */,
+				77C07F8A204D3A4D00D77DBD /* SetupHomeTableViewCell.m in Sources */,
 				77E8A8B02015BEEC00E253CC /* UIBezierPath+curved.m in Sources */,
 				777AF1D1200DFD10009729AD /* ThemeManager.m in Sources */,
 				77E8A85B20119CA200E253CC /* ThemeCustomStore.m in Sources */,
@@ -2042,6 +2163,7 @@
 				77723AE92043BBB2006294E8 /* MSSBrowseModel.m in Sources */,
 				7777E56A202AE058008FA348 /* HomeSectionHeaderView.m in Sources */,
 				77DA833620187EEB00E7CB36 /* DesignerListViewCollectionViewCell.m in Sources */,
+				774B8812204FC2BA00F602E3 /* ShearViewController.m in Sources */,
 				77E8A850201197EF00E253CC /* ThemeCustomDataSource.m in Sources */,
 				77848AE9202EE1A300C0CCD2 /* ProductDetail.m in Sources */,
 				77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */,

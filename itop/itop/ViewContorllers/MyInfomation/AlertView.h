@@ -9,13 +9,15 @@
 #import <UIKit/UIKit.h>
 
 typedef NS_ENUM(NSInteger, PickViewType) { //选择个人信息Type
-    PickViewTypeNickName = 2, //
-    PickViewTypeName = 3, //
+    PickViewTypeNone = 0, //
+    PickViewTypeEdit = 1, //
     PickViewTypeSex , //性别
     PickViewTypeAge ,//年龄
     PickViewTypeProvince,//选择城市
+    PickViewTypeCompnySize, //选择企业规模
+    PickViewTypeIndustry , //选择所属行业
+    PickViewTypeField , //选择所属行业
 };
-
 
 typedef NS_ENUM(NSInteger, SignPickViewType) { //选择个人信息Type
     SignPickViewTypeIndustry = 1, //选择所属行业

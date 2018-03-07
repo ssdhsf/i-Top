@@ -532,8 +532,8 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 }
 
 - (IBAction)browseProtcol:(UIButton *)sender {
-    
-    NSLog(@"dsd");
+   
+    [UIManager protocolWithProtocolType:ProtocolTypeMarkting];
 }
 
 - (IBAction)agreedProtcol:(UIButton *)sender {
