@@ -62,8 +62,17 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 -(void)viewDidAppear:(BOOL)animated{
   
     [super viewDidAppear:animated];
-    [self setupEditor];
-    [self steupEditorBuuton];
+    
+    if (!self.editorBgView) {
+       
+        [self setupEditor];
+        [self steupEditorBuuton];
+    }
+    
+    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
+        
+    };
 }
 
 -(void)initView{
@@ -112,7 +121,9 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myProductListWithProductType:100 PageIndex:self.page_no PageCount:10];
+    NSInteger defultType = 100;
+    
+    [[UserManager shareUserManager]myProductListWithProductType:defultType  checkStatusType:defultType isShow:defultType  PageIndex:self.page_no PageCount:10];
     [UserManager shareUserManager].myProductListSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);
@@ -175,15 +186,38 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     [self editoeViewWithAnimation:NO];
     switch (sender.tag) {
+            
+        case 1:
+            
+            [UIManager pushTemplateDetailViewControllerWithTemplateId:@"306"];
+            break;
+            
         case 2:
             
             [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
             break;
             
+        case 3:
+            
+            [UIManager shearProductWithProductId:_h5.id];
+            break;
+        case 4:
+            
+            [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
+            break;
         case 5:
             
             _link = @"http";
             [self copyTheLinkWithLinkUrl:_link];
+            break;
+        case 6:
+            
+            [UIManager  qrCodeViewControllerWithCode:@"http://i-top.cn"];
+            break;
+            
+        case 7:
+            
+            [self  deleteProductWithId:@"23"];
             break;
             
         default:
@@ -244,6 +278,11 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
 }
 
+-(void)search{
+    
+    
+}
+
 - (IBAction)cancel:(UIButton *)sender {
     
     self.editorBgView.hidden = YES;
@@ -275,4 +314,12 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }];
 }
 
+-(void)deleteProductWithId:(NSString *)product_id{
+    
+    [[UserManager shareUserManager]deleteProductWithProductId:product_id];
+    [UserManager shareUserManager].deledeProductSuccess = ^(id obj){
+        
+        NSLog(@"%@",obj);
+    };
+}
 @end

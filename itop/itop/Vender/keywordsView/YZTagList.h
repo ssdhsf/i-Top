@@ -108,25 +108,40 @@
  *
  *  @param tagStr 标签文字
  */
-- (void)addTag:(NSString *)tagStr;
+- (void)addTag:(NSString *)tagStr  ;
 
 /**
  *  添加多个标签
  *
  *  @param tagStrs 标签数组，数组存放（NSString *）
  */
-- (void)addTags:(NSArray *)tagStrs;
+- (void)addTags:(NSArray *)tagStrs action:(SEL)action;
 
 /**
  *  删除标签
  *
- *  @param tagStr 标签文字
+ *  @param tagArray 标签文字
+ *  @param action 标签的方法
  */
-- (void)deleteTag:(NSString *)tagStr;
+- (void)addFieldTag:(NSArray *)tagArray action:(SEL)action;
 
 /**
- *  点击标签，执行Block
+ *  删除标签
+ *
+ *  @param tagArray 标签文字
+ *  @param action 标签的方法
  */
-@property (nonatomic, strong) void(^clickTagBlock)(NSString *tag,BOOL select);
+- (void)addSearchListTag:(NSArray *)tagArray action:(SEL)action;
+
+/**
+ *  点击设计师领域标签，执行Block
+ */
+@property (nonatomic, strong) void(^fieldTagBlock)(NSString *tag,BOOL select);
+
+/**
+ *  点击搜索历史标签，执行Block
+ */
+
+@property (nonatomic, strong) void(^searchListTagBlock)(NSString *tag);
 
 @end

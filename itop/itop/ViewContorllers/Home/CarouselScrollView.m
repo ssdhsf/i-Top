@@ -277,7 +277,13 @@ static double kFGGScrollInterval = 5.0f;
             NSLog(@"%f--%f",cell.frame.origin.x,cell.frame.origin.y);
         } else {
         
-            cell.frame = CGRectMake((i%3)*(ScreenWidth/3)+((i/6)*ScreenWidth), ScreenWidth/3-102+19+5+9+5,  ScreenWidth/3, ScreenWidth/3-102+19+5+9+5);
+            CGFloat replenish = 0;
+            
+            if (ScreenWidth/3-102 < 23) {
+                
+                replenish = 20;
+            }
+            cell.frame = CGRectMake((i%3)*(ScreenWidth/3)+((i/6)*ScreenWidth), ScreenWidth/3-102+19+5+9+5+replenish,  ScreenWidth/3, ScreenWidth/3-102+19+5+9+5);
              NSLog(@"%f--%f",cell.frame.origin.x,cell.frame.origin.y);
         }
         

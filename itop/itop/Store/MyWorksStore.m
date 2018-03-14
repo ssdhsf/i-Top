@@ -26,29 +26,45 @@
     for (NSDictionary *dic in menu) {
         
             H5List *h5Model = [[H5List alloc]initWithDictionary:dic error:nil];
-//            h5Model.h5Title = [NSString stringWithFormat:@"会议邀请函"];
-//            h5Model.h5Money = [NSString stringWithFormat:@"￥10"];
-//            h5Model.h5ImageUrl = [NSString stringWithFormat:@"h5"];
             [sectionArray addObject:h5Model];
 
     }
     
 #ifdef DEBUG
     // 调试状态, 打开LOG功能
-    if (sectionArray.count == 0) {
-        for (int i = 0; i < 8; i++) {
-            H5List *h5Model = [[H5List alloc]init];
-            h5Model.h5Title = [NSString stringWithFormat:@"会议邀请函"];
-            h5Model.h5Money = [NSString stringWithFormat:@"￥10"];
-            h5Model.h5ImageUrl = [NSString stringWithFormat:@"h5"];
-            [sectionArray addObject:h5Model];
-        }
-    }
+//    if (sectionArray.count == 0) {
+//        for (int i = 0; i < 8; i++) {
+//            H5List *h5Model = [[H5List alloc]init];
+//            h5Model.h5Title = [NSString stringWithFormat:@"会议邀请函"];
+//            h5Model.h5Money = [NSString stringWithFormat:@"￥10"];
+//            h5Model.h5ImageUrl = [NSString stringWithFormat:@"h5"];
+//            [sectionArray addObject:h5Model];
+//        }
+//    }
     //#define NSLog(...) NSLog(__VA_ARGS__)
 #else
     // 发布状态, 关闭LOG功能
 //#define
 #endif
+    return sectionArray;
+}
+
+- (NSMutableArray *)commentsListDropdownMenuConfigurationMenuWithMenu:(NSArray *)menu{
+    
+    NSMutableArray *sectionArray = [NSMutableArray array];
+    for (H5List *h5Model in menu) {
+        
+        
+//        if ( [Global stringIsNullWithString:h5Model.h5Title ] ) {
+//             [sectionArray addObject:h5Model.h5Title];
+//        } else {
+        
+            [sectionArray addObject:h5Model.title];
+
+//        }
+//        H5List *h5Model = [[H5List alloc]initWithDictionary:dic error:nil];
+    }
+
     return sectionArray;
 }
 

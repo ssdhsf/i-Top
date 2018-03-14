@@ -10,4 +10,8 @@
 
 @interface ShearViewController : BaseViewController
 
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType;
+- (instancetype)initWithType:(UMSocialPlatformType)type;
+- (void)shareWithType:(UMS_SHARE_TYPE)type;
+
 @end

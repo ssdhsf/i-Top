@@ -50,6 +50,27 @@
 
 @property (nonatomic, strong)UIImageView *lineImageView;//下滑线
 
+/**
+ *  初始背景颜色
+ */
+@property (nonatomic, strong) UIColor *beginBackgroundColor;
+
+/**
+ *  选中背景颜色
+ */
+@property (nonatomic, strong) UIColor *selectorBackgroundColor;
+
+
+/**
+ *  标签圆角半径,默认为0
+ */
+@property (nonatomic, assign) CGFloat tagCornerRadius;
+
+/**
+ *  边框宽度
+ */
+@property (nonatomic, assign) CGFloat borderWidth;
+
 
 /**
 Initialization
@@ -67,5 +88,10 @@ Initialization
  @param index inde（从1开始）
  */
 -(void)selectIndex:(NSInteger)index;
+
+/**
+ 加载控件
+ */
+-(void)addSubSegmentView;
 
 @end

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^SelectShearItem)(NSInteger tag);
+typedef void (^SelectShearItemBlock)(NSInteger tag);
 
 @interface ShearView : UIView
 
 -(void)setupShearItem;
-@property (nonatomic, copy)SelectShearItem selectShearItme;
+@property (nonatomic, copy)SelectShearItemBlock selectShearItme;
 
 @end

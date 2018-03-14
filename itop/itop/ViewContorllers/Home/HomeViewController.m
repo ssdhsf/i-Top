@@ -33,8 +33,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 @interface HomeViewController ()<BMKLocationAuthDelegate,BMKLocationManagerDelegate,WXApiManagerDelegate>
 
-@property (nonatomic, strong )BMKLocationManager *locationManager;
-@property (nonatomic, copy )BMKLocatingCompletionBlock completionBlock;
+@property (nonatomic, strong)BMKLocationManager *locationManager;
+@property (nonatomic, copy)BMKLocatingCompletionBlock completionBlock;
 @property (nonatomic, strong)CarouselScrollView *bannerView;
 @property (nonatomic, strong)CarouselScrollView *h5bannerView;
 @property (nonatomic, strong)CarouselScrollView *designerbannerView;
@@ -46,6 +46,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong) UIButton *messageBtn;
 @property (nonatomic, strong) UILabel *loctionLable;
 @property (nonatomic, strong) NSString *loctionString;
+@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) CAGradientLayer *layer;
 @property (nonatomic, assign) BOOL isFirst;
 
 @end
@@ -55,7 +57,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [WXApiManager sharedManager].delegate = self;
+//    [WXApiManager sharedManager].delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -70,15 +72,15 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"white_7"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = YES;
     [self setNavBar];
-    
-//    if (self.collectionView) {
-//        [self.navigationController setNavigationBarHidden:YES animated:YES];
-//        CGFloat offsetY = self.collectionView.contentOffset.y ;
-//        NSLog(@"%lf",offsetY);
-//        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
-//        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-//
-//    }
+    if (self.collectionView) {
+//        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        CGFloat offsetY = self.collectionView.contentOffset.y ;
+        NSLog(@"%lf",offsetY);
+        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
+        [self haveHiddenAnimationWithAlpha:alpha
+                       navigationBarHidden:NO
+                                   offsetY:offsetY];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -91,15 +93,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [super viewDidDisappear:animated];
     if (_bannerView) {
         [_bannerView stopTimer];
-    }
-    
-    if (self.collectionView) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-        CGFloat offsetY = self.collectionView.contentOffset.y ;
-        NSLog(@"%lf",offsetY);
-        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
-        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-        
     }
 }
 
@@ -125,7 +118,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initCollectionView];
     [self.collectionView.header beginRefreshing];
-//    [self initCollectionView];
 }
 
 -(void)initData{
@@ -282,7 +274,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 [self.collectionView reloadData];
         self.collectionView.scrollEnabled = YES;
 
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO];
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];
         
     };
 }
@@ -361,7 +353,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 
                 Home *home = self.dataArray[1];
                 H5List *list = home.itemArray[selectedIndex];
-                [self pushTemplateDetailViewControllerWithTemplateId:list.id];
+                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
 //                NSLog(@"你选择第%ld张图片",selectedIndex);
 
             }];
@@ -466,7 +458,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
         H5List *h5 = home.itemArray[indexPath.row];
-        [self pushTemplateDetailViewControllerWithTemplateId:h5.id];
+        [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
     }
 
     NSLog(@"23");
@@ -496,7 +488,13 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
     if (indexPath.section == 0) {
         
-        return CGSizeMake(ScreenWidth, (ScreenWidth/3-102+19+5+9+5)*2);
+        CGFloat replenish = 0;
+        
+        if (ScreenWidth/3-102 < 23) {
+           
+            replenish = 20;
+        }
+        return CGSizeMake(ScreenWidth, (ScreenWidth/3-102+19+5+9+5+replenish)*2);
     }else if (indexPath.section == 1) {
         
        
@@ -553,20 +551,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
     [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
-//    [[LoginMannager sheardLoginMannager] logout];
-//    [[CacheManager shareCacheManager] clearAllCache];
     AppDelegate *app = ApplicationDelegate;
     app.tabBarController = nil;
     [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager] topViewController].view  withMessage:@"登录过期"];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:Notification_LogoutView object:nil];
-}
-
--(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
-    
-    TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
-    vc.template_id = template_ld;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setNavBar{
@@ -574,37 +562,32 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
     [self.navigationController.navigationBar addSubview:navBgView];
     self.navBgView = navBgView;
-//    [navBgView.layer addSublayer:[UIColor setGradualChangingColor:navBgView fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    
+    _layer = [CAGradientLayer layer];
     navBgView.backgroundColor = [UIColor clearColor];
     
-    UITextField *searchBtn = [[UITextField alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
-    searchBtn.centerX = self.view.centerX;
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
+    _searchBtn.centerX = self.view.centerX;
     
     UIColor *color = [UIColor whiteColor];
     
-    [searchBtn setBackgroundColor:[color colorWithAlphaComponent:1.0]];
-    
-    UILabel * leftView = [[UILabel alloc] initWithFrame:CGRectMake(10,0,20,26)];
-    leftView.backgroundColor = [UIColor clearColor];
-    searchBtn.leftView = leftView;
-    searchBtn.leftViewMode = UITextFieldViewModeAlways;
-    searchBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    searchBtn.layer.masksToBounds = YES;
-    searchBtn.layer.cornerRadius = searchBtn.frame.size.height/2;
-    searchBtn.placeholder = @"搜索感兴趣的H5/设计师/热点";
-    searchBtn.font = [UIFont systemFontOfSize:9];
-    //    self.navigationItem.titleView  = searchBtn;
-
-    [navBgView addSubview:searchBtn];
+    [_searchBtn setBackgroundColor:[color colorWithAlphaComponent:1.0]];
+    _searchBtn.layer.masksToBounds = YES;
+    _searchBtn.layer.cornerRadius = _searchBtn.frame.size.height/2;
+    [_searchBtn setTitle:@"搜索感兴趣的H5/设计师/热点" forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _searchBtn.titleLabel.font = [UIFont systemFontOfSize:9];
+    [_searchBtn setImage:[UIImage imageNamed:@"search_icon_serch"] forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(homeSearch) forControlEvents:UIControlEventTouchDown];
+    [navBgView addSubview:_searchBtn];
     
     //左面导航按钮
     UIButton *readerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loctionBtn = readerButton;
     readerButton.frame = CGRectMake(20, 0, 20 , 20 );
-    self.loctionBtn.centerY = searchBtn.centerY;
+    self.loctionBtn.centerY = _searchBtn.centerY;
 
     self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
-//    self.loctionLable.centerY = searchBtn.centerY;
     self.loctionLable.font = [UIFont systemFontOfSize:9];
     self.loctionLable .text = self.loctionString;
     [navBgView addSubview: self.loctionLable];
@@ -612,7 +595,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.messageBtn.frame = CGRectMake(ScreenWidth-20-19 , 0, 19 , 19 );
-    self.messageBtn.centerY = searchBtn.centerY;
+    self.messageBtn.centerY = _searchBtn.centerY;
     [self.messageBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchDown];
     
     JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.messageBtn alignment:JSBadgeViewAlignmentTopRight];
@@ -633,40 +616,35 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 #pragma mark HaveHiddenAnimation
         //begin
         
-        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-
+        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO offsetY:offsetY];
+        
     } else if(offsetY < 0){
 #pragma mark HaveHiddenAnimation
         
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:YES];
-
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:YES offsetY:offsetY];
+        
     }  else {
 #pragma mark HaveHiddenAnimation
         
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO];
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:offsetY];
     }
 }
 
--(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation{
+-(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation offsetY:(NSInteger)offsetY{
     
-    UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
     [self.navigationController setNavigationBarHidden:animation animated:NO];
-    if (animation) { //背景为黑色
+    if (offsetY<NAVBAR_CHANGE_POINT) { //icon为黑色
         
-        [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
-        [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
+        [self.loctionBtn setImage:[UIImage imageNamed:@"home_icon_locationblack"] forState:UIControlStateNormal];
+        [self.messageBtn setImage:[UIImage imageNamed:@"home_icon_remindblack"] forState:UIControlStateNormal];
     } else {
         
         [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
         [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
     }
     
-    [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
-}
-
--(void)gotoSearch{
-    
-    NSLog(@"dsds");
+    _layer = [UIColor setGradualChangingColor:self.navBgView fromColor:@"FFA5EC" toColor:@"DEA2FF" alpha:alpha gradientLayer:_layer];
+    [self.navBgView.layer insertSublayer:_layer atIndex:0];
 }
 
 -(void)loginOut{
@@ -750,6 +728,12 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
          }
          NSLog(@"netstate = %d",state);
      }];
+}
+
+-(void)homeSearch{
+    
+    [UIManager showVC:@"SearchViewController"];
+    NSLog(@"search");
 }
 
 

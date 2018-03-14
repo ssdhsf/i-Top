@@ -710,6 +710,35 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)commentListWithProductId:(NSString *)product_id
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/getcommentlist";
+    NSDictionary * parameters = @{@"id" : product_id,
+                                  @"PageIndex" : @(pageIndex),
+                                  @"PageCount" : @(pageCount)};
+
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _commentListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)homeBanner{
     
 //    SHOW_GET_DATA
@@ -767,7 +796,9 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)myProductListWithProductType:(MyProductType )Product_type
+- (void)myProductListWithProductType:(MyProductType )product_type
+                     checkStatusType:(CheckStatusType)checkStatusType
+                              isShow:(NSInteger )isShow
                            PageIndex:(NSInteger )pageIndex
                            PageCount:(NSInteger )pageCount{
     
@@ -776,8 +807,17 @@ _errorFailure(__id_obj); }
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
-    if (Product_type == MyProductTypeVideo || Product_type == MyProductTypeDefault ||Product_type == MyProductTypeScenario || Product_type == MyProductTypeSinglePage) {
-        [parameters setObject:@(Product_type) forKey:@"Product_type"];
+    if (product_type == MyProductTypeVideo || product_type == MyProductTypeDefault ||product_type == MyProductTypeScenario || product_type == MyProductTypeSinglePage) {
+        [parameters setObject:@(product_type) forKey:@"Product_type"];
+    }
+    if (checkStatusType == CheckStatusTypeOK || checkStatusType == CheckStatusTypeNoel || checkStatusType == CheckStatusTypeUnPass || checkStatusType == CheckStatusTypeOnCheck ) {
+        
+        [parameters setObject:@(checkStatusType) forKey:@"Check_status"];
+    }
+    
+    if (isShow == 0 || isShow == 1) {
+        
+        [parameters setObject:@(isShow) forKey:@"Show"];
     }
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
@@ -893,6 +933,77 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 
+}
+
+-(void)opinionCustomerServiceWithContent:(NSString *)content feedbackType:(FeedbackType)feedbackType{
+   
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    if (feedbackType == FeedbackTypeOpinion) {
+        
+        api = @"/api/userfeedback/add";
+    }else {
+        
+        api = @"/api/userfeedback/add";
+    }
+    
+    NSDictionary *parameters = @{@"Content" : content,};
+
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _customerServiceSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)deleteProductWithProductId:(NSString *)product_id{
+    
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    api = @"/api/product/delete";
+    
+    NSDictionary *parameters = @{@"id" : product_id,};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _deledeProductSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+
+    
+}
+
+-(void)messageList{
+    
+    
 }
 
 

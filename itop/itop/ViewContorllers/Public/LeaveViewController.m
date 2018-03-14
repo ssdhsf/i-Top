@@ -22,9 +22,10 @@ static NSString *const LeaveCellIdentifier = @"Leave";
 @interface LeaveViewController ()<LMJDropdownMenuDelegate>
 
 @property(nonatomic, strong)LeaveDataSource *leaveDataSouce;
-@property(nonatomic, strong)NSArray *dropdownItme;
+@property(nonatomic, strong)NSArray *dropdownItme; //下拉分类
 @property(nonatomic, assign)BOOL isManageMent;
 @property(nonatomic, assign)BOOL isDelete;
+@property (strong, nonatomic) LMJDropdownMenu * dropdownMenu;
 
 @end
 
@@ -37,6 +38,7 @@ static NSString *const LeaveCellIdentifier = @"Leave";
 
 -(void)initData{
     
+    [super initData];
     self.dropdownItme = @[@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席",@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席"];
     self.dataArray = [[LeaveStore shearLeaveStore]configurationMenuWithMenu:nil testString:self.dropdownItme[0]];
     _isManageMent = YES;
@@ -49,7 +51,6 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     [self hiddenNavigafindHairlineImageView:YES];
     [self hiddenNavigationController:NO];
     self.navigationController.navigationBar.translucent = NO;
-    
 }
 
 -(void)initNavigationBarItems{
@@ -84,11 +85,12 @@ static NSString *const LeaveCellIdentifier = @"Leave";
 
 -(void)steupDropdownMenu{
     
-    LMJDropdownMenu * dropdownMenu = [[LMJDropdownMenu alloc] init];
-    [dropdownMenu setFrame:CGRectMake(50, 30, ScreenWidth-100, 44)];
-    [dropdownMenu setMenuTitles:self.dropdownItme rowHeight:44];
-    dropdownMenu.delegate = self;
-    [self.view addSubview:dropdownMenu];
+    _dropdownMenu = [[LMJDropdownMenu alloc] init];
+    [_dropdownMenu setFrame:CGRectMake(50, 30, ScreenWidth-100, 44)];
+    [_dropdownMenu setMenuTitles:self.dropdownItme rowHeight:44];
+    _dropdownMenu.delegate = self;
+    [self.view addSubview:_dropdownMenu];
+   
 }
 
 - (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
@@ -212,5 +214,20 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     [self presentViewController:alertController animated:YES completion:nil];
     
 }
+
+- (void)dropdownMenuDidShow:(LMJDropdownMenu *)menu{
+    
+    self.tableView.scrollEnabled = NO;
+    self.tableView.allowsSelection = NO;
+
+}
+
+- (void)dropdownMenuWillHidden:(LMJDropdownMenu *)menu{
+
+    self.tableView.scrollEnabled = YES;
+    self.tableView.allowsSelection = YES;
+}
+
+
 
 @end

@@ -26,7 +26,31 @@ PODS:
   - Toast (2.4)
   - UIAlertView+Blocks (0.8.1)
   - UITextView+Placeholder (1.0.9)
-  - UMengAnalytics-NO-IDFA (4.2.5)
+  - UMCAnalytics (5.4.1):
+    - UMCCommon
+  - UMCCommon (1.4.1)
+  - UMCShare/Core (6.8.1):
+    - UMCCommon
+  - UMCShare/Social/QQ (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+    - UMCShare/Social/ReducedQQ
+  - UMCShare/Social/ReducedQQ (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedSina (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/ReducedWeChat (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+  - UMCShare/Social/Sina (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
+    - UMCShare/Social/ReducedSina
+  - UMCShare/UI (6.8.1):
+    - UMCCommon
+    - UMCShare/Core
   - WechatOpenSDK (1.8.0)
 
 DEPENDENCIES:
@@ -41,7 +65,11 @@ DEPENDENCIES:
   - Toast (~> 2.4)
   - UIAlertView+Blocks (~> 0.8.1)
   - UITextView+Placeholder (~> 1.0.6)
-  - UMengAnalytics-NO-IDFA
+  - UMCAnalytics
+  - UMCShare/Social/QQ
+  - UMCShare/Social/ReducedWeChat
+  - UMCShare/Social/Sina
+  - UMCShare/UI
   - WechatOpenSDK
 
 SPEC CHECKSUMS:
@@ -56,9 +84,11 @@ SPEC CHECKSUMS:
   Toast: 0773b8fc0e97352ca6054517bec7ebdd4110029d
   UIAlertView+Blocks: 45c3d3b7194906702d3e9a14c7ece5581505646d
   UITextView+Placeholder: 83895056749372c96febfb43f536c9b1aae3e08e
-  UMengAnalytics-NO-IDFA: 16666e32edce5be44ae5b14aaaa7f3582e09d6ab
+  UMCAnalytics: 44e0bb2f442b7aaf97d1c924b58798b612f2c13d
+  UMCCommon: ed0b882a939c45850f6803a5837698572a3e9b96
+  UMCShare: d63008fcea9b2e1e52bc62816b1611ee7d5af50e
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
 
-PODFILE CHECKSUM: bad042814e8af9eea35ef542405b7171fe2f9fab
+PODFILE CHECKSUM: 4930e255661e3607b5a6a02368b699cd6e0a9e25
 
 COCOAPODS: 1.1.1

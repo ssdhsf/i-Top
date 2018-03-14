@@ -20,15 +20,14 @@
     return store;
 }
 
-//一般用户
 -(NSMutableArray *)configurationSetupMenu{
     
     NSMutableArray *array = [NSMutableArray array];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"账号与安全" imageName:nil vcName:@"SecurityViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据通知与设置" imageName:nil vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据通知与设置" imageName:nil vcName:@"SetupPushViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关于i-Top" imageName:nil vcName:@"AboutItopViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"商务合作" imageName:nil vcName:@"AboutItopViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"联系客服" imageName:nil vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"联系客服" imageName:nil vcName:@"CustomerServiceViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"缓存清理" imageName:nil vcName:@""]];
     return array;
 }

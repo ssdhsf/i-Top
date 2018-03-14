@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
+    NoDataTypeDefult = 0,  //默认
+    NoDataTypeProduct = 1, //作品
+    NoDataTypeMessage ,//消息
+    NoDataTypeBusiness,//业务
+    NoDataTypeLacation//位置
+};
+
 @interface BaseViewController : UIViewController
 
 @property (nonatomic, assign) BOOL hasData;

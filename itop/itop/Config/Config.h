@@ -34,9 +34,21 @@
 
 // 百度地图 (baidu)
 #define AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
+
 // WeChat
 #define WECHAT_APP_ID     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appId"]
 #define WECHAT_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appSecret"]
+
+// Tencent
+#define TENCENT_APP_ID    CONFIG_DICTIONARY[@"Tencent"][@"appId"]
+
+// Sina
+#define SINA_APP_ID         CONFIG_DICTIONARY[@"Sina"][@"appId"]
+#define SINA_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][@"appSecret"]
+
+//searchList
+#define SEARCH_LIST     @"Search_list"
+
 
 // 触发token自动更新的剩余有效时长，默认2小时
 #define kTokenValidTime 7200

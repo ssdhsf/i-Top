@@ -106,6 +106,14 @@
  */
 +(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;
 
+
+/**
+ *  入驻状态
+ *
+ *  @param product_id //分享作品的id
+ */
++(void)shearProductWithProductId:(NSString *)product_id;
+
 /**
  *  入驻状态
  *
@@ -113,6 +121,26 @@
  */
 +(void)protocolWithProtocolType:(ProtocolType)protocolType;
 
+/**
+ *  预览H5
+ *
+ *  @param template_ld H5  id
+ */
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld;
+
+/**
+ *  联系客服／意见反馈公用
+ *
+ *  @param type //联系客服／意见反馈
+ */
++(void)customerServiceAndFeedbackWithTitle:(NSString *)type;
+
+/**
+ *  生成二维码
+ *
+ *  @param link 链接
+ */
++(void)qrCodeViewControllerWithCode:(NSString *)link;
 /**
  *  获取当前导航栏
  *

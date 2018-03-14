@@ -8,7 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^SelectShearItemBlock)(NSInteger tag);
+
 @interface ShearViewManager : NSObject
+
+@property (nonatomic, copy)SelectShearItemBlock selectShearItme;
 
 + (instancetype)sharedShearViewManager;
 

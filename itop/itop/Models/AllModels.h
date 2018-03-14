@@ -38,5 +38,6 @@
 #import "SpecialityTag.h"
 #import "OtherInfo.h"
 #import "Marketing.h"
+#import "Message.h"
 
 #endif /* AllModels_h */

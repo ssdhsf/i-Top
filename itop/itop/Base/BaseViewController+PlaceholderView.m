@@ -10,13 +10,46 @@
 
 @implementation BaseViewController (PlaceholderView)
 
-- (void)setHasData:(BOOL)hasData andFrame:(CGRect)frame{
+
+-(void)setHasData:(BOOL)hasData{
+    
+    
+    self setisHasData:hasData noDataType:<#(NoDataType)#> andFrame:(CGRect)
+}
+
+- (void)setisHasData:(BOOL)isHasData
+          noDataType:(NoDataType)noDataType
+            andFrame:(CGRect)frame{
     
     if (!self.hideView) {
         self.hideView = [[UIView alloc] initWithFrame:frame];
         self.hideView.tag=1;
         [self.view addSubview:self.hideView];
-        self.showImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noDataBG"]];
+        self.showImg = [[UIImageView alloc] init];
+        
+        switch (noDataType) {
+            case NoDataTypeDefult:
+                self.showImg.image =  [UIImage imageNamed:@"nothing"];
+                break;
+            case NoDataTypeProduct:
+                self.showImg.image =  [UIImage imageNamed:@"noproduction"];
+                break;
+
+            case NoDataTypeMessage:
+                self.showImg.image =  [UIImage imageNamed:@"nomassage"];
+                break;
+
+            case NoDataTypeBusiness:
+                self.showImg.image =  [UIImage imageNamed:@"nobusiness"];
+                break;
+                
+            case NoDataTypeLacation:
+                self.showImg.image =  [UIImage imageNamed:@"nolacation"];
+                break;
+                
+            default:
+                break;
+        }
         self.showImg.frame = CGRectMake(40, 40, ScreenWidth-80, 130);
         
         self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 170, ScreenWidth-80, 90)];
@@ -39,15 +72,15 @@
         self.tipsLab.font = [UIFont systemFontOfSize:19];
         [self.hideView addSubview:self.tipsLab];
         [self.hideView addSubview:self.showImg];
-        self.hideView.hidden = hasData;
-        self.showImg.hidden = hasData;
-        self.tipsLab.hidden = hasData;
+        self.hideView.hidden = isHasData;
+        self.showImg.hidden = isHasData;
+        self.tipsLab.hidden = isHasData;
     } else {
         
         [self.view addSubview:self.hideView];
-        self.hideView.hidden = hasData;
-        self.showImg.hidden = hasData;
-        self.tipsLab.hidden = hasData;
+        self.hideView.hidden = isHasData;
+        self.showImg.hidden = isHasData;
+        self.tipsLab.hidden = isHasData;
     }
 }
 

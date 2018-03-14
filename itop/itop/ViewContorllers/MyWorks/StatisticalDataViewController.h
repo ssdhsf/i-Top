@@ -8,6 +8,6 @@
 
 #import "BaseTableViewController.h"
 
-@interface StatisticalDataViewController : BaseTableViewController
+@interface StatisticalDataViewController : BaseViewController
 
 @end

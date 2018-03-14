@@ -119,7 +119,16 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];
-    [UIManager showVC:info.nextVcName];
+    
+    if ([info.myInfoTitle isEqualToString:@"意见反馈"]){
+        
+        [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
+        
+    } else {
+        
+        [UIManager showVC:info.nextVcName];
+    }
+    
 }
 
 -(void)nextBaseInfomationVc{

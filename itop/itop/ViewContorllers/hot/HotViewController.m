@@ -68,7 +68,6 @@ static NSString *const HotCellIdentifier = @"Hot";
 
 -(void)initNavigationBarItems{
     
-//    self.title = @"热点";
     [self setLeftBarItemString:@"" action:nil];
 }
 

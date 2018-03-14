@@ -10,4 +10,5 @@
 
 @interface CustomerServiceViewController : BaseViewController
 
+@property (strong, nonatomic)NSString *titel;
 @end

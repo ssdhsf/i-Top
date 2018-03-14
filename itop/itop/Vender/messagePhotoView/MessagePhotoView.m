@@ -210,7 +210,7 @@
         }
         
         if (![self JudgeAppWhetherAccessCamera]) {
-            [self tipsUserOperationMessage:[NSString stringWithFormat:@"相机访问受限\n请打开设置-隐私－相机,允许习讯访问你的相机。"]];
+            [self tipsUserOperationMessage:[NSString stringWithFormat:@"相机访问受限\n请打开设置-隐私－相机,允许i-Top访问您的相机。"]];
         }
     
     }else{

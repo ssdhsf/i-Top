@@ -11,6 +11,8 @@
 @interface MyWorksStore : NSObject
 
 + (instancetype)shearMyWorksStore;
+
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
+- (NSMutableArray *)commentsListDropdownMenuConfigurationMenuWithMenu:(NSArray *)menu;
 
 @end

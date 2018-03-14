@@ -7,6 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
+		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
+		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
+		772F957F20523BA800F432D2 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F957D20523BA800F432D2 /* SearchViewController.m */; };
+		772F958020523BA800F432D2 /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F957E20523BA800F432D2 /* SearchViewController.xib */; };
+		772F95842054C17C00F432D2 /* MessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95822054C17C00F432D2 /* MessageViewController.m */; };
+		772F95852054C17C00F432D2 /* MessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95832054C17C00F432D2 /* MessageViewController.xib */; };
+		772F95892054C23C00F432D2 /* MessageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95872054C23C00F432D2 /* MessageTableViewCell.m */; };
+		772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95882054C23C00F432D2 /* MessageTableViewCell.xib */; };
+		772F958D2054D0E500F432D2 /* Message.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F958C2054D0E500F432D2 /* Message.m */; };
+		772F95902054D2CF00F432D2 /* MessageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F958F2054D2CF00F432D2 /* MessageStore.m */; };
+		772F95932054D36A00F432D2 /* MessageDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95922054D36A00F432D2 /* MessageDataSource.m */; };
+		772F95972055661100F432D2 /* SetupPushViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95952055661100F432D2 /* SetupPushViewController.m */; };
+		772F95982055661200F432D2 /* SetupPushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95962055661100F432D2 /* SetupPushViewController.xib */; };
+		772F959C2056206A00F432D2 /* SetupProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F959A2056206A00F432D2 /* SetupProductViewController.m */; };
+		772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F959B2056206A00F432D2 /* SetupProductViewController.xib */; };
+		772F95A120567E1500F432D2 /* QrCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F959F20567E1500F432D2 /* QrCodeViewController.m */; };
+		772F95A220567E1500F432D2 /* QrCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95A020567E1500F432D2 /* QrCodeViewController.xib */; };
+		772F95A62058C76700F432D2 /* CommentListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95A42058C76700F432D2 /* CommentListViewController.m */; };
+		772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95A52058C76700F432D2 /* CommentListViewController.xib */; };
+		772F95AB20590C1600F432D2 /* CommentListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95A920590C1600F432D2 /* CommentListTableViewCell.m */; };
+		772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95AA20590C1600F432D2 /* CommentListTableViewCell.xib */; };
+		772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95AE20590D8B00F432D2 /* CommentListStore.m */; };
+		772F95B220590DC400F432D2 /* CommentListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95B120590DC400F432D2 /* CommentListDataSource.m */; };
 		77369C9E200EEB740092AEAC /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77369C9D200EEB740092AEAC /* Config.plist */; };
 		77369CA1200EF53A0092AEAC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 77369CA0200EF53A0092AEAC /* Global.m */; };
 		77369CA5200F04330092AEAC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77369CA4200F04330092AEAC /* CoreTelephony.framework */; };
@@ -291,7 +315,7 @@
 		77F078A82046A4CB004C0596 /* MarketingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078A72046A4CB004C0596 /* MarketingDataSource.m */; };
 		77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078AA2046A61F004C0596 /* MarketingStore.m */; };
 		77F078AE2046A7CE004C0596 /* Marketing.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078AD2046A7CE004C0596 /* Marketing.m */; };
-		9F57E04DBB7098134FB4B769 /* libPods-itop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 540474A6AD60E053F739E42E /* libPods-itop.a */; };
+		93EE521CC76739AB8BAEF72A /* libPods-itop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4F896C20E3CF680A8B738B /* libPods-itop.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -325,8 +349,46 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		540474A6AD60E053F739E42E /* libPods-itop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-itop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F4F896C20E3CF680A8B738B /* libPods-itop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-itop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A538600B333827AA61CE679 /* Pods-itop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.release.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.release.xcconfig"; sourceTree = "<group>"; };
+		772F95752050023100F432D2 /* AppDelegate+UmenShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UmenShear.h"; sourceTree = "<group>"; };
+		772F95762050023100F432D2 /* AppDelegate+UmenShear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UmenShear.m"; sourceTree = "<group>"; };
+		772F957820503D4800F432D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		772F957A20503D5900F432D2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		772F957C20523BA800F432D2 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		772F957D20523BA800F432D2 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		772F957E20523BA800F432D2 /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchViewController.xib; sourceTree = "<group>"; };
+		772F95812054C17C00F432D2 /* MessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageViewController.h; sourceTree = "<group>"; };
+		772F95822054C17C00F432D2 /* MessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageViewController.m; sourceTree = "<group>"; };
+		772F95832054C17C00F432D2 /* MessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageViewController.xib; sourceTree = "<group>"; };
+		772F95862054C23C00F432D2 /* MessageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewCell.h; sourceTree = "<group>"; };
+		772F95872054C23C00F432D2 /* MessageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewCell.m; sourceTree = "<group>"; };
+		772F95882054C23C00F432D2 /* MessageTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageTableViewCell.xib; sourceTree = "<group>"; };
+		772F958B2054D0E500F432D2 /* Message.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Message.h; sourceTree = "<group>"; };
+		772F958C2054D0E500F432D2 /* Message.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Message.m; sourceTree = "<group>"; };
+		772F958E2054D2CF00F432D2 /* MessageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageStore.h; sourceTree = "<group>"; };
+		772F958F2054D2CF00F432D2 /* MessageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageStore.m; sourceTree = "<group>"; };
+		772F95912054D36A00F432D2 /* MessageDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageDataSource.h; sourceTree = "<group>"; };
+		772F95922054D36A00F432D2 /* MessageDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageDataSource.m; sourceTree = "<group>"; };
+		772F95942055661100F432D2 /* SetupPushViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupPushViewController.h; sourceTree = "<group>"; };
+		772F95952055661100F432D2 /* SetupPushViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupPushViewController.m; sourceTree = "<group>"; };
+		772F95962055661100F432D2 /* SetupPushViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupPushViewController.xib; sourceTree = "<group>"; };
+		772F95992056206A00F432D2 /* SetupProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetupProductViewController.h; sourceTree = "<group>"; };
+		772F959A2056206A00F432D2 /* SetupProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetupProductViewController.m; sourceTree = "<group>"; };
+		772F959B2056206A00F432D2 /* SetupProductViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetupProductViewController.xib; sourceTree = "<group>"; };
+		772F959E20567E1500F432D2 /* QrCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QrCodeViewController.h; sourceTree = "<group>"; };
+		772F959F20567E1500F432D2 /* QrCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QrCodeViewController.m; sourceTree = "<group>"; };
+		772F95A020567E1500F432D2 /* QrCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QrCodeViewController.xib; sourceTree = "<group>"; };
+		772F95A32058C76700F432D2 /* CommentListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommentListViewController.h; path = ../MyWorks/CommentListViewController.h; sourceTree = "<group>"; };
+		772F95A42058C76700F432D2 /* CommentListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CommentListViewController.m; path = ../MyWorks/CommentListViewController.m; sourceTree = "<group>"; };
+		772F95A52058C76700F432D2 /* CommentListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CommentListViewController.xib; path = ../MyWorks/CommentListViewController.xib; sourceTree = "<group>"; };
+		772F95A820590C1600F432D2 /* CommentListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListTableViewCell.h; sourceTree = "<group>"; };
+		772F95A920590C1600F432D2 /* CommentListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListTableViewCell.m; sourceTree = "<group>"; };
+		772F95AA20590C1600F432D2 /* CommentListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentListTableViewCell.xib; sourceTree = "<group>"; };
+		772F95AD20590D8B00F432D2 /* CommentListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListStore.h; sourceTree = "<group>"; };
+		772F95AE20590D8B00F432D2 /* CommentListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListStore.m; sourceTree = "<group>"; };
+		772F95B020590DC400F432D2 /* CommentListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListDataSource.h; sourceTree = "<group>"; };
+		772F95B120590DC400F432D2 /* CommentListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListDataSource.m; sourceTree = "<group>"; };
 		77369C9D200EEB740092AEAC /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		77369C9F200EF53A0092AEAC /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		77369CA0200EF53A0092AEAC /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
@@ -842,11 +904,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */,
+				772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */,
 				77E00A6A20174F40004BBD49 /* CFNetwork.framework in Frameworks */,
 				77369CA9200F04660092AEAC /* libsqlite3.0.tbd in Frameworks */,
 				77369CA7200F04510092AEAC /* libz.tbd in Frameworks */,
 				77369CA5200F04330092AEAC /* CoreTelephony.framework in Frameworks */,
-				9F57E04DBB7098134FB4B769 /* libPods-itop.a in Frameworks */,
+				93EE521CC76739AB8BAEF72A /* libPods-itop.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -870,13 +934,15 @@
 		5C030D0642A933C51717E84C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				772F957A20503D5900F432D2 /* libsqlite3.tbd */,
+				772F957820503D4800F432D2 /* CoreGraphics.framework */,
 				77E00A6920174F40004BBD49 /* CFNetwork.framework */,
 				77E8A8B22015E18700E253CC /* Charts.framework */,
 				77369CA8200F04660092AEAC /* libsqlite3.0.tbd */,
 				77369CA6200F04510092AEAC /* libz.tbd */,
 				77369CA4200F04330092AEAC /* CoreTelephony.framework */,
 				77369CA2200F03F70092AEAC /* MobileCoreServices.framework */,
-				540474A6AD60E053F739E42E /* libPods-itop.a */,
+				3F4F896C20E3CF680A8B738B /* libPods-itop.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -976,6 +1042,18 @@
 				774B880F204FC2BA00F602E3 /* ShearViewController.h */,
 				774B8810204FC2BA00F602E3 /* ShearViewController.m */,
 				774B8811204FC2BA00F602E3 /* ShearViewController.xib */,
+				772F95812054C17C00F432D2 /* MessageViewController.h */,
+				772F95822054C17C00F432D2 /* MessageViewController.m */,
+				772F95832054C17C00F432D2 /* MessageViewController.xib */,
+				772F95862054C23C00F432D2 /* MessageTableViewCell.h */,
+				772F95872054C23C00F432D2 /* MessageTableViewCell.m */,
+				772F95882054C23C00F432D2 /* MessageTableViewCell.xib */,
+				772F95A32058C76700F432D2 /* CommentListViewController.h */,
+				772F95A42058C76700F432D2 /* CommentListViewController.m */,
+				772F95A52058C76700F432D2 /* CommentListViewController.xib */,
+				772F95A820590C1600F432D2 /* CommentListTableViewCell.h */,
+				772F95A920590C1600F432D2 /* CommentListTableViewCell.m */,
+				772F95AA20590C1600F432D2 /* CommentListTableViewCell.xib */,
 			);
 			path = MyInfomation;
 			sourceTree = "<group>";
@@ -994,6 +1072,12 @@
 				77E8A8972015893200E253CC /* StatisticalDataCell.xib */,
 				77E00A5F2016C938004BBD49 /* PointItem.h */,
 				77E00A602016C938004BBD49 /* PointItem.m */,
+				772F95992056206A00F432D2 /* SetupProductViewController.h */,
+				772F959A2056206A00F432D2 /* SetupProductViewController.m */,
+				772F959B2056206A00F432D2 /* SetupProductViewController.xib */,
+				772F959E20567E1500F432D2 /* QrCodeViewController.h */,
+				772F959F20567E1500F432D2 /* QrCodeViewController.m */,
+				772F95A020567E1500F432D2 /* QrCodeViewController.xib */,
 			);
 			path = MyWorks;
 			sourceTree = "<group>";
@@ -1291,6 +1375,8 @@
 				77723A43203EF219006294E8 /* SpecialityTag.m */,
 				77F078AC2046A7CE004C0596 /* Marketing.h */,
 				77F078AD2046A7CE004C0596 /* Marketing.m */,
+				772F958B2054D0E500F432D2 /* Message.h */,
+				772F958C2054D0E500F432D2 /* Message.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1332,6 +1418,10 @@
 				77F078AA2046A61F004C0596 /* MarketingStore.m */,
 				77C07F8C204D3A7300D77DBD /* SetupHomeStore.h */,
 				77C07F8D204D3A7300D77DBD /* SetupHomeStore.m */,
+				772F958E2054D2CF00F432D2 /* MessageStore.h */,
+				772F958F2054D2CF00F432D2 /* MessageStore.m */,
+				772F95AD20590D8B00F432D2 /* CommentListStore.h */,
+				772F95AE20590D8B00F432D2 /* CommentListStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1496,6 +1586,8 @@
 				777AF1AA200D9686009729AD /* InterfaceBase */,
 				777D5170200CC52700CB2A8A /* AppDelegate.h */,
 				777D5171200CC52700CB2A8A /* AppDelegate.m */,
+				772F95752050023100F432D2 /* AppDelegate+UmenShear.h */,
+				772F95762050023100F432D2 /* AppDelegate+UmenShear.m */,
 				77369CE4200F987F0092AEAC /* AppDelegate+WeChat.h */,
 				77369CE5200F987F0092AEAC /* AppDelegate+WeChat.m */,
 				777D5173200CC52700CB2A8A /* ViewController.h */,
@@ -1565,6 +1657,9 @@
 				7777E55A2029F17F008FA348 /* LeaveDateilCell.h */,
 				7777E55B2029F17F008FA348 /* LeaveDateilCell.m */,
 				7777E55C2029F17F008FA348 /* LeaveDateilCell.xib */,
+				772F957C20523BA800F432D2 /* SearchViewController.h */,
+				772F957D20523BA800F432D2 /* SearchViewController.m */,
+				772F957E20523BA800F432D2 /* SearchViewController.xib */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1603,6 +1698,9 @@
 				774B87E7204E43AC00F602E3 /* AboutItopViewController.h */,
 				774B87E8204E43AC00F602E3 /* AboutItopViewController.m */,
 				774B87E9204E43AC00F602E3 /* AboutItopViewController.xib */,
+				772F95942055661100F432D2 /* SetupPushViewController.h */,
+				772F95952055661100F432D2 /* SetupPushViewController.m */,
+				772F95962055661100F432D2 /* SetupPushViewController.xib */,
 			);
 			path = Setup;
 			sourceTree = "<group>";
@@ -1649,6 +1747,10 @@
 				77F078A72046A4CB004C0596 /* MarketingDataSource.m */,
 				77C07F8F204D3A9B00D77DBD /* SetupHomeDataSource.h */,
 				77C07F90204D3A9B00D77DBD /* SetupHomeDataSource.m */,
+				772F95912054D36A00F432D2 /* MessageDataSource.h */,
+				772F95922054D36A00F432D2 /* MessageDataSource.m */,
+				772F95B020590DC400F432D2 /* CommentListDataSource.h */,
+				772F95B120590DC400F432D2 /* CommentListDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -1853,6 +1955,7 @@
 				77723AB42043BB42006294E8 /* 2.png in Resources */,
 				774B8813204FC2BA00F602E3 /* ShearViewController.xib in Resources */,
 				77C07F96204D573300D77DBD /* BindPhoneViewController.xib in Resources */,
+				772F95982055661200F432D2 /* SetupPushViewController.xib in Resources */,
 				77369CD3200F52AF0092AEAC /* HotViewController.xib in Resources */,
 				77723ABE2043BB42006294E8 /* fanhui.png in Resources */,
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
@@ -1866,6 +1969,7 @@
 				77723AB72043BB42006294E8 /* AssetsPickerChecked@2x.png in Resources */,
 				77723AB62043BB42006294E8 /* addImage.png in Resources */,
 				77F078A020464A79004C0596 /* MarketingViewController.xib in Resources */,
+				772F95A220567E1500F432D2 /* QrCodeViewController.xib in Resources */,
 				77C07F7E204C2BF400D77DBD /* SecurityViewController.xib in Resources */,
 				777D517D200CC52700CB2A8A /* LaunchScreen.storyboard in Resources */,
 				77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */,
@@ -1902,7 +2006,10 @@
 				77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */,
 				77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */,
 				7777E55E2029F17F008FA348 /* LeaveDateilCell.xib in Resources */,
+				772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */,
 				77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */,
+				772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */,
+				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
@@ -1913,7 +2020,10 @@
 				775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */,
 				77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
+				772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */,
+				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
+				772F95852054C17C00F432D2 /* MessageViewController.xib in Resources */,
 				77369CE3200F546E0092AEAC /* LoginViewController.xib in Resources */,
 				77E8A894201580D100E253CC /* StatisticalDataViewController.xib in Resources */,
 				77484A802020478000BAC567 /* RecommendedTableViewCell.xib in Resources */,
@@ -1993,6 +2103,7 @@
 				775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */,
 				77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */,
 				774B87E5204D7ADD00F602E3 /* ChangePasswordViewController.m in Sources */,
+				772F95932054D36A00F432D2 /* MessageDataSource.m in Sources */,
 				77E8A88920136B9A00E253CC /* registeredViewController.m in Sources */,
 				77484AB42022111D00BAC567 /* MyWorksStore.m in Sources */,
 				77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */,
@@ -2002,6 +2113,7 @@
 				77484A932020BD3300BAC567 /* HotDetailsViewController.m in Sources */,
 				7792B733201F3C7C00587399 /* DesignerInfoViewController.m in Sources */,
 				77DA8344201974C100E7CB36 /* H5ListViewController.m in Sources */,
+				772F95A120567E1500F432D2 /* QrCodeViewController.m in Sources */,
 				777D5175200CC52700CB2A8A /* ViewController.m in Sources */,
 				77E8A8822011DCB000E253CC /* ViewController+MASAdditions.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
@@ -2011,12 +2123,14 @@
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
 				77723AEE2043BBB2006294E8 /* UIView+MSSLayout.m in Sources */,
 				77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */,
+				772F957F20523BA800F432D2 /* SearchViewController.m in Sources */,
 				77484AC32023200B00BAC567 /* UINavigationBar+Awesome.m in Sources */,
 				77723AEC2043BBB2006294E8 /* MSSBrowseZoomScrollView.m in Sources */,
 				77E8A893201580D100E253CC /* StatisticalDataViewController.m in Sources */,
 				77C07F81204CF00A00D77DBD /* DesignerSigningStore.m in Sources */,
 				77CE7C8B202B14290067D284 /* Province.m in Sources */,
 				77F078A82046A4CB004C0596 /* MarketingDataSource.m in Sources */,
+				772F95972055661100F432D2 /* SetupPushViewController.m in Sources */,
 				77723B0E2043CC77006294E8 /* CDRTranslucentSideBar.m in Sources */,
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
@@ -2040,6 +2154,7 @@
 				777AF1DA200E3C15009729AD /* OSHelper.m in Sources */,
 				77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */,
 				7792B723201C245900587399 /* HomeHeaderView.m in Sources */,
+				772F958D2054D0E500F432D2 /* Message.m in Sources */,
 				77723AE42043BBB2006294E8 /* MSSBrowseActionSheetCell.m in Sources */,
 				77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */,
 				77DA83532019796B00E7CB36 /* H5ListStore.m in Sources */,
@@ -2076,6 +2191,7 @@
 				775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */,
 				77B86FED202861C00096FB28 /* LeaveViewController.m in Sources */,
 				77484A9F2021914300BAC567 /* HotDetails.m in Sources */,
+				772F95B220590DC400F432D2 /* CommentListDataSource.m in Sources */,
 				77723AE32043BBB2006294E8 /* MSSBrowseActionSheet.m in Sources */,
 				77484A86202054D800BAC567 /* RecommendedDataSource.m in Sources */,
 				77E8A85820119C3200E253CC /* ThemeCustom.m in Sources */,
@@ -2095,6 +2211,7 @@
 				77B2F47A2010AEE100EF4119 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */,
 				77DA83502019793C00E7CB36 /* H5ListDataSource.m in Sources */,
+				772F959C2056206A00F432D2 /* SetupProductViewController.m in Sources */,
 				775E31C620201822002107DD /* HotTableViewCell.m in Sources */,
 				77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */,
 				77484A982020BDB900BAC567 /* HotDetailsCell.m in Sources */,
@@ -2109,6 +2226,7 @@
 				77B2F4772010AE8000EF4119 /* WXMediaMessage+messageConstruct.m in Sources */,
 				77E8A87E2011DCB000E253CC /* MASViewConstraint.m in Sources */,
 				77CE7C82202AEC0C0067D284 /* Infomation.m in Sources */,
+				772F95842054C17C00F432D2 /* MessageViewController.m in Sources */,
 				77E00A65201705CA004BBD49 /* SegmentTapView.m in Sources */,
 				7792B71D201ACF7900587399 /* HomeStore.m in Sources */,
 				77484A7A2020473E00BAC567 /* RecommendedViewController.m in Sources */,
@@ -2118,6 +2236,7 @@
 				77369CD7200F530F0092AEAC /* MyInfomationViewController.m in Sources */,
 				77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */,
 				777AF1D4200E0B8C009729AD /* UserInfomation.m in Sources */,
+				772F95A62058C76700F432D2 /* CommentListViewController.m in Sources */,
 				777AF1CD200DFCEB009729AD /* ThemeNavigationController.m in Sources */,
 				77723A412033E1AD006294E8 /* YZTagList.m in Sources */,
 				77369CAD200F04BF0092AEAC /* BaseViewController.m in Sources */,
@@ -2128,6 +2247,7 @@
 				77DA834D2019789400E7CB36 /* H5List.m in Sources */,
 				77484AD2202403C600BAC567 /* MyTabBarController.m in Sources */,
 				7792B720201AF89700587399 /* Home.m in Sources */,
+				772F95AB20590C1600F432D2 /* CommentListTableViewCell.m in Sources */,
 				7777E55D2029F17F008FA348 /* LeaveDateilCell.m in Sources */,
 				77E8A87A2011DCB000E253CC /* MASConstraint.m in Sources */,
 				77369CE6200F987F0092AEAC /* AppDelegate+WeChat.m in Sources */,
@@ -2157,10 +2277,12 @@
 				77826B9C2019DC7A00F53E28 /* MyInfomationDataSource.m in Sources */,
 				77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */,
 				7792B71A201ACED800587399 /* HomeDataSource.m in Sources */,
+				772F95902054D2CF00F432D2 /* MessageStore.m in Sources */,
 				77369CA1200EF53A0092AEAC /* Global.m in Sources */,
 				77484AD3202403C600BAC567 /* MyTabBar.m in Sources */,
 				77CE7C79202AEB570067D284 /* InfomationDataSource.m in Sources */,
 				77723AE92043BBB2006294E8 /* MSSBrowseModel.m in Sources */,
+				772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */,
 				7777E56A202AE058008FA348 /* HomeSectionHeaderView.m in Sources */,
 				77DA833620187EEB00E7CB36 /* DesignerListViewCollectionViewCell.m in Sources */,
 				774B8812204FC2BA00F602E3 /* ShearViewController.m in Sources */,
@@ -2169,6 +2291,7 @@
 				77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */,
 				77723AC42043BB42006294E8 /* ZYQAssetPickerController.m in Sources */,
 				77848AF2202EE3C300C0CCD2 /* UserProduct.m in Sources */,
+				772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */,
 				77826BA22019E83A00F53E28 /* MyInfomationSectionHeaderView.m in Sources */,
 				77484AE0202556BC00BAC567 /* DesignerInfo.m in Sources */,
 				777AF1CE200DFCEB009729AD /* PYNavigationController.m in Sources */,
@@ -2187,6 +2310,7 @@
 				77484AA2202192E200BAC567 /* Article.m in Sources */,
 				77369CDC200F536C0092AEAC /* MyWorksViewCotroller.m in Sources */,
 				77E8A8812011DCB000E253CC /* View+MASAdditions.m in Sources */,
+				772F95892054C23C00F432D2 /* MessageTableViewCell.m in Sources */,
 				77E8A8542011997800E253CC /* ThemeCustomViewCollectionViewCell.m in Sources */,
 				77A436A3204533DD00620F58 /* OtherInfo.m in Sources */,
 				77369CCD200F52810092AEAC /* HomeViewController.m in Sources */,

@@ -24,8 +24,8 @@
     self.commentsLabel.text = recommended.comment_count;
     
     UIImageView *view = [UIImageView new];
-    [view sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:nil];
-    self.hotImage.image = view.image;
+    [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:nil];
+//    self.hotImage.image = view.image;
 //    self.hotImage.image = [UIImage imageNamed:recommended.cover_img];
 }
 

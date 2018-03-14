@@ -93,6 +93,10 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     if ([info.myInfoTitle isEqualToString:@"缓存清理"]) {
         
         [self touchCleanCache];
+    } else if ([info.myInfoTitle isEqualToString:@"联系客服"]){
+        
+        [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
+        
     }else {
         
         [UIManager showVC:info.nextVcName];

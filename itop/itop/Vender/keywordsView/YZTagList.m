@@ -98,73 +98,105 @@ CGFloat const imageViewWH = 20;
 
 #pragma mark - 操作标签方法
 // 添加多个标签
-- (void)addTags:(NSArray *)tagStrs
-{
-    if (self.frame.size.width == 0) {
-        @throw [NSException exceptionWithName:@"YZError" reason:@"先设置标签列表的frame" userInfo:nil];
-    }
+//- (void)addTags:(NSArray *)tagStrs action:(SEL)action
+//{
+//    if (self.frame.size.width == 0) {
+//        @throw [NSException exceptionWithName:@"YZError" reason:@"先设置标签列表的frame" userInfo:nil];
+//    }
+//    
+//    for (SpecialityTag *tagStr in tagStrs) {
+//        [self addTag:tagStr action:action];
+//    }
+//}
+
+// 添加标签
+- (void)addFieldTag:(NSArray *)tagArray action:(SEL)action{
     
-    for (SpecialityTag *tagStr in tagStrs) {
-        [self addTag:tagStr];
+    for (SpecialityTag *tagStr in tagArray) {
+        Class tagClass = _tagClass?_tagClass : [YZTagButton class];
+        
+        // 创建标签按钮
+        YZTagButton *tagButton = [tagClass buttonWithType:UIButtonTypeCustom];
+        if (_tagClass == nil) {
+            tagButton.margin = _tagButtonMargin;
+        }
+        
+        tagButton.layer.cornerRadius = 0;
+        if ([tagStr.tag isEqualToString:@"最多选3个"] || tagStr.selecteTag == YES) {
+            
+            tagButton.layer.borderWidth = 0;
+        } else {
+            
+            tagButton.layer.borderWidth = _borderWidth;
+        }
+        
+        tagButton.selected = tagStr.selecteTag;
+        if (tagStr.selecteTag == YES) {
+            
+            [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [tagButton setBackgroundColor:UIColorFromRGB(0xcbedfb)];
+            
+        }else {
+            
+            [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
+            [tagButton setBackgroundColor:_tagBackgroundColor];
+            
+        }
+
+        // 保存到字典
+        [self.tags setObject:tagButton forKey:tagStr];
+        [self.tagArray addObject:tagStr];
+        [self generalSetupWithButton:tagButton action:action tag:tagStr.tag];
     }
 }
+
+
 // 添加标签
-- (void)addTag:(SpecialityTag *)tagStr
+- (void)addSearchListTag:(NSArray *)tagList action:(SEL)action
 {
-    Class tagClass = _tagClass?_tagClass : [YZTagButton class];
-  
-    // 创建标签按钮
-    YZTagButton *tagButton = [tagClass buttonWithType:UIButtonTypeCustom];
-    if (_tagClass == nil) {
-        tagButton.margin = _tagButtonMargin;
-    }
     
-    tagButton.layer.cornerRadius = 0;
-    if ([tagStr.tag isEqualToString:@"最多选3个"] || tagStr.selecteTag == YES) {
+    for (NSString *tag in tagList) {
         
-        tagButton.layer.borderWidth = 0;
-    } else {
+        Class tagClass = _tagClass?_tagClass : [YZTagButton class];
         
-        tagButton.layer.borderWidth = _borderWidth;
+        // 创建标签按钮
+        YZTagButton *tagButton = [tagClass buttonWithType:UIButtonTypeCustom];
+        if (_tagClass == nil) {
+            tagButton.margin = _tagButtonMargin;
+        }
+        
+        tagButton.layer.cornerRadius = 0;
+        [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
+        [tagButton setBackgroundColor:_tagBackgroundColor];
+        [self generalSetupWithButton:tagButton action:action tag:tag];
     }
+}
+
+-(void)generalSetupWithButton:(UIButton *)tagButton action:(SEL)action tag:(NSString *)tag{
     
-    tagButton.selected = tagStr.selecteTag;
     tagButton.layer.borderColor = _borderColor.CGColor;
     tagButton.clipsToBounds = YES;
     tagButton.tag = self.tagButtons.count;
     [tagButton setImage:_tagDeleteimage forState:UIControlStateNormal];
-    [tagButton setTitle:tagStr.tag forState:UIControlStateNormal];
-    
-    if (tagStr.selecteTag == YES) {
-        
-        [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [tagButton setBackgroundColor:UIColorFromRGB(0xcbedfb)];
-
-    }else {
-        
-        [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
-        [tagButton setBackgroundColor:_tagBackgroundColor];
-
-    }
-       [tagButton setBackgroundImage:_tagBackgroundImage forState:UIControlStateNormal];
+    [tagButton setTitle:tag forState:UIControlStateNormal];
+    [tagButton setBackgroundImage:_tagBackgroundImage forState:UIControlStateNormal];
     tagButton.titleLabel.font = _tagFont;
-    [tagButton addTarget:self action:@selector(clickTag:) forControlEvents:UIControlEventTouchUpInside];
+    [tagButton addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     if (_isSort) {
         // 添加拖动手势
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
         [tagButton addGestureRecognizer:pan];
     }
     
-//    NSLog(@"%.f",tagButton.frame);
+    //    NSLog(@"%.f",tagButton.frame);
     [self addSubview:tagButton];
     
     // 保存到数组
     [self.tagButtons addObject:tagButton];
     
-    // 保存到字典
-    [self.tags setObject:tagButton forKey:tagStr];
-    [self.tagArray addObject:tagStr];
-    
+    [self.tags setObject:tagButton forKey:tag];
+    [self.tagArray addObject:tag];
+
     // 设置按钮的位置
     [self updateTagButtonFrame:tagButton.tag extreMargin:YES];
     
@@ -172,16 +204,24 @@ CGFloat const imageViewWH = 20;
     if (_isFitTagListH) {
         CGRect frame = self.frame;
         frame.size.height = self.tagListH;
-        [UIView animateWithDuration:0.25 animations:^{
-            self.frame = frame;
-        }];
+        self.frame = frame;
+        //        [UIView animateWithDuration:0.25 animations:^{
+        //            self.frame = frame;
+        //        }];
     }
 }
 
-// 点击标签
-- (void)clickTag:(UIButton *)button{
-    if (_clickTagBlock && ![button.currentTitle isEqualToString:@"最多选3个"]) {
-        _clickTagBlock(button.currentTitle, button.selected);
+// 点击标签 设计师选择领域
+- (void)fieldTag:(UIButton *)button{
+    if (_fieldTagBlock && ![button.currentTitle isEqualToString:@"最多选3个"]) {
+        _fieldTagBlock(button.currentTitle, button.selected);
+    }
+}
+
+// 点击标签 搜索历史
+- (void)searchListTag:(UIButton *)button{
+    if (_searchListTagBlock ) {
+        _searchListTagBlock(button.currentTitle);
     }
 }
 

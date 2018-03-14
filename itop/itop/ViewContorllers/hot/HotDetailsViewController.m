@@ -16,12 +16,13 @@
 static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 @interface HotDetailsViewController ()<UITextFieldDelegate, UITextViewDelegate>
+
+/*---------------Hotheaderview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *browseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *praiseLabel;
-
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIButton *focusButton;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImage;
@@ -29,6 +30,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UIImageView *showImage;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (strong, nonatomic) UITextView *commentTV;
+@property (strong, nonatomic) UIView *commentTVBgView;
 
 /*---------------h5headerview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *h5HeaderView;
@@ -39,36 +41,37 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *h5BrowseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5PraiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5CommentLabel;
-@property (strong, nonatomic)WebViewController *webVc;
 
+/*---------------publicview--------------------*/
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
 @property (weak, nonatomic) IBOutlet UIButton *shearButton;
-
+@property (strong, nonatomic)WebViewController *webVc;
 @property (nonatomic, strong)HotDetails *hotDetail;
 @property (nonatomic, strong)HotDetailDataSource *hotDetailDataSource;
 @property (nonatomic, strong)NSString *parent_id;
 @property (nonatomic, assign)FocusType focusType;
 @property (nonatomic, assign)CollectionType collectionType;
 
-
 @end
 
 @implementation HotDetailsViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
+    [IQKeyboardManager sharedManager].enable = NO;
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
-    
     
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     BOOL ok;
@@ -100,16 +103,29 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         [self listDataWithListArray:[[HotDetailStore shearHotDetailStore]configurationMenuWithMenu:arr] page:self.page_no];
         
             [self steupTableView];
-        if (_itemDetailType == HotItemDetailType) { //热点头
+            [self loadingHeardView];
+    };
+}
+
+
+-(void)loadingHeardView{
+    
+    switch (_itemDetailType) {
+       
+        case HotItemDetailType:
+            
             [self setupHeaderView];
             [self setHeaderViewSubViewData];
-
-        } else { //H5头
+            break;
+            
+        case H5ItemDetailType:
             
             [self setupH5HeaderView];
             [self setH5HeaderViewSubViewData];
-        }
-    };
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)initView{
@@ -122,7 +138,22 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         make.bottom.mas_equalTo(-50);
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self setupkeyBoardDidShowView];
+}
+
+-(void)setupkeyBoardDidShowView{
+    
+    _commentTVBgView = [[UIView alloc]init];
     _commentTV = [[UITextView alloc]init];
+        _commentTVBgView.backgroundColor = [UIColor whiteColor];
+    _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
+    _commentTV.layer.cornerRadius = 5;
+    [self.view addSubview:_commentTV];
+    _commentTV.delegate = self;
+    _commentTV.layer.masksToBounds = YES;
+    _commentTV.backgroundColor = UIColorFromRGB(0xf5f7f9);
+    _sendButton.hidden = YES;
+    [self.view addSubview:_commentTVBgView];
 }
 
 - (void)steupTableView{
@@ -163,7 +194,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
-     _webVc = [[WebViewController alloc]init];
+    _webVc = [[WebViewController alloc]init];
     _webVc.h5Url = _hotDetail.article.url;
     _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
     [_h5HeaderView addSubview:_webVc.view];
@@ -198,31 +229,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     
     [_iconImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
     [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:nil];
-}
-
-
-#pragma mark 键盘弹出和收起设置
--(void)setupTextViewWithKeyboardShowAnimation:(BOOL)animation{
-    
-    if (animation) {
-        _commentTV.frame = CGRectMake(20, ScreenHeigh-64-70, ScreenWidth-120, 60);
-        _commentTV.layer.cornerRadius = 5;
-        
-    }else {
-        
-        _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
-        _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
-        [_commentTV resignFirstResponder];
-    }
-    
-    _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+20, 0, 25, 40);
-    _sendButton.centerY = _commentTV.centerY;
-    [self.view bringSubviewToFront:_sendButton];
-    _commentTV.delegate = self;
-    _commentTV.layer.masksToBounds = YES;
-    _commentTV.backgroundColor = UIColorFromRGB(0xf5f7f9);
-    [self.view addSubview:_commentTV];
-    [self popKeyboardHiddenButtonAnimation:animation];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -267,7 +273,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         
         [self alertOperation];
     }
-    
 }
 
 #pragma mark 改变热点FocusButton状态
@@ -321,20 +326,20 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     }
 }
 
-#pragma mark 键盘弹出
--(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    
-    _parent_id = nil;
-    [self setupTextViewWithKeyboardShowAnimation:YES];
-    return YES;
-}
-
-//#pragma mark 键盘关闭
--(BOOL)textViewShouldEndEditing:(UITextView *)textView{
-   
-    [self setupTextViewWithKeyboardShowAnimation:NO];
-    return YES;
-}
+//#pragma mark 键盘弹出
+//-(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
+//    
+//    _parent_id = nil;
+////    [self setupTextViewWithKeyboardShowAnimation:YES];
+//    return YES;
+//}
+//
+////#pragma mark 键盘关闭
+//-(BOOL)textViewShouldEndEditing:(UITextView *)textView{
+//   
+//    [self setupTextViewWithKeyboardShowAnimation:NO];
+//    return YES;
+//}
 
 - (IBAction)sendComment:(UIButton *)sender {
 
@@ -348,18 +353,10 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     };
 }
 
--(void)popKeyboardHiddenButtonAnimation:(BOOL)animation{
-    
-    _shearButton.hidden = animation;
-    _collectionButton.hidden = animation;
-    _sendButton.hidden = !animation;
-}
-
 - (IBAction)shear:(UIButton *)sender {
     
     NSLog(@"分享");
 }
-
 
 -(void)alertOperation{
     
@@ -372,7 +369,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
-    
 }
 
 -(void)focus{
@@ -397,7 +393,48 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     };
 }
 
+#pragma mark 键盘弹出
+- (void)keyBoardDidShow:(NSNotification *)not{
+    
+    //获取通知对象
+    NSDictionary *userInfo = [not userInfo];
+    //获取键盘对象
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //获取键盘frame
+    CGRect keyboardRect = [value CGRectValue];
+    //获取键盘高度
+    int height = keyboardRect.size.height;
+    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
+     [self setupTextViewWithKeyboardShowAnimation:YES];
+}
 
+#pragma mark 键盘收起
+- (void)keyBoardWillHide:(NSNotification *)not{
+    
+    [self setupTextViewWithKeyboardShowAnimation:NO];
+}
 
+#pragma mark 键盘弹出和收起设置
+-(void)setupTextViewWithKeyboardShowAnimation:(BOOL)animation{
+    
+    if (animation) {
+        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-120, 60);
+        _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
+        _sendButton.centerY = _commentTV.centerY;
+        _commentTV.layer.cornerRadius = 5;
+        [_commentTVBgView addSubview:_commentTV];
+        [_commentTVBgView addSubview:_sendButton];
+        
+    }else {
+        
+        _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
+        _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
+        [_commentTV resignFirstResponder];
+        [self.view addSubview:_commentTV];
+    }
+    
+    _sendButton.hidden = !animation;
+    _commentTVBgView.hidden = !animation;
+}
 
 @end

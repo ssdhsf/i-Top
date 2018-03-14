@@ -78,6 +78,35 @@ typedef NS_ENUM(NSInteger, UserType) { //用户类型
     UserTypeMarketing//自营销
 };
 
+typedef NS_ENUM(NSInteger, CheckStatusType) { //作品审核状态
+    CheckStatusTypeNoel = 0, //未审核
+    CheckStatusTypeOnCheck = 1,//审核中
+    CheckStatusTypeOK,//通过
+    CheckStatusTypeUnPass//不通过
+};
+
+
+typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE)
+{
+    UMS_SHARE_TYPE_TEXT, //文本
+    UMS_SHARE_TYPE_IMAGE,//图片
+    UMS_SHARE_TYPE_IMAGE_URL,//图片地址
+    UMS_SHARE_TYPE_TEXT_IMAGE,//图文
+    UMS_SHARE_TYPE_WEB_LINK,//链接
+    UMS_SHARE_TYPE_MUSIC_LINK,//音乐地址
+    UMS_SHARE_TYPE_MUSIC,//音频文件
+    UMS_SHARE_TYPE_VIDEO_LINK,//视频地址
+    UMS_SHARE_TYPE_VIDEO,//视频文件
+    UMS_SHARE_TYPE_EMOTION,
+    UMS_SHARE_TYPE_FILE,//文件
+    UMS_SHARE_TYPE_MINI_PROGRAM
+};
+
+typedef NS_ENUM(NSInteger, FeedbackType) { //用户类型
+    FeedbackTypeCustomerService = 1,//联系客服
+    FeedbackTypeOpinion = 2, //意见反馈
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -122,6 +151,9 @@ typedef void (^ProductDetailSuccess)(id obj);
 typedef void (^ProductDetailFailure)(id obj);
 typedef void (^HotCommentSuccess)(id obj);
 typedef void (^HotCommentFailure)(id obj);
+typedef void (^CommentListSuccess)(id obj);
+typedef void (^CommentListFailure)(id obj);
+
 typedef void (^CommentHotSuccess)(id obj);
 typedef void (^CommentHotFailure)(id obj);
 
@@ -135,6 +167,10 @@ typedef void (^SubmitFileSuccess)(id obj);
 typedef void (^SubmitFileFailure)(id obj);
 typedef void (^SigningSuccess)(id obj);
 typedef void (^SigningFailure)(id obj);
+typedef void (^CustomerServiceSuccess)(id obj);
+typedef void (^CustomerServiceFailure)(id obj);
+typedef void (^DeledeProductSuccess)(id obj);
+typedef void (^DeledeProductFailure)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
@@ -211,6 +247,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------热点评论列表————————————————————————*/
 @property (nonatomic, copy) HotCommentSuccess hotCommentSuccess;
 @property (nonatomic, copy) HotCommentFailure hotCommentFailure;
+/*----------------我的-评论列表————————————————————————*/
+@property (nonatomic, copy) CommentListSuccess commentListSuccess;
+@property (nonatomic, copy) CommentListFailure commentListFailure;
+
 /*----------------评论热点————————————————————————*/
 @property (nonatomic, copy) CommentHotSuccess commentHotSuccess;
 @property (nonatomic, copy) CommentHotFailure commentHotFailure;
@@ -232,6 +272,13 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------入驻————————————————————————*/
 @property (nonatomic, copy) SigningSuccess signingSuccess;
 @property (nonatomic, copy) SigningFailure signingFailure;
+/*----------------反馈和客服————————————————————————*/
+@property (nonatomic, copy) CustomerServiceSuccess customerServiceSuccess;
+@property (nonatomic, copy) CustomerServiceFailure customerServiceFailure;
+
+/*----------------反馈和客服————————————————————————*/
+@property (nonatomic, copy) DeledeProductSuccess deledeProductSuccess;
+@property (nonatomic, copy) DeledeProductFailure deledeProductFailure;
 
 + (instancetype)shareUserManager;
 
@@ -455,6 +502,18 @@ typedef void (^ErrorFailure)(id obj);
                         PageCount:(NSInteger )pageCount;
 
 /**
+ *  获取我的评论列表
+ *
+ *  @param product_id 作品 id
+ *  @param pageIndex 页
+ *  @param pageCount 总数／页
+ */
+- (void)commentListWithProductId:(NSString *)product_id
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+
+/**
  *  获取热点评论列表
  *
  *  @param Article_id 文章 id
@@ -468,13 +527,18 @@ typedef void (^ErrorFailure)(id obj);
 /**
  *  我的作品
  *
- *  @param Product_type 作品详情
+ *  @param product_type 作品详情
+ *  @param checkStatusType 审核状态
+ *  @param isShow 是否展示
  *  @param pageIndex 页
  *  @param pageCount 总数／页
  */
-- (void)myProductListWithProductType:(MyProductType )Product_type
+- (void)myProductListWithProductType:(MyProductType )product_type
+                     checkStatusType:(CheckStatusType)checkStatusType
+                              isShow:(NSInteger )isShow
                            PageIndex:(NSInteger )pageIndex
                            PageCount:(NSInteger )pageCount;
+
 
 /**
  *  作品留资
@@ -501,5 +565,20 @@ typedef void (^ErrorFailure)(id obj);
  *  @param signingType 申请类型
  */
 - (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType;
+
+/**
+ *  提交意见反馈
+ *
+ *  @param content 提交内容
+ *  @param feedbackType 联系客服／意见反馈
+ */
+-(void)opinionCustomerServiceWithContent:(NSString *)content feedbackType:(FeedbackType)feedbackType;
+
+/**
+ *  删除作品
+ *
+ *  @param product_id 作品id
+ */
+-(void)deleteProductWithProductId:(NSString *)product_id;
 
 @end

@@ -23,8 +23,8 @@
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeigh [UIScreen mainScreen].bounds.size.height
 //适配
-#define  KadapterW   [UIScreen mainScreen].bounds.size.width/375
-#define  KadapterH   [UIScreen mainScreen].bounds.size.height/667
+#define  KadapterW   ScreenWidth/375
+#define  KadapterH   ScreenHeigh/667
 
 //当前视图控制器View的宽度高度
 #define ViewWidth self.view.frame.size.width

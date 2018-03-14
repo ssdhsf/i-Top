@@ -13,6 +13,10 @@
 #import "DesignerListViewController.h"
 #import "LeaveViewController.h"
 #import "SigningStateViewController.h"
+#import "TemplateDetaulViewController.h"
+#import "CustomerServiceViewController.h"
+#import "SetupProductViewController.h"
+#import "QrCodeViewController.h"
 
 @implementation UIManager
 
@@ -219,10 +223,45 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
++(void)shearProductWithProductId:(NSString *)product_id{
+    
+    SetupProductViewController *vc = [[SetupProductViewController alloc]init];
+    vc.product_id = product_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
+
 +(void)protocolWithProtocolType:(ProtocolType)protocolType{
     
     ProtocolViewController *vc = [[ProtocolViewController alloc]init];
     vc.protocolType = protocolType;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
+
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
+    
+    TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
+    vc.template_id = template_ld;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+//    [self.navigationController pushViewController:vc animated:YES];
+}
+
++(void)customerServiceAndFeedbackWithTitle:(NSString *)type{
+    
+    CustomerServiceViewController *vc = [[CustomerServiceViewController alloc] init];
+    vc.titel = type;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
++(void)qrCodeViewControllerWithCode:(NSString *)link{
+    
+    QrCodeViewController *vc = [[QrCodeViewController alloc] init];
+    vc.qrCode = link;
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }

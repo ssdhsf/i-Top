@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "AppDelegate+WeChat.h"
+#import "AppDelegate+UmenShear.h"
 #import <Reachability.h>
 
 @interface AppDelegate (){
@@ -26,11 +27,10 @@
     // 启动画面的显示时间为2秒
 //    [NSThread sleepForTimeInterval:1.0];
     [UIManager makeKeyAndVisible];
-    [UMAnalyticsConfig sharedInstance].appKey = UMengAppKey;
-    [UMAnalyticsConfig sharedInstance].channelId = UMengChannel;
-    [MobClick startWithConfigure:UMConfigInstance];
-    
+    [UMConfigure initWithAppkey:UMengAppKey channel:UMengChannel];
+    [MobClick setScenarioType:E_UM_NORMAL];
     [self setupWeChat];
+    [self configUSharePlatforms];
     
     //开启网络状况的监听
     [[NSNotificationCenter defaultCenter]addObserver:self
@@ -40,13 +40,9 @@
     hostReach = [Reachability
                  reachabilityWithHostName:@"www.apple.com"]; //可以以多种形式初始化
     [hostReach startNotifier]; //开始监听,会启动一个run loop
-    
     [IQKeyboardManager load];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-//    [[IQKeyboardManager sharedManager]
-//     disableInViewControllerClass:[LCEChatRoomVC class]];
 
-    // Override point for customization after application launch.
     return YES;
 }
 
@@ -58,13 +54,43 @@
 
 -(BOOL)application:(UIApplication *)application handleOpenURL:(nonnull NSURL *)url{
     
-    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    
+    if (!result) {
+        
+    }else{
+       
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    
+    return NO;
 }
 
 -(BOOL)application:(UIApplication *)application openURL:(nonnull NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(nonnull id)annotation{
     
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    if (result == FALSE){
+        //调用其他SDK，例如支付宝SDK等
+        NSLog(@"添加了系统回调，在appdelegate类里");
+        //        result = [Pingpp handleOpenURL:url withCompletion:nil];
+        
+    }
+
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
+
+-(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
+    
+    if (result == NO){
+        //调用其他SDK，例如支付宝SDK等
+        NSLog(@"添加了系统回调，在appdelegate类里");
+//        result = [Pingpp handleOpenURL:url withCompletion:nil];
+        
+    }
+    return result;
+}
+
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.

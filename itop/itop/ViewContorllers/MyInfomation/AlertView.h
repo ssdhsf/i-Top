@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, PickViewType) { //选择个人信息Type
     PickViewTypeProvince,//选择城市
     PickViewTypeCompnySize, //选择企业规模
     PickViewTypeIndustry , //选择所属行业
-    PickViewTypeField , //选择所属行业
+    PickViewTypeField , //选择擅长
 };
 
 typedef NS_ENUM(NSInteger, SignPickViewType) { //选择个人信息Type

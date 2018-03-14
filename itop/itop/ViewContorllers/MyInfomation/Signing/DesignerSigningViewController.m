@@ -7,7 +7,6 @@
 //
 
 #import "DesignerSigningViewController.h"
-#import "YZTagList.h"
 #import "DesignerSigningStore.h"
 
 #define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
@@ -37,7 +36,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 @property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
 
-
 @end
 
 @implementation DesignerSigningViewController
@@ -51,7 +49,6 @@
     
     _views = [[NSBundle mainBundle] loadNibNamed:@"DesignerSigningViewController" owner:self options:nil];
     self.view = [_views firstObject];
-//    NSArray *data = @[@"企业宣传",@"企业招聘",@"产品介绍",@"活动促销",@"报名培训",@"会议邀请",@"品牌推广",@"节日传情",@"商务科技",@"扁平简约",@"清新文艺",@"卡通手绘",@"时尚炫酷",@"中国风",@"最多选3个"];
     _tagArray = [NSMutableArray array];
     for (NSString *tag in [[DesignerSigningStore shearDesignerSigningStore]fieldArray]) {
         
@@ -63,7 +60,6 @@
     [self buttonSublayer];
     [self addkeywordsViewWithkeywords:_tagArray];
     [self setupViews];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -117,12 +113,12 @@
     // 设置标签背景色
 //    _tagList.tagBackgroundColor = RGB(244, 245, 247);
     _tagList.tagColor = [UIColor blackColor];
-    [_tagList addTags:keywords];
+    [_tagList addFieldTag: keywords action:@selector(fieldTag:)];
     [_scrollView addSubview:_tagList];
 //    _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
     
      __weak typeof(self) weakSelf = self;
-    _tagList.clickTagBlock = ^ (NSString *tag, BOOL select){
+    _tagList.fieldTagBlock = ^ (NSString *tag, BOOL select){
         
         NSInteger selectNumber = 0 ;
         for (SpecialityTag *sTag in weakSelf.tagArray) {

@@ -14,7 +14,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <UMMobClick/MobClick.h>
+//#import "MobClick.h"
 //#import <EMSDK.h>
 //#import <EaseUI.h>
 #import <JSONModel.h>
@@ -63,9 +63,21 @@
 #import <UIAlertView+Blocks.h>
 #import "NSData+Base64.h"
 #import "UITextView+Placeholder.h"
+#import <UMShare/UMShare.h>
+#import <UMCommon/UMConfigure.h>
+#import <UMCommon/UMConfigure.h>
+#import <UMAnalytics/MobClick.h> 
+#import <UShareUI/UShareUI.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <WeiboSDK.h>
+#import "WXApi.h"
 
 #import "ThemeNavigationController.h"
 #import "AlertView.h"
+#import "YZTagList.h"
+#import "SubmitFileManager.h"
+#import "MessagePhotoView.h"
+#import "ShearViewManager.h"
 
 #endif
 
