@@ -23,6 +23,9 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 @property (nonatomic, strong) UIView *hideView;
 @property (nonatomic, strong) UIImageView *showImg;
 @property (nonatomic, strong) UILabel *tipsLab;
+@property (nonatomic, assign) NSInteger originY;
+@property (nonatomic, assign) NoDataType noDataType;
+
 
 - (void)initView;
 - (void)initNavigationBarItems;
@@ -30,6 +33,16 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 - (void)back;
 - (void)hiddenNavigationController:(BOOL)animated;
 - (void)hiddenNavigafindHairlineImageView:(BOOL)animated;
+
+
+- (void)registeredkeyBoardNSNotificationCenter;
+
+#pragma mark 键盘已经弹出
+- (void)keyBoardDidShow:(NSNotification *)notification;
+#pragma mark 键盘将要收起
+- (void)keyBoardWillHide:(NSNotification *)notification;
+#pragma mark 键盘已经收起
+- (void)keyBoardDidHide:(NSNotification *)notification;
 //-(UIImageView *)findHairlineImageViewUnder:(UIView *)view;
 
 @end

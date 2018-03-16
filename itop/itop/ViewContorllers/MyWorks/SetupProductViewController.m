@@ -76,7 +76,13 @@
         [self showToastWithMessage:@"请输入分享描述"];
         return;
     }
-    [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
+    [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+        
+        
+        
+    } ];
+
+//    [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
 }
 
 - (IBAction)changeShearImage:(UIButton *)sender {

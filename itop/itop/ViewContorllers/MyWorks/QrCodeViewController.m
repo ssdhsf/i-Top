@@ -60,7 +60,7 @@
     [filter setDefaults];
     
     //3.将字符串转化为NSData
-    NSString *string = @"http://i-top.cn";
+    NSString *string = _qrCode;
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     
     //4.通过KVO设置滤镜inputMessage数据

@@ -8,12 +8,6 @@
 
 #import "BaseCollectionViewController.h"
 
-typedef NS_ENUM(NSInteger, ItemType) {
-    
-    H5ItmeViewController = 0,
-    VideoItmeViewController = 1, 
-};
-
 typedef void(^PushH5DetailControl)(NSString *hotDetails_id);
 
 @interface HotH5ItmeViewController : BaseCollectionViewController

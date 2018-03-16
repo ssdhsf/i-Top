@@ -71,6 +71,13 @@
      self.navigationController.interactivePopGestureRecognizer.enabled = YES;
 }
 
+- (void)registeredkeyBoardNSNotificationCenter{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+}
+
 #pragma mark - 初始化数据,由子类重写改方法
 - (void)initData {
 }
@@ -131,6 +138,22 @@
         }
     }
     return nil;
+}
+
+#pragma mark 键盘弹出
+- (void)keyBoardDidShow:(NSNotification *)notification{
+    
+    //获取通知对象
+}
+
+#pragma mark 键盘将要收起
+- (void)keyBoardWillHide:(NSNotification *)notification{
+    
+}
+
+#pragma mark 键盘已经收起
+- (void)keyBoardDidHide:(NSNotification *)notification{
+    
 }
 
 #pragma mark - 返回

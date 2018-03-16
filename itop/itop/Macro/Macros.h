@@ -106,7 +106,9 @@
 #define WX_BASE_URL @"https://api.weixin.qq.com"
 
 
-
+#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
+#define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
+#define TIPSMESSEGEADD(__CONTENT) [NSString stringWithFormat:@"请添加%@",__CONTENT]
 
 
 //#define  WeakSelf() __weak typeof(self) weakSelf = self;

@@ -171,7 +171,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingRecommendedH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:3];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:10];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];

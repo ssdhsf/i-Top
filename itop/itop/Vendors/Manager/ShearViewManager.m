@@ -20,9 +20,8 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     
     ShearView *shearView;
     UIView * bgView;
-    NSArray *shearType;
     UMSocialPlatformType platform;
-    UMS_SHARE_TYPE shear_type;
+    UMS_SHARE_TYPE _shear_type;
     NSDictionary *platfomrSupportTypeDict;
 }
 
@@ -52,23 +51,29 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     shearView = [[[NSBundle mainBundle] loadNibNamed:@"ShearView" owner:nil options:nil] lastObject];
     shearView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300*KadapterH);
    
-    __weak typeof(self) weakSelf = self;
-    shearView.selectShearItme = ^(NSInteger tag){
-
-        if (tag < shearType.count && [weakSelf opinionInstallAppWithTag:tag]) {
-            
-            platform = [shearType[tag] integerValue];
-            [weakSelf shareWithType:UMS_SHARE_TYPE_WEB_LINK];
-        }
-    };
+//    __weak typeof(self) weakSelf = self;
+//    shearView.selectShearItme = ^(NSInteger tag){
+//
+//        if (tag < shearType.count && [weakSelf opinionInstallAppWithTag:tag]) {
+//            
+//            platform = [shearType[tag] integerValue];
+//            [weakSelf shareWithType:UMS_SHARE_TYPE_WEB_LINK];
+//        }
+//    };
     
     [shearView setupShearItem];
     [self setupPreDefinePlatforms];
-    shearType = @[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Sina)];
+//    _shearType = @[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Sina)];
     
     [[UMSocialManager defaultManager] openLog:YES];
     [bgView addSubview:shearView];
 }
+
+-(NSArray *)shearType{
+    
+    return @[@(UMSocialPlatformType_WechatTimeLine),@(UMSocialPlatformType_WechatSession),@(UMSocialPlatformType_Qzone),@(UMSocialPlatformType_QQ),@(UMSocialPlatformType_Sina)];
+}
+
 
 -(void)setupPreDefinePlatforms{
     
@@ -79,10 +84,26 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
                                                @(UMSocialPlatformType_Sina)]];
 }
 
-- (void)addTimeViewToView:(UIView*)view{
+- (void)addShearViewToView:(UIView*)view
+                 shearType:(UMS_SHARE_TYPE)shear_type
+                completion:(SelectShearItemBlock)completion{
     
     [view.window addSubview:bgView];
+    
+    _shear_type = shear_type;
     [self editoeViewWithAnimation:YES];
+    __weak typeof(self) weakSelf = self;
+    shearView.selectShearItme = ^(NSInteger tag){
+        
+        if (tag < self.shearType.count && [weakSelf opinionInstallAppWithTag:tag]) {
+            
+            completion(tag);
+            
+//            platform = [shearType[tag] integerValue];
+//            [weakSelf shareWithType:UMS_SHARE_TYPE_WEB_LINK];
+        }
+    };
+
 }
 
 -(void)hiddenBgViewAndPickerView{
@@ -132,7 +153,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
             break;
         case UMS_SHARE_TYPE_WEB_LINK:
         {
-            [self shareWebPageToPlatformType:platform];
+            [self shareWebPageToPlatformType:platform parameter:nil];
         }
             break;
         case UMS_SHARE_TYPE_MUSIC_LINK:
@@ -260,17 +281,17 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
 }
 
 //网页分享
-- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType
+- (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType parameter:(ShearInfo *)parameter
 {
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
     //创建网页内容对象
-    NSString* thumbURL =  UMS_THUMB_IMAGE;
-    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:UMS_Title descr:UMS_Web_Desc thumImage:thumbURL];
+//    NSString* thumbURL =  parameter.shear_thume_image;
+    UMShareWebpageObject *shareObject = [UMShareWebpageObject shareObjectWithTitle:parameter.shear_title descr:parameter.shear_discrimination thumImage:parameter.shear_thume_image];
 
     //设置网页地址
-    shareObject.webpageUrl = UMS_WebLink;
+    shareObject.webpageUrl = parameter.shear_webLink;
     
     //分享消息对象设置分享内容对象
     messageObject.shareObject = shareObject;

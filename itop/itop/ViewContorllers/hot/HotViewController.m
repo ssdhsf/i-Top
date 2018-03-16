@@ -8,18 +8,17 @@
 
 #import "HotViewController.h"
 #import "H5ListViewController.h"
-#import "HotTableViewCell.h"
-#import "HotDataSource.h"
+//#import "HotTableViewCell.h"
+//#import "HotDataSource.h"
 #import "SegmentTapView.h"
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
 
-static NSString *const HotCellIdentifier = @"Hot";
 
 @interface HotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
-@property (nonatomic, strong)HotDataSource *hotDataSource;
+//@property (nonatomic, strong)HotDataSource *hotDataSource;
 @property (nonatomic, strong)SegmentTapView *segment;
 @property (nonatomic, assign)NSInteger itmeIndex;
 
@@ -43,9 +42,13 @@ static NSString *const HotCellIdentifier = @"Hot";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+}
+
+-(void)initView{
+    
+    [super initView];
     [self initSegment];
     [self createScrollView];
-//    [self setNavBar];
 }
 
 -(void)viewWillAppear:(BOOL)animated{

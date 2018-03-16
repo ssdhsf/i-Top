@@ -28,6 +28,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 @implementation MyInfomationViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
 }
 

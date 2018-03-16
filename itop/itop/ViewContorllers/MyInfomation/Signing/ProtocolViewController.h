@@ -9,9 +9,9 @@
 #import "BaseViewController.h"
 
 typedef NS_ENUM(NSInteger, ProtocolType) { //文章类型
-    ProtocolTypeDesginer = 0, //资讯
-    ProtocolTypeCompany = 1,//H5List
-    ProtocolTypeMarkting//H5视频
+    ProtocolTypeDesginer = 0, //设计师协议
+    ProtocolTypeCompany = 1,//企业协议
+    ProtocolTypeMarkting //自营销人协议
 };
 
 @interface ProtocolViewController : BaseViewController

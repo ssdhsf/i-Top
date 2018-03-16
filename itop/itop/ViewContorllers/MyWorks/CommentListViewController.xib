@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CommentListViewController">
             <connections>
                 <outlet property="dropdownMenu" destination="lqp-M0-Bae" id="1n7-em-hCP"/>
+                <outlet property="sendButton" destination="RU6-ip-Dwc" id="pKA-kF-i35"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -35,6 +36,9 @@
                             </fragment>
                         </attributedString>
                     </state>
+                    <connections>
+                        <action selector="sendComment:" destination="-1" eventType="touchUpInside" id="kej-kC-cx0"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lqp-M0-Bae" customClass="LMJDropdownMenu">
                     <rect key="frame" x="50" y="30" width="275" height="44"/>

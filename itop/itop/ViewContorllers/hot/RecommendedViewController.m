@@ -58,7 +58,7 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
 - (void)refreshData{
     
     [[UserManager shareUserManager]hotListWithType:[_itmeType isEqualToString:@"资讯"] ? ArticleTypeDefault :ArticleTypeOther
-                                         PageIndex:1
+                                         PageIndex:self.page_no
                                          PageCount:10
                                 getArticleListType: _getArticleListType];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
@@ -78,7 +78,7 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     
     TableViewCellConfigureBlock congfigureCell = ^(RecommendedTableViewCell *cell , H5List *item , NSIndexPath *indexPath){
         
-        [cell setItmeOfModel:item];
+        [cell setItmeOfModel:item getArticleListType:_getArticleListType];
     };
     self.recommendedDataSource = [[RecommendedDataSource alloc]initWithItems:self.dataArray cellIdentifier:RecommendedCellIdentifier cellConfigureBlock:congfigureCell];
     

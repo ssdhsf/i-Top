@@ -31,6 +31,15 @@
 		772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95AA20590C1600F432D2 /* CommentListTableViewCell.xib */; };
 		772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95AE20590D8B00F432D2 /* CommentListStore.m */; };
 		772F95B220590DC400F432D2 /* CommentListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95B120590DC400F432D2 /* CommentListDataSource.m */; };
+		772F95B6205A48FB00F432D2 /* MyhotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95B4205A48FB00F432D2 /* MyhotViewController.m */; };
+		772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95B5205A48FB00F432D2 /* MyhotViewController.xib */; };
+		772F95BB205A569D00F432D2 /* MyHotH5ItmeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95B9205A569D00F432D2 /* MyHotH5ItmeViewController.m */; };
+		772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95BA205A569D00F432D2 /* MyHotH5ItmeViewController.xib */; };
+		772F95C0205A56D800F432D2 /* MyHotH5ItmeViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95BE205A56D800F432D2 /* MyHotH5ItmeViewCell.m */; };
+		772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95BF205A56D800F432D2 /* MyHotH5ItmeViewCell.xib */; };
+		772F95C5205B60D300F432D2 /* ReleaseHotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95C3205B60D300F432D2 /* ReleaseHotViewController.m */; };
+		772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */; };
+		772F95C9205C061000F432D2 /* ShearInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95C8205C061000F432D2 /* ShearInfo.m */; };
 		77369C9E200EEB740092AEAC /* Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77369C9D200EEB740092AEAC /* Config.plist */; };
 		77369CA1200EF53A0092AEAC /* Global.m in Sources */ = {isa = PBXBuildFile; fileRef = 77369CA0200EF53A0092AEAC /* Global.m */; };
 		77369CA5200F04330092AEAC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77369CA4200F04330092AEAC /* CoreTelephony.framework */; };
@@ -389,6 +398,20 @@
 		772F95AE20590D8B00F432D2 /* CommentListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListStore.m; sourceTree = "<group>"; };
 		772F95B020590DC400F432D2 /* CommentListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentListDataSource.h; sourceTree = "<group>"; };
 		772F95B120590DC400F432D2 /* CommentListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentListDataSource.m; sourceTree = "<group>"; };
+		772F95B3205A48FB00F432D2 /* MyhotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyhotViewController.h; sourceTree = "<group>"; };
+		772F95B4205A48FB00F432D2 /* MyhotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyhotViewController.m; sourceTree = "<group>"; };
+		772F95B5205A48FB00F432D2 /* MyhotViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyhotViewController.xib; sourceTree = "<group>"; };
+		772F95B8205A569D00F432D2 /* MyHotH5ItmeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotH5ItmeViewController.h; sourceTree = "<group>"; };
+		772F95B9205A569D00F432D2 /* MyHotH5ItmeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotH5ItmeViewController.m; sourceTree = "<group>"; };
+		772F95BA205A569D00F432D2 /* MyHotH5ItmeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHotH5ItmeViewController.xib; sourceTree = "<group>"; };
+		772F95BD205A56D800F432D2 /* MyHotH5ItmeViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotH5ItmeViewCell.h; sourceTree = "<group>"; };
+		772F95BE205A56D800F432D2 /* MyHotH5ItmeViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotH5ItmeViewCell.m; sourceTree = "<group>"; };
+		772F95BF205A56D800F432D2 /* MyHotH5ItmeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHotH5ItmeViewCell.xib; sourceTree = "<group>"; };
+		772F95C2205B60D300F432D2 /* ReleaseHotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleaseHotViewController.h; sourceTree = "<group>"; };
+		772F95C3205B60D300F432D2 /* ReleaseHotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleaseHotViewController.m; sourceTree = "<group>"; };
+		772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReleaseHotViewController.xib; sourceTree = "<group>"; };
+		772F95C7205C061000F432D2 /* ShearInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearInfo.h; sourceTree = "<group>"; };
+		772F95C8205C061000F432D2 /* ShearInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearInfo.m; sourceTree = "<group>"; };
 		77369C9D200EEB740092AEAC /* Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Config.plist; sourceTree = "<group>"; };
 		77369C9F200EF53A0092AEAC /* Global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Global.h; sourceTree = "<group>"; };
 		77369CA0200EF53A0092AEAC /* Global.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Global.m; sourceTree = "<group>"; };
@@ -1054,6 +1077,18 @@
 				772F95A820590C1600F432D2 /* CommentListTableViewCell.h */,
 				772F95A920590C1600F432D2 /* CommentListTableViewCell.m */,
 				772F95AA20590C1600F432D2 /* CommentListTableViewCell.xib */,
+				772F95B3205A48FB00F432D2 /* MyhotViewController.h */,
+				772F95B4205A48FB00F432D2 /* MyhotViewController.m */,
+				772F95B5205A48FB00F432D2 /* MyhotViewController.xib */,
+				772F95B8205A569D00F432D2 /* MyHotH5ItmeViewController.h */,
+				772F95B9205A569D00F432D2 /* MyHotH5ItmeViewController.m */,
+				772F95BA205A569D00F432D2 /* MyHotH5ItmeViewController.xib */,
+				772F95BD205A56D800F432D2 /* MyHotH5ItmeViewCell.h */,
+				772F95BE205A56D800F432D2 /* MyHotH5ItmeViewCell.m */,
+				772F95BF205A56D800F432D2 /* MyHotH5ItmeViewCell.xib */,
+				772F95C2205B60D300F432D2 /* ReleaseHotViewController.h */,
+				772F95C3205B60D300F432D2 /* ReleaseHotViewController.m */,
+				772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */,
 			);
 			path = MyInfomation;
 			sourceTree = "<group>";
@@ -1377,6 +1412,8 @@
 				77F078AD2046A7CE004C0596 /* Marketing.m */,
 				772F958B2054D0E500F432D2 /* Message.h */,
 				772F958C2054D0E500F432D2 /* Message.m */,
+				772F95C7205C061000F432D2 /* ShearInfo.h */,
+				772F95C8205C061000F432D2 /* ShearInfo.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1951,6 +1988,7 @@
 				77B86FEE202861C00096FB28 /* LeaveViewController.xib in Resources */,
 				77369CD8200F530F0092AEAC /* MyInfomationViewController.xib in Resources */,
 				77723AB92043BB42006294E8 /* AssetsPickerLocked@2x.png in Resources */,
+				772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */,
 				77DA8345201974C100E7CB36 /* H5ListViewController.xib in Resources */,
 				77723AB42043BB42006294E8 /* 2.png in Resources */,
 				774B8813204FC2BA00F602E3 /* ShearViewController.xib in Resources */,
@@ -2011,6 +2049,8 @@
 				772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */,
 				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
+				772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */,
+				772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */,
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
@@ -2021,6 +2061,7 @@
 				77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
 				772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */,
+				772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */,
 				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
 				772F95852054C17C00F432D2 /* MessageViewController.xib in Resources */,
@@ -2147,6 +2188,7 @@
 				77E8A88E20137F2900E253CC /* ResetPasswordViewController.m in Sources */,
 				77723AF72043CB65006294E8 /* SubmitFileManager.m in Sources */,
 				77723AEA2043BBB2006294E8 /* MSSBrowseNetworkViewController.m in Sources */,
+				772F95C5205B60D300F432D2 /* ReleaseHotViewController.m in Sources */,
 				7792B737201F404E00587399 /* DesignerInfoHeaderView.m in Sources */,
 				77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */,
 				77723A8A2043B015006294E8 /* NSData+Base64.m in Sources */,
@@ -2155,6 +2197,7 @@
 				77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */,
 				7792B723201C245900587399 /* HomeHeaderView.m in Sources */,
 				772F958D2054D0E500F432D2 /* Message.m in Sources */,
+				772F95BB205A569D00F432D2 /* MyHotH5ItmeViewController.m in Sources */,
 				77723AE42043BBB2006294E8 /* MSSBrowseActionSheetCell.m in Sources */,
 				77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */,
 				77DA83532019796B00E7CB36 /* H5ListStore.m in Sources */,
@@ -2175,6 +2218,7 @@
 				77723B102043CC77006294E8 /* MSSCollectionViewCell.m in Sources */,
 				77E8A87C2011DCB000E253CC /* MASLayoutConstraint.m in Sources */,
 				77723AEB2043BBB2006294E8 /* MSSBrowseRemindView.m in Sources */,
+				772F95C0205A56D800F432D2 /* MyHotH5ItmeViewCell.m in Sources */,
 				77369CBF200F2BBD0092AEAC /* BaseViewController+PlaceholderView.m in Sources */,
 				77B86FF22028621E0096FB28 /* LeaveTableViewCell.m in Sources */,
 				77369CB6200F21CD0092AEAC /* BaseTableViewController.m in Sources */,
@@ -2200,6 +2244,7 @@
 				77484A832020543500BAC567 /* Recommended.m in Sources */,
 				77484A9C202162D800BAC567 /* BaseTableViewController+DisposeSubView.m in Sources */,
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
+				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
 				77484AC720233DE300BAC567 /* JSBadgeView.m in Sources */,
@@ -2265,6 +2310,7 @@
 				77369CB9200F227B0092AEAC /* ApplicationTableViewDataSource.m in Sources */,
 				77E8A87F2011DCB000E253CC /* NSArray+MASAdditions.m in Sources */,
 				777AF1D7200E0C5A009729AD /* UserModel.m in Sources */,
+				772F95B6205A48FB00F432D2 /* MyhotViewController.m in Sources */,
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
 				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,

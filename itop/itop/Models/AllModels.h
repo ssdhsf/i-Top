@@ -39,5 +39,6 @@
 #import "OtherInfo.h"
 #import "Marketing.h"
 #import "Message.h"
+#import "ShearInfo.h"
 
 #endif /* AllModels_h */

@@ -47,7 +47,7 @@
     
     for (int i = 0 ; i < _dataArray.count ; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i * width, 0, width, self.frame.size.height)];
-        button.tag = i+1;
+        button.tag = i;
         button.backgroundColor = [UIColor clearColor];
         [button setTitle:[_dataArray objectAtIndex:i] forState:UIControlStateNormal];
         [button setTitleColor:self.textNomalColor    forState:UIControlStateNormal];
@@ -92,7 +92,7 @@
         }
     }
     if ([self.delegate respondsToSelector:@selector(selectedIndex:)]) {
-        [self.delegate selectedIndex:button.tag -1];
+        [self.delegate selectedIndex:button.tag];
     }
 }
 -(void)selectIndex:(NSInteger)index

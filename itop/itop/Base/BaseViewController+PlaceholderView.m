@@ -13,16 +13,15 @@
 
 -(void)setHasData:(BOOL)hasData{
     
-    
-    self setisHasData:hasData noDataType:<#(NoDataType)#> andFrame:(CGRect)
+    [self setisHasData:hasData noDataType:self.noDataType origin:self.originY];
 }
 
 - (void)setisHasData:(BOOL)isHasData
           noDataType:(NoDataType)noDataType
-            andFrame:(CGRect)frame{
+              origin:(NSInteger)originY{
     
     if (!self.hideView) {
-        self.hideView = [[UIView alloc] initWithFrame:frame];
+        self.hideView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, ScreenWidth, ScreenHeigh-originY)];
         self.hideView.tag=1;
         [self.view addSubview:self.hideView];
         self.showImg = [[UIImageView alloc] init];
@@ -50,10 +49,10 @@
             default:
                 break;
         }
-        self.showImg.frame = CGRectMake(40, 40, ScreenWidth-80, 130);
+        self.showImg.frame = CGRectMake(60, 30, ScreenWidth-120, (ScreenWidth-120)*1.07f);
         
-        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 170, ScreenWidth-80, 90)];
-        NSString *tipString = @"暂无数据";
+        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 90)];
+        NSString *tipString = @"木有数据";
         if(self.showViewType ==1)
         {
             tipString = @"暂无数据";

@@ -1,35 +1,37 @@
 //
-//  HotH5ItmeViewController.m
+//  MyHotH5ItmeViewController.m
 //  itop
 //
-//  Created by huangli on 2018/1/30.
+//  Created by huangli on 2018/3/15.
 //  Copyright © 2018年 i-Top. All rights reserved.
 //
 
-#import "HotH5ItmeViewController.h"
+#import "MyHotH5ItmeViewController.h"
 #import "H5ListStore.h"
 #import "H5ListDataSource.h"
-#import "H5ListCollectionViewCell.h"
+#import "MyHotH5ItmeViewCell.h"
 
-static NSString *const H5ListCellIdentifier = @"H5List";
+static NSString *const MyHotH5ItmeCellIdentifier = @"MyHot";
 
-@interface HotH5ItmeViewController ()
+@interface MyHotH5ItmeViewController ()
 
 @property (nonatomic, strong)H5ListDataSource *h5ListDataSource;
 
 @end
 
-@implementation HotH5ItmeViewController
+@implementation MyHotH5ItmeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
 
+
 -(void)setItemType:(ItemType)itemType{
     
     _itemType = itemType;
 }
+
 
 -(void)initView{
     
@@ -59,9 +61,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     
     [[UserManager shareUserManager]hotListWithType:_itemType == H5ItmeViewController?
                                     ArticleTypeH5 : ArticleTypeVideo
-                                         PageIndex:1
+                                         PageIndex:self.page_no
                                          PageCount:10
-                                getArticleListType:_getArticleListType];
+                                getArticleListType:GetArticleListTypeMyHot];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);
@@ -70,16 +72,16 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     };
     
     [UserManager shareUserManager].errorFailure = ^ (id obj){
-      
+        
         [self collectionEndRefreshing];
     };
 }
 
 -(void)steupCollectionView{
     
-    CollectionViewCellConfigureBlock congfigureBlock = ^(H5ListCollectionViewCell *cell , H5List *item, NSIndexPath *indexPath){
+    CollectionViewCellConfigureBlock congfigureBlock = ^(MyHotH5ItmeViewCell *cell , H5List *item, NSIndexPath *indexPath){
         
-        [cell setH5LietItmeOfModel:item];
+        [cell setMyHotListItmeOfModel:item];
         
     };
     
@@ -88,14 +90,14 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     };
     
     self.h5ListDataSource = [[H5ListDataSource alloc]initWithItems:self.dataArray
-                                                    cellIdentifier:H5ListCellIdentifier
+                                                    cellIdentifier:MyHotH5ItmeCellIdentifier
                                                   headerIdentifier:nil
                                                 cellConfigureBlock:congfigureBlock
                                       cellHeaderConfigureCellBlock:cellHeaderConfigureCellBlock
                              ];
     [self steupCollectionViewWithDataSource:self.h5ListDataSource
-                             cellIdentifier:H5ListCellIdentifier
-                                    nibName:@"H5ListCollectionViewCell"];
+                             cellIdentifier:MyHotH5ItmeCellIdentifier
+                                    nibName:@"MyHotH5ItmeViewCell"];
 }
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -114,10 +116,10 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-  
-//    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    
+    //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    _pushH5DetailControl(h5.id);
+    _pushMyHotH5Control(h5.id);
 }
 
 @end

@@ -15,18 +15,79 @@
     // Initialization code
 }
 
-- (void)setItmeOfModel:(H5List*)recommended{
+- (void)setItmeOfModel:(H5List*)recommended getArticleListType:(GetArticleListType)getArticleListType{
     
-    self.timeLabel.text = recommended.nickname;
+    NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.praise_count fontSize:11 andHeight:15];
+    NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.browse_count fontSize:11 andHeight:15];
+    NSInteger commentsLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.comment_count fontSize:11 andHeight:15];
+
+    NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
+    self.browseIcon.frame = CGRectMake(10, oringinY, 19, 14);
+    self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, oringinY, browseLabelTextWidth+5, 15);
+    
+    self.goodIcon.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, oringinY, 14, 13);
+    self.goodLabel.frame = CGRectMake(CGRectGetMaxX(self.goodIcon.frame)+10, oringinY, goodLabelTextWidth+5, 15);
+    
+    self.commentsIcon.frame = CGRectMake(CGRectGetMaxX(self.goodLabel.frame)+10, oringinY, 14, 13);
+    self.commentsLabel.frame = CGRectMake(CGRectGetMaxX(self.commentsIcon.frame)+10,oringinY, commentsLabelTextWidth+5, 15);
+    
     self.goodLabel.text = recommended.praise_count;
     self.browseLabel.text = recommended.browse_count;
     self.hotTitleLabel.text = recommended.title;
     self.commentsLabel.text = recommended.comment_count;
-    
-    UIImageView *view = [UIImageView new];
     [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:nil];
-//    self.hotImage.image = view.image;
-//    self.hotImage.image = [UIImage imageNamed:recommended.cover_img];
+    [self setupStateLableWithGetArticleListType:getArticleListType recommended:recommended];
+}
+
+-(void)setupStateLableWithGetArticleListType:(GetArticleListType)getArticleListType recommended:(H5List *)recommended{
+    
+    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:recommended.update_datetime pattern:TIME_PATTERN_day];
+    NSInteger timeLabelTextWidth = [[Global sharedSingleton]widthForString:time fontSize:11 andHeight:15];
+
+     NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
+    if (getArticleListType == GetArticleListTypeHot) {
+        
+        NSInteger timeLabelOriginX = CGRectGetMaxX(self.hotImage.frame)-20-timeLabelTextWidth-5;
+        self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
+        
+    } else {
+        
+        NSInteger stateLabelOriginX ;
+        if ([recommended.check_status integerValue] == 3) {
+            
+            stateLabelOriginX = CGRectGetMaxX(self.contentView.frame)-85;
+            self.stateLabel.frame = CGRectMake(stateLabelOriginX, oringinY, 65, 15);
+            self.stateLabel.backgroundColor = UIColorFromRGB(0xffcde3);
+        } else {
+            
+            stateLabelOriginX = CGRectGetMaxX(self.contentView.frame)-70;
+            self.stateLabel.frame = CGRectMake(stateLabelOriginX, oringinY, 40, 15);
+            self.stateLabel.backgroundColor = UIColorFromRGB(0xcbedfb);
+        }
+        
+        NSInteger timeLabelOriginX = CGRectGetMaxX(self.commentsLabel.frame)+10;
+        self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
+    }
+    self.timeLabel.text = time;
+    switch ([recommended.check_status integerValue]) {
+        case 0:
+            self.stateLabel.text = @"未审核";
+            break;
+        case 1:
+            self.stateLabel.text = @"审核中";
+            break;
+        case 2:
+            self.stateLabel.text = @"通过";
+            break;
+        case 3:
+            self.stateLabel.text = @"审核不通过";
+            break;
+        default:
+            break;
+    }
+    self.stateLabel.layer.masksToBounds = YES;
+    self.stateLabel.layer.cornerRadius = 3;
+    self.stateLabel.textColor = UIColorFromRGB(0xffffff);
 }
 
 @end

@@ -108,6 +108,7 @@ static double kFGGScrollInterval = 5.0f;
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
+    _scroll.pagingEnabled = YES;
     _scroll = [[UIScrollView alloc]initWithFrame:self.bounds];
     [self addSubview:_scroll];
     _scroll.delegate = self;
@@ -120,7 +121,6 @@ static double kFGGScrollInterval = 5.0f;
 
     _scroll.contentSize = CGSizeMake(page*ScreenWidth, self.bounds.size.height);
     
-    _scroll.pagingEnabled=NO;
     _scroll.showsHorizontalScrollIndicator = NO;
     for(int i = 0;i < _imageURLArray.count;i++){
         

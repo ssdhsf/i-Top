@@ -158,7 +158,7 @@
         
         NSString *str = [imageData base64EncodedString];
         NSLog(@"%@",str);
-        NSString *file_type =@"jpg";   //图片类型
+        NSString *file_type =@".jpg";   //图片类型
         NSDictionary * parameters = @{@"fileName" : file_type,
                                       @"imageBase64" : str
                                       };

@@ -92,7 +92,7 @@
     
     NSMutableArray *array = [NSMutableArray array];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyhotViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@""]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataViewController"]];
     

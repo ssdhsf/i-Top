@@ -79,7 +79,12 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
 
 - (IBAction)shear:(UIButton *)sender {
     
-    [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
+    [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+        
+        
+        
+    } ];
+//    [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
 }
 
 - (void)initPlatfomrSupportType

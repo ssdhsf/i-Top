@@ -9,8 +9,6 @@
 #import "CompanySigningViewController.h"
 #import "AlertView.h"
 #import "CompanySigningStore.h"
-#import "SubmitFileManager.h"
-#import "MessagePhotoView.h"
 
 #define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 #define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
@@ -114,7 +112,7 @@
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
     [_nextButton.layer addSublayer:[UIColor setGradualChangingColor: _nextButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
-    [self buttonSublayer];
+    _currentShapeLayer = [[Global sharedSingleton] buttonSublayerWithButton:_addProveButton];
     [_addProveButton.layer addSublayer:_currentShapeLayer];
     [SubmitFileManager sheardSubmitFileManager].delegate = self;
     [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_addImageButton];
@@ -133,22 +131,6 @@
     _subMitButton.layer.cornerRadius = _subMitButton.height/2;
     _agreedView.layer.cornerRadius = _agreedView.height/2;
     [_agreedbutton bringSubviewToFront:_agreedbutton];;
-}
-
--(void)buttonSublayer{
-    
-    CAShapeLayer *borderLayer = [CAShapeLayer layer];
-    borderLayer.bounds = CGRectMake(0, 0, _addProveButton.size.width, _addProveButton.size.height);//虚线框的大小
-    borderLayer.position = CGPointMake(CGRectGetMidX(_addProveButton.bounds),CGRectGetMidY(_addProveButton.bounds));//虚线框锚点
-    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;//矩形路径
-    borderLayer.lineWidth = 0.5/[[UIScreen mainScreen] scale];//虚线宽度
-    //虚线边框
-    borderLayer.lineDashPattern = @[@6, @3];
-    //实线边框
-    //    borderLayer.lineDashPattern = nil;
-    borderLayer.fillColor = [UIColor clearColor].CGColor;
-    borderLayer.strokeColor = [UIColor grayColor].CGColor;
-    _currentShapeLayer = borderLayer;
 }
 
 - (IBAction)permission:(UIButton *)sender {
@@ -528,7 +510,7 @@
 
 - (IBAction)browseProtcol:(UIButton *)sender {
     
-    NSLog(@"dsd");
+   [UIManager protocolWithProtocolType:ProtocolTypeCompany];
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
@@ -600,11 +582,6 @@
         };
         
     };
-}
-
-- (IBAction)Protcol:(UIButton *)sender {
-    
-   [UIManager protocolWithProtocolType:ProtocolTypeCompany];
 }
 
 -(void)back{

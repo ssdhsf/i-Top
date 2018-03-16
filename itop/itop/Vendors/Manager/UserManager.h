@@ -18,6 +18,7 @@ typedef NS_ENUM(NSInteger, ArticleType) { //文章类型
 typedef NS_ENUM(NSInteger, GetArticleListType) { //获取文章入口
     GetArticleListTypeHot = 0, //热点获取
     GetArticleListTypeFocus = 1,//收藏获取
+    GetArticleListTypeMyHot //我的热点
 };
 
 typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
@@ -107,6 +108,12 @@ typedef NS_ENUM(NSInteger, FeedbackType) { //用户类型
     FeedbackTypeOpinion = 2, //意见反馈
 };
 
+typedef NS_ENUM(NSInteger, ItemType) {//H5类型
+    
+    H5ItmeViewController = 0,//H5
+    VideoItmeViewController = 1,//Video
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -143,6 +150,9 @@ typedef void (^DesignerDetailFailure)(id obj);
 typedef void (^DesignerProductListSuccess)(id obj);
 typedef void (^DesignerProductListFailure)(id obj);
 
+typedef void (^AddHotSuccess)(id obj);
+typedef void (^AddHotFailure)(id obj);
+
 typedef void (^HotlistSuccess)(id obj);
 typedef void (^HotlistFailure)(id obj);
 typedef void (^HotDetailSuccess)(id obj);
@@ -154,8 +164,8 @@ typedef void (^HotCommentFailure)(id obj);
 typedef void (^CommentListSuccess)(id obj);
 typedef void (^CommentListFailure)(id obj);
 
-typedef void (^CommentHotSuccess)(id obj);
-typedef void (^CommentHotFailure)(id obj);
+typedef void (^CommentSuccess)(id obj);
+typedef void (^CommentFailure)(id obj);
 
 typedef void (^HomeBannerSuccess)(id obj);
 typedef void (^HomeBannerFailure)(id obj);
@@ -235,6 +245,10 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) DesignerProductListSuccess designerProductListSuccess;
 @property (nonatomic, copy) DesignerProductListFailure designerProductListFailure;
 
+/*----------------添加热点————————————————————————*/
+@property (nonatomic, copy) AddHotSuccess addHotSuccess;
+@property (nonatomic, copy) AddHotFailure addHotFailure;
+
 /*----------------热点列表————————————————————————*/
 @property (nonatomic, copy) HotlistSuccess hotlistSuccess;
 @property (nonatomic, copy) HotlistFailure hotlistFailure;
@@ -252,8 +266,8 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) CommentListFailure commentListFailure;
 
 /*----------------评论热点————————————————————————*/
-@property (nonatomic, copy) CommentHotSuccess commentHotSuccess;
-@property (nonatomic, copy) CommentHotFailure commentHotFailure;
+@property (nonatomic, copy) CommentSuccess commentSuccess;
+@property (nonatomic, copy) CommentFailure commentFailure;
 
 /*----------------Home轮播图————————————————————————*/
 @property (nonatomic, copy) HomeBannerSuccess homeBannerSuccess;
@@ -461,6 +475,14 @@ typedef void (^ErrorFailure)(id obj);
                               PageCount:(NSInteger )pageCount;
 
 /**
+ *  添加热点
+ *
+ *  @param parameters 添加的内容
+ */
+- (void)addHotListWithParameters:(NSDictionary *)parameters;
+
+
+/**
  *  热点列表
  *
  *  @param type 文章类型
@@ -502,7 +524,7 @@ typedef void (^ErrorFailure)(id obj);
                         PageCount:(NSInteger )pageCount;
 
 /**
- *  获取我的评论列表
+ *  获取我的作品评论列表
  *
  *  @param product_id 作品 id
  *  @param pageIndex 页
@@ -514,7 +536,7 @@ typedef void (^ErrorFailure)(id obj);
 
 
 /**
- *  获取热点评论列表
+ *  评论热点
  *
  *  @param Article_id 文章 id
  *  @param parent_id 回复评论ID
@@ -523,6 +545,17 @@ typedef void (^ErrorFailure)(id obj);
 - (void)commentHotWithHotArticleId:(NSString *)Article_id
                           parentId:(NSString *)parent_id
                           content:(NSString *)content;
+
+/**
+ *  评论作品
+ *
+ *  @param product_id 作品 id
+ *  @param parent_id 回复评论ID
+ *  @param content 回复内容
+ */
+- (void)commentProductWithHotProductId:(NSString *)product_id
+                              parentId:(NSString *)parent_id
+                               content:(NSString *)content;
 
 /**
  *  我的作品

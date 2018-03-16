@@ -105,4 +105,10 @@
 + (NSString *)transform:(NSString *)chinese;
 
 
+#pragma mark 时间格式转换
+-(NSString *)timeFormatTotimeStringFormatWithtime:(NSString*)time pattern:(NSString*)pattern;
+
+#pragma mark 添加虚线边框
+-(CAShapeLayer *)buttonSublayerWithButton:(UIButton *)button;
+
 @end

@@ -34,7 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *agreedbutton;
 @property (weak, nonatomic) IBOutlet UIView *agreedView;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
+//@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
 
 @end
 
@@ -57,7 +57,7 @@
         specialityTag.selecteTag = NO;
         [_tagArray addObject:specialityTag];
     }
-    [self buttonSublayer];
+//    [self buttonSublayer];
     [self addkeywordsViewWithkeywords:_tagArray];
     [self setupViews];
 }
@@ -89,7 +89,7 @@
     [_uploadButton.layer addSublayer:[UIColor setGradualChangingColor: _uploadButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
     _uploadButton.layer.masksToBounds = YES;
     _uploadButton.layer.cornerRadius = _uploadButton.height/2;
-    [_selectItopProductButton.layer addSublayer:_currentShapeLayer];
+    [_selectItopProductButton.layer addSublayer:[[Global sharedSingleton] buttonSublayerWithButton:_selectItopProductButton]];
     
     _agreedView.layer.masksToBounds = YES;
     _agreedView.layer.cornerRadius = _agreedView.height/2;
@@ -235,20 +235,20 @@
     }
 }
 
--(void)buttonSublayer{
-    
-    CAShapeLayer *borderLayer = [CAShapeLayer layer];
-    borderLayer.bounds = CGRectMake(0, 0, _selectItopProductButton.size.width, _selectItopProductButton.size.height);//虚线框的大小
-    borderLayer.position = CGPointMake(CGRectGetMidX(_selectItopProductButton.bounds),CGRectGetMidY(_selectItopProductButton.bounds));//虚线框锚点
-    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;//矩形路径
-    borderLayer.lineWidth = 0.5/[[UIScreen mainScreen] scale];//虚线宽度
-    //虚线边框
-    borderLayer.lineDashPattern = @[@6, @3];
-    //实线边框
-    //    borderLayer.lineDashPattern = nil;
-    borderLayer.fillColor = [UIColor clearColor].CGColor;
-    borderLayer.strokeColor = [UIColor grayColor].CGColor;
-    _currentShapeLayer = borderLayer;
-}
+//-(void)buttonSublayer{
+//    
+//    CAShapeLayer *borderLayer = [CAShapeLayer layer];
+//    borderLayer.bounds = CGRectMake(0, 0, _selectItopProductButton.size.width, _selectItopProductButton.size.height);//虚线框的大小
+//    borderLayer.position = CGPointMake(CGRectGetMidX(_selectItopProductButton.bounds),CGRectGetMidY(_selectItopProductButton.bounds));//虚线框锚点
+//    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;//矩形路径
+//    borderLayer.lineWidth = 0.5/[[UIScreen mainScreen] scale];//虚线宽度
+//    //虚线边框
+//    borderLayer.lineDashPattern = @[@6, @3];
+//    //实线边框
+//    //    borderLayer.lineDashPattern = nil;
+//    borderLayer.fillColor = [UIColor clearColor].CGColor;
+//    borderLayer.strokeColor = [UIColor grayColor].CGColor;
+//    _currentShapeLayer = borderLayer;
+//}
 
 @end

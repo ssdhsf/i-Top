@@ -1,27 +1,26 @@
 //
-//  RecommendedTableViewCell.h
+//  MyHotH5ItmeViewCell.h
 //  itop
 //
-//  Created by huangli on 2018/1/30.
+//  Created by huangli on 2018/3/15.
 //  Copyright © 2018年 i-Top. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface RecommendedTableViewCell : UITableViewCell
+@interface MyHotH5ItmeViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UILabel *hotTitleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *hotImage;
 @property (weak, nonatomic) IBOutlet UILabel *browseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *goodLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
 @property (weak, nonatomic) IBOutlet UIImageView *browseIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *goodIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *commentsIcon;
-@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+@property (weak, nonatomic) IBOutlet UIView *segmenView;
 
-- (void)setItmeOfModel:(H5List*)recommended getArticleListType:(GetArticleListType)getArticleListType;
+
+- (void)setMyHotListItmeOfModel:(H5List*)h5Model;//我的热点
 
 @end

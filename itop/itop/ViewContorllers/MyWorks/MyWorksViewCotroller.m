@@ -25,6 +25,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) H5List *h5;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 @end
 
@@ -128,6 +129,13 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         
         NSLog(@"%@",obj);
         
+        if (obj.count == 0) {
+            
+            self.noDataType = NoDataTypeProduct;
+            self.originY = 0;
+        } else {
+            
+        }
         [self listDataWithListArray:[[MyWorksStore shearMyWorksStore] configurationMenuWithMenu:obj] page:self.page_no];
     };
     
@@ -178,6 +186,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     _h5 = [_myWorksDataSource itemAtIndexPath:indexPath];
+    _currentIndex = indexPath.row;
     [self editoeViewWithAnimation:YES];
     NSLog(@"23");
 }
@@ -189,7 +198,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
             
         case 1:
             
-            [UIManager pushTemplateDetailViewControllerWithTemplateId:@"306"];
+            [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
             break;
             
         case 2:
@@ -203,21 +212,25 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
             break;
         case 4:
             
-            [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
+            [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+                
+                
+                
+            } ];
+//            [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
             break;
         case 5:
             
-            _link = @"http";
-            [self copyTheLinkWithLinkUrl:_link];
+            [self copyTheLinkWithLinkUrl:_h5.url];
             break;
         case 6:
             
-            [UIManager  qrCodeViewControllerWithCode:@"http://i-top.cn"];
+            [UIManager  qrCodeViewControllerWithCode:_h5.url];
             break;
             
         case 7:
             
-            [self  deleteProductWithId:@"23"];
+            [self alertOperation];
             break;
             
         default:
@@ -319,7 +332,27 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     [[UserManager shareUserManager]deleteProductWithProductId:product_id];
     [UserManager shareUserManager].deledeProductSuccess = ^(id obj){
         
+        [self.dataArray removeObjectAtIndex:_currentIndex];
+        [self.collectionView reloadData];
+        
         NSLog(@"%@",obj);
     };
 }
+
+-(void)alertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"删除作品后数据不可恢复，确定要删除吗？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+        
+        
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+         [self  deleteProductWithId:_h5.id];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 @end

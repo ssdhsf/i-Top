@@ -60,8 +60,8 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    [self registeredkeyBoardNSNotificationCenter];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -81,6 +81,15 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     if (!ok) {
         NSLog(@"%s setCategoryError=%@", __PRETTY_FUNCTION__, setCategoryError);
     }
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
+        
+    };
 }
 
 -(void)initData{
@@ -106,7 +115,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
             [self loadingHeardView];
     };
 }
-
 
 -(void)loadingHeardView{
     
@@ -293,7 +301,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _focusButton.layer.cornerRadius = 2;
 }
 
-
 #pragma mark 改变H5FocusButton状态
 -(void)setupH5FocusState{
     
@@ -345,7 +352,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
     [self setupTextViewWithKeyboardShowAnimation:NO];
     [[UserManager shareUserManager] commentHotWithHotArticleId:_hotDetail.article.id parentId:_parent_id content:_commentTV.text];
-    [UserManager shareUserManager].commentHotSuccess = ^ (id obj){
+    [UserManager shareUserManager].commentSuccess = ^ (id obj){
         
         _commentTV.text = nil;
         [[Global sharedSingleton]showToastInCenter:self.view withMessage:@"评论成功"];
@@ -355,7 +362,16 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 - (IBAction)shear:(UIButton *)sender {
     
-    NSLog(@"分享");
+    ShearInfo * shear = [[ShearInfo alloc]init];
+    shear.shear_title = _hotDetail.article.title;
+    shear.shear_discrimination = _hotDetail.article.title;
+    shear.shear_thume_image = _hotDetail.article.cover_img;
+    shear.shear_webLink = _hotDetail.article.url;
+    [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+        
+        [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
+        
+    } ];
 }
 
 -(void)alertOperation{
@@ -394,10 +410,10 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 }
 
 #pragma mark 键盘弹出
-- (void)keyBoardDidShow:(NSNotification *)not{
+- (void)keyBoardDidShow:(NSNotification *)notification{
     
     //获取通知对象
-    NSDictionary *userInfo = [not userInfo];
+    NSDictionary *userInfo = [notification userInfo];
     //获取键盘对象
     NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     //获取键盘frame
@@ -406,12 +422,26 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     int height = keyboardRect.size.height;
     _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
      [self setupTextViewWithKeyboardShowAnimation:YES];
+    [self shutDownTableViewCellEventWithAnimation:NO];
 }
 
-#pragma mark 键盘收起
-- (void)keyBoardWillHide:(NSNotification *)not{
+#pragma mark 键盘将要收起
+- (void)keyBoardWillHide:(NSNotification *)notification{
     
     [self setupTextViewWithKeyboardShowAnimation:NO];
+}
+
+#pragma mark 键盘已经收起
+- (void)keyBoardDidHide:(NSNotification *)notification{
+    
+    [self shutDownTableViewCellEventWithAnimation:YES];
+
+}
+
+-(void)shutDownTableViewCellEventWithAnimation:(BOOL)animation{
+    
+    self.tableView.scrollEnabled = animation;
+    self.tableView.allowsSelection = animation;
 }
 
 #pragma mark 键盘弹出和收起设置
@@ -436,5 +466,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _sendButton.hidden = !animation;
     _commentTVBgView.hidden = !animation;
 }
+
 
 @end

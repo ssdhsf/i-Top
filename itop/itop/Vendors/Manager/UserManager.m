@@ -598,13 +598,53 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)addHotListWithParameters:(NSDictionary *)parameters{
+    
+    NSString *api = @"/api/article/add";
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        //        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _addHotSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        //        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
               PageCount:(NSInteger )pageCount
      getArticleListType:(GetArticleListType)getArticleListType{
 //    SHOW_GET_DATA
     
-    NSString *api = getArticleListType == GetArticleListTypeHot ? @"/api/article/getpagelist" :@"/api/article/getcollection";
+    NSString *api =  [NSString string];
+    switch (getArticleListType) {
+       
+        case GetArticleListTypeHot:
+            api = @"/api/article/getpagelist";
+            break;
+        case GetArticleListTypeFocus:
+            api = @"/api/article/getcollection";
+            break;
+        case GetArticleListTypeMyHot:
+            api = @"/api/article/getuserarticle";
+            break;
+
+        default:
+            break;
+    }
+//    NSString *api = getArticleListType == GetArticleListTypeHot ? @"/api/article/getpagelist" :@"/api/article/getcollection";
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
@@ -717,7 +757,8 @@ _errorFailure(__id_obj); }
     NSString *api = @"/api/article/getcommentlist";
     NSDictionary * parameters = @{@"id" : product_id,
                                   @"PageIndex" : @(pageIndex),
-                                  @"PageCount" : @(pageCount)};
+                                  @"PageCount" : @(pageCount)
+                                  };
 
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
@@ -786,7 +827,40 @@ _errorFailure(__id_obj); }
             
         } else {
             
-            _commentHotSuccess(object);
+            _commentSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
+- (void)commentProductWithHotProductId:(NSString *)product_id
+                              parentId:(NSString *)parent_id
+                               content:(NSString *)content{
+    SHOW_GET_DATA
+    NSString *api = @"/api/product/comment";
+    
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:product_id forKey:@"Product_id"];
+    [parameters setObject:content forKey:@"Content"];
+    
+    if (parent_id != nil) {
+        [parameters setObject:parent_id forKey:@"Parent_id"];
+    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _commentSuccess(object);
         }
         
     } failure:^(NSError *error) {

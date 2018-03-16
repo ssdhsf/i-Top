@@ -12,9 +12,14 @@
 #import "SigningStateViewController.h"
 #import "ProtocolViewController.h"
 
+
+typedef void (^BackOffBolck)(id parameter);
+
 @interface UIManager : NSObject
 
 + (instancetype)sharedUIManager;
+
+@property (copy, nonatomic)BackOffBolck backOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
