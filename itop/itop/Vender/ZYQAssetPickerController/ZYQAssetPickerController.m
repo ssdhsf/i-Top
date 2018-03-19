@@ -230,7 +230,7 @@ static UIColor *titleColor;
 {
     titleFont       = [UIFont systemFontOfSize:12];
     titleHeight     = 20.0f;
-    titleColor      = [UIColor whiteColor];
+    titleColor      = [UIColor blackColor];
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -483,9 +483,9 @@ static UIColor *titleColor;
                                     target:self
                                     action:@selector(finishPickingAssets:)];
     if([[[UIDevice currentDevice]systemVersion]doubleValue]>=7.0){
-    self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-            [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
-    self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+    self.navigationItem.rightBarButtonItem.tintColor = UIColorFromRGB(0x434a5c);
+            [[UINavigationBar appearance]setTintColor:UIColorFromRGB(0x434a5c)];
+    self.navigationItem.leftBarButtonItem.tintColor = UIColorFromRGB(0x434a5c);
     }
 }
 
@@ -693,7 +693,6 @@ static UIColor *titleColor;
         }
     }
     
-
     if ([picker.delegate respondsToSelector:@selector(assetPickerController:didFinishPickingAssets:)])
         [picker.delegate assetPickerController:picker didFinishPickingAssets:_indexPathsForSelectedItems];
     [self dismissViewControllerAnimated:YES completion:^{
@@ -812,8 +811,8 @@ static UIColor *titleColor;
                                         target:self
                                         action:@selector(dismiss:)];
         [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBar_background_blue@2x.png"]forBarMetrics:UIBarMetricsDefault];
-        self.navigationItem.rightBarButtonItem.tintColor = [UIColor whiteColor];
-        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
+        self.navigationItem.rightBarButtonItem.tintColor = UIColorFromRGB(0x434a5c);
+        [[UINavigationBar appearance]setTintColor:UIColorFromRGB(0x434a5c)];
 
     }
 }
@@ -821,7 +820,11 @@ static UIColor *titleColor;
 - (void)localize
 {
     self.title = NSLocalizedString(@"相簿", nil);
-     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBar_background_blue"]forBarMetrics:UIBarMetricsDefault];
+    
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:UIColorFromRGB(0x434a5c),NSForegroundColorAttributeName,nil]];
+
+//    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+//     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBar_background_blue"]forBarMetrics:UIBarMetricsDefault];
     
 }
 

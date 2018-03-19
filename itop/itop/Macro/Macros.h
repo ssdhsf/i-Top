@@ -82,6 +82,9 @@
 #define TIME_PATTERN_day_stye    @"yyyy/MM/dd"
 #define TIME_PATTERN_minute_stye @"yyyy/MM/dd HH:mm"
 
+#define TIME_PATTERN_month_day    @"MM-dd"
+
+
 // 获取ApplicationDelegate
 #define ApplicationDelegate  (AppDelegate *)[UIApplication sharedApplication].delegate
 

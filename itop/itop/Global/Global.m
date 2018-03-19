@@ -404,11 +404,12 @@
     return [pinYin substringToIndex:1];
 }
 
--(NSString *)timeFormatTotimeStringFormatWithtime:(NSString*)time pattern:(NSString*)pattern{
+-(NSString *)timeFormatTotimeStringFormatWithtime:(NSString*)time
+                                      willPattern:(NSString*)willPattern
+                                       didPattern:(NSString*)didPattern{
     
-    NSDate *date =  [self dateFromString:time pattern:TIME_PATTERN_second];
-    NSString *dateString = [self stringFromDate:date pattern:TIME_PATTERN_day];
-    
+    NSDate *date =  [self dateFromString:time pattern:willPattern];
+    NSString *dateString = [self stringFromDate:date pattern:didPattern];
     return dateString;
     
 }

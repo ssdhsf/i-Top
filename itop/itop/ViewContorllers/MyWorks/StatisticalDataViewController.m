@@ -8,24 +8,18 @@
 
 #import "StatisticalDataViewController.h"
 #import "StatisticalDataStore.h"
-#import "StatisticalDataDataSource.h"
-#import "StatisticalDataCell.h"
 #import "PXLineChartView.h"
 #import "PointItem.h"
 #import "SegmentTapView.h"
-//#import "SNChart.h"
-//#import "Charts-Swift.h"
-//#import "itop-Bridging-Header.h"
 
-static bool fill = NO;
+#define MAX_COUNT(a,b,c) (a>b?(a>c?a:c):(b>c?b:c))
 
-static NSString *StatisticalDataIdentifier = @"StatisticalData";
+//static bool fill = NO;
 
 @interface StatisticalDataViewController ()<PXLineChartViewDelegate,SegmentTapViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (nonatomic, strong)StatisticalDataDataSource *statisticalDataDataSource;
 @property (nonatomic, strong)StatisticalDataStore *statisticalDataStore;
 
 @property (nonatomic, strong) SegmentTapView *segment;
@@ -49,16 +43,18 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
 @property (weak, nonatomic) IBOutlet UIView *recommendedCountView;
 @property (weak, nonatomic) IBOutlet UILabel *recommendedCountLabel;
 
-@property (nonatomic, strong) NSArray *lines;//line count
+@property (nonatomic, strong) NSMutableArray *lines;//line count
 @property (nonatomic, strong) NSMutableArray *xElements;//x轴数据
 @property (nonatomic, strong) NSMutableArray *yElements;//y轴数据
-//@property (strong, nonatomic)SNChart * chart;
-@property (nonatomic,strong) UILabel * markY;
+
+@property (nonatomic, strong)Statistical *statisticalModel;//曲线模型
+@property (nonatomic, assign)StatisticsType statisticsType;//数据类型
 
 
-@property (nonatomic, strong)NSArray *dayArray;
-@property (nonatomic, strong)NSArray *countArray1;
-@property (nonatomic, strong)NSArray *countArray2;
+@property (nonatomic, strong)RecordStatisticsItem *statisticsItemH5;
+@property (nonatomic, strong)RecordStatisticsItem *statisticsItemHot;
+@property (nonatomic, strong)RecordStatisticsItem *statisticsItemFuns;
+@property (nonatomic, assign)BOOL currentItme;
 
 @end
 
@@ -66,14 +62,11 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)initView{
     
     [super initView];
-    
-    NSLog(@"%ld",(long)ScreenWidth);
     [self initSegment];
     [self initDateSegmentControl];
     [self initPXLineChartView];
@@ -98,39 +91,30 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
     [super initData];
     _xElements = [NSMutableArray array];
     _yElements = [NSMutableArray array];
-    _dayArray = @[@"2-20",@"2-21",@"2-22",@"2-23",@"2-24",@"2-25",@"2-26",@"2-27",@"2-28",@"3-1",@"3-2",@"3-3",@"3-4",@"3-5",@"3-6",@"3-7",@"3-8",@"3-9",@"3-10",@"3-11",@"3-12",@"3-13",@"3-14",@"3-15",@"3-16",@"3-17",@"3-18",@"3-19",@"3-20",@"3-21"];
-    
-    _countArray1 = @[@{@"xValue" : @"2-20", @"yValue" : @"1000"},
-                    @{@"xValue" : @"2-21", @"yValue" : @"2000"},
-                    @{@"xValue" : @"2-22", @"yValue" : @"2800"},
-                    @{@"xValue" : @"2-23", @"yValue" : @"1700"},
-                    @{@"xValue" : @"3-1", @"yValue" : @"3100"},
-                    @{@"xValue" : @"3-3", @"yValue" : @"3500"},
-                    @{@"xValue" : @"3-5", @"yValue" : @"3400"},
-                    @{@"xValue" : @"3-6", @"yValue" : @"1100"},
-                    @{@"xValue" : @"3-9", @"yValue" : @"1100"},
-                    @{@"xValue" : @"3-13", @"yValue" : @"1100"},
-                    @{@"xValue" : @"3-15", @"yValue" : @"4100"},
-                    @{@"xValue" : @"3-16", @"yValue" : @"1700"},
-                    @{@"xValue" : @"3-17", @"yValue" : @"3100"},
-                    @{@"xValue" : @"3-19", @"yValue" : @"1500"}];
-    
-    _countArray2 = @[@{@"xValue" : @"2-21", @"yValue" : @"2000"},
-                     @{@"xValue" : @"2-24", @"yValue" : @"2200"},
-                     @{@"xValue" : @"2-26", @"yValue" : @"2200"},
-                     @{@"xValue" : @"2-27", @"yValue" : @"2200"},
-                     @{@"xValue" : @"3-1", @"yValue" : @"2200"},
-                     @{@"xValue" : @"3-3", @"yValue" : @"1900"},
-                     @{@"xValue" : @"3-5", @"yValue" : @"2200"},
-                     @{@"xValue" : @"3-6", @"yValue" : @"3400"},
-                     @{@"xValue" : @"3-9", @"yValue" : @"3000"},
-                     @{@"xValue" : @"3-10", @"yValue" : @"3750"},
-                     @{@"xValue" : @"3-14", @"yValue" : @"3800"},
-                     @{@"xValue" : @"3-15", @"yValue" : @"3200"},
-                     @{@"xValue" : @"3-16", @"yValue" : @"4300"},
-                     @{@"xValue" : @"3-19", @"yValue" : @"6000"},
-                     @{@"xValue" : @"3-20", @"yValue" : @"2000"}];
+    _statisticsType = StatisticsTypeH5Product; // 初始值
+    [self assignmentXElementsWithSegmentType:1];
+}
 
+-(void)loadingDataToViews{
+
+    _lines = [NSMutableArray array];
+    self.productCountLabel.text = [NSString stringWithFormat:@"%@",_statisticalModel.product_count_total] ;
+    self.commentsCountLabel.text = [NSString stringWithFormat:@"%@",_statisticalModel.comment_count_total];
+    self.recommendedCountLabel.text = [NSString stringWithFormat:@"%@",_statisticalModel.commend_count_total];
+    
+    self.browseCountLabel.text = @"暂无数据";
+    self.funsCountLabel.text = @"暂无数据";
+    self.useCountLabel.text = @"暂无数据";
+    
+    [_lines addObject:[[StatisticalDataStore shearStatisticalDataStore] itmeDataModelWithDictionarys:_statisticalModel.product_count_list ThemeColor:UIColorFromRGB(0xfd91bd)]];
+    [_lines addObject:[[StatisticalDataStore shearStatisticalDataStore] itmeDataModelWithDictionarys:_statisticalModel.commend_count_list ThemeColor:UIColorFromRGB(0xacbbfc)]];
+    [_lines addObject:[[StatisticalDataStore shearStatisticalDataStore] itmeDataModelWithDictionarys:_statisticalModel.comment_count_list ThemeColor:UIColorFromRGB(0x7ee794)]];
+    NSInteger maxTemp = MAX_COUNT([_statisticalModel.product_count_total integerValue], [_statisticalModel.commend_count_total integerValue],[_statisticalModel.comment_count_total integerValue]);
+    
+    [_yElements removeAllObjects];
+    [_yElements addObjectsFromArray:[[StatisticalDataStore shearStatisticalDataStore] coordinatesYElementsPiecewiseWithMaxCount:maxTemp]];
+//    [_pXLineChartView reloadData];
+    [self recordStatisticsItemWithItmeTypeIndex:_statisticsType];
 }
 
 -(void)initSegment{
@@ -172,35 +156,33 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
 -(void)initPXLineChartView{
     
     _pXLineChartView.delegate = self;
-    [_xElements addObjectsFromArray:[_dayArray  subarrayWithRange:NSMakeRange(_dayArray.count-7, 7)]];
-    [_yElements  addObjectsFromArray: @[@"0",@"2000",@"4000",@"6000",@"8000",@"10000"]];
-//    [self assignmentXElementsWithSegmentType:1];
-//    [self assignmentYElementsWithSegmentTypeData:nil];
-    self.lines = [self lines:NO];
 }
 
-//获取访问全部的访问日期
+//获取访问日期
 -(void)assignmentXElementsWithSegmentType:(NSInteger )index{
-    
+   
+    _currentItme = YES; //进入请求数据页表示已经在当前页
+    [_xElements removeAllObjects];
     NSDate *date = [NSDate date];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init] ;
     [formatter setDateStyle:NSDateFormatterMediumStyle];
     [formatter setTimeStyle:NSDateFormatterShortStyle];
     [formatter setDateFormat:@"MM-dd"];
     NSInteger currentTime = [date timeIntervalSince1970];
     for (int i = 0; i < index *7; i++) {
         
-        NSInteger dayTime = (long)24*60*60*(i+1);
+        NSInteger dayTime = (long)24*60*60*(i);
         NSString *day =  [NSString stringWithFormat:@"%@",[formatter stringFromDate:[NSDate dateWithTimeIntervalSince1970:currentTime - dayTime]]];
         [_xElements addObject:day];
         NSLog(@"%@",day);
     }
-}
-
-//获取访问数值的最大数然后划分
--(void)assignmentYElementsWithSegmentTypeData:(NSArray *)TypeData{
-    
-    [_yElements addObjectsFromArray: @[@"0",@"500",@"1000",@"1500",@"2100",@"3300",@"5000"]];
+   _xElements = (NSMutableArray *)[[_xElements reverseObjectEnumerator] allObjects];
+    [[UserManager shareUserManager]dataStatisticsWithStartDate:[_xElements lastObject] endDate:[_xElements firstObject] statisticsType:_statisticsType];
+    [UserManager shareUserManager].statisticsSuccess = ^(NSDictionary *statistics){
+        
+        _statisticalModel = [[Statistical alloc]initWithDictionary:statistics error:nil];
+        [self loadingDataToViews];
+    };
 }
 
 //获取不同类型的最大数据  然后根据用户选择截取
@@ -213,76 +195,9 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
 #pragma mark -------- select Index
 -(void)selectedIndex:(NSInteger)index{
     
-    //选中 type 日期
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 81;
-}
-
-- (NSArray *)lines:(BOOL)fill {
-    
-    NSMutableArray *pointsArr = [NSMutableArray array];
-    NSMutableArray *pointsArr1 = [NSMutableArray array];
-    
-    
-    for (NSString *date in _xElements) {
-        
-        for (NSDictionary *dic in _countArray1) {
-            
-            if ([date isEqualToString:dic[@"xValue"]]) {
-               
-                [pointsArr addObject:dic];
-            }
-        }
-        
-    }
-    
-    for (NSString *date in _xElements) {
-        
-        for (NSDictionary *dic in _countArray2) {
-            
-            if ([date isEqualToString:dic[@"xValue"]]) {
-                
-                [pointsArr1 addObject:dic];
-            }
-        }
-    }
-    
-    NSMutableArray *points = @[].mutableCopy;
-    for (int i = 0; i < pointsArr.count; i++) {
-        PointItem *item = [[PointItem alloc] init];
-        NSDictionary *itemDic = pointsArr[i];
-        item.price = itemDic[@"yValue"];
-        item.time = itemDic[@"xValue"];
-        item.chartLineColor = UIColorFromRGB(0x90e0ff);
-        item.chartPointColor = UIColorFromRGB(0x90e0ff);
-        item.pointValueColor = UIColorFromRGB(0x90e0ff);
-        if (fill) {
-            item.chartFillColor = [UIColor colorWithRed:0 green:0.5 blue:0.2 alpha:0.5];
-            item.chartFill = YES;
-        }
-        [points addObject:item];
-    }
-    
-    NSMutableArray *pointss = @[].mutableCopy;
-    for (int i = 0; i < pointsArr1.count; i++) {
-        PointItem *item = [[PointItem alloc] init];
-        NSDictionary *itemDic = pointsArr1[i];
-        item.price = itemDic[@"yValue"];
-        item.time = itemDic[@"xValue"];
-        item.chartLineColor = UIColorFromRGB(0xffc58c);
-        item.chartPointColor = UIColorFromRGB(0xffc58c);
-        item.pointValueColor = UIColorFromRGB(0xffc58c);
-        if (fill) {
-            item.chartFillColor = [UIColor colorWithRed:0.5 green:0.1 blue:0.8 alpha:0.5];
-            item.chartFill = YES;
-        }
-        [pointss addObject:item];
-    }
-    //两条line
-    return @[pointss,points];
+    _statisticsType = index;
+    _currentItme = NO; //切换item表示已经不是本页
+    [self recordStatisticsItemWithItmeTypeIndex:index];
 }
 
 #pragma mark PXLineChartViewDelegate
@@ -307,6 +222,7 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
 - (NSUInteger)numberOfChartlines {
     return self.lines.count;
 }
+
 //x轴y轴对应的元素count
 - (NSUInteger)numberOfElementsCountWithAxisType:(AxisType)axisType {
     return (axisType == AxisTypeY)? _yElements.count : _xElements.count;
@@ -360,21 +276,82 @@ static NSString *StatisticalDataIdentifier = @"StatisticalData";
  */
 -(void)didClicksegmentedControlAction:(UISegmentedControl *)segmented {
     
-    [_xElements removeAllObjects];
     
-    if (segmented.selectedSegmentIndex >1) {
-        
-        [_xElements addObjectsFromArray:_dayArray];
-        
-    } else {
-        
-        [_xElements addObjectsFromArray:[_dayArray  subarrayWithRange:NSMakeRange(_dayArray.count-((segmented.selectedSegmentIndex+1)*7), (segmented.selectedSegmentIndex+1)*7)]];
-        
+    [self assignmentXElementsWithSegmentType:segmented.selectedSegmentIndex +1];
+}
+
+-(void)recordStatisticsItemWithItmeTypeIndex:(StatisticsType)itmeTypeIndex{
+    
+    switch (itmeTypeIndex) {
+        case StatisticsTypeH5Product:
+            
+            if (!_statisticsItemH5) {
+                _statisticsItemH5 = [[RecordStatisticsItem alloc]init];
+                [self generalStatisticsDataToStatisticsDataItem:_statisticsItemH5];
+            }else if(_statisticsItemH5 && _currentItme){
+                
+                [self generalStatisticsDataToStatisticsDataItem:_statisticsItemH5];
+            }else {
+                
+                [self generalStatisticsDataWithItem:_statisticsItemH5];
+            }
+            break;
+        case StatisticsTypeHot:
+            
+            if (!_statisticsItemHot) {
+                _statisticsItemHot = [[RecordStatisticsItem alloc]init];
+                self.segmentedControl.selectedSegmentIndex = 0;
+                [self assignmentXElementsWithSegmentType:1];
+
+            } else if(_statisticsItemHot && _currentItme){
+                
+                [self generalStatisticsDataToStatisticsDataItem:_statisticsItemHot];
+            }else {
+                
+                [self generalStatisticsDataWithItem:_statisticsItemHot];
+            }
+            break;
+        case StatisticsTypeFuns:
+            
+            if (!_statisticsItemFuns) {
+              
+                _statisticsItemFuns = [[RecordStatisticsItem alloc]init];
+                [self assignmentXElementsWithSegmentType:1];
+                self.segmentedControl.selectedSegmentIndex = 0;
+
+            } else if(_statisticsItemFuns && _currentItme){
+                
+                [self generalStatisticsDataToStatisticsDataItem:_statisticsItemFuns];
+            } else {
+                
+                [self generalStatisticsDataWithItem:_statisticsItemFuns];
+            
+            }
+            break;
+        default:
+            break;
     }
-    
-    self.lines = [self lines:fill];
     [_pXLineChartView reloadData];
 }
 
+-(void)generalStatisticsDataWithItem:(RecordStatisticsItem *)statisticsItem{
+    
+    self.lines = statisticsItem.lines;
+    self.xElements = statisticsItem.xElements;
+    self.yElements = statisticsItem.yElements;
+    self.segmentedControl.selectedSegmentIndex = statisticsItem.dayIndex;
+}
+
+-(void)generalStatisticsDataToStatisticsDataItem:(RecordStatisticsItem *)statisticsItem{
+    
+    statisticsItem.lines = self.lines;
+    statisticsItem.xElements = self.xElements;
+    statisticsItem.yElements = self.yElements;
+    statisticsItem.dayIndex = self.segmentedControl.selectedSegmentIndex;
+}
+
+@end
+
+@implementation RecordStatisticsItem
 
 @end

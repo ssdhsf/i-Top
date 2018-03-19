@@ -41,7 +41,7 @@
 
 -(void)setupStateLableWithGetArticleListType:(GetArticleListType)getArticleListType recommended:(H5List *)recommended{
     
-    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:recommended.update_datetime pattern:TIME_PATTERN_day];
+    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:recommended.update_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     NSInteger timeLabelTextWidth = [[Global sharedSingleton]widthForString:time fontSize:11 andHeight:15];
 
      NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;

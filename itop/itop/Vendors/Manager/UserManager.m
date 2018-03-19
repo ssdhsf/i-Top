@@ -1071,8 +1071,47 @@ _errorFailure(__id_obj); }
         HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
+}
 
+-(void)dataStatisticsWithStartDate:(NSString *)startDate
+                           endDate:(NSString *)endDate
+                    statisticsType:(StatisticsType)statisticsType{
     
+    SHOW_GET_DATA
+    NSString *api;
+
+    switch (statisticsType ) {
+        case StatisticsTypeH5Product:
+            api = @"/api/count/product";
+            break;
+        case StatisticsTypeHot:
+            api = @"/api/count/article";
+            break;
+        case StatisticsTypeFuns:
+            api = @"/api/count/fansattr";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *parameters = @{@"startDate" : startDate,
+                                 @"endDate" : endDate,
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            _statisticsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
 }
 
 -(void)messageList{

@@ -16,7 +16,7 @@
 
 static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
-@interface InfomationViewController ()<UIAlertViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface InfomationViewController ()<UIAlertViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource,SubmitFileManagerDelegate>
 
 @property (nonatomic, strong)InfomationDataSource *infomationDataSource;
 @property (nonatomic, strong)UIPickerView *pickView;
@@ -39,8 +39,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, assign)PickViewType pickViewType; //选择类型
 @property (nonatomic, assign)NSInteger selectRow; //选择类型
 @property (nonatomic, strong)InfomationModel *info; //选择类型
-
-
 
 @end
 
@@ -70,6 +68,9 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         make.bottom.top.mas_equalTo(self.view);
     }];
     [self steupTableView];
+    [SubmitFileManager sheardSubmitFileManager].delegate = self;
+    [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:self.view];
+    [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
 }
 
 -(void)initData{
@@ -293,10 +294,24 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     _selectRow = indexPath.row;
     _editorItem = [_infomationDataSource itemAtIndexPath:indexPath];
+    
     if (_editorItem.isEdit) {
         
-        [self showAlertViewWithItem:_editorItem];
+        if (_editorItem.pickViewType == PickViewTypePicture) {
+            
+            [[SubmitFileManager sheardSubmitFileManager].photoView openMenu];
+        } else {
+            
+             [self showAlertViewWithItem:_editorItem];
+        }
     }
+}
+
+-(void)compressionAndTransferPicturesWithArray:(NSArray *)array{
+    
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    InfomationTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    cell.iconImage.image = [array lastObject];
 }
 
 -(void)showAlertViewWithItem:(Infomation *)info{
@@ -550,7 +565,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 //}
 
 -(void)submitInfomation{
- 
+
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     for (Infomation *info in self.dataArray) {
         
@@ -583,10 +598,16 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 break;   
         }
     }
-    [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
-    [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
-
-        [self AlertOperation];
+    
+    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
+    [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
+        
+        [dic setObject:obj forKey:@"Head_img"];
+        [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
+        [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
+            
+            [self AlertOperation];
+        };
     };
 }
 

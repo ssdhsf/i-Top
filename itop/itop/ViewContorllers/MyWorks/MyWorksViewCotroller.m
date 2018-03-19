@@ -214,10 +214,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
             
             [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
                 
-                
-                
             } ];
-//            [[ShearViewManager sharedShearViewManager]addTimeViewToView:self.view ];
             break;
         case 5:
             

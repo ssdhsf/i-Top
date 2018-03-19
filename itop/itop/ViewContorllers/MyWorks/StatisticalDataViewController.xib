@@ -15,7 +15,7 @@
                 <outlet property="browseCountView" destination="f3x-2t-sf9" id="OQm-NO-Va1"/>
                 <outlet property="commentsCountLabel" destination="yyh-z7-55C" id="P7T-cz-XoE"/>
                 <outlet property="commentsCountView" destination="aHR-Z5-jEm" id="caS-Co-rcO"/>
-                <outlet property="funsCountLabel" destination="LCo-CU-EhJ" id="Zyt-Gx-OK3"/>
+                <outlet property="funsCountLabel" destination="cPb-x7-OAX" id="Uwt-kk-jqA"/>
                 <outlet property="funsCountView" destination="Wjv-ZB-wY9" id="tOf-wZ-cDu"/>
                 <outlet property="pXLineChartView" destination="gi5-nd-6Zl" id="Fdk-u9-GmB"/>
                 <outlet property="productCountLabel" destination="Uoq-Fa-XSP" id="FAK-js-RdS"/>

@@ -14,4 +14,9 @@
 
 - (NSMutableArray *)configurationStatisticalDataWithData:(NSArray *)statisticalData;
 
+//组织曲线模型；
+-(NSMutableArray *)itmeDataModelWithDictionarys:(NSArray *)Dictionarys
+                                     ThemeColor:(UIColor *)ThemeColor;
+
+-(NSArray *)coordinatesYElementsPiecewiseWithMaxCount:(NSInteger)maxCount;
 @end

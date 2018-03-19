@@ -114,6 +114,13 @@ typedef NS_ENUM(NSInteger, ItemType) {//H5类型
     VideoItmeViewController = 1,//Video
 };
 
+typedef NS_ENUM(NSInteger, StatisticsType) {//统计数据类型
+    
+    StatisticsTypeH5Product = 0,//H5
+    StatisticsTypeHot = 1,//热点
+    StatisticsTypeFuns //粉丝
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -181,6 +188,10 @@ typedef void (^CustomerServiceSuccess)(id obj);
 typedef void (^CustomerServiceFailure)(id obj);
 typedef void (^DeledeProductSuccess)(id obj);
 typedef void (^DeledeProductFailure)(id obj);
+
+typedef void (^StatisticsSuccess)(id obj);
+typedef void (^StatisticsFailure)(id obj);
+
 
 typedef void (^ErrorFailure)(id obj);
 
@@ -293,6 +304,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------反馈和客服————————————————————————*/
 @property (nonatomic, copy) DeledeProductSuccess deledeProductSuccess;
 @property (nonatomic, copy) DeledeProductFailure deledeProductFailure;
+
+/*----------------数据统计————————————————————————*/
+@property (nonatomic, copy) StatisticsSuccess statisticsSuccess;
+@property (nonatomic, copy) StatisticsFailure statisticsFailure;
 
 + (instancetype)shareUserManager;
 
@@ -613,5 +628,16 @@ typedef void (^ErrorFailure)(id obj);
  *  @param product_id 作品id
  */
 -(void)deleteProductWithProductId:(NSString *)product_id;
+
+/**
+ *  删除作品
+ *
+ *  @param startDate  开始日期
+ *  @param endDate 结束日期
+ *  @param statisticsType 统计类型
+ */
+-(void)dataStatisticsWithStartDate:(NSString *)startDate
+                           endDate:(NSString *)endDate
+                    statisticsType:(StatisticsType)statisticsType;
 
 @end

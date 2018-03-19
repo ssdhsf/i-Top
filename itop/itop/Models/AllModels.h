@@ -40,5 +40,6 @@
 #import "Marketing.h"
 #import "Message.h"
 #import "ShearInfo.h"
+#import "Statistical.h"
 
 #endif /* AllModels_h */

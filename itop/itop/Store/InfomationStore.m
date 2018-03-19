@@ -46,7 +46,7 @@
 -(NSMutableArray *)configurationAverageUserMenu:(InfomationModel *)info{
     
     NSMutableArray *sectionArray = [NSMutableArray array];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" pickViewType:PickViewTypeNone] ];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture] ];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name" pickViewType:PickViewTypeEdit]];
@@ -61,7 +61,7 @@
 -(NSMutableArray *)configurationCompenyMenu:(InfomationModel *)info{
     
     NSMutableArray *sectionArray = [NSMutableArray array];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"LOGO" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" pickViewType:PickViewTypeNone]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"LOGO" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userVersionWithVersion:info.other_info.version] isEditor:NO sendKey:@"nickname" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"企业名称" content:info.other_info.name isEditor:YES sendKey:@"Enterprise_name" pickViewType:PickViewTypeEdit]];
@@ -76,7 +76,7 @@
 -(NSMutableArray *)configurationDesignerMenu:(InfomationModel *)info{
     
     NSMutableArray *sectionArray = [NSMutableArray array];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" pickViewType:PickViewTypeNone]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userLevelWithLevel:info.other_info.level] isEditor:NO sendKey:@"nickname" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];
@@ -91,7 +91,7 @@
 -(NSMutableArray *)configurationMarktingMenu:(InfomationModel *)info{
     
     NSMutableArray *sectionArray = [NSMutableArray array];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:NO sendKey:@"Head_img" pickViewType:PickViewTypeNone]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userLevelWithLevel:info.other_info.level] isEditor:NO sendKey:@"nickname" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];

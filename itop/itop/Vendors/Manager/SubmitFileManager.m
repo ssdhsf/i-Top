@@ -59,7 +59,6 @@
 
 - (void)browsePicturesWithPictureArray:(NSArray*)PictureArray{
 
-//    _photoView.isBrowsePictures = YES;
     [_photoView browsePicturesWithPictureArray:PictureArray];
 }
 

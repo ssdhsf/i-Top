@@ -97,7 +97,7 @@
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataViewController"]];
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"OptimizeTitleViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }

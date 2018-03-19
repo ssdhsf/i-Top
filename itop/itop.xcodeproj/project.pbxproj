@@ -199,6 +199,9 @@
 		77826B9C2019DC7A00F53E28 /* MyInfomationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77826B9B2019DC7A00F53E28 /* MyInfomationDataSource.m */; };
 		77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77826B9E2019DCA700F53E28 /* MyInfomationStore.m */; };
 		77826BA22019E83A00F53E28 /* MyInfomationSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77826BA12019E83A00F53E28 /* MyInfomationSectionHeaderView.m */; };
+		7782DDC0205F5D54004C2108 /* Statistical.m in Sources */ = {isa = PBXBuildFile; fileRef = 7782DDBF205F5D54004C2108 /* Statistical.m */; };
+		7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7782DDC2205FF5DC004C2108 /* OptimizeTitleViewController.m */; };
+		7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7782DDC3205FF5DC004C2108 /* OptimizeTitleViewController.xib */; };
 		77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */; };
 		77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADD202C4F1A00C0CCD2 /* UserInfo.m */; };
 		77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AE0202D37EC00C0CCD2 /* MyFocusViewController.m */; };
@@ -307,10 +310,7 @@
 		77E8A88F20137F2900E253CC /* ResetPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E8A88D20137F2900E253CC /* ResetPasswordViewController.xib */; };
 		77E8A893201580D100E253CC /* StatisticalDataViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A891201580D100E253CC /* StatisticalDataViewController.m */; };
 		77E8A894201580D100E253CC /* StatisticalDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E8A892201580D100E253CC /* StatisticalDataViewController.xib */; };
-		77E8A8982015893200E253CC /* StatisticalDataCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A8962015893200E253CC /* StatisticalDataCell.m */; };
-		77E8A8992015893200E253CC /* StatisticalDataCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E8A8972015893200E253CC /* StatisticalDataCell.xib */; };
 		77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A89B20158D6E00E253CC /* StatisticalDataStore.m */; };
-		77E8A89F20158D9700E253CC /* StatisticalDataDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A89E20158D9700E253CC /* StatisticalDataDataSource.m */; };
 		77E8A8A220158EAD00E253CC /* StatisticalData.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A8A120158EAD00E253CC /* StatisticalData.m */; };
 		77E8A8AD2015BEEC00E253CC /* SNChart.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A8A52015BEEC00E253CC /* SNChart.m */; };
 		77E8A8AE2015BEEC00E253CC /* SNChartBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A8A72015BEEC00E253CC /* SNChartBar.m */; };
@@ -694,6 +694,11 @@
 		77826B9E2019DCA700F53E28 /* MyInfomationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfomationStore.m; sourceTree = "<group>"; };
 		77826BA02019E83A00F53E28 /* MyInfomationSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfomationSectionHeaderView.h; sourceTree = "<group>"; };
 		77826BA12019E83A00F53E28 /* MyInfomationSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfomationSectionHeaderView.m; sourceTree = "<group>"; };
+		7782DDBE205F5D54004C2108 /* Statistical.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Statistical.h; sourceTree = "<group>"; };
+		7782DDBF205F5D54004C2108 /* Statistical.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Statistical.m; sourceTree = "<group>"; };
+		7782DDC1205FF5DC004C2108 /* OptimizeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptimizeTitleViewController.h; sourceTree = "<group>"; };
+		7782DDC2205FF5DC004C2108 /* OptimizeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptimizeTitleViewController.m; sourceTree = "<group>"; };
+		7782DDC3205FF5DC004C2108 /* OptimizeTitleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptimizeTitleViewController.xib; sourceTree = "<group>"; };
 		77848AD9202C4EAD00C0CCD2 /* InfomationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationModel.h; sourceTree = "<group>"; };
 		77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationModel.m; sourceTree = "<group>"; };
 		77848ADC202C4F1A00C0CCD2 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
@@ -888,13 +893,8 @@
 		77E8A890201580D100E253CC /* StatisticalDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalDataViewController.h; sourceTree = "<group>"; };
 		77E8A891201580D100E253CC /* StatisticalDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalDataViewController.m; sourceTree = "<group>"; };
 		77E8A892201580D100E253CC /* StatisticalDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticalDataViewController.xib; sourceTree = "<group>"; };
-		77E8A8952015893200E253CC /* StatisticalDataCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalDataCell.h; sourceTree = "<group>"; };
-		77E8A8962015893200E253CC /* StatisticalDataCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalDataCell.m; sourceTree = "<group>"; };
-		77E8A8972015893200E253CC /* StatisticalDataCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticalDataCell.xib; sourceTree = "<group>"; };
 		77E8A89A20158D6E00E253CC /* StatisticalDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalDataStore.h; sourceTree = "<group>"; };
 		77E8A89B20158D6E00E253CC /* StatisticalDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalDataStore.m; sourceTree = "<group>"; };
-		77E8A89D20158D9700E253CC /* StatisticalDataDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalDataDataSource.h; sourceTree = "<group>"; };
-		77E8A89E20158D9700E253CC /* StatisticalDataDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalDataDataSource.m; sourceTree = "<group>"; };
 		77E8A8A020158EAD00E253CC /* StatisticalData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalData.h; sourceTree = "<group>"; };
 		77E8A8A120158EAD00E253CC /* StatisticalData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalData.m; sourceTree = "<group>"; };
 		77E8A8A42015BEEC00E253CC /* SNChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNChart.h; sourceTree = "<group>"; };
@@ -1102,9 +1102,6 @@
 				77E8A890201580D100E253CC /* StatisticalDataViewController.h */,
 				77E8A891201580D100E253CC /* StatisticalDataViewController.m */,
 				77E8A892201580D100E253CC /* StatisticalDataViewController.xib */,
-				77E8A8952015893200E253CC /* StatisticalDataCell.h */,
-				77E8A8962015893200E253CC /* StatisticalDataCell.m */,
-				77E8A8972015893200E253CC /* StatisticalDataCell.xib */,
 				77E00A5F2016C938004BBD49 /* PointItem.h */,
 				77E00A602016C938004BBD49 /* PointItem.m */,
 				772F95992056206A00F432D2 /* SetupProductViewController.h */,
@@ -1113,6 +1110,9 @@
 				772F959E20567E1500F432D2 /* QrCodeViewController.h */,
 				772F959F20567E1500F432D2 /* QrCodeViewController.m */,
 				772F95A020567E1500F432D2 /* QrCodeViewController.xib */,
+				7782DDC1205FF5DC004C2108 /* OptimizeTitleViewController.h */,
+				7782DDC2205FF5DC004C2108 /* OptimizeTitleViewController.m */,
+				7782DDC3205FF5DC004C2108 /* OptimizeTitleViewController.xib */,
 			);
 			path = MyWorks;
 			sourceTree = "<group>";
@@ -1414,6 +1414,8 @@
 				772F958C2054D0E500F432D2 /* Message.m */,
 				772F95C7205C061000F432D2 /* ShearInfo.h */,
 				772F95C8205C061000F432D2 /* ShearInfo.m */,
+				7782DDBE205F5D54004C2108 /* Statistical.h */,
+				7782DDBF205F5D54004C2108 /* Statistical.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1756,8 +1758,6 @@
 			children = (
 				77E8A84E201197EF00E253CC /* ThemeCustomDataSource.h */,
 				77E8A84F201197EF00E253CC /* ThemeCustomDataSource.m */,
-				77E8A89D20158D9700E253CC /* StatisticalDataDataSource.h */,
-				77E8A89E20158D9700E253CC /* StatisticalDataDataSource.m */,
 				77DA833B2018839800E7CB36 /* DesignerListDataSource.h */,
 				77DA833C2018839800E7CB36 /* DesignerListDataSource.m */,
 				77DA834E2019793C00E7CB36 /* H5ListDataSource.h */,
@@ -2022,11 +2022,11 @@
 				77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */,
 				774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */,
 				77E8A88A20136B9B00E253CC /* registeredViewController.xib in Resources */,
+				7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */,
 				77484A992020BDB900BAC567 /* HotDetailsCell.xib in Resources */,
 				7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */,
 				77484A7B2020473E00BAC567 /* RecommendedViewController.xib in Resources */,
 				774B87F0204E821700F602E3 /* ProtocolViewController.xib in Resources */,
-				77E8A8992015893200E253CC /* StatisticalDataCell.xib in Resources */,
 				7792B717201ACB3800587399 /* HomeCollectionViewCell.xib in Resources */,
 				777D517A200CC52700CB2A8A /* Assets.xcassets in Resources */,
 				77723AC22043BB42006294E8 /* OK.png in Resources */,
@@ -2158,7 +2158,6 @@
 				777D5175200CC52700CB2A8A /* ViewController.m in Sources */,
 				77E8A8822011DCB000E253CC /* ViewController+MASAdditions.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
-				77E8A89F20158D9700E253CC /* StatisticalDataDataSource.m in Sources */,
 				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77723AE62043BBB2006294E8 /* MSSBrowseCollectionViewCell.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
@@ -2252,6 +2251,7 @@
 				77DA833A2018834700E7CB36 /* DesignerListStore.m in Sources */,
 				77723B0F2043CC77006294E8 /* MessagePhotoView.m in Sources */,
 				777AF1DD200E427B009729AD /* KeychainItemWrapper.m in Sources */,
+				7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */,
 				7777E55420294413008FA348 /* Leave.m in Sources */,
 				77B2F47A2010AEE100EF4119 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */,
@@ -2319,6 +2319,7 @@
 				77E8A8B02015BEEC00E253CC /* UIBezierPath+curved.m in Sources */,
 				777AF1D1200DFD10009729AD /* ThemeManager.m in Sources */,
 				77E8A85B20119CA200E253CC /* ThemeCustomStore.m in Sources */,
+				7782DDC0205F5D54004C2108 /* Statistical.m in Sources */,
 				77E8A8A220158EAD00E253CC /* StatisticalData.m in Sources */,
 				77826B9C2019DC7A00F53E28 /* MyInfomationDataSource.m in Sources */,
 				77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */,
@@ -2344,7 +2345,6 @@
 				77484A892020551100BAC567 /* RecommendedStore.m in Sources */,
 				7792B728201C7BC100587399 /* HomeModel.m in Sources */,
 				777D516F200CC52700CB2A8A /* main.m in Sources */,
-				77E8A8982015893200E253CC /* StatisticalDataCell.m in Sources */,
 				77723AF42043C869006294E8 /* UIView+PYExtension.m in Sources */,
 				77B86FF6202868370096FB28 /* LeaveDataSource.m in Sources */,
 				77723A892043B015006294E8 /* Base64.m in Sources */,
