@@ -9,6 +9,7 @@
 #import "BaseTableViewController.h"
 
 @class RecordStatisticsItem;
+
 @interface StatisticalDataViewController : BaseViewController
 
 @end

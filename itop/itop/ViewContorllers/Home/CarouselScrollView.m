@@ -69,6 +69,7 @@ static double kFGGScrollInterval = 5.0f;
         
         CGFloat xpos = i*self.bounds.size.width;
         UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(xpos, 0, self.bounds.size.width, self.bounds.size.height)];
+        
         //设置灰色底
         imv.image = _placeHolderImage;
         imv.userInteractionEnabled = YES;
@@ -87,6 +88,8 @@ static double kFGGScrollInterval = 5.0f;
         [imv sd_setImageWithURL:url placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
             }];
+            imv.clipsToBounds = YES;
+            imv.contentMode = UIViewContentModeScaleAspectFill;
     }
     if(_pageControl)
         _pageControl = nil;

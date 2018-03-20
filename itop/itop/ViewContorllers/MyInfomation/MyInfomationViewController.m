@@ -125,11 +125,13 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
         
-    } else {
+    }else if ([info.myInfoTitle isEqualToString:@"作品"]){
+        
+        [UIManager productViewControllerWithType:GetProductListTypeMyProduct];
+    }else {
         
         [UIManager showVC:info.nextVcName];
     }
-    
 }
 
 -(void)nextBaseInfomationVc{

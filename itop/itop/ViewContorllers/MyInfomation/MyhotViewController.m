@@ -98,16 +98,23 @@
     switch (itemIndex) {
         case 0:
             if (!_h5Vc || _isSubmitBackOff) {
+               
                 _h5Vc = [[MyHotH5ItmeViewController alloc]initWithNibName:@"MyHotH5ItmeViewController" bundle:nil];
                 _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
-                _h5Vc.getArticleListType = GetArticleListTypeHot;
-                _h5Vc.pushMyHotH5Control = ^ (NSString *hotDetails_id){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.itemDetailType = H5ItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                _h5Vc.getArticleListType = GetArticleListTypeMyHot;
+                _h5Vc.pushMyHotH5Control = ^ (H5List *h5){
+                    
+                    if ([h5.check_status integerValue] == 2) {
+                        HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
+                        hotDetailsVc.itemDetailType = H5ItemDetailType;
+                        hotDetailsVc.hotDetail_id = h5.id;
+                        hotDetailsVc.hidesBottomBarWhenPushed = YES;
+                        [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                    } else {
+                        
+                        [weakSelf showToastWithMessage:@"审核中"];
+                    }
                 };
             }
             [_scroll addSubview:_h5Vc.view];
@@ -119,11 +126,18 @@
                 _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeMyHot;
-                _informationVc.pushControl = ^ (NSString *hotDetails_id){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                _informationVc.pushControl = ^ (H5List *h5){
+                    
+                    if ([h5.check_status integerValue] == 2) {
+                        HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
+                        hotDetailsVc.itemDetailType = HotItemDetailType;
+                        hotDetailsVc.hotDetail_id = h5.id;
+                        hotDetailsVc.hidesBottomBarWhenPushed = YES;
+                        [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                    } else {
+                        
+                        [weakSelf showToastWithMessage:@"审核中"];
+                    }
                 };
             }
             [_scroll addSubview:_informationVc.view];
@@ -133,8 +147,8 @@
                 _videoVc = [[MyHotH5ItmeViewController alloc]initWithNibName:@"MyHotH5ItmeViewController" bundle:nil];
                 _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
-                _videoVc.getArticleListType = GetArticleListTypeHot;
-                _videoVc.pushMyHotH5Control = ^ (NSString *article){
+                _videoVc.getArticleListType = GetArticleListTypeMyHot;
+                _videoVc.pushMyHotH5Control = ^ (H5List *h5){
                     
                     [[Global sharedSingleton]showToastInTop:weakSelf.view withMessage:@"暂时未开放"];
                 };

@@ -44,29 +44,43 @@
     _submitButton.layer.masksToBounds = YES;
 }
 
-- (IBAction)selectProduct:(UIButton *)sender {
+-(void)initData{
     
-    
+    self.productTitleLabel.text = _product_h5.title;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)selectProduct:(UIButton *)sender {
+   
+    [UIManager productViewControllerWithType:GetProductListTypeSelect];
+    [UIManager sharedUIManager].selectProductBolck = ^(H5List *h5){
+        
+        _product_h5 = h5;
+        [self initData];
+    };
 }
+
 - (IBAction)sunmit:(UIButton *)sender {
     
+    NSInteger inputTitleCount = 0;
     
+    if (![Global stringIsNullWithString:self.titleTF1.text]) {
+        
+        inputTitleCount ++;
+    }
+    if (![Global stringIsNullWithString:self.titleTF2.text]) {
+        
+        inputTitleCount ++;
+    }
+    if (![Global stringIsNullWithString:self.titleTF3.text]) {
+        
+        inputTitleCount ++;
+    }
     
+    if (inputTitleCount < 2) {
+        
+        [self showToastWithMessage:TIPSMESSEGE(@"至少2个标题")];
+        return;
+    }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

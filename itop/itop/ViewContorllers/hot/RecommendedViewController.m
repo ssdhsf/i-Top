@@ -100,8 +100,7 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     H5List *h5list = [_recommendedDataSource itemAtIndexPath:indexPath];
-    
-    _pushControl(h5list.id);
+    _pushControl(h5list);
     
 }
 

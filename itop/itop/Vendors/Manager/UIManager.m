@@ -17,6 +17,8 @@
 #import "CustomerServiceViewController.h"
 #import "SetupProductViewController.h"
 #import "QrCodeViewController.h"
+#import "MyWorksViewCotroller.h"
+#import "OptimizeTitleViewController.h"
 
 @implementation UIManager
 
@@ -58,7 +60,7 @@
         MyTabBarController*tabBarController=[[MyTabBarController alloc]init];
         ThemeNavigationController *nav1 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"HomeViewController"]];
         ThemeNavigationController *nav2 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"HotViewController"]];
-        ThemeNavigationController *nav3 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"MyWorksViewCotroller"]];
+        ThemeNavigationController *nav3 = [[ThemeNavigationController alloc]initWithRootViewController: [[UIManager sharedUIManager] homeProductViewControllerWithType:GetProductListTypeHome]];
         ThemeNavigationController *nav4 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"MyInfomationViewController"]];
         
         [nav1 setTitle:@"首页" tabBarItemImageName:@"home_icon_home" tabBarItemSelectedImageName:@"icon_home_selected"];
@@ -196,6 +198,7 @@
     
     DesignerInfoViewController *vc = [[DesignerInfoViewController alloc]init];
     vc.desginer_id = designer_id;
+    vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -223,14 +226,13 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
-+(void)shearProductWithProductId:(NSString *)product_id{
++(void)shearProductWithProduct:(H5List *)product{
     
     SetupProductViewController *vc = [[SetupProductViewController alloc]init];
-    vc.product_id = product_id;
+    vc.product = product;
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }
-
 
 +(void)protocolWithProtocolType:(ProtocolType)protocolType{
     
@@ -239,7 +241,6 @@
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }
-
 
 +(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
     
@@ -265,6 +266,30 @@
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }
+
+
++(void)productViewControllerWithType:(GetProductListType )showProductType{
+    
+    MyWorksViewCotroller *vc = [[UIManager sharedUIManager] homeProductViewControllerWithType:showProductType];
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
+-(MyWorksViewCotroller *)homeProductViewControllerWithType:(GetProductListType )showProductType{
+    
+    MyWorksViewCotroller *vc = [[MyWorksViewCotroller alloc] init];
+    vc.showProductType = showProductType;
+    return vc;
+}
+
++(void)optimizeTitleViewControllerWithProduct:(H5List *)product{
+    
+    OptimizeTitleViewController *vc = [[OptimizeTitleViewController alloc]init];
+    vc.product_h5 = product;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
 
 + (UINavigationController *)getNavigationController{
     

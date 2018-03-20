@@ -32,6 +32,10 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (strong, nonatomic) UITextView *commentTV;
 @property (strong, nonatomic) UIView *commentTVBgView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *browseIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *praiseIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *commentIcon;
+
 /*---------------h5headerview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *h5HeaderView;
 @property (weak, nonatomic) IBOutlet UIView *h5View;
@@ -41,6 +45,9 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *h5BrowseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5PraiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5CommentLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *h5BrowseIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *h5PraiseIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *h5CommentIcon;
 
 /*---------------publicview--------------------*/
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
@@ -88,9 +95,10 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [super viewDidAppear:animated];
     [[ShearViewManager sharedShearViewManager]setupShearView];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
-        
+
     };
 }
+
 
 -(void)initData{
     
@@ -182,11 +190,43 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 -(void)setupHeaderView{
     
+    NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
+    NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
+    NSInteger commentsLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.comment_count fontSize:13 andHeight:15];
+    
+    self.browseIcon.frame = CGRectMake(CGRectGetMaxX(self.timeLabel.frame), 0, 14, 9);
+    self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
+    
+    self.praiseIcon.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, 0, 10, 9);
+    self.praiseLabel.frame = CGRectMake(CGRectGetMaxX(self.praiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
+    
+    self.commentIcon.frame = CGRectMake(CGRectGetMaxX(self.praiseLabel.frame)+10, 0, 10, 9);
+    self.commentLabel.frame = CGRectMake(CGRectGetMaxX(self.commentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
+    
+    self.browseIcon.centerY = self.timeLabel.centerY;
+    self.browseLabel.centerY = self.browseIcon.centerY;
+    self.praiseIcon.centerY = self.browseIcon.centerY;
+    self.praiseLabel.centerY = self.browseIcon.centerY;
+    self.commentIcon.centerY = self.browseIcon.centerY;
+    self.commentLabel.centerY = self.browseIcon.centerY;
+    
     _showImage.frame = CGRectMake(20, CGRectGetMaxY(_iconImage.frame)+20, ScreenWidth - 40, (ScreenWidth - 40)*0.448);
-    CGFloat contentHeight = [Global heightWithString:_hotDetail.article.content width:ScreenWidth - 40 fontSize:16];
+
+    NSDictionary *optoins = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
+                              NSFontAttributeName:self.contentLabel.font};
+    
+    NSString *htmlString = _hotDetail.article.content;
+    NSData *data = [htmlString dataUsingEncoding:NSUnicodeStringEncoding];
+    NSAttributedString *attributeString = [[NSAttributedString alloc] initWithData:data
+                                                                           options:optoins
+                                                                documentAttributes:nil
+                                                    error:nil];
+
+    self.contentLabel.attributedText = attributeString;
+    CGFloat contentHeight = [Global heightWithString: self.contentLabel.text width:ScreenWidth - 40 fontSize:16];
+
     _contentLabel.frame = CGRectMake(20, CGRectGetMaxY(_showImage.frame)+30, ScreenWidth - 40, contentHeight);
-    _contentLabel.font = [UIFont systemFontOfSize:16];
-    _headerView.frame = CGRectMake(0 , 0, ScreenWidth, CGRectGetMaxY(_contentLabel.frame)+60+21);
+    _headerView.frame = CGRectMake(0 , 0, ScreenWidth, CGRectGetMaxY(_showImage.frame)+contentHeight+44+21);
     self.tableView.tableHeaderView = _headerView;
     
     _iconImage.layer.masksToBounds = YES;
@@ -200,6 +240,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 -(void)setupH5HeaderView{
     
+    self.title = _hotDetail.article.title;
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
     _webVc = [[WebViewController alloc]init];
@@ -207,6 +248,24 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
     [_h5HeaderView addSubview:_webVc.view];
     
+    NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
+    NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
+    NSInteger commentsLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.comment_count fontSize:13 andHeight:15];
+    NSInteger oringinY = CGRectGetMaxY(self.h5HeaderView.frame)-122;
+    self.h5BrowseIcon.frame = CGRectMake(30, oringinY, 14, 9);
+    self.h5BrowseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
+    
+    self.h5PraiseIcon.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseLabel.frame)+10, 0, 10, 9);
+    self.h5PraiseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
+    
+    self.h5CommentIcon.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseLabel.frame)+10, 0, 10, 9);
+    self.h5CommentLabel.frame = CGRectMake(CGRectGetMaxX(self.h5CommentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
+    self.h5BrowseLabel.centerY = self.h5BrowseIcon.centerY;
+    self.h5PraiseIcon.centerY = self.h5BrowseIcon.centerY;
+    self.h5PraiseLabel.centerY = self.h5BrowseIcon.centerY;
+    self.h5CommentIcon.centerY = self.h5BrowseIcon.centerY;
+    self.h5CommentLabel.centerY = self.h5BrowseIcon.centerY;
+
     _h5ImageView.layer.masksToBounds = YES;
     _h5ImageView.layer.cornerRadius = _h5ImageView.frame.size.width/2;
     _focusType = [_hotDetail.follow integerValue];
@@ -228,15 +287,28 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)setHeaderViewSubViewData{
     
     _titleLabel.text = _hotDetail.article.title;
-    _timeLabel.text =[[Global sharedSingleton]timestampTotimeStringWithtimestamp:_hotDetail.article.create_datetime pattern:TIME_PATTERN_minute];
+    _timeLabel.text =[[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:_hotDetail.article.create_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     _browseLabel.text = _hotDetail.article.browse_count;
     _praiseLabel.text = _hotDetail.article.praise_count;
     _commentLabel.text = _hotDetail.article.comment_count;
-    _contentLabel.text = _hotDetail.article.content;
+//    _contentLabel.text = _hotDetail.article.content;
     _userNameLabel.text = _hotDetail.author_nickname;
     
     [_iconImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
     [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:nil];
+    
+    UIFont *font = [UIFont systemFontOfSize:16];
+    self.contentLabel.font = font;
+    NSDictionary *optoins = @{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType,
+                            NSFontAttributeName:font};
+    
+    NSString *htmlString = _hotDetail.article.content;
+    NSData *data = [htmlString dataUsingEncoding:NSUnicodeStringEncoding];
+    NSAttributedString *attributeString = [[NSAttributedString alloc] initWithData:data
+                                                                         options:optoins
+                                         documentAttributes:nil
+                                                    error:nil];
+    self.contentLabel.attributedText = attributeString;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{

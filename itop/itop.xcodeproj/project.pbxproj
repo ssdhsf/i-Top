@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D765A206114A3007601A8 /* NSString+AttributedString.m */; };
 		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
 		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
 		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
@@ -360,6 +361,8 @@
 /* Begin PBXFileReference section */
 		3F4F896C20E3CF680A8B738B /* libPods-itop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-itop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A538600B333827AA61CE679 /* Pods-itop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.release.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.release.xcconfig"; sourceTree = "<group>"; };
+		770D7659206114A3007601A8 /* NSString+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedString.h"; sourceTree = "<group>"; };
+		770D765A206114A3007601A8 /* NSString+AttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttributedString.m"; sourceTree = "<group>"; };
 		772F95752050023100F432D2 /* AppDelegate+UmenShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UmenShear.h"; sourceTree = "<group>"; };
 		772F95762050023100F432D2 /* AppDelegate+UmenShear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UmenShear.m"; sourceTree = "<group>"; };
 		772F957820503D4800F432D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -1512,6 +1515,8 @@
 				77484AC22023200B00BAC567 /* UINavigationBar+Awesome.m */,
 				77723AF22043C869006294E8 /* UIView+PYExtension.h */,
 				77723AF32043C869006294E8 /* UIView+PYExtension.m */,
+				770D7659206114A3007601A8 /* NSString+AttributedString.h */,
+				770D765A206114A3007601A8 /* NSString+AttributedString.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2174,6 +2179,7 @@
 				77723B0E2043CC77006294E8 /* CDRTranslucentSideBar.m in Sources */,
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
+				770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */,
 				777AF1BD200DA2E5009729AD /* InterfaceBase.m in Sources */,
 				77484AB72022BB9200BAC567 /* LoginMannager.m in Sources */,
 				7777E5612029F369008FA348 /* LeaveDetail.m in Sources */,

@@ -17,7 +17,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @interface MyWorksViewCotroller ()
 
 @property (nonatomic, strong) MyWorksDataSource *myWorksDataSource;
-@property (nonatomic, strong) NSDictionary *imageArrayTitle;
+@property (nonatomic, strong) NSDictionary *config;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (strong, nonatomic) UIView *editorBgView;
 @property (strong, nonatomic) IBOutlet UIView *editorView;
@@ -33,21 +33,34 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    if (self.navigationController.navigationBar.hidden) {
-        [self hiddenNavigationController:NO];
-    } else {
-        [self setLeftCustomBarItem:@"" action:nil];
+    switch (_showProductType) {
+        case GetProductListTypeHome:
+            
+            [self hiddenNavigafindHairlineImageView:NO];
+            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+            [self setLeftCustomBarItem:@"" action:nil];
+            break;
+        case GetProductListTypeMyProduct:
+            
+            [self hiddenNavigafindHairlineImageView:YES];
+            [self hiddenNavigationController:NO];
+//            [self setRightBarItemString:@"管理" action:@selector(management)];
+            self.navigationItem.rightBarButtonItem.tintColor = RGB(232, 98, 159);
+            break;
+        case GetProductListTypeSelect:
+            
+            [self hiddenNavigafindHairlineImageView:YES];
+            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+            break;
+        default:
+            break;
     }
-    
-    [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
-    [self hiddenNavigafindHairlineImageView:NO];
     self.navigationController.navigationBar.translucent = NO;
 }
 
@@ -76,6 +89,25 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     };
 }
 
+-(void)initNavigationBarItems{
+    
+    [super initNavigationBarItems];
+    switch (_showProductType) {
+        case GetProductListTypeHome:
+            self.navigationItem.title = @"";
+            break;
+        case GetProductListTypeMyProduct:
+            self.navigationItem.title = @"我的作品";
+            break;
+
+        case GetProductListTypeSelect:
+            self.navigationItem.title = @"选择作品";
+            break;
+        default:
+            break;
+    }
+}
+
 -(void)initView{
     
     [super initView];
@@ -90,24 +122,17 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         make.bottom.top.mas_equalTo(self.view);
     }];
     
-//    [self setupEditor];
     [self steupCollectionView];
-//    [self steupEditorBuuton];
 }
 
 -(void)initData{
     
     [super initData];
     [self showRefresh];
-    self.imageArrayTitle = @{@"编辑":@"zuo_icon_edit",
-                             @"预览":@"zuo_icon_preview",
-                             @"留资":@"zuo_icon_liuzi",
-                             @"设置":@"zuo_icon_set",
-                             @"分享":@"zuo_icon_share",
-                             @"复制链接":@"zuo_icon_link",
-                             @"二维码":@"zuo_icon_code",
-                             @"删除":@"zuo_icon_delete"};
-    self.titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"分享",@"复制链接",@"二维码",@"删除",];
+    
+    NSDictionary * config = [[MyWorksStore shearMyWorksStore] editProductConfigurationMenuWithGetProductType:_showProductType];
+    self.config = config[@"config"];
+    self.titleArray = config[@"title"];
 }
 
 -(void)setupEditor{
@@ -126,9 +151,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     [[UserManager shareUserManager]myProductListWithProductType:defultType  checkStatusType:defultType isShow:defultType  PageIndex:self.page_no PageCount:10];
     [UserManager shareUserManager].myProductListSuccess = ^(NSArray * obj){
-        
-        NSLog(@"%@",obj);
-        
+
         if (obj.count == 0) {
             
             self.noDataType = NoDataTypeProduct;
@@ -186,53 +209,99 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     _h5 = [_myWorksDataSource itemAtIndexPath:indexPath];
-    _currentIndex = indexPath.row;
-    [self editoeViewWithAnimation:YES];
-    NSLog(@"23");
+    if (_showProductType == GetProductListTypeSelect) {
+        
+        [self back];
+        [UIManager sharedUIManager].selectProductBolck(_h5);
+        
+    } else {
+        _currentIndex = indexPath.row;
+        [self editoeViewWithAnimation:YES];
+        NSLog(@"23");
+    }
 }
 
 - (void)editor:(UIButton *)sender {
     
     [self editoeViewWithAnimation:NO];
-    switch (sender.tag) {
-            
-        case 1:
-            
-            [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
-            break;
-            
-        case 2:
-            
-            [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
-            break;
-            
-        case 3:
-            
-            [UIManager shearProductWithProductId:_h5.id];
-            break;
-        case 4:
-            
-            [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
-                
-            } ];
-            break;
-        case 5:
-            
-            [self copyTheLinkWithLinkUrl:_h5.url];
-            break;
-        case 6:
-            
-            [UIManager  qrCodeViewControllerWithCode:_h5.url];
-            break;
-            
-        case 7:
-            
-            [self alertOperation];
-            break;
-            
-        default:
-            break;
+    
+    if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
+        [self showToastWithMessage:@"暂未开放"];
     }
+    
+    if ([sender.titleLabel.text isEqualToString:@"预览"]) {
+       [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"留资"]) {
+         [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"设置"]) {
+        [UIManager shearProductWithProduct:_h5];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"分享"]) {
+        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+            
+        } ];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"复制链接"]) {
+        [self copyTheLinkWithLinkUrl:_h5.url];
+    }
+    if ([sender.titleLabel.text isEqualToString:@"二维码"]) {
+        [UIManager  qrCodeViewControllerWithCode:_h5.url];
+    }
+    if ([sender.titleLabel.text isEqualToString:@"删除"]) {
+        [self alertOperation];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"标题优化"]) {
+        
+        [UIManager optimizeTitleViewControllerWithProduct:_h5];
+    }
+
+
+//    switch (sender.tag) {
+//            
+//        case 1:
+//            
+//            [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
+//            break;
+//            
+//        case 2:
+//            
+//            [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
+//            break;
+//            
+//        case 3:
+//            
+//            [UIManager shearProductWithProductId:_h5.id];
+//            break;
+//        case 4:
+//            
+//            [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+//                
+//            } ];
+//            break;
+//        case 5:
+//            
+//            [self copyTheLinkWithLinkUrl:_h5.url];
+//            break;
+//        case 6:
+//            
+//            [UIManager  qrCodeViewControllerWithCode:_h5.url];
+//            break;
+//            
+//        case 7:
+//            
+//            [self alertOperation];
+//            break;
+//            
+//        default:
+//            break;
+//    }
     
     NSLog(@"%ld",sender.tag);
 }
@@ -257,38 +326,41 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     for (int i = 0; i < self.titleArray.count; i++) {
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        UILabel *label = [[UILabel alloc]init];
         if (i < 4) {
-            button.frame = CGRectMake(47+i*47+(((ScreenWidth-(47*5))/4)*i), 68, ((ScreenWidth-(47*5))/4), ((ScreenWidth-(47*5))/4));
-            
-            label.frame = CGRectMake(10+i*10+(((ScreenWidth-(10*5))/4)*i), CGRectGetMaxY(button.frame)+5, ((ScreenWidth-(10*5))/4),19);
-            
+            button.frame = CGRectMake(10+i*10+(((ScreenWidth-(10*5))/4)*i), 68, ((ScreenWidth-(10*5))/4), ((ScreenWidth-(10*5))/4));
         } else {
-            button.frame = CGRectMake(47+(i-4)*47+(((ScreenWidth-(47*5))/4)*(i-4)), 68+((ScreenWidth-(47*5))/4)+27+24, ((ScreenWidth-(47*5))/4), ((ScreenWidth-(47*5))/4));
-            
-            label.frame = CGRectMake(10+(i-4)*10+(((ScreenWidth-(10*5))/4)*(i-4)), CGRectGetMaxY(button.frame)+5,((ScreenWidth-(10*5))/4),19);
+            button.frame = CGRectMake(10+(i-4)*10+(((ScreenWidth-(10*5))/4)*(i-4)), 20+((ScreenWidth-(10*5))/4)+27+24, ((ScreenWidth-(10*5))/4), ((ScreenWidth-(10*5))/4));
+
         }
         
         [button addTarget:self action:@selector(editor:) forControlEvents:UIControlEventTouchDown];
-         label.centerX = button.centerX;
-        
-//        NSLog(@"%f--%f--%f--%f",button.frame.origin.x,button.frame.origin.y,button.frame.size.height,button.frame.size.width);
-//        button.titleEdgeInsets = UIEdgeInsetsMake(button.imageView.frame.size.height+5, -button.imageView.bounds.size.width, 0,0);
-//        // button图片的偏移量
-//        button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel.frame.size.width/2,button.titleLabel.frame.size.height+5, -button.titleLabel.frame.size.width/2);
-        
-        NSString *string = self.titleArray[i];
-        [button setImage:[UIImage imageNamed:self.imageArrayTitle[string]] forState:UIControlStateNormal];
-        label.text = string;
-        label.font = [UIFont systemFontOfSize:14];
-        label.textAlignment = NSTextAlignmentCenter;
-        button.tag = i;
+
         [self.editorView addSubview:button];
-        [self.editorView addSubview:label];
+        NSString *string = self.titleArray[i];
+        [button setTitle:string forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:self.config[string]] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+     
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(button.imageView.frame.size.height+21 ,-button.imageView.frame.size.width, 0.0,0.0)];
+        
+        CGFloat cha = button.titleLabel.bounds.size.width - button.imageView.frame.size.width;
+        if (cha > 6) {
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -button.titleLabel.bounds.size.width - cha+6)];
+        } else {
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -button.titleLabel.bounds.size.width)];
+        }
+        button.tag = i;
     }
 }
 
 -(void)search{
+    
+}
+
+
+-(void)management{
     
     
 }
@@ -307,7 +379,10 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 -(void)editoeViewWithAnimation:(BOOL)animation{
     
-    [self.navigationController.tabBarController.tabBar setHidden:animation];
+    if (_showProductType == GetProductListTypeHome) {
+       
+        [self.navigationController.tabBarController.tabBar setHidden:animation];
+    }
     __weak typeof(self) weakSelf = self;
     //添加滚动动画
     [UIView animateWithDuration:0.3 animations:^{

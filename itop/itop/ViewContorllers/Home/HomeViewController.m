@@ -67,7 +67,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         [_bannerView initTimer];
     }
     //取消导航栏最下面的那一条线
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self hiddenNavigationController:NO];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"white_7"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = YES;
@@ -271,7 +272,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         [self.collectionView.header endRefreshing];
 //        [self initCollectionView];
-                [self.collectionView reloadData];
+        [self.collectionView reloadData];
         self.collectionView.scrollEnabled = YES;
 
         [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];

@@ -30,6 +30,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *submitH5Button;
 @property (weak, nonatomic) IBOutlet UITextView *contentH5TV;
 @property (weak, nonatomic) IBOutlet UIScrollView *h5ScrollView;
+@property (strong, nonatomic) UIImageView *h5_cover;
+@property (strong, nonatomic) H5List *select_h5;
 
 @end
 
@@ -51,7 +53,7 @@
     [self setupH5SubViews];
     [self setupInfoSubViews];
     [SubmitFileManager sheardSubmitFileManager].delegate = self;
-    [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_addH5Image];
+//    [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_addH5Image];
     [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_addInfoImage];
     [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
 
@@ -157,12 +159,24 @@
 }
 
 - (IBAction)addImage:(UIButton *)sender {
-    
-    if ([sender.imageView.image isEqual:[UIImage imageNamed:@"ruzhu_icon_add"]]) {
-        [[SubmitFileManager sheardSubmitFileManager]popupsSelectPhotoTipsView];
-    } else {
+   
+    if (sender.tag == 1) {
         
-        [[SubmitFileManager sheardSubmitFileManager]browsePicturesWithPictureArray:nil];
+        [UIManager productViewControllerWithType:GetProductListTypeSelect];
+        [UIManager sharedUIManager].selectProductBolck = ^(H5List *h5){
+            
+            _select_h5 = h5;
+            _h5_cover = [[UIImageView alloc]init];
+            [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [_addH5Image setImage:_h5_cover.image forState:UIControlStateNormal];
+                [_currentH5ShapeLayer removeFromSuperlayer];
+                
+            }];
+        };
+    }else {
+        
+        [[SubmitFileManager sheardSubmitFileManager]popupsSelectPhotoTipsView];
     }
 }
 
@@ -191,29 +205,29 @@
         return;
     }
     
-    if ([_addH5Image.imageView.image isEqual:[UIImage imageNamed:@"ruzhu_icon_add"]]) {
+    if (_select_h5 == nil) {
         
-        [self showToastWithMessage:TIPSMESSEGEADD(@"文件")];
+        [self showToastWithMessage:TIPSMESSEGEADD(@"作品")];
         return;
     }
-    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
-    [UserManager shareUserManager].submitFileSuccess = ^ (id obj){
-        
-        NSString *fileUrl = [NSString stringWithFormat:@"%@",obj];
+    
+//    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
+//    [UserManager shareUserManager].submitFileSuccess = ^ (id obj){
+    
+        NSString *fileUrl = [NSString stringWithFormat:@"%@",_select_h5.cover_img];
         NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        
         [parameters setObject:fileUrl forKey:@"Cover_img"];
         [parameters setObject:_titleH5TV.text forKey:@"Title"];
         [parameters setObject:_contentH5TV.text forKey:@"Content"];
         [parameters setObject:@(1) forKey:@"Article_type"];
+        [parameters setObject:_select_h5.url forKey:@"Url"];
         
         [[UserManager shareUserManager]addHotListWithParameters:parameters];
         [UserManager shareUserManager].addHotSuccess =  ^(id obj){
             
             [self alertOperation];
-
         };
-    };
+//    };
 }
 
 -(void)submitInfoHot{

@@ -10,4 +10,6 @@
 
 @interface OptimizeTitleViewController : BaseViewController
 
+@property (strong, nonatomic)H5List *product_h5;
+
 @end

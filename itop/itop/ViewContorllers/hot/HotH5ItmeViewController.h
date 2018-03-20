@@ -8,7 +8,7 @@
 
 #import "BaseCollectionViewController.h"
 
-typedef void(^PushH5DetailControl)(NSString *hotDetails_id);
+typedef void(^PushH5DetailControl)(H5List *h5);
 
 @interface HotH5ItmeViewController : BaseCollectionViewController
 

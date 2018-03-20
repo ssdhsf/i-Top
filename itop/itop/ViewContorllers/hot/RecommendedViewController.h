@@ -10,7 +10,7 @@
 
 @class HotDetailsViewController;
 
-typedef void(^PushControl)(NSString *hotDetails_id);
+typedef void(^PushControl)(H5List *hotDetails);
 
 @interface RecommendedViewController : BaseTableViewController
 

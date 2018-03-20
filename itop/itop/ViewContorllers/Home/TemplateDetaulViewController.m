@@ -107,7 +107,7 @@
 -(void)setupWebViewVc{
     
     _webVc = [[WebViewController alloc]init];
-    _webVc.h5Url = @"http://voice.i-top.cn/www/h5/weiwang/04.christmas/index.html?ActivityCategory=1&id=126&medium_id=126&from=groupmessage";
+    _webVc.h5Url = _productDetail.product.url;
     _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh-109);
     [_scroll addSubview:_webVc.view];
 }

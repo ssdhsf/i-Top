@@ -9,7 +9,7 @@
 #import "DesignerSigningViewController.h"
 #import "DesignerSigningStore.h"
 
-#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
+//#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 
 @interface DesignerSigningViewController ()
 

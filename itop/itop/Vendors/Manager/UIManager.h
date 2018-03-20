@@ -12,14 +12,17 @@
 #import "SigningStateViewController.h"
 #import "ProtocolViewController.h"
 
+typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^SelectProductBolck)(id product); //选择作品回掉
 
-typedef void (^BackOffBolck)(id parameter);
+@class H5List;
 
 @interface UIManager : NSObject
 
 + (instancetype)sharedUIManager;
 
 @property (copy, nonatomic)BackOffBolck backOffBolck;
+@property (copy, nonatomic)SelectProductBolck selectProductBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
@@ -115,9 +118,9 @@ typedef void (^BackOffBolck)(id parameter);
 /**
  *  入驻状态
  *
- *  @param product_id //分享作品的id
+ *  @param product //分享的作品
  */
-+(void)shearProductWithProductId:(NSString *)product_id;
++(void)shearProductWithProduct:(H5List *)product;
 
 /**
  *  入驻状态
@@ -146,10 +149,23 @@ typedef void (^BackOffBolck)(id parameter);
  *  @param link 链接
  */
 +(void)qrCodeViewControllerWithCode:(NSString *)link;
+
 /**
  *  获取当前导航栏
  *
  */
 + (UINavigationController *)getNavigationController;
+
+/**
+ *  @param showProductType 获取作品入口
+ *
+ */
++(void)productViewControllerWithType:(GetProductListType )showProductType;
+
+/**
+ *  @param  product 优化作品标题
+ *
+ */
++(void)optimizeTitleViewControllerWithProduct:(H5List *)product;
 
 @end

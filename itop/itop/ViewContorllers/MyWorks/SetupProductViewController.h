@@ -10,5 +10,5 @@
 
 @interface SetupProductViewController : BaseViewController
 
-@property (strong ,nonatomic)NSString *product_id;
+@property (strong ,nonatomic)H5List *product;
 @end

@@ -113,10 +113,10 @@
                 _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _h5Vc.itemType =  H5ItmeViewController ;
                 _h5Vc.getArticleListType = GetArticleListTypeFocus;
-                _h5Vc.pushH5DetailControl = ^ (NSString *hotDetails_id){
+                _h5Vc.pushH5DetailControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
                     hotDetailsVc.itemDetailType = H5ItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };
@@ -131,9 +131,10 @@
 
                 _infomationVc.itmeType = itmeTitle;
                 _infomationVc.getArticleListType = GetArticleListTypeFocus;
-                _infomationVc.pushControl = ^ (NSString *hotDetails_id){
+                _infomationVc.pushControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.itemDetailType = HotItemDetailType;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };
@@ -146,7 +147,7 @@
                 _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _videoVc.itemType = VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeFocus;
-                _videoVc.pushH5DetailControl = ^ (NSString *hotDetails_id){
+                _videoVc.pushH5DetailControl = ^ (H5List *h5){
                     
                     [weakSelf showToastWithMessage:@"暂未开放"];
                 };

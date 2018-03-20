@@ -14,5 +14,6 @@
 
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
 - (NSMutableArray *)commentsListDropdownMenuConfigurationMenuWithMenu:(NSArray *)menu;
+- (NSDictionary *)editProductConfigurationMenuWithGetProductType:(GetProductListType )getProductListType;
 
 @end

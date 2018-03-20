@@ -33,8 +33,7 @@
             
             HotComments *subHotComment = [[HotComments alloc]initWithDictionary:menu[i] error:nil];
             
-            if ([hotComment.id isEqualToString:subHotComment.parent_id]) {
-                
+            if ([hotComment.id isEqualToString:subHotComment.parent_id]) {//判断该条数据是否有子评论
                hotComment.replyString = [self mosaicStringWithOriginally:hotComment.replyString joiningString:[NSString stringWithFormat:@"%@: %@",subHotComment.user_name,subHotComment.content]];
                 
             }

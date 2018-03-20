@@ -30,7 +30,6 @@
     _showRefreshHeader = NO;
     _showRefreshFooter = NO;
     _showTableBlankView = NO;
-    
 }
 
 - (NSMutableArray *)dataArray {

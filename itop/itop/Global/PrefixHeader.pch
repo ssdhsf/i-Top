@@ -71,6 +71,7 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import <WeiboSDK.h>
 #import "WXApi.h"
+#import "NSString+AttributedString.h"
 
 #import "ThemeNavigationController.h"
 #import "AlertView.h"

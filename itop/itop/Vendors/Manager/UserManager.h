@@ -121,6 +121,17 @@ typedef NS_ENUM(NSInteger, StatisticsType) {//统计数据类型
     StatisticsTypeFuns //粉丝
 };
 
+typedef NS_ENUM(NSInteger, GetProductListType) { //获取文章入口
+    GetProductListTypeHome = 0, //首页
+    GetProductListTypeSelect = 1,//选择作品
+    GetProductListTypeMyProduct //我的作品
+};
+
+typedef NS_ENUM(NSInteger, StatisticalDataType) { //获取数据统计入口
+    StatisticalDataTypeSingle = 0, //单个作品
+    StatisticalDataTypeAll,//全部 作品／热点／粉丝
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -531,8 +542,8 @@ typedef void (^ErrorFailure)(id obj);
  *  获取热点评论列表
  *
  *  @param detail_id 热点详情 id
- *  @param pageIndex 页
- *  @param pageCount 总数／页
+ *  @param pageIndex 页 预留
+ *  @param pageCount 总数／页  预留
  */
 - (void)hotCommentWithHotDetailId:(NSString *)detail_id
                         PageIndex:(NSInteger )pageIndex

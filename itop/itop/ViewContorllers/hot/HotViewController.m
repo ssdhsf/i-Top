@@ -104,10 +104,10 @@
                 _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _recommendedVc.itmeType = itmeTitle;
                 _recommendedVc.getArticleListType = GetArticleListTypeHot;
-                _recommendedVc.pushControl = ^ (NSString *hotDetails_id){
+                _recommendedVc.pushControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
                     hotDetailsVc.itemDetailType = HotItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                     
@@ -122,10 +122,10 @@
                 _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _h5Vc.getArticleListType = GetArticleListTypeHot;
-                _h5Vc.pushH5DetailControl = ^ (NSString *hotDetails_id){
+                _h5Vc.pushH5DetailControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
                     hotDetailsVc.itemDetailType = H5ItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };
@@ -139,9 +139,9 @@
                 _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeHot;
-                _informationVc.pushControl = ^ (NSString *hotDetails_id){
+                _informationVc.pushControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };
@@ -155,7 +155,7 @@
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeHot;
                 
-                _videoVc.pushH5DetailControl = ^ (NSString *article){
+                _videoVc.pushH5DetailControl = ^ (H5List *h5){
                     
                     [[Global sharedSingleton]showToastInTop:weakSelf.view withMessage:@"暂时未开放"];
                 };
@@ -169,9 +169,9 @@
                 _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _localVc.itmeType = itmeTitle;
                 _localVc.getArticleListType = GetArticleListTypeHot;
-                _localVc.pushControl = ^ (NSString *hotDetails_id){
+                _localVc.pushControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };

@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *contentTV;
 @property (weak, nonatomic) IBOutlet UIButton *shearIconButton;
 @property (weak, nonatomic) IBOutlet UILabel *stringCount;
+@property (strong, nonatomic) UIImageView *h5_cover;
+
 @end
 
 @implementation SetupProductViewController
@@ -46,7 +48,6 @@
     };
 }
 
-
 -(void)initView{
     
     [super initView];
@@ -65,6 +66,17 @@
     [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
 }
 
+-(void)initData{
+    
+    [super initData];
+    
+    _h5_cover = [[UIImageView alloc]init];
+    [_h5_cover sd_setImageWithURL:[NSURL URLWithString:_product.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [_shearIconButton setImage:_h5_cover.image forState:UIControlStateNormal];
+    }];
+}
+
 -(void)shearSetup{
     
     if ([Global stringIsNullWithString:_titleTV.text]) {
@@ -77,8 +89,6 @@
         return;
     }
     [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
-        
-        
         
     } ];
 
@@ -108,7 +118,6 @@
     
     [_shearIconButton setBackgroundImage:[array firstObject] forState:UIControlStateNormal];
 }
-
 
 
 

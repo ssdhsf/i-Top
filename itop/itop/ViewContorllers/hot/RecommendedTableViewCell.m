@@ -36,7 +36,15 @@
     self.hotTitleLabel.text = recommended.title;
     self.commentsLabel.text = recommended.comment_count;
     [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:nil];
+    
+    [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:nil completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        NSLog(@"%f--%f",self.hotImage.image.size.width,self.hotImage.image.size.height);
+    }];
+    
     [self setupStateLableWithGetArticleListType:getArticleListType recommended:recommended];
+    self.hotImage.clipsToBounds = YES;
+    self.hotImage.contentMode = UIViewContentModeScaleAspectFill;
+
 }
 
 -(void)setupStateLableWithGetArticleListType:(GetArticleListType)getArticleListType recommended:(H5List *)recommended{

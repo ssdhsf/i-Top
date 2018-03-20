@@ -66,7 +66,6 @@ static NSString *const MyHotH5ItmeCellIdentifier = @"MyHot";
                                 getArticleListType:GetArticleListTypeMyHot];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
-        NSLog(@"%@",obj);
         
         [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:obj] page:self.page_no];
     };
@@ -119,7 +118,7 @@ static NSString *const MyHotH5ItmeCellIdentifier = @"MyHot";
     
     //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    _pushMyHotH5Control(h5.id);
+    _pushMyHotH5Control(h5);
 }
 
 @end

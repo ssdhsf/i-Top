@@ -74,7 +74,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 -(void)initData{
     
     [super initData];
-    [self showRefresh];
+    [self refreshData];
 }
 
 -(void)refreshData{
@@ -84,11 +84,16 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         
         _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
         [self setSubViewsValue];
-        
+        [self showRefresh];
+        self.page_no = 1;
         [[UserManager shareUserManager] designerProductListWithDesigner:_desginer_id PageIndex:self.page_no PageCount:10];
-        [UserManager shareUserManager].designerProductListSuccess = ^(id obj){
-            
-            [self listDataWithListArray:[[H5ListStore shearH5ListStore]configurationMenuWithMenu:(NSArray *)obj] page:self.page_no];
+        [UserManager shareUserManager].designerProductListSuccess = ^(NSArray * obj){
+          
+            if (obj.count == 0) {
+                self.originY = 210;
+            }
+
+            [self listDataWithListArray:[[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] page:self.page_no];
             
         };
         
