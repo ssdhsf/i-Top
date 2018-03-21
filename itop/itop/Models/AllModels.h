@@ -41,5 +41,7 @@
 #import "Message.h"
 #import "ShearInfo.h"
 #import "Statistical.h"
+#import "TradingList.h"
+#import "EarningList.h"
 
 #endif /* AllModels_h */

@@ -55,7 +55,7 @@
     _selectTag = 100;
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
-    [_nextButton.layer addSublayer:[UIColor setGradualChangingColor: _nextButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
 }
 
 -(void)initData{

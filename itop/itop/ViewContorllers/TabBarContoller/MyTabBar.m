@@ -150,7 +150,7 @@
 - (UIImageView *)drawTabbarBgImageView
 {
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, 0.5)];
-    [view.layer addSublayer:[UIColor setGradualChangingColor:view fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [view.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(view)];
     
 //    NSLog(@"tabBarHeight：  %f" , tabBarHeight);// 设备tabBar高度 一般49
 //    CGFloat radius = 30;// 圆半径

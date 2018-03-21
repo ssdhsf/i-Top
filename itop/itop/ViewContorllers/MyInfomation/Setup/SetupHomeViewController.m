@@ -40,7 +40,7 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     self.tableView.tableFooterView = _fooderView;
     _loginOutButton.layer.masksToBounds = YES;
     _loginOutButton.layer.cornerRadius = _loginOutButton.frame.size.height/2;
-    [_loginOutButton.layer addSublayer:[UIColor setGradualChangingColor: _loginOutButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_loginOutButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginOutButton)];
     [self steupTableView];
 }
 

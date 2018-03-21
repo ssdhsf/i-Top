@@ -156,7 +156,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     NSLog(@"%@",bgView);
 
     //    bgView.backgroundColor = [UIColor redColor];
-    [bgView.layer addSublayer:[UIColor setGradualChangingColor:bgView fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [bgView.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(bgView)];
 /*-------------------*/
     
     UIView *iconBgView = [UIView new];
@@ -316,7 +316,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.height.mas_equalTo(HEADER_TEXTHIGHT);
     }];
     [_focusButton addTarget:self action:@selector(focus) forControlEvents:UIControlEventTouchDown];
-     [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+     [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
     [_focusButton setTitle:@"关注" forState:UIControlStateNormal];
@@ -332,7 +332,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.height.mas_equalTo(HEADER_TEXTHIGHT);
     }];
     [_massageButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
-    [_massageButton.layer addSublayer:[UIColor setGradualChangingColor:_massageButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_massageButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_massageButton)];
     [_massageButton setTitle:@"私信" forState:UIControlStateNormal];
     _massageButton.layer.masksToBounds = YES;
     _massageButton.layer.cornerRadius = 2;
@@ -361,7 +361,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
         [_focusButton setTitle:@"关注" forState:UIControlStateNormal];
     }
-    [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
 }

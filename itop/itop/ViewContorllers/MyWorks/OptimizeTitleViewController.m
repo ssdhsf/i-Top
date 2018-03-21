@@ -39,7 +39,7 @@
 -(void)initView{
     
     [super initView];
-    [_submitButton.layer addSublayer:[UIColor setGradualChangingColor:_submitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_submitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitButton)];
     _submitButton.layer.cornerRadius = _submitButton.frame.size.height/2;
     _submitButton.layer.masksToBounds = YES;
 }

@@ -33,7 +33,7 @@
 -(void)initView{
     
     [super initView];
-    [_savePhoto.layer addSublayer:[UIColor setGradualChangingColor:_savePhoto fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_savePhoto.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_savePhoto)];
     _savePhoto.layer.cornerRadius = _savePhoto.frame.size.height/2;
     _savePhoto.layer.masksToBounds = YES;
     

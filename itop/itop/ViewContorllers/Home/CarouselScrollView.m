@@ -221,7 +221,7 @@ static double kFGGScrollInterval = 5.0f;
             [focus setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
             
         }
-        [focus.layer insertSublayer:[UIColor setGradualChangingColor:focus fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+        [focus.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(focus) atIndex:0];
         [focus setFont:[UIFont systemFontOfSize:12]];
         focus.tag = i;
         [focus addTarget:self action:@selector(focus:) forControlEvents:UIControlEventTouchDown];
@@ -452,7 +452,7 @@ static double kFGGScrollInterval = 5.0f;
         [button setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
 
     }
-    [button.layer insertSublayer:[UIColor setGradualChangingColor:button fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [button.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(button) atIndex:0];
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 2;
 }

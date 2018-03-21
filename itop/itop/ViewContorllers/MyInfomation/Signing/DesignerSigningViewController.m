@@ -72,11 +72,11 @@
 
 -(void)setupViews{
     
-    [_verificationCodeButton.layer addSublayer:[UIColor setGradualChangingColor: _verificationCodeButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_verificationCodeButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_verificationCodeButton)];
     _verificationCodeButton.layer.masksToBounds = YES;
     _verificationCodeButton.layer.cornerRadius = _verificationCodeButton.height/2;
     _submitButton.layer.masksToBounds = YES;
-    [_submitButton.layer addSublayer:[UIColor setGradualChangingColor: _submitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_submitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitButton)];
     _submitButton.layer.cornerRadius = _submitButton.height/2;
     
     _nextButton.layer.masksToBounds = YES;
@@ -84,9 +84,9 @@
     _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
 //    _nextButton.frame = CGRectMake(self.view.centerX-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
 //    _nextButton.centerX = self.view.centerX;
-    [_nextButton.layer addSublayer:[UIColor setGradualChangingColor: _submitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
    
-    [_uploadButton.layer addSublayer:[UIColor setGradualChangingColor: _uploadButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_uploadButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_uploadButton)];
     _uploadButton.layer.masksToBounds = YES;
     _uploadButton.layer.cornerRadius = _uploadButton.height/2;
     [_selectItopProductButton.layer addSublayer:[[Global sharedSingleton] buttonSublayerWithButton:_selectItopProductButton]];

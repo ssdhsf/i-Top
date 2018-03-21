@@ -56,6 +56,8 @@
 
 #define XGBVColor UIColorFromRGB(0xf5f9fb)
 
+#define DEFULT_BUTTON_CAGRADIENTLAYER(__BUTTON) [UIColor setGradualChangingColor: __BUTTON fromColor:@"FFA5EC" toColor:@"B499F8"]
+
 //背景浅灰
 #define XBackGrayColor                                                         \
 [UIColor colorWithRed:0.965f green:0.965f blue:0.965f alpha:1.0f]

@@ -111,7 +111,7 @@
     _otherPermissionView.layer.cornerRadius = _otherPermissionView.frame.size.height/2;
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
-    [_nextButton.layer addSublayer:[UIColor setGradualChangingColor: _nextButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
     _currentShapeLayer = [[Global sharedSingleton] buttonSublayerWithButton:_addProveButton];
     [_addProveButton.layer addSublayer:_currentShapeLayer];
     [SubmitFileManager sheardSubmitFileManager].delegate = self;
@@ -122,8 +122,8 @@
 
 -(void)setupViews{
     
-    [_verificationCodeButton.layer addSublayer:[UIColor setGradualChangingColor: _verificationCodeButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
-    [_subMitButton.layer addSublayer:[UIColor setGradualChangingColor: _subMitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_verificationCodeButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_verificationCodeButton)];
+    [_subMitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_subMitButton)];
     _verificationCodeButton.layer.masksToBounds = YES;
     _subMitButton.layer.masksToBounds = YES;
     _agreedView.layer.masksToBounds = YES;

@@ -1114,6 +1114,34 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)earningListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+//    SHOW_GET_DATA
+    NSString *api = @"/api/rewardrecord/getpagelist";
+    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
+                                 @"PageCount" : @(pageCount),
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _earningListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
 -(void)messageList{
     
     

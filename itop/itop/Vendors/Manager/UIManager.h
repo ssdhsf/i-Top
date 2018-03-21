@@ -43,7 +43,15 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  */
 + (void)goMianViewController;
 
+/**
+ *  @param vcName 构建视图控制器的名称
+ *  @retrun  视图控制器
+ */
 + (UIViewController *)viewControllerWithName:(NSString *)vcName;
+
+
+
+
 /**
  *  通过视图控制器名称进入某个控制器(rootVC为TabBarController)
  *
@@ -82,6 +90,13 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *  @param vcName 视图控制器名称
  */
 + (void)showVC:(NSString *)vcName;
+
+/**
+ *  通过视图控制器名称进入某个控制器
+ *
+ *  @param vc 视图控制器
+ */
++ (void)pushVC:(UIViewController *)vc;
 
 /**
  *  获取tabbar高度

@@ -368,7 +368,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         [_focusButton setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
     }
     _focusButton.centerY = _userNameLabel.centerY;
-    [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
 }
@@ -387,7 +387,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         [_h5FocusButton setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
     }
 //    _h5FocusButton.centerY = _h5ImageView.centerY;
-    [_h5FocusButton.layer insertSublayer:[UIColor setGradualChangingColor:_h5FocusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_h5FocusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_h5FocusButton) atIndex:0];
     _h5FocusButton.layer.masksToBounds = YES;
     _h5FocusButton.layer.cornerRadius = 2;
 }

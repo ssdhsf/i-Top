@@ -176,6 +176,14 @@
     vc = nil;
 }
 
++ (void)pushVC:(UIViewController *)vc{
+  
+    AppDelegate * appDelegate = [[self class] appDelegate];
+    vc.hidesBottomBarWhenPushed = YES;
+    UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
+    [nav pushViewController:vc animated:YES];
+}
+
 +(CGFloat)getTabBarHeight{
     // 获取tabBarHeight
     UITabBarController *tabBarController =[[UITabBarController alloc]init];

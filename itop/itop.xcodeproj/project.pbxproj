@@ -8,6 +8,27 @@
 
 /* Begin PBXBuildFile section */
 		770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D765A206114A3007601A8 /* NSString+AttributedString.m */; };
+		770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76EF2061FB3C007601A8 /* MyWalletViewController.m */; };
+		770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D76F02061FB3C007601A8 /* MyWalletViewController.xib */; };
+		770D76F620620706007601A8 /* TradingListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76F420620706007601A8 /* TradingListViewController.m */; };
+		770D76F720620706007601A8 /* TradingListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D76F520620706007601A8 /* TradingListViewController.xib */; };
+		770D76FB206207F4007601A8 /* TradingListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76F9206207F3007601A8 /* TradingListTableViewCell.m */; };
+		770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D76FA206207F3007601A8 /* TradingListTableViewCell.xib */; };
+		770D76FF20620ACA007601A8 /* TradingListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76FE20620ACA007601A8 /* TradingListDataSource.m */; };
+		770D770220620B72007601A8 /* TradingListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D770120620B72007601A8 /* TradingListStore.m */; };
+		770D770520620BE1007601A8 /* TradingList.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D770420620BE1007601A8 /* TradingList.m */; };
+		770D7709206210D9007601A8 /* EarningListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D7707206210D9007601A8 /* EarningListViewController.m */; };
+		770D770A206210D9007601A8 /* EarningListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D7708206210D9007601A8 /* EarningListViewController.xib */; };
+		770D770D20622AF5007601A8 /* EarningList.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D770C20622AF5007601A8 /* EarningList.m */; };
+		770D7711206236D2007601A8 /* EarningDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D770F206236D2007601A8 /* EarningDetailViewController.m */; };
+		770D7712206236D2007601A8 /* EarningDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D7710206236D2007601A8 /* EarningDetailViewController.xib */; };
+		770D771620623732007601A8 /* EarningDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D771420623732007601A8 /* EarningDetailTableViewCell.m */; };
+		770D771720623732007601A8 /* EarningDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D771520623732007601A8 /* EarningDetailTableViewCell.xib */; };
+		770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D771920623BBE007601A8 /* EarningDetailDataSource.m */; };
+		770D771F20624663007601A8 /* BuyVipPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D771D20624663007601A8 /* BuyVipPayViewController.m */; };
+		770D772020624663007601A8 /* BuyVipPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D771E20624663007601A8 /* BuyVipPayViewController.xib */; };
+		770D77242062595A007601A8 /* BuyTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D77222062595A007601A8 /* BuyTemplateViewController.m */; };
+		770D77252062595A007601A8 /* BuyTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D77232062595A007601A8 /* BuyTemplateViewController.xib */; };
 		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
 		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
 		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
@@ -363,6 +384,40 @@
 		5A538600B333827AA61CE679 /* Pods-itop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.release.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.release.xcconfig"; sourceTree = "<group>"; };
 		770D7659206114A3007601A8 /* NSString+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedString.h"; sourceTree = "<group>"; };
 		770D765A206114A3007601A8 /* NSString+AttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttributedString.m"; sourceTree = "<group>"; };
+		770D76EE2061FB3C007601A8 /* MyWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWalletViewController.h; sourceTree = "<group>"; };
+		770D76EF2061FB3C007601A8 /* MyWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWalletViewController.m; sourceTree = "<group>"; };
+		770D76F02061FB3C007601A8 /* MyWalletViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyWalletViewController.xib; sourceTree = "<group>"; };
+		770D76F320620706007601A8 /* TradingListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradingListViewController.h; sourceTree = "<group>"; };
+		770D76F420620706007601A8 /* TradingListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradingListViewController.m; sourceTree = "<group>"; };
+		770D76F520620706007601A8 /* TradingListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradingListViewController.xib; sourceTree = "<group>"; };
+		770D76F8206207F3007601A8 /* TradingListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradingListTableViewCell.h; sourceTree = "<group>"; };
+		770D76F9206207F3007601A8 /* TradingListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradingListTableViewCell.m; sourceTree = "<group>"; };
+		770D76FA206207F3007601A8 /* TradingListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TradingListTableViewCell.xib; sourceTree = "<group>"; };
+		770D76FD20620ACA007601A8 /* TradingListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradingListDataSource.h; sourceTree = "<group>"; };
+		770D76FE20620ACA007601A8 /* TradingListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradingListDataSource.m; sourceTree = "<group>"; };
+		770D770020620B72007601A8 /* TradingListStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradingListStore.h; sourceTree = "<group>"; };
+		770D770120620B72007601A8 /* TradingListStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradingListStore.m; sourceTree = "<group>"; };
+		770D770320620BE1007601A8 /* TradingList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TradingList.h; sourceTree = "<group>"; };
+		770D770420620BE1007601A8 /* TradingList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TradingList.m; sourceTree = "<group>"; };
+		770D7706206210D9007601A8 /* EarningListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningListViewController.h; sourceTree = "<group>"; };
+		770D7707206210D9007601A8 /* EarningListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningListViewController.m; sourceTree = "<group>"; };
+		770D7708206210D9007601A8 /* EarningListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarningListViewController.xib; sourceTree = "<group>"; };
+		770D770B20622AF5007601A8 /* EarningList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningList.h; sourceTree = "<group>"; };
+		770D770C20622AF5007601A8 /* EarningList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningList.m; sourceTree = "<group>"; };
+		770D770E206236D2007601A8 /* EarningDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningDetailViewController.h; sourceTree = "<group>"; };
+		770D770F206236D2007601A8 /* EarningDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningDetailViewController.m; sourceTree = "<group>"; };
+		770D7710206236D2007601A8 /* EarningDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarningDetailViewController.xib; sourceTree = "<group>"; };
+		770D771320623732007601A8 /* EarningDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningDetailTableViewCell.h; sourceTree = "<group>"; };
+		770D771420623732007601A8 /* EarningDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningDetailTableViewCell.m; sourceTree = "<group>"; };
+		770D771520623732007601A8 /* EarningDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EarningDetailTableViewCell.xib; sourceTree = "<group>"; };
+		770D771820623BBE007601A8 /* EarningDetailDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EarningDetailDataSource.h; sourceTree = "<group>"; };
+		770D771920623BBE007601A8 /* EarningDetailDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EarningDetailDataSource.m; sourceTree = "<group>"; };
+		770D771C20624663007601A8 /* BuyVipPayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyVipPayViewController.h; sourceTree = "<group>"; };
+		770D771D20624663007601A8 /* BuyVipPayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyVipPayViewController.m; sourceTree = "<group>"; };
+		770D771E20624663007601A8 /* BuyVipPayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyVipPayViewController.xib; sourceTree = "<group>"; };
+		770D77212062595A007601A8 /* BuyTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTemplateViewController.h; sourceTree = "<group>"; };
+		770D77222062595A007601A8 /* BuyTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTemplateViewController.m; sourceTree = "<group>"; };
+		770D77232062595A007601A8 /* BuyTemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyTemplateViewController.xib; sourceTree = "<group>"; };
 		772F95752050023100F432D2 /* AppDelegate+UmenShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UmenShear.h"; sourceTree = "<group>"; };
 		772F95762050023100F432D2 /* AppDelegate+UmenShear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UmenShear.m"; sourceTree = "<group>"; };
 		772F957820503D4800F432D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -973,6 +1028,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		770D76ED2061FB13007601A8 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				770D76EE2061FB3C007601A8 /* MyWalletViewController.h */,
+				770D76EF2061FB3C007601A8 /* MyWalletViewController.m */,
+				770D76F02061FB3C007601A8 /* MyWalletViewController.xib */,
+				770D76F320620706007601A8 /* TradingListViewController.h */,
+				770D76F420620706007601A8 /* TradingListViewController.m */,
+				770D76F520620706007601A8 /* TradingListViewController.xib */,
+				770D76F8206207F3007601A8 /* TradingListTableViewCell.h */,
+				770D76F9206207F3007601A8 /* TradingListTableViewCell.m */,
+				770D76FA206207F3007601A8 /* TradingListTableViewCell.xib */,
+				770D7706206210D9007601A8 /* EarningListViewController.h */,
+				770D7707206210D9007601A8 /* EarningListViewController.m */,
+				770D7708206210D9007601A8 /* EarningListViewController.xib */,
+				770D770E206236D2007601A8 /* EarningDetailViewController.h */,
+				770D770F206236D2007601A8 /* EarningDetailViewController.m */,
+				770D7710206236D2007601A8 /* EarningDetailViewController.xib */,
+				770D771320623732007601A8 /* EarningDetailTableViewCell.h */,
+				770D771420623732007601A8 /* EarningDetailTableViewCell.m */,
+				770D771520623732007601A8 /* EarningDetailTableViewCell.xib */,
+			);
+			path = Wallet;
+			sourceTree = "<group>";
+		};
+		770D771B206245E7007601A8 /* Pay */ = {
+			isa = PBXGroup;
+			children = (
+				770D771C20624663007601A8 /* BuyVipPayViewController.h */,
+				770D771D20624663007601A8 /* BuyVipPayViewController.m */,
+				770D771E20624663007601A8 /* BuyVipPayViewController.xib */,
+				770D77212062595A007601A8 /* BuyTemplateViewController.h */,
+				770D77222062595A007601A8 /* BuyTemplateViewController.m */,
+				770D77232062595A007601A8 /* BuyTemplateViewController.xib */,
+			);
+			path = Pay;
+			sourceTree = "<group>";
+		};
 		77369CC6200F512F0092AEAC /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -1041,6 +1134,7 @@
 		77369CC8200F512F0092AEAC /* MyInfomation */ = {
 			isa = PBXGroup;
 			children = (
+				770D76ED2061FB13007601A8 /* Wallet */,
 				77C07F79204C2BC300D77DBD /* Setup */,
 				77723A3020308A77006294E8 /* Signing */,
 				77369CD4200F530F0092AEAC /* MyInfomationViewController.h */,
@@ -1419,6 +1513,10 @@
 				772F95C8205C061000F432D2 /* ShearInfo.m */,
 				7782DDBE205F5D54004C2108 /* Statistical.h */,
 				7782DDBF205F5D54004C2108 /* Statistical.m */,
+				770D770320620BE1007601A8 /* TradingList.h */,
+				770D770420620BE1007601A8 /* TradingList.m */,
+				770D770B20622AF5007601A8 /* EarningList.h */,
+				770D770C20622AF5007601A8 /* EarningList.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1464,6 +1562,8 @@
 				772F958F2054D2CF00F432D2 /* MessageStore.m */,
 				772F95AD20590D8B00F432D2 /* CommentListStore.h */,
 				772F95AE20590D8B00F432D2 /* CommentListStore.m */,
+				770D770020620B72007601A8 /* TradingListStore.h */,
+				770D770120620B72007601A8 /* TradingListStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1489,6 +1589,7 @@
 		777AF1B1200D9851009729AD /* ViewContorllers */ = {
 			isa = PBXGroup;
 			children = (
+				770D771B206245E7007601A8 /* Pay */,
 				77484ACD202403B700BAC567 /* TabBarContoller */,
 				7792B72A201F2AE800587399 /* Public */,
 				77369CDE200F54500092AEAC /* Login */,
@@ -1793,6 +1894,10 @@
 				772F95922054D36A00F432D2 /* MessageDataSource.m */,
 				772F95B020590DC400F432D2 /* CommentListDataSource.h */,
 				772F95B120590DC400F432D2 /* CommentListDataSource.m */,
+				770D76FD20620ACA007601A8 /* TradingListDataSource.h */,
+				770D76FE20620ACA007601A8 /* TradingListDataSource.m */,
+				770D771820623BBE007601A8 /* EarningDetailDataSource.h */,
+				770D771920623BBE007601A8 /* EarningDetailDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2020,6 +2125,7 @@
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
 				77E8A8552011997800E253CC /* ThemeCustomViewCollectionViewCell.xib in Resources */,
+				770D772020624663007601A8 /* BuyVipPayViewController.xib in Resources */,
 				774B880E204FC2AE00F602E3 /* ShearView.xib in Resources */,
 				77B86FE9202803140096FB28 /* TagView.xib in Resources */,
 				77E8A8B12015BEEC00E253CC /* 气泡.png in Resources */,
@@ -2038,15 +2144,19 @@
 				77723AB82043BB42006294E8 /* AssetsPickerChecked~iOS6@2x.png in Resources */,
 				77DA834A2019750400E7CB36 /* H5ListCollectionViewCell.xib in Resources */,
 				77369CDD200F536C0092AEAC /* MyWorksViewCotroller.xib in Resources */,
+				770D770A206210D9007601A8 /* EarningListViewController.xib in Resources */,
 				77CE7C88202B0B770067D284 /* city-picker.data.json in Resources */,
 				77484AD82024B3AA00BAC567 /* WebViewController.xib in Resources */,
+				770D77252062595A007601A8 /* BuyTemplateViewController.xib in Resources */,
 				77E8A88F20137F2900E253CC /* ResetPasswordViewController.xib in Resources */,
 				77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */,
 				77723ABF2043BB42006294E8 /* ico@2x.png in Resources */,
 				77848AE3202D37EC00C0CCD2 /* MyFocusViewController.xib in Resources */,
 				77E8A8782011DCB000E253CC /* Info.plist in Resources */,
+				770D771720623732007601A8 /* EarningDetailTableViewCell.xib in Resources */,
 				77723AC12043BB42006294E8 /* No.png in Resources */,
 				77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */,
+				770D76F720620706007601A8 /* TradingListViewController.xib in Resources */,
 				77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */,
 				7777E55E2029F17F008FA348 /* LeaveDateilCell.xib in Resources */,
 				772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */,
@@ -2058,13 +2168,16 @@
 				772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */,
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
+				770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
+				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
 				777D5178200CC52700CB2A8A /* Main.storyboard in Resources */,
 				77723AB52043BB42006294E8 /* add_photo.png in Resources */,
 				77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */,
 				775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */,
 				77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
+				770D7712206236D2007601A8 /* EarningDetailViewController.xib in Resources */,
 				772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */,
 				772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */,
 				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
@@ -2147,6 +2260,7 @@
 			files = (
 				77848AEC202EE20800C0CCD2 /* ProductModel.m in Sources */,
 				775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */,
+				770D76FB206207F4007601A8 /* TradingListTableViewCell.m in Sources */,
 				77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */,
 				774B87E5204D7ADD00F602E3 /* ChangePasswordViewController.m in Sources */,
 				772F95932054D36A00F432D2 /* MessageDataSource.m in Sources */,
@@ -2186,6 +2300,7 @@
 				77369CD2200F52AF0092AEAC /* HotViewController.m in Sources */,
 				77723A44203EF219006294E8 /* SpecialityTag.m in Sources */,
 				77F078AE2046A7CE004C0596 /* Marketing.m in Sources */,
+				770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */,
 				77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */,
 				77E8A8792011DCB000E253CC /* MASCompositeConstraint.m in Sources */,
 				77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */,
@@ -2194,6 +2309,7 @@
 				77723AF72043CB65006294E8 /* SubmitFileManager.m in Sources */,
 				77723AEA2043BBB2006294E8 /* MSSBrowseNetworkViewController.m in Sources */,
 				772F95C5205B60D300F432D2 /* ReleaseHotViewController.m in Sources */,
+				770D770D20622AF5007601A8 /* EarningList.m in Sources */,
 				7792B737201F404E00587399 /* DesignerInfoHeaderView.m in Sources */,
 				77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */,
 				77723A8A2043B015006294E8 /* NSData+Base64.m in Sources */,
@@ -2201,6 +2317,7 @@
 				777AF1DA200E3C15009729AD /* OSHelper.m in Sources */,
 				77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */,
 				7792B723201C245900587399 /* HomeHeaderView.m in Sources */,
+				770D7711206236D2007601A8 /* EarningDetailViewController.m in Sources */,
 				772F958D2054D0E500F432D2 /* Message.m in Sources */,
 				772F95BB205A569D00F432D2 /* MyHotH5ItmeViewController.m in Sources */,
 				77723AE42043BBB2006294E8 /* MSSBrowseActionSheetCell.m in Sources */,
@@ -2227,6 +2344,7 @@
 				77369CBF200F2BBD0092AEAC /* BaseViewController+PlaceholderView.m in Sources */,
 				77B86FF22028621E0096FB28 /* LeaveTableViewCell.m in Sources */,
 				77369CB6200F21CD0092AEAC /* BaseTableViewController.m in Sources */,
+				770D77242062595A007601A8 /* BuyTemplateViewController.m in Sources */,
 				77484AC020231B6500BAC567 /* UIView+Extension.m in Sources */,
 				777AF1B9200DA091009729AD /* ApiBase.m in Sources */,
 				77E00A612016C938004BBD49 /* PointItem.m in Sources */,
@@ -2247,7 +2365,9 @@
 				77C07F91204D3A9B00D77DBD /* SetupHomeDataSource.m in Sources */,
 				77484ABA2022C54100BAC567 /* UserArticle.m in Sources */,
 				77484A832020543500BAC567 /* Recommended.m in Sources */,
+				770D770220620B72007601A8 /* TradingListStore.m in Sources */,
 				77484A9C202162D800BAC567 /* BaseTableViewController+DisposeSubView.m in Sources */,
+				770D76FF20620ACA007601A8 /* TradingListDataSource.m in Sources */,
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
@@ -2269,6 +2389,7 @@
 				77E8A87D2011DCB000E253CC /* MASViewAttribute.m in Sources */,
 				77484AAB2021A1DB00BAC567 /* HotDetailStore.m in Sources */,
 				7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */,
+				770D771620623732007601A8 /* EarningDetailTableViewCell.m in Sources */,
 				77826B952019D95800F53E28 /* MyInfomationCollectionViewCell.m in Sources */,
 				77E00A6820171910004BBD49 /* StatisticalDataModel.m in Sources */,
 				775909A52016350300F9D8EA /* PXXview.m in Sources */,
@@ -2299,6 +2420,8 @@
 				77484AD2202403C600BAC567 /* MyTabBarController.m in Sources */,
 				7792B720201AF89700587399 /* Home.m in Sources */,
 				772F95AB20590C1600F432D2 /* CommentListTableViewCell.m in Sources */,
+				770D770520620BE1007601A8 /* TradingList.m in Sources */,
+				770D76F620620706007601A8 /* TradingListViewController.m in Sources */,
 				7777E55D2029F17F008FA348 /* LeaveDateilCell.m in Sources */,
 				77E8A87A2011DCB000E253CC /* MASConstraint.m in Sources */,
 				77369CE6200F987F0092AEAC /* AppDelegate+WeChat.m in Sources */,
@@ -2320,7 +2443,9 @@
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
 				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,
+				770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */,
 				77E00A6D2018269A004BBD49 /* CarouselScrollView.m in Sources */,
+				770D771F20624663007601A8 /* BuyVipPayViewController.m in Sources */,
 				77C07F8A204D3A4D00D77DBD /* SetupHomeTableViewCell.m in Sources */,
 				77E8A8B02015BEEC00E253CC /* UIBezierPath+curved.m in Sources */,
 				777AF1D1200DFD10009729AD /* ThemeManager.m in Sources */,
@@ -2359,6 +2484,7 @@
 				77723AE52043BBB2006294E8 /* MSSBrowseBaseViewController.m in Sources */,
 				77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */,
 				77369CB0200F05BC0092AEAC /* UIViewController+BarItem.m in Sources */,
+				770D7709206210D9007601A8 /* EarningListViewController.m in Sources */,
 				77484AA2202192E200BAC567 /* Article.m in Sources */,
 				77369CDC200F536C0092AEAC /* MyWorksViewCotroller.m in Sources */,
 				77E8A8812011DCB000E253CC /* View+MASAdditions.m in Sources */,

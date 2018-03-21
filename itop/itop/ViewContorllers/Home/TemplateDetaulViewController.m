@@ -174,7 +174,7 @@
         _focusButton.frame = CGRectMake(ScreenWidth-70, CGRectGetMinY(_designerNameLabel.frame), 50, 20);
         [_focusButton setTitle:@"关注" forState:UIControlStateNormal];
     }
-    [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
 }

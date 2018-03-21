@@ -38,11 +38,11 @@
 
 -(void)initView{
     
-    [_verificationCodeButton.layer addSublayer:[UIColor setGradualChangingColor:_verificationCodeButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_verificationCodeButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_verificationCodeButton)];
     _verificationCodeButton.layer.cornerRadius = _verificationCodeButton.frame.size.height/2;
     _verificationCodeButton.layer.masksToBounds = YES;
     
-    [_registeredButoon.layer addSublayer:[UIColor setGradualChangingColor:_registeredButoon fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_registeredButoon.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_registeredButoon)];
     _registeredButoon.layer.cornerRadius = _registeredButoon.frame.size.height/2;
     _registeredButoon.layer.masksToBounds = YES;
     

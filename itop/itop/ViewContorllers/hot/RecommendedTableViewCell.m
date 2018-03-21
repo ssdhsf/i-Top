@@ -49,13 +49,13 @@
 
 -(void)setupStateLableWithGetArticleListType:(GetArticleListType)getArticleListType recommended:(H5List *)recommended{
     
-    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:recommended.update_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
+    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:recommended.create_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     NSInteger timeLabelTextWidth = [[Global sharedSingleton]widthForString:time fontSize:11 andHeight:15];
 
      NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
     if (getArticleListType == GetArticleListTypeHot) {
         
-        NSInteger timeLabelOriginX = CGRectGetMaxX(self.hotImage.frame)-20-timeLabelTextWidth-5;
+        NSInteger timeLabelOriginX = CGRectGetMaxX(self.contentView.frame)-20-timeLabelTextWidth-5;
         self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
         
     } else {
@@ -75,27 +75,28 @@
         
         NSInteger timeLabelOriginX = CGRectGetMaxX(self.commentsLabel.frame)+10;
         self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
+        switch ([recommended.check_status integerValue]) {
+            case 0:
+                self.stateLabel.text = @"未审核";
+                break;
+            case 1:
+                self.stateLabel.text = @"审核中";
+                break;
+            case 2:
+                self.stateLabel.text = @"通过";
+                break;
+            case 3:
+                self.stateLabel.text = @"审核不通过";
+                break;
+            default:
+                break;
+        }
+        self.stateLabel.layer.masksToBounds = YES;
+        self.stateLabel.layer.cornerRadius = 3;
+        self.stateLabel.textColor = UIColorFromRGB(0xffffff);
+
     }
     self.timeLabel.text = time;
-    switch ([recommended.check_status integerValue]) {
-        case 0:
-            self.stateLabel.text = @"未审核";
-            break;
-        case 1:
-            self.stateLabel.text = @"审核中";
-            break;
-        case 2:
-            self.stateLabel.text = @"通过";
-            break;
-        case 3:
-            self.stateLabel.text = @"审核不通过";
-            break;
-        default:
-            break;
-    }
-    self.stateLabel.layer.masksToBounds = YES;
-    self.stateLabel.layer.cornerRadius = 3;
-    self.stateLabel.textColor = UIColorFromRGB(0xffffff);
 }
 
 @end

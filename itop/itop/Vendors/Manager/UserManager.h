@@ -86,7 +86,6 @@ typedef NS_ENUM(NSInteger, CheckStatusType) { //作品审核状态
     CheckStatusTypeUnPass//不通过
 };
 
-
 typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE)
 {
     UMS_SHARE_TYPE_TEXT, //文本
@@ -202,6 +201,11 @@ typedef void (^DeledeProductFailure)(id obj);
 
 typedef void (^StatisticsSuccess)(id obj);
 typedef void (^StatisticsFailure)(id obj);
+
+typedef void (^EarningListSuccess)(id obj);
+typedef void (^EarningListFailure)(id obj);
+
+
 
 
 typedef void (^ErrorFailure)(id obj);
@@ -319,6 +323,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------数据统计————————————————————————*/
 @property (nonatomic, copy) StatisticsSuccess statisticsSuccess;
 @property (nonatomic, copy) StatisticsFailure statisticsFailure;
+/*----------------收益记录————————————————————————*/
+@property (nonatomic, copy) EarningListSuccess earningListSuccess;
+@property (nonatomic, copy) EarningListFailure earningListFailure;
+
 
 + (instancetype)shareUserManager;
 
@@ -650,5 +658,14 @@ typedef void (^ErrorFailure)(id obj);
 -(void)dataStatisticsWithStartDate:(NSString *)startDate
                            endDate:(NSString *)endDate
                     statisticsType:(StatisticsType)statisticsType;
+
+/**
+ *  删除作品
+ *
+ *  @param pageIndex 页
+ *  @param pageCount 条／页
+ */
+- (void)earningListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
 
 @end

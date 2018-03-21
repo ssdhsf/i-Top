@@ -38,7 +38,6 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     
     [super viewDidLoad];
     [self registeredkeyBoardNSNotificationCenter];
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -60,6 +59,7 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
         make.top.mas_equalTo(128);
         make.bottom.mas_equalTo(-40);
     }];
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
 }
@@ -154,7 +154,6 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     self.tableView.dataSource = self.commentListDataSource;
     [self.tableView registerNib:[[UIManager sharedUIManager]nibWithNibName:@"HotDetailsCell"] forCellReuseIdentifier:CommentListCellIdentifier];
 }
-
 
 -(void)steupDropdownMenu{
     

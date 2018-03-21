@@ -98,7 +98,7 @@
 //    _h5ScrollView.shouldHideToolbarPlaceholder = NO;
     _titleH5TV.placeholder = @"请输入文章标题最多20字";
     _contentH5TV.placeholder = @"请输入H5内容说明";
-    [_submitH5Button.layer addSublayer:[UIColor setGradualChangingColor: _submitH5Button fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_submitH5Button.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitH5Button)];
     _submitH5Button.layer.cornerRadius = _submitH5Button.height/2;
     _submitH5Button.layer.masksToBounds = YES;
     _currentH5ShapeLayer = [[Global sharedSingleton] buttonSublayerWithButton:_addH5Image];
@@ -109,7 +109,7 @@
     
     _titleInfoTV.placeholder = @"请输入文章标题最多20字";
     _contentInfoTV.placeholder = @"请输入H5内容说明";
-    [_submitInfoButton.layer addSublayer:[UIColor setGradualChangingColor: _submitInfoButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_submitInfoButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitInfoButton)];
     _submitInfoButton.layer
 .cornerRadius = _submitInfoButton.height/2;
     _submitInfoButton.layer.masksToBounds = YES;

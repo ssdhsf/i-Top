@@ -29,7 +29,7 @@
 
 -(void)initView{
     
-    [_loginButton.layer addSublayer:[UIColor setGradualChangingColor:_loginButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_loginButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginButton)];
     _loginButton.layer.cornerRadius = _loginButton.frame.size.height/2;
     _loginButton.layer.masksToBounds = YES;
     _accountTF.tag = 1;

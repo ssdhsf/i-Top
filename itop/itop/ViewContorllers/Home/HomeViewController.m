@@ -644,7 +644,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
     }
     
-    _layer = [UIColor setGradualChangingColor:self.navBgView fromColor:@"FFA5EC" toColor:@"DEA2FF" alpha:alpha gradientLayer:_layer];
+    _layer = [UIColor setGradualChangingColor:self.navBgView fromColor:@"FFA5EC" toColor:@"B499F8" alpha:alpha gradientLayer:_layer];
     [self.navBgView.layer insertSublayer:_layer atIndex:0];
 }
 

@@ -62,7 +62,7 @@
 -(void)setupFeedbackView{
     
     _feedbackSubmitButton.layer.masksToBounds = YES;
-    [_feedbackSubmitButton.layer addSublayer:[UIColor setGradualChangingColor: _feedbackSubmitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_feedbackSubmitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_feedbackSubmitButton)];
     _feedbackSubmitButton.layer.cornerRadius = _feedbackSubmitButton.height/2;
     _feedbackTV.placeholder = @"请输入反馈内容，200字以内";
 }
@@ -70,7 +70,7 @@
 -(void)setupCustomerServiceView{
 
     _submitButton.layer.masksToBounds = YES;
-    [_submitButton.layer addSublayer:[UIColor setGradualChangingColor: _submitButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_submitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitButton)];
     _submitButton.layer.cornerRadius = _submitButton.height/2;
     _contentTV.placeholder = @"请输入反馈内容，200字以内";
     
