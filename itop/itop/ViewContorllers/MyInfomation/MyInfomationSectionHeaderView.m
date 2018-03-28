@@ -69,7 +69,18 @@
     if (section == 0 ) {
         
         UIButton *info = UIButton.new;
-        [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
+        
+        if ([[UserManager shareUserManager]crrentUserInfomation] != nil) {
+            NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [info setImage:info.imageView.image forState:UIControlStateNormal];
+            }];
+        } else {
+            
+             [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
+        }
+       
         [info addTarget:self action:@selector(nextInfomation:) forControlEvents:UIControlEventTouchDown];
         //        divisionView.image = [UIImage imageNamed:@"icon_more"];
         [self addSubview:info];
@@ -83,7 +94,7 @@
         
         UILabel *userNameLabel = [UILabel new];
         userNameLabel.textAlignment = NSTextAlignmentCenter;
-        userNameLabel.text = @"小红帽";
+        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
         [self addSubview:userNameLabel];
         [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make){
             make.centerX.mas_equalTo(self);

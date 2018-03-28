@@ -219,10 +219,10 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     [_backButton mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(20);
         make.top.mas_equalTo(40);
-        make.width.mas_equalTo(7);
-        make.height.mas_equalTo(14);
+        make.width.mas_equalTo(25);
+        make.height.mas_equalTo(25);
     }];
-    [_backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [_backButton setImage:[UIImage imageNamed:@"nav_icon_back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     NSLog(@"%f",ScreenWidth *0.285);
 /*-------------------*/

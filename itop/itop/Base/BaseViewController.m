@@ -24,7 +24,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:17],
        NSForegroundColorAttributeName:UIColorFromRGB(0x434a5c)}];
-    [self setLeftCustomBarItem:@"icon_back" action:@selector(back)];
+    [self setLeftCustomBarItem:@"nav_icon_back" action:@selector(back)];
     [self hideNavigationBlackLine];
     [self addSwipeBack];
     [self initData];

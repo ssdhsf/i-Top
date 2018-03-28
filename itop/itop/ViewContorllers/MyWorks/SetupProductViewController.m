@@ -8,13 +8,14 @@
 
 #import "SetupProductViewController.h"
 
-@interface SetupProductViewController ()<UITextViewDelegate,SubmitFileManagerDelegate>
+@interface SetupProductViewController ()<UITextViewDelegate,SubmitFileManagerDelegate,SubmitFileManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *titleTV;
 @property (weak, nonatomic) IBOutlet UITextView *contentTV;
 @property (weak, nonatomic) IBOutlet UIButton *shearIconButton;
 @property (weak, nonatomic) IBOutlet UILabel *stringCount;
 @property (strong, nonatomic) UIImageView *h5_cover;
+@property (weak, nonatomic) IBOutlet UIButton *saveShearSetupButton;
 
 @end
 
@@ -37,6 +38,7 @@
     [self hiddenNavigationController:NO];
     [self hiddenNavigafindHairlineImageView:YES];
     self.navigationController.navigationBar.translucent = NO;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
@@ -61,9 +63,16 @@
     
     _stringCount.text = @"0/80";
     
+    
+    [_saveShearSetupButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_saveShearSetupButton)];
+    _saveShearSetupButton.layer.cornerRadius = _saveShearSetupButton.frame.size.height/2;
+    _saveShearSetupButton.layer.masksToBounds = YES;
+    
     [SubmitFileManager sheardSubmitFileManager].delegate = self;
     [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:_shearIconButton];
     [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
+    [[SubmitFileManager sheardSubmitFileManager]emptyThePictureArray];
+
 }
 
 -(void)initData{
@@ -117,6 +126,61 @@
 -(void)compressionAndTransferPicturesWithArray:(NSArray *)array{
     
     [_shearIconButton setBackgroundImage:[array firstObject] forState:UIControlStateNormal];
+}
+
+- (IBAction)save:(UIButton *)sender {
+    
+    if ([Global stringIsNullWithString:_titleTV.text]) {
+        [self showToastWithMessage:@"请输入分享标题"];
+        return;
+    }
+    if ([Global stringIsNullWithString:_titleTV.text]) {
+        [self showToastWithMessage:@"请输入分享描述"];
+        return;
+    }
+
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:_product.title forKey:@"Title"];
+    [dic setObject:_titleTV.text forKey:@"Share_title"];
+    [dic setObject:_contentTV.text forKey:@"Share_description"];
+    [dic setObject:_product.id forKey:@"Id"];
+    
+    if ([[SubmitFileManager sheardSubmitFileManager]getSelectedPicktures].count != 0){
+        
+        [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
+        [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
+            
+            [dic setObject:obj forKey:@"Share_img"];
+            
+             [[UserManager shareUserManager]updataProductWithParameters:dic];
+            [UserManager shareUserManager].updataProductSuccess = ^(id obj){
+              
+                [self AlertOperation];
+            };
+
+        };
+    } else {
+        
+        [dic setObject:_product.cover_img forKey:@"Share_img"];
+        [[UserManager shareUserManager]updataProductWithParameters:dic];
+        [UserManager shareUserManager].updataProductSuccess = ^(id obj){
+            
+            [self AlertOperation];
+        };
+    }
+}
+
+-(void)AlertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"保存分享信息成功" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续修改" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [self back];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 

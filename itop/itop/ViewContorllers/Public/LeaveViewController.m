@@ -12,6 +12,7 @@
 #import "LeaveDataSource.h"
 #import "LMJDropdownMenu.h"
 #import "LeaveDetailViewController.h"
+#import "MyWorksStore.h"
 
 #define MANAGEMENT @"管理"
 #define DELETE @"删除"
@@ -25,7 +26,9 @@ static NSString *const LeaveCellIdentifier = @"Leave";
 @property(nonatomic, strong)NSArray *dropdownItme; //下拉分类
 @property(nonatomic, assign)BOOL isManageMent;
 @property(nonatomic, assign)BOOL isDelete;
-@property (strong, nonatomic) LMJDropdownMenu * dropdownMenu;
+@property(strong, nonatomic) LMJDropdownMenu * dropdownMenu;
+@property(nonatomic, strong)NSArray *myProductArray; //我的作品
+@property(nonatomic, strong)H5List *currentProduct; //当前的作品
 
 @end
 
@@ -39,10 +42,32 @@ static NSString *const LeaveCellIdentifier = @"Leave";
 -(void)initData{
     
     [super initData];
-    self.dropdownItme = @[@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席",@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席"];
-    self.dataArray = [[LeaveStore shearLeaveStore]configurationMenuWithMenu:nil testString:self.dropdownItme[0]];
+//    self.dropdownItme = @[@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席",@"国际会议邀请函",@"WWDC会议邀请函",@"博鳌亚洲峰会邀请函",@"党的19大会议出席"];
+//    self.dataArray = [[LeaveStore shearLeaveStore]configurationMenuWithMenu:nil testString:self.dropdownItme[0]];
     _isManageMent = YES;
     _isDelete = NO;
+    [[UserManager shareUserManager]myProductListWithProductType:100  checkStatusType:CheckStatusTypeNoel isShow:1  PageIndex:1 PageCount:10];
+    [UserManager shareUserManager].myProductListSuccess = ^(id obj){
+        
+        NSArray * array = (NSArray *)obj;
+        if (array.count == 0) {
+            
+            self.noDataType = NoDataTypeProduct;
+            self.originY = 100;
+            [self setHasData:NO];
+        }
+        _myProductArray = [[MyWorksStore shearMyWorksStore]configurationMenuWithMenu:array];
+        _dropdownItme = [[MyWorksStore shearMyWorksStore]commentsListDropdownMenuConfigurationMenuWithMenu:_myProductArray];
+        [self steupDropdownMenu];
+        self.page_no = 1;
+        if (_myProductArray.count != 0) {
+            _currentProduct = _myProductArray[0];
+            [_dropdownMenu.mainBtn setTitle:_currentProduct.title forState:UIControlStateNormal];
+            [self refreshData];
+        }
+        
+        NSLog(@"%@",obj);
+    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -90,18 +115,17 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     [_dropdownMenu setMenuTitles:self.dropdownItme rowHeight:44];
     _dropdownMenu.delegate = self;
     [self.view addSubview:_dropdownMenu];
-   
 }
 
 - (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
     
-    self.dataArray = [[LeaveStore shearLeaveStore]configurationMenuWithMenu:nil testString:self.dropdownItme[number]];
-    [self steupTableView];
+    _currentProduct = _myProductArray[number];
+    [self refreshData];
 }
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]leaveProductWithProductId:_product_id PageIndex:self.page_no PageCount:10];
+    [[UserManager shareUserManager]leaveProductWithProductId:_currentProduct.id PageIndex:self.page_no PageCount:10];
     
     [UserManager shareUserManager].leaveProductSuccess = ^(id obj){
         
@@ -212,7 +236,6 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
-    
 }
 
 - (void)dropdownMenuDidShow:(LMJDropdownMenu *)menu{

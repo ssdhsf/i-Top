@@ -684,8 +684,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)initMapLocation{
     
-    NSLog(@"%@",AKAPKEY);
-    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:AKAPKEY authDelegate:self];
+    NSLog(@"%@",BAIDU_MAP_AKAPKEY);
+    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:BAIDU_MAP_AKAPKEY authDelegate:self];
     //初始化实例
     _locationManager = [[BMKLocationManager alloc] init];
     //设置delegate

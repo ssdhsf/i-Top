@@ -43,5 +43,7 @@
 #import "Statistical.h"
 #import "TradingList.h"
 #import "EarningList.h"
+#import "SearchLocation.h"
+#import "Popularize.h"
 
 #endif /* AllModels_h */

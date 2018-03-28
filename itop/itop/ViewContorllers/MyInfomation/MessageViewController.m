@@ -39,6 +39,21 @@ static NSString *const MessageCellIdentifier = @"Message";
     self.navigationController.navigationBar.translucent = NO;
 }
 
+-(void)initData{
+    
+    [super initData];
+    [self showRefresh];
+}
+
+-(void)refreshData{
+    
+    [[UserManager shareUserManager]messageList];
+    [UserManager shareUserManager].messageListSuccess = ^(NSArray  *obj){
+      
+        NSArray * arr = obj;
+    };
+}
+
 -(void)initView{
     
     [super initView];

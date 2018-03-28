@@ -10,6 +10,7 @@ pod 'Reachability', '~> 3.2'
 pod 'MBProgressHUD', '1.1.0'
 pod 'Toast', '~> 2.4'
 pod 'BMKLocationKit'
+pod 'BaiduMapKit'
 pod 'SDWebImage', '~> 3.7.3'
 pod 'IQKeyboardManager'
 pod 'UIAlertView+Blocks', '~> 0.8.1'
@@ -23,7 +24,6 @@ pod 'UMCShare/UI'
 pod 'UMCShare/Social/ReducedWeChat' #分享精简版
 pod 'UMCShare/Social/Sina'
 pod 'UMCShare/Social/QQ'
-
 pod 'UMCAnalytics'
 
 

@@ -283,7 +283,7 @@
 -(void)recordStatisticsItemWithItmeTypeIndex:(StatisticsType)itmeTypeIndex{
     
     switch (itmeTypeIndex) {
-        case StatisticsTypeH5Product:
+        case StatisticsTypeH5Product: //作品
             
             if (!_statisticsItemH5) {
                 _statisticsItemH5 = [[RecordStatisticsItem alloc]init];
@@ -296,7 +296,7 @@
                 [self generalStatisticsDataWithItem:_statisticsItemH5];
             }
             break;
-        case StatisticsTypeHot:
+        case StatisticsTypeHot://热点
             
             if (!_statisticsItemHot) {
                 _statisticsItemHot = [[RecordStatisticsItem alloc]init];
@@ -311,7 +311,7 @@
                 [self generalStatisticsDataWithItem:_statisticsItemHot];
             }
             break;
-        case StatisticsTypeFuns:
+        case StatisticsTypeFuns://粉丝
             
             if (!_statisticsItemFuns) {
               

@@ -29,6 +29,34 @@
 		770D772020624663007601A8 /* BuyVipPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D771E20624663007601A8 /* BuyVipPayViewController.xib */; };
 		770D77242062595A007601A8 /* BuyTemplateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D77222062595A007601A8 /* BuyTemplateViewController.m */; };
 		770D77252062595A007601A8 /* BuyTemplateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D77232062595A007601A8 /* BuyTemplateViewController.xib */; };
+		770D773120629EAC007601A8 /* LoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D772F20629EAC007601A8 /* LoadingViewController.m */; };
+		770D773220629EAC007601A8 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D773020629EAC007601A8 /* LoadingViewController.xib */; };
+		770D773820634487007601A8 /* loadingGif.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 770D773720634487007601A8 /* loadingGif.bundle */; };
+		770D773C20636193007601A8 /* HotBusinessCircleController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D773A20636193007601A8 /* HotBusinessCircleController.m */; };
+		770D773D20636193007601A8 /* HotBusinessCircleController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D773B20636193007601A8 /* HotBusinessCircleController.xib */; };
+		770D77402063F3D1007601A8 /* AppDelegate+BaiduMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D773F2063F3D1007601A8 /* AppDelegate+BaiduMap.m */; };
+		770D77432063F93C007601A8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 770D77412063F93C007601A8 /* libcrypto.a */; };
+		770D77442063F93C007601A8 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 770D77422063F93C007601A8 /* libssl.a */; };
+		770D774820649074007601A8 /* SearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D774620649074007601A8 /* SearchTableViewCell.m */; };
+		770D774920649074007601A8 /* SearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D774720649074007601A8 /* SearchTableViewCell.xib */; };
+		770D774C20649284007601A8 /* SearchLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D774B20649284007601A8 /* SearchLocation.m */; };
+		770D774F20649B39007601A8 /* SearchLocationStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D774E20649B39007601A8 /* SearchLocationStore.m */; };
+		770D77522064A03A007601A8 /* SearchLocationDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D77512064A03A007601A8 /* SearchLocationDataSource.m */; };
+		770D7754206502D0007601A8 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770D7753206502D0007601A8 /* QuartzCore.framework */; };
+		770D7756206502DA007601A8 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770D7755206502DA007601A8 /* CoreLocation.framework */; };
+		770D775B2068F40E007601A8 /* PopularizeManagementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D77592068F40E007601A8 /* PopularizeManagementViewController.m */; };
+		770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D775A2068F40E007601A8 /* PopularizeManagementViewController.xib */; };
+		770D77602068F87C007601A8 /* PopularizeItmeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D775E2068F87B007601A8 /* PopularizeItmeTableViewController.m */; };
+		770D77612068F87C007601A8 /* PopularizeItmeTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D775F2068F87C007601A8 /* PopularizeItmeTableViewController.xib */; };
+		770D77652068F89D007601A8 /* PopularizeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D77632068F89D007601A8 /* PopularizeTableViewCell.m */; };
+		770D77662068F89D007601A8 /* PopularizeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D77642068F89D007601A8 /* PopularizeTableViewCell.xib */; };
+		770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D7768206900D2007601A8 /* PopularizeDataSource.m */; };
+		770D776C20690139007601A8 /* PopularizeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776B20690139007601A8 /* PopularizeStore.m */; };
+		770D776F20690F00007601A8 /* Popularize.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776E20690F00007601A8 /* Popularize.m */; };
+		7717E988206B682E0025DC73 /* DirectMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E986206B682E0025DC73 /* DirectMessagesViewController.m */; };
+		7717E989206B682E0025DC73 /* DirectMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */; };
+		7717E98D206B688A0025DC73 /* DirectMessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */; };
+		7717E98E206B688A0025DC73 /* DirectMessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */; };
 		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
 		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
 		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
@@ -418,6 +446,49 @@
 		770D77212062595A007601A8 /* BuyTemplateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuyTemplateViewController.h; sourceTree = "<group>"; };
 		770D77222062595A007601A8 /* BuyTemplateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuyTemplateViewController.m; sourceTree = "<group>"; };
 		770D77232062595A007601A8 /* BuyTemplateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BuyTemplateViewController.xib; sourceTree = "<group>"; };
+		770D772E20629EAC007601A8 /* LoadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingViewController.h; sourceTree = "<group>"; };
+		770D772F20629EAC007601A8 /* LoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingViewController.m; sourceTree = "<group>"; };
+		770D773020629EAC007601A8 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
+		770D773720634487007601A8 /* loadingGif.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = loadingGif.bundle; sourceTree = "<group>"; };
+		770D773920636193007601A8 /* HotBusinessCircleController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotBusinessCircleController.h; sourceTree = "<group>"; };
+		770D773A20636193007601A8 /* HotBusinessCircleController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotBusinessCircleController.m; sourceTree = "<group>"; };
+		770D773B20636193007601A8 /* HotBusinessCircleController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotBusinessCircleController.xib; sourceTree = "<group>"; };
+		770D773E2063F3D1007601A8 /* AppDelegate+BaiduMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+BaiduMap.h"; sourceTree = "<group>"; };
+		770D773F2063F3D1007601A8 /* AppDelegate+BaiduMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+BaiduMap.m"; sourceTree = "<group>"; };
+		770D77412063F93C007601A8 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = Pods/BaiduMapKit/BaiduMapKit/thirdlibs/libcrypto.a; sourceTree = "<group>"; };
+		770D77422063F93C007601A8 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = Pods/BaiduMapKit/BaiduMapKit/thirdlibs/libssl.a; sourceTree = "<group>"; };
+		770D774520649074007601A8 /* SearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchTableViewCell.h; sourceTree = "<group>"; };
+		770D774620649074007601A8 /* SearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchTableViewCell.m; sourceTree = "<group>"; };
+		770D774720649074007601A8 /* SearchTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchTableViewCell.xib; sourceTree = "<group>"; };
+		770D774A20649284007601A8 /* SearchLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchLocation.h; sourceTree = "<group>"; };
+		770D774B20649284007601A8 /* SearchLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchLocation.m; sourceTree = "<group>"; };
+		770D774D20649B39007601A8 /* SearchLocationStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchLocationStore.h; sourceTree = "<group>"; };
+		770D774E20649B39007601A8 /* SearchLocationStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchLocationStore.m; sourceTree = "<group>"; };
+		770D77502064A03A007601A8 /* SearchLocationDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchLocationDataSource.h; sourceTree = "<group>"; };
+		770D77512064A03A007601A8 /* SearchLocationDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchLocationDataSource.m; sourceTree = "<group>"; };
+		770D7753206502D0007601A8 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		770D7755206502DA007601A8 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		770D77582068F40E007601A8 /* PopularizeManagementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeManagementViewController.h; sourceTree = "<group>"; };
+		770D77592068F40E007601A8 /* PopularizeManagementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeManagementViewController.m; sourceTree = "<group>"; };
+		770D775A2068F40E007601A8 /* PopularizeManagementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularizeManagementViewController.xib; sourceTree = "<group>"; };
+		770D775D2068F87B007601A8 /* PopularizeItmeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeItmeTableViewController.h; sourceTree = "<group>"; };
+		770D775E2068F87B007601A8 /* PopularizeItmeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeItmeTableViewController.m; sourceTree = "<group>"; };
+		770D775F2068F87C007601A8 /* PopularizeItmeTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularizeItmeTableViewController.xib; sourceTree = "<group>"; };
+		770D77622068F89D007601A8 /* PopularizeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeTableViewCell.h; sourceTree = "<group>"; };
+		770D77632068F89D007601A8 /* PopularizeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeTableViewCell.m; sourceTree = "<group>"; };
+		770D77642068F89D007601A8 /* PopularizeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PopularizeTableViewCell.xib; sourceTree = "<group>"; };
+		770D7767206900D2007601A8 /* PopularizeDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeDataSource.h; sourceTree = "<group>"; };
+		770D7768206900D2007601A8 /* PopularizeDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeDataSource.m; sourceTree = "<group>"; };
+		770D776A20690139007601A8 /* PopularizeStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeStore.h; sourceTree = "<group>"; };
+		770D776B20690139007601A8 /* PopularizeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeStore.m; sourceTree = "<group>"; };
+		770D776D20690F00007601A8 /* Popularize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popularize.h; sourceTree = "<group>"; };
+		770D776E20690F00007601A8 /* Popularize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popularize.m; sourceTree = "<group>"; };
+		7717E985206B682E0025DC73 /* DirectMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesViewController.h; sourceTree = "<group>"; };
+		7717E986206B682E0025DC73 /* DirectMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesViewController.m; sourceTree = "<group>"; };
+		7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectMessagesViewController.xib; sourceTree = "<group>"; };
+		7717E98A206B688A0025DC73 /* DirectMessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesTableViewCell.h; sourceTree = "<group>"; };
+		7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesTableViewCell.m; sourceTree = "<group>"; };
+		7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectMessagesTableViewCell.xib; sourceTree = "<group>"; };
 		772F95752050023100F432D2 /* AppDelegate+UmenShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UmenShear.h"; sourceTree = "<group>"; };
 		772F95762050023100F432D2 /* AppDelegate+UmenShear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UmenShear.m"; sourceTree = "<group>"; };
 		772F957820503D4800F432D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -985,6 +1056,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				770D7756206502DA007601A8 /* CoreLocation.framework in Frameworks */,
+				770D7754206502D0007601A8 /* QuartzCore.framework in Frameworks */,
+				770D77432063F93C007601A8 /* libcrypto.a in Frameworks */,
+				770D77442063F93C007601A8 /* libssl.a in Frameworks */,
 				772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */,
 				772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */,
 				77E00A6A20174F40004BBD49 /* CFNetwork.framework in Frameworks */,
@@ -1015,6 +1090,10 @@
 		5C030D0642A933C51717E84C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				770D7755206502DA007601A8 /* CoreLocation.framework */,
+				770D7753206502D0007601A8 /* QuartzCore.framework */,
+				770D77412063F93C007601A8 /* libcrypto.a */,
+				770D77422063F93C007601A8 /* libssl.a */,
 				772F957A20503D5900F432D2 /* libsqlite3.tbd */,
 				772F957820503D4800F432D2 /* CoreGraphics.framework */,
 				77E00A6920174F40004BBD49 /* CFNetwork.framework */,
@@ -1064,6 +1143,22 @@
 				770D77232062595A007601A8 /* BuyTemplateViewController.xib */,
 			);
 			path = Pay;
+			sourceTree = "<group>";
+		};
+		770D77572068F3B3007601A8 /* Popularize */ = {
+			isa = PBXGroup;
+			children = (
+				770D77582068F40E007601A8 /* PopularizeManagementViewController.h */,
+				770D77592068F40E007601A8 /* PopularizeManagementViewController.m */,
+				770D775A2068F40E007601A8 /* PopularizeManagementViewController.xib */,
+				770D775D2068F87B007601A8 /* PopularizeItmeTableViewController.h */,
+				770D775E2068F87B007601A8 /* PopularizeItmeTableViewController.m */,
+				770D775F2068F87C007601A8 /* PopularizeItmeTableViewController.xib */,
+				770D77622068F89D007601A8 /* PopularizeTableViewCell.h */,
+				770D77632068F89D007601A8 /* PopularizeTableViewCell.m */,
+				770D77642068F89D007601A8 /* PopularizeTableViewCell.xib */,
+			);
+			path = Popularize;
 			sourceTree = "<group>";
 		};
 		77369CC6200F512F0092AEAC /* Home */ = {
@@ -1134,6 +1229,7 @@
 		77369CC8200F512F0092AEAC /* MyInfomation */ = {
 			isa = PBXGroup;
 			children = (
+				770D77572068F3B3007601A8 /* Popularize */,
 				770D76ED2061FB13007601A8 /* Wallet */,
 				77C07F79204C2BC300D77DBD /* Setup */,
 				77723A3020308A77006294E8 /* Signing */,
@@ -1186,6 +1282,12 @@
 				772F95C2205B60D300F432D2 /* ReleaseHotViewController.h */,
 				772F95C3205B60D300F432D2 /* ReleaseHotViewController.m */,
 				772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */,
+				770D773920636193007601A8 /* HotBusinessCircleController.h */,
+				770D773A20636193007601A8 /* HotBusinessCircleController.m */,
+				770D773B20636193007601A8 /* HotBusinessCircleController.xib */,
+				770D774520649074007601A8 /* SearchTableViewCell.h */,
+				770D774620649074007601A8 /* SearchTableViewCell.m */,
+				770D774720649074007601A8 /* SearchTableViewCell.xib */,
 			);
 			path = MyInfomation;
 			sourceTree = "<group>";
@@ -1517,6 +1619,10 @@
 				770D770420620BE1007601A8 /* TradingList.m */,
 				770D770B20622AF5007601A8 /* EarningList.h */,
 				770D770C20622AF5007601A8 /* EarningList.m */,
+				770D774A20649284007601A8 /* SearchLocation.h */,
+				770D774B20649284007601A8 /* SearchLocation.m */,
+				770D776D20690F00007601A8 /* Popularize.h */,
+				770D776E20690F00007601A8 /* Popularize.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1564,6 +1670,10 @@
 				772F95AE20590D8B00F432D2 /* CommentListStore.m */,
 				770D770020620B72007601A8 /* TradingListStore.h */,
 				770D770120620B72007601A8 /* TradingListStore.m */,
+				770D774D20649B39007601A8 /* SearchLocationStore.h */,
+				770D774E20649B39007601A8 /* SearchLocationStore.m */,
+				770D776A20690139007601A8 /* PopularizeStore.h */,
+				770D776B20690139007601A8 /* PopularizeStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1597,6 +1707,9 @@
 				77369CC7200F512F0092AEAC /* hot */,
 				77369CC8200F512F0092AEAC /* MyInfomation */,
 				77369CC9200F512F0092AEAC /* MyWorks */,
+				770D772E20629EAC007601A8 /* LoadingViewController.h */,
+				770D772F20629EAC007601A8 /* LoadingViewController.m */,
+				770D773020629EAC007601A8 /* LoadingViewController.xib */,
 			);
 			path = ViewContorllers;
 			sourceTree = "<group>";
@@ -1735,6 +1848,8 @@
 				772F95762050023100F432D2 /* AppDelegate+UmenShear.m */,
 				77369CE4200F987F0092AEAC /* AppDelegate+WeChat.h */,
 				77369CE5200F987F0092AEAC /* AppDelegate+WeChat.m */,
+				770D773E2063F3D1007601A8 /* AppDelegate+BaiduMap.h */,
+				770D773F2063F3D1007601A8 /* AppDelegate+BaiduMap.m */,
 				777D5173200CC52700CB2A8A /* ViewController.h */,
 				777D5174200CC52700CB2A8A /* ViewController.m */,
 				777D5176200CC52700CB2A8A /* Main.storyboard */,
@@ -1743,6 +1858,7 @@
 				777D517E200CC52700CB2A8A /* Info.plist */,
 				77369C9D200EEB740092AEAC /* Config.plist */,
 				77CE7C87202B0B770067D284 /* city-picker.data.json */,
+				770D773720634487007601A8 /* loadingGif.bundle */,
 				777D516D200CC52700CB2A8A /* Supporting Files */,
 			);
 			path = itop;
@@ -1805,6 +1921,12 @@
 				772F957C20523BA800F432D2 /* SearchViewController.h */,
 				772F957D20523BA800F432D2 /* SearchViewController.m */,
 				772F957E20523BA800F432D2 /* SearchViewController.xib */,
+				7717E985206B682E0025DC73 /* DirectMessagesViewController.h */,
+				7717E986206B682E0025DC73 /* DirectMessagesViewController.m */,
+				7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */,
+				7717E98A206B688A0025DC73 /* DirectMessagesTableViewCell.h */,
+				7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */,
+				7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1898,6 +2020,10 @@
 				770D76FE20620ACA007601A8 /* TradingListDataSource.m */,
 				770D771820623BBE007601A8 /* EarningDetailDataSource.h */,
 				770D771920623BBE007601A8 /* EarningDetailDataSource.m */,
+				770D77502064A03A007601A8 /* SearchLocationDataSource.h */,
+				770D77512064A03A007601A8 /* SearchLocationDataSource.m */,
+				770D7767206900D2007601A8 /* PopularizeDataSource.h */,
+				770D7768206900D2007601A8 /* PopularizeDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2096,6 +2222,7 @@
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
 				77723ABA2043BB42006294E8 /* AssetsPickerVideo@2x.png in Resources */,
 				77B86FEE202861C00096FB28 /* LeaveViewController.xib in Resources */,
+				7717E989206B682E0025DC73 /* DirectMessagesViewController.xib in Resources */,
 				77369CD8200F530F0092AEAC /* MyInfomationViewController.xib in Resources */,
 				77723AB92043BB42006294E8 /* AssetsPickerLocked@2x.png in Resources */,
 				772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */,
@@ -2109,6 +2236,7 @@
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
 				7777E5592029F026008FA348 /* LeaveDetailViewController.xib in Resources */,
 				77369C9E200EEB740092AEAC /* Config.plist in Resources */,
+				770D77612068F87C007601A8 /* PopularizeItmeTableViewController.xib in Resources */,
 				77484A942020BD3300BAC567 /* HotDetailsViewController.xib in Resources */,
 				77826B962019D95800F53E28 /* MyInfomationCollectionViewCell.xib in Resources */,
 				77723ABB2043BB42006294E8 /* complete.png in Resources */,
@@ -2122,6 +2250,7 @@
 				777D517D200CC52700CB2A8A /* LaunchScreen.storyboard in Resources */,
 				77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */,
 				77369CCE200F52810092AEAC /* HomeViewController.xib in Resources */,
+				770D77662068F89D007601A8 /* PopularizeTableViewCell.xib in Resources */,
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
 				77E8A8552011997800E253CC /* ThemeCustomViewCollectionViewCell.xib in Resources */,
@@ -2152,18 +2281,21 @@
 				77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */,
 				77723ABF2043BB42006294E8 /* ico@2x.png in Resources */,
 				77848AE3202D37EC00C0CCD2 /* MyFocusViewController.xib in Resources */,
+				770D773220629EAC007601A8 /* LoadingViewController.xib in Resources */,
 				77E8A8782011DCB000E253CC /* Info.plist in Resources */,
 				770D771720623732007601A8 /* EarningDetailTableViewCell.xib in Resources */,
 				77723AC12043BB42006294E8 /* No.png in Resources */,
 				77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */,
 				770D76F720620706007601A8 /* TradingListViewController.xib in Resources */,
 				77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */,
+				770D774920649074007601A8 /* SearchTableViewCell.xib in Resources */,
 				7777E55E2029F17F008FA348 /* LeaveDateilCell.xib in Resources */,
 				772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */,
 				77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */,
 				772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */,
 				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
+				770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */,
 				772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */,
 				772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */,
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
@@ -2182,7 +2314,10 @@
 				772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */,
 				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
+				7717E98E206B688A0025DC73 /* DirectMessagesTableViewCell.xib in Resources */,
+				770D773820634487007601A8 /* loadingGif.bundle in Resources */,
 				772F95852054C17C00F432D2 /* MessageViewController.xib in Resources */,
+				770D773D20636193007601A8 /* HotBusinessCircleController.xib in Resources */,
 				77369CE3200F546E0092AEAC /* LoginViewController.xib in Resources */,
 				77E8A894201580D100E253CC /* StatisticalDataViewController.xib in Resources */,
 				77484A802020478000BAC567 /* RecommendedTableViewCell.xib in Resources */,
@@ -2259,6 +2394,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				77848AEC202EE20800C0CCD2 /* ProductModel.m in Sources */,
+				770D774820649074007601A8 /* SearchTableViewCell.m in Sources */,
+				770D77652068F89D007601A8 /* PopularizeTableViewCell.m in Sources */,
 				775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */,
 				770D76FB206207F4007601A8 /* TradingListTableViewCell.m in Sources */,
 				77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */,
@@ -2267,6 +2404,8 @@
 				77E8A88920136B9A00E253CC /* registeredViewController.m in Sources */,
 				77484AB42022111D00BAC567 /* MyWorksStore.m in Sources */,
 				77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */,
+				770D774C20649284007601A8 /* SearchLocation.m in Sources */,
+				770D77522064A03A007601A8 /* SearchLocationDataSource.m in Sources */,
 				775E31CA202018D3002107DD /* HotDataSource.m in Sources */,
 				77B2F47020109CA300EF4119 /* WXApiManager.m in Sources */,
 				77DA832D20187AF600E7CB36 /* BaseCollectionViewController.m in Sources */,
@@ -2280,6 +2419,7 @@
 				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77723AE62043BBB2006294E8 /* MSSBrowseCollectionViewCell.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
+				770D776F20690F00007601A8 /* Popularize.m in Sources */,
 				77723AEE2043BBB2006294E8 /* UIView+MSSLayout.m in Sources */,
 				77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */,
 				772F957F20523BA800F432D2 /* SearchViewController.m in Sources */,
@@ -2301,6 +2441,7 @@
 				77723A44203EF219006294E8 /* SpecialityTag.m in Sources */,
 				77F078AE2046A7CE004C0596 /* Marketing.m in Sources */,
 				770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */,
+				770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */,
 				77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */,
 				77E8A8792011DCB000E253CC /* MASCompositeConstraint.m in Sources */,
 				77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */,
@@ -2321,6 +2462,7 @@
 				772F958D2054D0E500F432D2 /* Message.m in Sources */,
 				772F95BB205A569D00F432D2 /* MyHotH5ItmeViewController.m in Sources */,
 				77723AE42043BBB2006294E8 /* MSSBrowseActionSheetCell.m in Sources */,
+				770D773120629EAC007601A8 /* LoadingViewController.m in Sources */,
 				77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */,
 				77DA83532019796B00E7CB36 /* H5ListStore.m in Sources */,
 				77CE7C85202B02DF0067D284 /* AlertView.m in Sources */,
@@ -2332,6 +2474,7 @@
 				77C07F95204D573300D77DBD /* BindPhoneViewController.m in Sources */,
 				77DA833D2018839800E7CB36 /* DesignerListDataSource.m in Sources */,
 				77369CE2200F546E0092AEAC /* LoginViewController.m in Sources */,
+				770D774F20649B39007601A8 /* SearchLocationStore.m in Sources */,
 				77B86FF9202868560096FB28 /* LeaveStore.m in Sources */,
 				77E8A8802011DCB000E253CC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				77B2F47320109CC600EF4119 /* WXApiRequestHandler.m in Sources */,
@@ -2341,6 +2484,8 @@
 				77E8A87C2011DCB000E253CC /* MASLayoutConstraint.m in Sources */,
 				77723AEB2043BBB2006294E8 /* MSSBrowseRemindView.m in Sources */,
 				772F95C0205A56D800F432D2 /* MyHotH5ItmeViewCell.m in Sources */,
+				7717E988206B682E0025DC73 /* DirectMessagesViewController.m in Sources */,
+				7717E98D206B688A0025DC73 /* DirectMessagesTableViewCell.m in Sources */,
 				77369CBF200F2BBD0092AEAC /* BaseViewController+PlaceholderView.m in Sources */,
 				77B86FF22028621E0096FB28 /* LeaveTableViewCell.m in Sources */,
 				77369CB6200F21CD0092AEAC /* BaseTableViewController.m in Sources */,
@@ -2372,6 +2517,7 @@
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
+				770D77602068F87C007601A8 /* PopularizeItmeTableViewController.m in Sources */,
 				77484AC720233DE300BAC567 /* JSBadgeView.m in Sources */,
 				77CE7C7F202AEB990067D284 /* InfomationStore.m in Sources */,
 				77DA833A2018834700E7CB36 /* DesignerListStore.m in Sources */,
@@ -2387,6 +2533,7 @@
 				77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */,
 				77484A982020BDB900BAC567 /* HotDetailsCell.m in Sources */,
 				77E8A87D2011DCB000E253CC /* MASViewAttribute.m in Sources */,
+				770D776C20690139007601A8 /* PopularizeStore.m in Sources */,
 				77484AAB2021A1DB00BAC567 /* HotDetailStore.m in Sources */,
 				7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */,
 				770D771620623732007601A8 /* EarningDetailTableViewCell.m in Sources */,
@@ -2439,6 +2586,7 @@
 				77369CB9200F227B0092AEAC /* ApplicationTableViewDataSource.m in Sources */,
 				77E8A87F2011DCB000E253CC /* NSArray+MASAdditions.m in Sources */,
 				777AF1D7200E0C5A009729AD /* UserModel.m in Sources */,
+				770D775B2068F40E007601A8 /* PopularizeManagementViewController.m in Sources */,
 				772F95B6205A48FB00F432D2 /* MyhotViewController.m in Sources */,
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
@@ -2467,6 +2615,7 @@
 				77E8A850201197EF00E253CC /* ThemeCustomDataSource.m in Sources */,
 				77848AE9202EE1A300C0CCD2 /* ProductDetail.m in Sources */,
 				77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */,
+				770D773C20636193007601A8 /* HotBusinessCircleController.m in Sources */,
 				77723AC42043BB42006294E8 /* ZYQAssetPickerController.m in Sources */,
 				77848AF2202EE3C300C0CCD2 /* UserProduct.m in Sources */,
 				772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */,
@@ -2477,6 +2626,7 @@
 				7792B728201C7BC100587399 /* HomeModel.m in Sources */,
 				777D516F200CC52700CB2A8A /* main.m in Sources */,
 				77723AF42043C869006294E8 /* UIView+PYExtension.m in Sources */,
+				770D77402063F3D1007601A8 /* AppDelegate+BaiduMap.m in Sources */,
 				77B86FF6202868370096FB28 /* LeaveDataSource.m in Sources */,
 				77723A892043B015006294E8 /* Base64.m in Sources */,
 				77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */,
@@ -2655,6 +2805,89 @@
 				INFOPLIST_FILE = itop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"JSONModel\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Reachability\"",
+					"-l\"SDWebImage\"",
+					"-l\"SocialQQ\"",
+					"-l\"SocialSina\"",
+					"-l\"SocialWeChat\"",
+					"-l\"Toast\"",
+					"-l\"UIAlertView+Blocks\"",
+					"-l\"UITextView+Placeholder\"",
+					"-l\"UMSocialLog\"",
+					"-l\"WeChatSDK\"",
+					"-l\"WeiboSDK\"",
+					"-l\"c++\"",
+					"-l\"crypto\"",
+					"-l\"sqlite3\"",
+					"-l\"sqlite3.0\"",
+					"-l\"ssl\"",
+					"-l\"stdc++.6.0.9\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"BMKLocationKit\"",
+					"-framework",
+					"\"BaiduMapAPI_Base\"",
+					"-framework",
+					"\"BaiduMapAPI_Cloud\"",
+					"-framework",
+					"\"BaiduMapAPI_Location\"",
+					"-framework",
+					"\"BaiduMapAPI_Map\"",
+					"-framework",
+					"\"BaiduMapAPI_Radar\"",
+					"-framework",
+					"\"BaiduMapAPI_Search\"",
+					"-framework",
+					"\"BaiduMapAPI_Utils\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TencentOpenAPI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"UMAnalytics\"",
+					"-framework",
+					"\"UMCommon\"",
+					"-framework",
+					"\"UMShare\"",
+					"-framework",
+					"\"UShareUI\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sj.itop.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/huangli/itop/itop/itop-Bridging-Header.h";
@@ -2680,6 +2913,89 @@
 				INFOPLIST_FILE = itop/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/BaiduMapKit/BaiduMapKit/thirdlibs",
+				);
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"IQKeyboardManager\"",
+					"-l\"JSONModel\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Reachability\"",
+					"-l\"SDWebImage\"",
+					"-l\"SocialQQ\"",
+					"-l\"SocialSina\"",
+					"-l\"SocialWeChat\"",
+					"-l\"Toast\"",
+					"-l\"UIAlertView+Blocks\"",
+					"-l\"UITextView+Placeholder\"",
+					"-l\"UMSocialLog\"",
+					"-l\"WeChatSDK\"",
+					"-l\"WeiboSDK\"",
+					"-l\"c++\"",
+					"-l\"crypto\"",
+					"-l\"sqlite3\"",
+					"-l\"sqlite3.0\"",
+					"-l\"ssl\"",
+					"-l\"stdc++.6.0.9\"",
+					"-l\"z\"",
+					"-framework",
+					"\"AdSupport\"",
+					"-framework",
+					"\"BMKLocationKit\"",
+					"-framework",
+					"\"BaiduMapAPI_Base\"",
+					"-framework",
+					"\"BaiduMapAPI_Cloud\"",
+					"-framework",
+					"\"BaiduMapAPI_Location\"",
+					"-framework",
+					"\"BaiduMapAPI_Map\"",
+					"-framework",
+					"\"BaiduMapAPI_Radar\"",
+					"-framework",
+					"\"BaiduMapAPI_Search\"",
+					"-framework",
+					"\"BaiduMapAPI_Utils\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"TencentOpenAPI\"",
+					"-framework",
+					"\"UIKit\"",
+					"-framework",
+					"\"UMAnalytics\"",
+					"-framework",
+					"\"UMCommon\"",
+					"-framework",
+					"\"UMShare\"",
+					"-framework",
+					"\"UShareUI\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.sj.itop.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/huangli/itop/itop/itop-Bridging-Header.h";

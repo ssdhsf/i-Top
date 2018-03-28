@@ -99,7 +99,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     };
 }
 
-
 -(void)initData{
     
     [super initData];

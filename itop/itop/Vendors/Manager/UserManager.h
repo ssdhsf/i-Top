@@ -30,10 +30,10 @@ typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
 
 typedef NS_ENUM(NSInteger, TagH5ListType) { //TagH5作品类型
     TagH5ListDefault = 0, //默认
-    TTagH5ListProduct = 1,//作品
-    TTagH5ListArticle ,//热点
-    TTagH5ListTrade ,//行业
-    TTagH5ListField ,//领域  《设计师用》
+    TagH5ListProduct = 1,//作品
+    TagH5ListArticle ,//热点
+    TagH5ListTrade ,//行业
+    TagH5ListField ,//领域  《设计师用》
 };
 
 typedef NS_ENUM(NSInteger, TagType) { //首页Tag类型
@@ -86,8 +86,8 @@ typedef NS_ENUM(NSInteger, CheckStatusType) { //作品审核状态
     CheckStatusTypeUnPass//不通过
 };
 
-typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE)
-{
+typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE){ //微信分享类型
+    
     UMS_SHARE_TYPE_TEXT, //文本
     UMS_SHARE_TYPE_IMAGE,//图片
     UMS_SHARE_TYPE_IMAGE_URL,//图片地址
@@ -129,6 +129,15 @@ typedef NS_ENUM(NSInteger, GetProductListType) { //获取文章入口
 typedef NS_ENUM(NSInteger, StatisticalDataType) { //获取数据统计入口
     StatisticalDataTypeSingle = 0, //单个作品
     StatisticalDataTypeAll,//全部 作品／热点／粉丝
+};
+
+typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
+    OrderStatusTypeReady = 0, //准备中
+    OrderStatusTypeGoOn = 1, //进行中
+    OrderStatusTypefail , //完成失败
+    OrderStatusTypeSucess , //完成
+    OrderStatusTypeStart, //开启中
+    OrderStatusTypeNoel , //全部
 };
 
 typedef void (^LoginSuccess)(id obj);
@@ -204,9 +213,14 @@ typedef void (^StatisticsFailure)(id obj);
 
 typedef void (^EarningListSuccess)(id obj);
 typedef void (^EarningListFailure)(id obj);
+typedef void (^PopularizeSuccess)(id obj);
+typedef void (^PopularizeFailure)(id obj);
 
+typedef void (^UpdataProductSuccess)(id obj);
+typedef void (^UpdataProductFailure)(id obj);
 
-
+typedef void (^MessageListSuccess)(id obj);
+typedef void (^MessageListFailure)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
@@ -327,6 +341,18 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) EarningListSuccess earningListSuccess;
 @property (nonatomic, copy) EarningListFailure earningListFailure;
 
+/*----------------推广管理————————————————————————*/
+@property (nonatomic, copy) PopularizeSuccess popularizeSuccess;
+@property (nonatomic, copy) PopularizeFailure popularizeFailure;
+
+/*----------------更行作品————————————————————————*/
+@property (nonatomic, copy) UpdataProductSuccess updataProductSuccess;
+@property (nonatomic, copy) UpdataProductFailure updataProductFailure;
+
+/*----------------消息获取————————————————————————*/
+@property (nonatomic, copy) MessageListSuccess messageListSuccess;
+@property (nonatomic, copy) MessageListFailure messageListFailure;
+
 
 + (instancetype)shareUserManager;
 
@@ -345,10 +371,22 @@ typedef void (^ErrorFailure)(id obj);
 - (BOOL)isWechatLogin;
 
 /**
- *  判断用户是否登录
+ *  获取本用户
  *
  */
 - (UserModel*)crrentUserInfomation;
+
+/**
+ *  获取本用户类型
+ *
+ */
+-(NSInteger)crrentUserType;
+
+/**
+ *  获取本用户id
+ *
+ */
+-(NSNumber *)crrentUserId;
 
 /**
  *  用户登录
@@ -667,5 +705,29 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (void)earningListWithPageIndex:(NSInteger )pageIndex
                        PageCount:(NSInteger )pageCount;
+
+/**
+ *  删除作品
+ *
+ *  @param user_id 用户id
+ *  @param order_status 订单状态
+ */
+- (void)popularizeListWithUserId:(NSNumber *)user_id
+                     orderStatus:(OrderStatusType )order_status
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+/**
+ *  更新作品
+ *
+ *  @param parameters 作品参数
+ */
+- (void)updataProductWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  获取消息
+ *
+ */
+-(void)messageList;
 
 @end

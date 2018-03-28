@@ -55,6 +55,12 @@
 #import "LoginMannager.h"
 #import "WebViewController.h"
 
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
+
+
+
 #import "UIViewController+BarItem.h"
 #import "UIView+DYExtension.h"
 #import "UIColor+CAGradientLayer.h"
@@ -79,6 +85,8 @@
 #import "SubmitFileManager.h"
 #import "MessagePhotoView.h"
 #import "ShearViewManager.h"
+#import "SegmentTapView.h"
+
 
 #endif
 

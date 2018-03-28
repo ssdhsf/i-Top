@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - BaiduMapKit (3.4.2)
   - BMKLocationKit (1.1.0)
   - IQKeyboardManager (5.0.7)
   - JSONModel (1.1.2)
@@ -55,6 +56,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1.0)
+  - BaiduMapKit
   - BMKLocationKit
   - IQKeyboardManager
   - JSONModel (~> 1.1.0)
@@ -74,6 +76,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  BaiduMapKit: f61b19ecf07a3f2deede72b221b366bf698739ed
   BMKLocationKit: 1dae7e092b1f8bf808370bbbcbd23bc4445108d9
   IQKeyboardManager: 0bfa4607d39924116b5c0c8b55b5d789288b5cba
   JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
@@ -89,6 +92,6 @@ SPEC CHECKSUMS:
   UMCShare: d63008fcea9b2e1e52bc62816b1611ee7d5af50e
   WechatOpenSDK: 0ee07a8d492299d3e47372a33da5af26524a7576
 
-PODFILE CHECKSUM: 4930e255661e3607b5a6a02368b699cd6e0a9e25
+PODFILE CHECKSUM: e27fa6fd8bc810f48fd7149695dc40449c6a6a9b
 
 COCOAPODS: 1.1.1

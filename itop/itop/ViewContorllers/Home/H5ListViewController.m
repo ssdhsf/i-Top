@@ -107,7 +107,6 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-    
     if (_getH5ListType == GetH5ListTypeProduct) {
         
         [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10];
@@ -115,11 +114,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
             
             [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
         };
+    } else { //获取TagListH5
         
-       
-    } else {
-        
-        [[UserManager shareUserManager]tagH5ListWithType:_tagH5LisType PageIndex:self.page_no PageCount:10];
+        [[UserManager shareUserManager]tagH5ListWithType:TagH5ListProduct PageIndex:self.page_no PageCount:10];
         [UserManager shareUserManager].tagListSuccess = ^(NSArray *arr){
           
              [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
@@ -176,6 +173,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
     hotDetailsVc.hotDetail_id = h5.id;
+    hotDetailsVc.itemDetailType = H5ItemDetailType;
     hotDetailsVc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:hotDetailsVc animated:YES];
 

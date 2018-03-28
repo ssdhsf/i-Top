@@ -97,8 +97,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
                                     nibName:@"MyInfomationCollectionViewCell"];
 }
 
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     
     return CGSizeMake(ScreenWidth/4, 91);
 }

@@ -211,22 +211,24 @@
         return;
     }
     
+    [UIManager showVC:@"HotBusinessCircleController"];
+    
 //    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
 //    [UserManager shareUserManager].submitFileSuccess = ^ (id obj){
     
-        NSString *fileUrl = [NSString stringWithFormat:@"%@",_select_h5.cover_img];
-        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-        [parameters setObject:fileUrl forKey:@"Cover_img"];
-        [parameters setObject:_titleH5TV.text forKey:@"Title"];
-        [parameters setObject:_contentH5TV.text forKey:@"Content"];
-        [parameters setObject:@(1) forKey:@"Article_type"];
-        [parameters setObject:_select_h5.url forKey:@"Url"];
-        
-        [[UserManager shareUserManager]addHotListWithParameters:parameters];
-        [UserManager shareUserManager].addHotSuccess =  ^(id obj){
-            
-            [self alertOperation];
-        };
+//        NSString *fileUrl = [NSString stringWithFormat:@"%@",_select_h5.cover_img];
+//        NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+//        [parameters setObject:fileUrl forKey:@"Cover_img"];
+//        [parameters setObject:_titleH5TV.text forKey:@"Title"];
+//        [parameters setObject:_contentH5TV.text forKey:@"Content"];
+//        [parameters setObject:@(1) forKey:@"Article_type"];
+//        [parameters setObject:_select_h5.url forKey:@"Url"];
+//        
+//        [[UserManager shareUserManager]addHotListWithParameters:parameters];
+//        [UserManager shareUserManager].addHotSuccess =  ^(id obj){
+//            
+//            [self alertOperation];
+//        };
 //    };
 }
 
@@ -276,7 +278,6 @@
         
         [self back];
         [UIManager sharedUIManager].backOffBolck( @(_itmeIndex));
-//        self.submitBack(_itmeIndex);
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];

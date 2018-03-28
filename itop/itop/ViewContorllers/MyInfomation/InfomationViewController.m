@@ -57,8 +57,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 }
 
 -(void)initView{
-    
-    NSLog(@"%f",self.view.frame.size.height);
+
     [super initView];
     [self initTableViewWithFrame:TableViewFrame(0, 0, ScreenWidth, ViewHeigh)];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -71,6 +70,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [SubmitFileManager sheardSubmitFileManager].delegate = self;
     [[SubmitFileManager sheardSubmitFileManager] addPictrueViewToViewController:self.view];
     [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
+    [[SubmitFileManager sheardSubmitFileManager]emptyThePictureArray];
 }
 
 -(void)initData{
@@ -150,7 +150,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     } else {
          self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
     }
-   
     self.pickView.backgroundColor = [UIColor whiteColor];
     self.pickView.delegate = self;
     self.pickView.dataSource = self;
@@ -177,7 +176,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 break;
             case PickViewTypeCompnySize:
                 
-                index = [[[CompanySigningStore shearCompanySigningStore]companySizeArray] indexOfObject:info.content];
+                index = [[[CompanySigningStore shearCompanySigningStore]companySizeArray] indexOfObject:[info.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
                 [self.pickView selectRow:index inComponent:0 animated:NO];
                 break;
             case PickViewTypeField:
@@ -248,7 +247,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     if (arr.count > 1) {
         
-        for (NSString *subIndustryp in self.cityArray ) {
+        for (NSString *subIndustryp in self.industrySubArray ) {
             
             if ([subIndustryp isEqualToString:arr[1]]) {
                 
@@ -599,16 +598,24 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         }
     }
     
-    [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
-    [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
-        
-        [dic setObject:obj forKey:@"Head_img"];
+    if ([[SubmitFileManager sheardSubmitFileManager]getSelectedPicktures].count != 0) {
+        [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
+        [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
+            
+            [dic setObject:obj forKey:@"Head_img"];
+            [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
+            [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
+                
+                [self AlertOperation];
+            };
+        };
+    }else {
         [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
         [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
             
             [self AlertOperation];
         };
-    };
+    }
 }
 
 -(void)AlertOperation{

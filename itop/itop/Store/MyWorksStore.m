@@ -60,34 +60,51 @@
 }
 
 
-- (NSDictionary *)editProductConfigurationMenuWithGetProductType:(GetProductListType )getProductListType{
+- (NSDictionary *)editProductConfigurationMenuWithGetProductType:(UserType )userType{
     
     NSDictionary * configurationDic;
     NSArray*titleArray;
-    if (getProductListType == GetProductListTypeHome) {
-        configurationDic = @{@"编辑":@"zuo_icon_edit",
-                             @"预览":@"zuo_icon_preview",
-                             @"留资":@"zuo_icon_liuzi",
-                             @"设置":@"zuo_icon_set",
-                             @"分享":@"zuo_icon_share",
-                             @"复制链接":@"zuo_icon_link",
-                             @"二维码":@"zuo_icon_code",
-                             @"删除":@"zuo_icon_delete"};
-        titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"分享",@"复制链接",@"二维码",@"删除"];
-
-    } else {
-        
-        configurationDic = @{@"编辑":@"zuo_icon_edit",
-                             @"预览":@"zuo_icon_preview",
-//                             @"标题优化":@"zuo_icon_biaoti",
-                             @"设置":@"zuo_icon_set",
-                             @"数据":@"zuo_icon_data",
-                             @"分享":@"zuo_icon_share",
-                             @"复制链接":@"zuo_icon_link",
-                             @"二维码":@"zuo_icon_code"};
-        titleArray = @[@"编辑",@"预览",@"设置",@"数据",@"分享",@"复制链接",@"二维码"];
-    }
     
+    switch (userType) {
+        case UserTypeDefault:
+            configurationDic = @{@"编辑":@"zuo_icon_edit",
+                                 @"预览":@"zuo_icon_preview",
+                                 @"留资":@"zuo_icon_liuzi",
+                                 @"设置":@"zuo_icon_set",
+                                 @"分享":@"zuo_icon_share",
+                                 @"复制链接":@"zuo_icon_link",
+                                 @"二维码":@"zuo_icon_code",
+                                 @"删除":@"zuo_icon_delete"};
+            titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"分享",@"复制链接",@"二维码",@"删除"];
+            break;
+        case UserTypeDesigner:
+            configurationDic = @{@"编辑":@"zuo_icon_edit",
+                                 @"预览":@"zuo_icon_preview",
+                                 //@"标题优化":@"zuo_icon_biaoti",
+                                 @"设置":@"zuo_icon_set",
+                                 @"数据":@"zuo_icon_data",
+                                 @"分享":@"zuo_icon_share",
+                                 @"复制链接":@"zuo_icon_link",
+                                 @"二维码":@"zuo_icon_code"};
+            titleArray = @[@"编辑",@"预览",@"设置",@"数据",@"分享",@"复制链接",@"二维码"];
+            break;
+        case UserTypeEnterprise:
+            configurationDic = @{@"编辑":@"zuo_icon_edit",
+                                 @"预览":@"zuo_icon_preview",
+                                 @"留资":@"zuo_icon_liuzi",
+                                 @"设置":@"zuo_icon_set",
+                                 @"数据":@"zuo_icon_data",
+                                 @"分享":@"zuo_icon_share",
+                                 @"复制链接":@"zuo_icon_link",
+                                 @"二维码":@"zuo_icon_code",
+                                 @"删除":@"zuo_icon_delete"};
+            titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"数据",@"分享",@"复制链接",@"二维码",@"删除"];
+            break;
+
+            
+        default:
+            break;
+    }
     NSDictionary * dic = @{@"config":configurationDic,@"title": titleArray};
 
     return dic;

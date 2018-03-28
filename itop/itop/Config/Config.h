@@ -33,7 +33,7 @@
 #define UMengChannel      CONFIG_DICTIONARY[@"UMeng"][@"UMengChannel"]
 
 // 百度地图 (baidu)
-#define AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
+#define BAIDU_MAP_AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
 
 // WeChat
 #define WECHAT_APP_ID     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appId"]

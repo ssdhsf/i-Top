@@ -59,7 +59,6 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
         make.top.mas_equalTo(128);
         make.bottom.mas_equalTo(-40);
     }];
-    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
 }

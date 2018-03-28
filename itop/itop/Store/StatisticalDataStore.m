@@ -20,12 +20,52 @@
     return store;
 }
 
-- (NSMutableArray *)configurationStatisticalDataWithData:(NSArray *)statisticalData{
+- (NSMutableArray *)configurationStatisticalDataWithUserType:(UserType )user_type itmeType:(StatisticalItmeType)itme_type{
     
     NSMutableArray *dataArray = [NSMutableArray array];
     
+    switch (user_type) {
+        case UserTypeDesigner:
+            
+            break;
+            
+        default:
+            break;
+    }
+    
+    
     return dataArray;
 }
+
+-(NSArray *)configurationStatisticalItmeDataWithUserType:(UserType )user_type itmeType:(StatisticalItmeType)itme_type{
+    
+    NSMutableArray *dataArray = [NSMutableArray array];
+    
+    switch (itme_type) {
+        case StatisticalItmeTypeH5:
+            
+            return @[@"使用量",@"作品量",@"浏览量",@"粉丝使用量",@"推荐量",@"评论量"];
+            break;
+        case StatisticalItmeTypeHot:
+            
+            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
+            break;
+        case StatisticalItmeTypeFuns:
+            
+            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
+            break;
+
+        case StatisticalItmeTypePop:
+            
+            return @[@"使用量",@"发布量",@"浏览量",@"粉丝阅读量",@"推荐量",@"评论量"];
+            
+            break;
+        default:
+            break;
+    }
+    return dataArray;
+}
+
 
 -(NSMutableArray *)itmeDataModelWithDictionarys:(NSArray *)Dictionarys
                                      ThemeColor:(UIColor *)ThemeColor{

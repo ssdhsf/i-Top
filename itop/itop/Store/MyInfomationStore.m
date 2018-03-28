@@ -61,9 +61,9 @@
 -(NSMutableArray *)configurationAverageUserMenu{
     
     NSMutableArray *array = [NSMutableArray array];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的留资" imageName:@"me_icon_liuzi" vcName:@"LeaveViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"留资" imageName:@"me_icon_liuzi" vcName:@"LeaveViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
     return array;
@@ -74,13 +74,13 @@
     
     NSMutableArray *array = [NSMutableArray array];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyhotViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"推广" imageName:@"me_icon_extend" vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"推广" imageName:@"me_icon_extend" vcName:@"PopularizeManagementViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataViewController"]];
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }
@@ -96,7 +96,7 @@
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataViewController"]];
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"OptimizeTitleViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }
@@ -111,7 +111,7 @@
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataViewController"]];
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }

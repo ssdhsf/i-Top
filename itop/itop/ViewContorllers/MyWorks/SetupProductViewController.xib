@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SetupProductViewController">
             <connections>
                 <outlet property="contentTV" destination="TCE-nB-OhF" id="19P-Te-gOy"/>
+                <outlet property="saveShearSetupButton" destination="xwA-4b-Dfg" id="Y8s-lM-UxY"/>
                 <outlet property="shearIconButton" destination="4ue-cG-Hfq" id="zUi-7r-wsa"/>
                 <outlet property="stringCount" destination="dK0-pJ-fAP" id="NEg-Bi-gaS"/>
                 <outlet property="titleTV" destination="Qps-da-Sts" id="afp-CD-gJv"/>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ue-cG-Hfq">
-                    <rect key="frame" x="145" y="14" width="85" height="143.5"/>
+                    <rect key="frame" x="145" y="14" width="85" height="144"/>
                     <color key="backgroundColor" red="0.87843137250000003" green="0.89019607840000003" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="143.5" id="caq-Vp-ruk"/>
@@ -96,6 +97,21 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xwA-4b-Dfg">
+                    <rect key="frame" x="132" y="436" width="110" height="35"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="RKa-Mt-FDq"/>
+                        <constraint firstAttribute="height" constant="35" id="uDG-qj-Y11"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <state key="normal" title="保存">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="save:" destination="-1" eventType="touchUpInside" id="5HG-IJ-hgz"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -104,6 +120,7 @@
                 <constraint firstAttribute="trailing" secondItem="Qps-da-Sts" secondAttribute="trailing" constant="20" id="AMM-ey-M5K"/>
                 <constraint firstItem="wZk-4J-6na" firstAttribute="top" secondItem="hf9-3e-tul" secondAttribute="bottom" constant="39" id="HF2-Cr-7Ze"/>
                 <constraint firstItem="dK0-pJ-fAP" firstAttribute="trailing" secondItem="TCE-nB-OhF" secondAttribute="trailing" constant="-6" id="W1S-x8-aV2"/>
+                <constraint firstItem="xwA-4b-Dfg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XAQ-rZ-6ve"/>
                 <constraint firstItem="TCE-nB-OhF" firstAttribute="top" secondItem="Qps-da-Sts" secondAttribute="bottom" constant="20" id="ZRk-o1-XjA"/>
                 <constraint firstItem="5nf-u9-AAf" firstAttribute="trailing" secondItem="4ue-cG-Hfq" secondAttribute="trailing" id="cm9-HJ-dRG"/>
                 <constraint firstItem="hf9-3e-tul" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="191" id="cwh-rQ-eoq"/>
@@ -111,6 +128,7 @@
                 <constraint firstItem="TCE-nB-OhF" firstAttribute="leading" secondItem="wZk-4J-6na" secondAttribute="trailing" constant="4" id="kwf-b5-SAN"/>
                 <constraint firstItem="hf9-3e-tul" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="mQS-Du-oOZ"/>
                 <constraint firstItem="dK0-pJ-fAP" firstAttribute="bottom" secondItem="TCE-nB-OhF" secondAttribute="bottom" constant="-7" id="oYl-yb-BFQ"/>
+                <constraint firstItem="xwA-4b-Dfg" firstAttribute="top" secondItem="TCE-nB-OhF" secondAttribute="bottom" constant="45" id="q3t-QG-0k8"/>
                 <constraint firstItem="4ue-cG-Hfq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="14" id="sOu-J7-KTz"/>
                 <constraint firstItem="Qps-da-Sts" firstAttribute="top" secondItem="4ue-cG-Hfq" secondAttribute="bottom" constant="23.5" id="u5b-G1-8Z3"/>
                 <constraint firstItem="5nf-u9-AAf" firstAttribute="bottom" secondItem="4ue-cG-Hfq" secondAttribute="bottom" id="uvD-RW-mIP"/>

@@ -22,7 +22,7 @@
     NSInteger commentsLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.comment_count fontSize:11 andHeight:15];
 
     NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
-    self.browseIcon.frame = CGRectMake(10, oringinY, 19, 14);
+    self.browseIcon.frame = CGRectMake(20, oringinY, 19, 14);
     self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, oringinY, browseLabelTextWidth+5, 15);
     
     self.goodIcon.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, oringinY, 14, 13);
@@ -57,6 +57,7 @@
         
         NSInteger timeLabelOriginX = CGRectGetMaxX(self.contentView.frame)-20-timeLabelTextWidth-5;
         self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
+        self.stateLabel.hidden = YES;
         
     } else {
         

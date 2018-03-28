@@ -14,7 +14,7 @@
 
 static NSString *const MyWorksCellIdentifier = @"MyWork";
 
-@interface MyWorksViewCotroller ()
+@interface MyWorksViewCotroller ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) MyWorksDataSource *myWorksDataSource;
 @property (nonatomic, strong) NSDictionary *config;
@@ -23,10 +23,15 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @property (strong, nonatomic) IBOutlet UIView *editorView;
 @property (nonatomic, strong) NSString *link;
 
+
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) H5List *h5;
 @property (nonatomic, assign) NSInteger currentIndex;
 
+
+@property (nonatomic, assign) NSInteger currentOffset;
+
+@property (nonatomic, strong) UIImageView *instruct;
 @end
 
 @implementation MyWorksViewCotroller
@@ -50,7 +55,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
             
             [self hiddenNavigafindHairlineImageView:YES];
             [self hiddenNavigationController:NO];
-//            [self setRightBarItemString:@"管理" action:@selector(management)];
             self.navigationItem.rightBarButtonItem.tintColor = RGB(232, 98, 159);
             break;
         case GetProductListTypeSelect:
@@ -130,7 +134,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     [super initData];
     [self showRefresh];
     
-    NSDictionary * config = [[MyWorksStore shearMyWorksStore] editProductConfigurationMenuWithGetProductType:_showProductType];
+    NSDictionary * config = [[MyWorksStore shearMyWorksStore] editProductConfigurationMenuWithGetProductType:[[UserManager shareUserManager ] crrentUserType]];
     self.config = config[@"config"];
     self.titleArray = config[@"title"];
 }
@@ -244,6 +248,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     if ([sender.titleLabel.text isEqualToString:@"分享"]) {
         [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
             
+            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:[[ShearViewManager sharedShearViewManager] shearInfoWithProduct:_h5]];
         } ];
     }
     
@@ -319,6 +324,19 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 -(void)steupEditorBuuton{
     
+    UIScrollView * scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 50, ScreenWidth, 251-50)];
+    [self.editorView addSubview:scroll];
+    scroll.delegate = self;
+    
+    NSInteger page= self.titleArray.count/8;
+    
+    if (self.titleArray.count%6 != 0) {
+        page = page +1;
+    }
+    scroll.contentSize = CGSizeMake(page*ScreenWidth, 251-50);
+    
+    scroll.pagingEnabled=YES;
+    scroll.showsHorizontalScrollIndicator = NO;
     self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
     self.editorView.backgroundColor = [UIColor whiteColor];
     [self.editorBgView addSubview:self.editorView];
@@ -326,16 +344,32 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     for (int i = 0; i < self.titleArray.count; i++) {
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        if (i < 4) {
-            button.frame = CGRectMake(10+i*10+(((ScreenWidth-(10*5))/4)*i), 68, ((ScreenWidth-(10*5))/4), ((ScreenWidth-(10*5))/4));
-        } else {
-            button.frame = CGRectMake(10+(i-4)*10+(((ScreenWidth-(10*5))/4)*(i-4)), 20+((ScreenWidth-(10*5))/4)+27+24, ((ScreenWidth-(10*5))/4), ((ScreenWidth-(10*5))/4));
+        
+        if ((i/4)%2<1) {
+            button.frame = CGRectMake((i%4)*(ScreenWidth/4)+((i/8)*ScreenWidth), 0, ScreenWidth/4, (251-50)/2);
 
+        } else {
+            
+            button.frame = CGRectMake((i%4)*(ScreenWidth/4)+((i/8)*ScreenWidth), (251-50)/2, ScreenWidth/4, (251-50)/2);
         }
+        
+        if (i>7) {
+            
+            _instruct = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth -25, 201/2-12.5, 25, 25)];
+            [scroll addSubview:_instruct];
+            _instruct.image = [UIImage imageNamed:@"purse_icon_more"];
+            _currentOffset = 0;
+        }
+        
+//        if (i < 4) {
+//            button.frame = CGRectMake(ScreenWidth/4*i, 50, ScreenWidth/4, (251-50)/2);
+//        } else {
+//            button.frame = CGRectMake(ScreenWidth/4*(i-4), 50+(251-50)/2, ScreenWidth/4, (251-50)/2);
+//        }
         
         [button addTarget:self action:@selector(editor:) forControlEvents:UIControlEventTouchDown];
 
-        [self.editorView addSubview:button];
+        [scroll addSubview:button];
         NSString *string = self.titleArray[i];
         [button setTitle:string forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:self.config[string]] forState:UIControlStateNormal];
@@ -355,13 +389,27 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
 }
 
--(void)search{
+#pragma mark --- scrollView delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
+    int index = scrollView.contentOffset.x/ViewWidth;
+    if (index < _currentOffset) {
+        
+        _instruct.frame = CGRectMake(ScreenWidth -25, 201/2-12.5, 25, 25);
+         _instruct.image = [UIImage imageNamed:@"purse_icon_more"];
+    }else if (index > _currentOffset){
+        
+        _instruct.frame = CGRectMake(index*ScreenWidth, 201/2-12.5, 25, 25);
+        _instruct.image = [UIImage imageNamed:@"nav_icon_back"];
+    }else{
+       
+        NSLog(@"本页");
+    }
+    
+    _currentOffset = index;
 }
 
-
--(void)management{
-    
+-(void)search{
     
 }
 

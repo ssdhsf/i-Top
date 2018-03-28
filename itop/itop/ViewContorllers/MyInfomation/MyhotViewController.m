@@ -8,7 +8,6 @@
 
 #import "MyhotViewController.h"
 #import "H5ListViewController.h"
-#import "SegmentTapView.h"
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
 #import "MyHotH5ItmeViewController.h"
@@ -167,7 +166,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     int index = scrollView.contentOffset.x/ViewWidth;
-    [self.segment selectIndex:index+1];
+    [self.segment selectIndex:index];
     [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
 }
 

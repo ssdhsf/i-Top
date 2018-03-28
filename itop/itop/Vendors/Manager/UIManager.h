@@ -12,6 +12,13 @@
 #import "SigningStateViewController.h"
 #import "ProtocolViewController.h"
 
+typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
+    StatisticalItmeTypeH5 = 0, //H5
+    StatisticalItmeTypeHot = 1, //热点
+    StatisticalItmeTypeFuns , //粉丝
+    StatisticalItmeTypePop , //推广管理
+};
+
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
 typedef void (^SelectProductBolck)(id product); //选择作品回掉
 
@@ -27,6 +34,12 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
 + (UIWindow *)newWindow;
+
+/**
+ *  加载启动页
+ */
++(void)loadinglaunchImageView;
+
 
 /**
  *  显示主窗口
@@ -48,9 +61,6 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *  @retrun  视图控制器
  */
 + (UIViewController *)viewControllerWithName:(NSString *)vcName;
-
-
-
 
 /**
  *  通过视图控制器名称进入某个控制器(rootVC为TabBarController)

@@ -19,6 +19,7 @@
 #import "QrCodeViewController.h"
 #import "MyWorksViewCotroller.h"
 #import "OptimizeTitleViewController.h"
+#import "LoadingViewController.h"
 
 @implementation UIManager
 
@@ -48,6 +49,24 @@
     UIWindow * window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     window.backgroundColor = [UIColor whiteColor];
     return window;
+}
+
++(void)loadinglaunchImageView{
+    
+    [[self class] customNavAppearance];
+    AppDelegate * appDelegate = [[self class] appDelegate];
+    appDelegate.window = [[self class] newWindow];
+    LoadingViewController *loadingVc = [[LoadingViewController alloc]init];
+    appDelegate.window.rootViewController = loadingVc;
+    [UIManager sharedUIManager].backOffBolck = ^ ( id obj){
+        
+        UIViewController *vc = [[UIViewController alloc]init];
+        vc.view.backgroundColor = [UIColor whiteColor];
+        [appDelegate.window addSubview:vc.view];
+        [[self class]makeKeyAndVisible];
+    };
+    
+    [appDelegate.window makeKeyAndVisible];
 }
 
 + (void)makeKeyAndVisible{

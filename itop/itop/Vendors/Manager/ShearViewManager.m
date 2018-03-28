@@ -41,6 +41,16 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     return organization;
 }
 
+-(ShearInfo *)shearInfoWithProduct:(H5List *)h5{
+   
+    ShearInfo *sherInfo = [[ShearInfo alloc]init];
+    sherInfo.shear_title = h5.share_title;
+    sherInfo.shear_webLink = h5.url;
+    sherInfo.shear_discrimination = h5.share_description;
+    sherInfo.shear_thume_image = h5.cover_img;
+    return sherInfo;
+}
+
 -(void)setupShearView{
     
     bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh)];
@@ -97,6 +107,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
         
         if (tag < self.shearType.count && [weakSelf opinionInstallAppWithTag:tag]) {
             
+            platform = [self.shearType[tag] integerValue];
             completion(tag);
             
 //            platform = [shearType[tag] integerValue];
@@ -300,7 +311,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     //    [UMSocialSwiftInterface shareWithPlattype:platformType messageObject:messageObject viewController:self completion:^(UMSocialShareResponse * data, NSError * error) {
     //#else
     //调用分享接口
-    [[UMSocialManager defaultManager] shareToPlatform:platformType messageObject:messageObject currentViewController:[[UIManager sharedUIManager] topViewController] completion:^(id data, NSError *error) {
+    [[UMSocialManager defaultManager] shareToPlatform:platform messageObject:messageObject currentViewController:[[UIManager sharedUIManager] topViewController] completion:^(id data, NSError *error) {
         //#endif
         if (error) {
             UMSocialLogInfo(@"************Share fail with error %@*********",error);

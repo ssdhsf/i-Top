@@ -37,17 +37,17 @@
     }];
     
     UIButton *divisionView = UIButton.new;
-    [divisionView setImage:[UIImage imageNamed:@"icon_more"] forState:UIControlStateNormal];
+    [divisionView setImage:[UIImage imageNamed:@"purse_icon_more"] forState:UIControlStateNormal];
     //    divisionView.backgroundColor = [UIColor redColor];
     divisionView.tag = section;
     [divisionView addTarget:self action:@selector(pushListVc:) forControlEvents:UIControlEventTouchDown];
     //        divisionView.image = [UIImage imageNamed:@"icon_more"];
     [self addSubview:divisionView];
     [divisionView mas_makeConstraints:^(MASConstraintMaker *make){
-        make.right.mas_equalTo(-20);
-        make.top.mas_equalTo(35);
-        make.height.mas_equalTo(14);
-        make.width.mas_equalTo(7);
+        make.right.mas_equalTo(-10);
+        make.top.mas_equalTo(30);
+        make.height.mas_equalTo(25);
+        make.width.mas_equalTo(25);
     }];
     
     _titleLbl = UILabel.new;

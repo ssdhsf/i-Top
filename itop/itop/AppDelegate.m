@@ -10,6 +10,7 @@
 #import "AppDelegate+WeChat.h"
 #import "AppDelegate+UmenShear.h"
 #import <Reachability.h>
+#import "AppDelegate+BaiduMap.h"
 
 @interface AppDelegate (){
     
@@ -24,9 +25,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    // 启动画面的显示时间为2秒
-//    [NSThread sleepForTimeInterval:1.0];
+    [NSThread sleepForTimeInterval:0.1];
     [UIManager makeKeyAndVisible];
+    // 启动画面的显示时间为2秒
     [UMConfigure initWithAppkey:UMengAppKey channel:UMengChannel];
     [MobClick setScenarioType:E_UM_NORMAL];
     [self setupWeChat];
@@ -42,7 +43,8 @@
     [hostReach startNotifier]; //开始监听,会启动一个run loop
     [IQKeyboardManager load];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
-
+    [self setupBaiduMap];
+    
     return YES;
 }
 
