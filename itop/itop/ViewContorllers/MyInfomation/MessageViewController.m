@@ -10,6 +10,7 @@
 #import "MessageTableViewCell.h"
 #import "MessageStore.h"
 #import "MessageDataSource.h"
+#import "DirectMessagesViewController.h"
 
 @interface MessageViewController ()
 
@@ -50,7 +51,13 @@ static NSString *const MessageCellIdentifier = @"Message";
     [[UserManager shareUserManager]messageList];
     [UserManager shareUserManager].messageListSuccess = ^(NSArray  *obj){
       
-        NSArray * arr = obj;
+        [self listDataWithListArray:[[MessageStore shearMessageStore]configurationUserMessegeMenuWithMenu:obj] page:self.page_no];
+//        NSArray * arr = obj;
+    };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self tableViewEndRefreshing];
     };
 }
 
@@ -69,7 +76,7 @@ static NSString *const MessageCellIdentifier = @"Message";
 
 - (void)steupTableView{
     
-    TableViewCellConfigureBlock congfigureCell = ^(MessageTableViewCell *cell , Message *item , NSIndexPath *indexPath){
+    TableViewCellConfigureBlock congfigureCell = ^(MessageTableViewCell *cell , UserMessege *item , NSIndexPath *indexPath){
         
         [cell setItmeOfModel:item];
         
@@ -92,7 +99,11 @@ static NSString *const MessageCellIdentifier = @"Message";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
-    Message *message = [_messageDataSource itemAtIndexPath:indexPath];
+    UserMessege *message = [_messageDataSource itemAtIndexPath:indexPath];
+    DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+    vc.otherUser_id = message.user_id;
+    vc.otherUser_name = message.nickname;
+    [UIManager pushVC:vc];
 }
 
 

@@ -11,6 +11,7 @@
 #import "AppDelegate+UmenShear.h"
 #import <Reachability.h>
 #import "AppDelegate+BaiduMap.h"
+#import "KeychainItemWrapper.h"
 
 @interface AppDelegate (){
     
@@ -33,6 +34,13 @@
     [self setupWeChat];
     [self configUSharePlatforms];
     
+    if (DEBUG) {
+        // 开启AFNetworking调试日志
+       
+        //开发者账户的的前缀
+        NSLog(@"id:------>%@", [OSHelper bundleSeedIDTest]);
+    }
+
     //开启网络状况的监听
     [[NSNotificationCenter defaultCenter]addObserver:self
                                             selector:@selector(reachabilityChanged:)
@@ -44,7 +52,7 @@
     [IQKeyboardManager load];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     [self setupBaiduMap];
-    
+    [self  setKeyChainValue];
     return YES;
 }
 
@@ -114,6 +122,28 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+/**
+ *  设置uuid
+ */
+- (void)setKeyChainValue {
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"Entitlements" ofType:@"plist"];
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+    NSArray *array = [data valueForKey:@"keychain-access-groups"];
+    NSString *accessGroup = array[0];
+    KeychainItemWrapper *keyChainItem = [[KeychainItemWrapper alloc]
+                                         initWithIdentifier:@"TestUUID"
+                                         accessGroup:accessGroup];
+    NSString *strUUID = [keyChainItem objectForKey:(__bridge id)kSecValueData];
+    if (![Global stringIsNullWithString:strUUID]) {
+        NSString *uuid = [OSHelper gen_uuid];
+        [keyChainItem setObject:uuid forKey:(__bridge id)kSecValueData];
+    }
+    
+    if (DEBUG){
+        NSLog(@"uuid in keyChain---------:%@", [OSHelper getKeyChainValue]);
+        NSLog(@"uuid ---------:%@", [OSHelper gen_uuid]);
+    }
+}
 //监听到网络状态改变
 - (void)reachabilityChanged:(NSNotification *)note{
     

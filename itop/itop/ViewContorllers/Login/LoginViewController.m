@@ -56,19 +56,24 @@
 //登录
 - (IBAction)login:(UIButton *)sender {
     
-        [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
-        [UserManager shareUserManager].loginSuccess = ^(id obj){
-    
-            [UIManager goMianViewController];
-            
-            [[Global sharedSingleton]
-             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
-             andValue:_accountTF.text];
-            [[Global sharedSingleton]
-             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
-             andValue:_passwordTF.text];
-
-        } ;
+    if ([Global stringIsNullWithString:_accountTF.text] ||[Global stringIsNullWithString:_passwordTF.text]) {
+        
+        [self showToastWithMessage:@"账号或密码不能为空"];
+        return;
+    }
+    [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
+    [UserManager shareUserManager].loginSuccess = ^(id obj){
+        
+        [UIManager goMianViewController];
+        
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
+         andValue:_accountTF.text];
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
+         andValue:_passwordTF.text];
+        
+    } ;
 }
 
 //微信登陆

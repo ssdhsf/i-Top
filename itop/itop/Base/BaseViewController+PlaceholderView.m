@@ -20,10 +20,10 @@
           noDataType:(NoDataType)noDataType
               origin:(NSInteger)originY{
     
-    if (!self.hideView) {
-        self.hideView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, ScreenWidth, ScreenHeigh-originY)];
-        self.hideView.tag=1;
-        [self.view addSubview:self.hideView];
+    if (!self.showImg) {
+//        self.hideView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, ScreenWidth, ScreenHeigh-originY)];
+//        self.hideView.tag=1;
+//        [self.view addSubview:self.hideView];
         self.showImg = [[UIImageView alloc] init];
         
         switch (noDataType) {
@@ -49,7 +49,7 @@
             default:
                 break;
         }
-        self.showImg.frame = CGRectMake(60, 30, ScreenWidth-120, (ScreenWidth-120)*1.07f);
+        self.showImg.frame = CGRectMake(60, self.originY, ScreenWidth-120, (ScreenWidth-120)*1.07f);
         
         self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 90)];
         NSString *tipString = @"木有数据";
@@ -69,15 +69,15 @@
         self.tipsLab.textColor = [UIColor lightGrayColor];
         self.tipsLab.textAlignment = NSTextAlignmentCenter;
         self.tipsLab.font = [UIFont systemFontOfSize:19];
-        [self.hideView addSubview:self.tipsLab];
-        [self.hideView addSubview:self.showImg];
-        self.hideView.hidden = isHasData;
+        [self.view addSubview:self.tipsLab];
+        [self.view addSubview:self.showImg];
+//        self.hideView.hidden = isHasData;
         self.showImg.hidden = isHasData;
         self.tipsLab.hidden = isHasData;
     } else {
         
-        [self.view addSubview:self.hideView];
-        self.hideView.hidden = isHasData;
+//        [self.view addSubview:self.hideView];
+//        self.hideView.hidden = isHasData;
         self.showImg.hidden = isHasData;
         self.tipsLab.hidden = isHasData;
     }

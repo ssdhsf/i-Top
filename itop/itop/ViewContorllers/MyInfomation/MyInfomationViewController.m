@@ -38,6 +38,17 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     [self hiddenNavigationController:YES];
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+    
+    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
+        
+    };
+}
+
+
 -(void)initView{
     
     [super initView];
@@ -57,6 +68,19 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     [super initData];
     UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
     self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
+    
+    [UIManager sharedUIManager].backOffBolck = ^(id obj){
+        
+        [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
+        [UserManager shareUserManager].userInfoSuccess = ^(id obj){
+            
+        InfomationModel * info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
+            [[Global sharedSingleton]
+             setUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])
+             andValue:[info toJSONString]];
+            [self.collectionView reloadData];
+        };
+    };
 }
 
 -(void)steupCollectionView{
@@ -127,7 +151,19 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     }else if ([info.myInfoTitle isEqualToString:@"作品"]){
         
         [UIManager productViewControllerWithType:GetProductListTypeMyProduct];
-    }else {
+    }else if ([info.myInfoTitle isEqualToString:@"分享"]){
+        
+        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
+            ShearInfo *sherInfo = [[ShearInfo alloc]init];
+            sherInfo.shear_title = @"itop";
+            sherInfo.shear_discrimination = @"H5内容制作";
+            sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
+            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html ";
+            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
+        } ];
+
+    }
+    else {
         
         [UIManager showVC:info.nextVcName];
     }

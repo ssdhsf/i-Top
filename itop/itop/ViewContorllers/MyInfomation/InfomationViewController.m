@@ -39,6 +39,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, assign)PickViewType pickViewType; //选择类型
 @property (nonatomic, assign)NSInteger selectRow; //选择类型
 @property (nonatomic, strong)InfomationModel *info; //选择类型
+@property (nonatomic, assign)BOOL isUpdataInfo; //是否修改信息
 
 @end
 
@@ -75,15 +76,24 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 -(void)initData{
     
-    UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
-    [[UserManager shareUserManager]userInfomationWithUserType:[user.user_type integerValue]];
-    [UserManager shareUserManager].userInfoSuccess = ^(id obj){
-       
-        _info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
-        self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
-        [self setupSelectItme];
-        [self steupTableView];
-    };
+    _info = [[UserManager shareUserManager]crrentInfomationModel];
+    if (_info == nil) {
+        
+        [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
+        [UserManager shareUserManager].userInfoSuccess = ^(id obj){
+            
+            _info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
+            [[Global sharedSingleton]
+             setUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])
+             andValue:[_info toJSONString]];
+            [self loadingView];
+//            self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
+//            [self setupSelectItme];
+//            [self steupTableView];
+        };
+    } else {
+        [self loadingView];
+    }
     _sexArray = @[@"男",@"女"];
     self.ageArray = [NSMutableArray array];
     for (int i = 0; i<101; i ++) {
@@ -98,7 +108,15 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
     NSString *industryKey = _industryArray[0];
     _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
+    
+    _isUpdataInfo = NO;
+}
 
+-(void)loadingView{
+    
+    self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
+    [self setupSelectItme];
+    [self steupTableView];
 }
 
 -(void)setupSelectItme{
@@ -258,10 +276,16 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     }
 }
 
--(void)initInputNameTFWithPlaceholder:(NSString *)placeholder{
+-(void)initInputNameTFWithPlaceholder:(NSString *)placeholder content:(NSString *)content{
     
     self.inputNameTF = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, ScreenWidth-160, 30)];
-    self.inputNameTF.placeholder = placeholder;
+    
+    if ([Global stringIsNullWithString:content]) {
+        self.inputNameTF.placeholder = placeholder;
+    }  else {
+        self.inputNameTF.text = content;
+    }
+    [_inputNameTF becomeFirstResponder];
     _inputNameTF.textAlignment = UITextAlignmentCenter;
     _inputNameTF.font = [UIFont systemFontOfSize:15];
 }
@@ -321,7 +345,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     if (info.pickViewType <= PickViewTypeEdit) {
         
         string  = [NSString stringWithFormat:@"请输入%@",_editorItem.title];
-        [self initInputNameTFWithPlaceholder:string];
+        [self initInputNameTFWithPlaceholder:string content:info.content];
         view.frame = self.inputNameTF.frame;
         [view addSubview:self.inputNameTF];
     }else {
@@ -592,8 +616,15 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 break;
                 
          case PickViewTypeProvince:
-                [dic setObject:_province.address forKey:@"Province"];
-                [dic setObject:_city.address forKey:@"City"];
+                
+                if (_province != nil) {
+                    
+                    [dic setObject:_province.address forKey:@"Province"];
+                }
+                if (_city != nil) {
+                    [dic setObject:_city.address forKey:@"City"];
+                }
+                
                 break;   
         }
     }
@@ -605,13 +636,13 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             [dic setObject:obj forKey:@"Head_img"];
             [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
             [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
-                
                 [self AlertOperation];
             };
         };
     }else {
         [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
         [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
+            
             
             [self AlertOperation];
         };
@@ -620,6 +651,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 -(void)AlertOperation{
     
+    _isUpdataInfo = YES;
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改个人信息成功" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续修改" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
@@ -629,6 +661,17 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
+}
+
+
+-(void)back{
+    
+    [super back];
+    
+    if (_isUpdataInfo) {
+    
+        [UIManager sharedUIManager].backOffBolck(nil);
+    }
 }
 
 @end

@@ -8,7 +8,7 @@
 
 #import "ShearViewManager.h"
 #import "ShearView.h"
-#import "ShearViewController.h"
+//#import "ShearViewController.h"
 
 static NSString* const UMS_Title = @"i-Top";
 static NSString* const UMS_Text = @"欢迎使用i-Top";
@@ -242,8 +242,8 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
 }
 
 //分享图片
-- (void)shareImageToPlatformType:(UMSocialPlatformType)platformType
-{
+- (void)shareImageToPlatformType:(UMSocialPlatformType)platformType{
+    
     //创建分享消息对象
     UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
     
@@ -330,6 +330,58 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
         [self alertWithError:error];
     }];
 }
+
+//分享网络图片
+- (void)shareImageURLToPlatformType:(UMSocialPlatformType)platformType
+                          parameter:(ShearInfo *)parameter{
+    //创建分享消息对象
+    UMSocialMessageObject *messageObject = [UMSocialMessageObject messageObject];
+
+    //创建图片内容对象
+//    UMShareImageObject *shareObject = [[UMShareImageObject alloc] init];
+        UMShareImageObject *shareObject = [UMShareImageObject shareObjectWithTitle:parameter.shear_title descr:parameter.shear_discrimination thumImage:parameter.shear_thume_image];
+    //如果有缩略图，则设置缩略图
+//    shareObject.thumbImage = UMS_THUMB_IMAGE;
+
+    [shareObject setShareImage:parameter.shear_webImage_Link];
+
+    // 设置Pinterest参数
+//    if (platformType == UMSocialPlatformType_Pinterest) {
+//        [self setPinterstInfo:messageObject];
+//    }
+
+    // 设置Kakao参数
+//    if (platformType == UMSocialPlatformType_KakaoTalk) {
+//        messageObject.moreInfo = @{@"permission" : @1}; // @1 = KOStoryPermissionPublic
+//    }
+
+    //分享消息对象设置分享内容对象
+    messageObject.shareObject = shareObject;
+
+    //#ifdef UM_Swift
+    //                   [UMSocialSwiftInterface shareWithPlattype:platformType messageObject:messageObject viewController:self completion:^(UMSocialShareResponse * data, NSError * error) {
+    //#else
+    //调用分享接口
+    [[UMSocialManager defaultManager] shareToPlatform:platform messageObject:messageObject currentViewController:[[UIManager sharedUIManager] topViewController] completion:^(id data, NSError *error) {
+        //#endif
+        if (error) {
+            UMSocialLogInfo(@"************Share fail with error %@*********",error);
+        }else{
+            if ([data isKindOfClass:[UMSocialShareResponse class]]) {
+                UMSocialShareResponse *resp = data;
+                //分享结果消息
+                UMSocialLogInfo(@"response message is %@",resp.message);
+                //第三方原始返回的数据
+                UMSocialLogInfo(@"response originalResponse data is %@",resp.originalResponse);
+
+            }else{
+                UMSocialLogInfo(@"response data is %@",data);
+            }
+        }
+        [self alertWithError:error];
+    }];
+}
+
 
 - (void)shareEmoticonToPlatformType:(UMSocialPlatformType)platformType{
     

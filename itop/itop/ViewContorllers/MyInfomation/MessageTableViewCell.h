@@ -14,6 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *instructionsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
--(void)setItmeOfModel:(Message *)leave ;
+-(void)setItmeOfModel:(UserMessege *)messege ;
 
 @end

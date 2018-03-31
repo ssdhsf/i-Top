@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 
 @property (nonatomic, assign) BOOL hasData;
 @property (nonatomic, assign) NSInteger showViewType;
-@property (nonatomic, strong) UIView *hideView;
+//@property (nonatomic, strong) UIView *hideView;
 @property (nonatomic, strong) UIImageView *showImg;
 @property (nonatomic, strong) UILabel *tipsLab;
 @property (nonatomic, assign) NSInteger originY;
@@ -43,6 +43,8 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 - (void)keyBoardWillHide:(NSNotification *)notification;
 #pragma mark 键盘已经收起
 - (void)keyBoardDidHide:(NSNotification *)notification;
+#pragma mark 键盘将要弹出
+- (void)keyBoardWillShow:(NSNotification *)notification;
 //-(UIImageView *)findHairlineImageViewUnder:(UIView *)view;
 
 @end

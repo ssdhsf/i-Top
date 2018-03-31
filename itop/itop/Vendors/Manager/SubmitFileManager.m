@@ -99,7 +99,7 @@
 
 -(void)transferPictures:(NSArray *)picturesArray{
     
-//    [_pictrArr removeAllObjects];
+    [_pictrArr removeAllObjects];
 //    _picturesArray = nil;
 //    if (picturesArray.count!=0) {
 //        if ([picturesArray[0] isKindOfClass:[NSDictionary class]]) {
@@ -112,13 +112,12 @@
 //            
 //        } else {
 //            
-//            [self.pictrArr addObjectsFromArray:picturesArray];
+            [self.pictrArr addObjectsFromArray:picturesArray];
 //        }
     
         if ([self.delegate respondsToSelector:@selector(compressionAndTransferPicturesWithArray:)]) {
             [self.delegate compressionAndTransferPicturesWithArray:picturesArray];
         }
-//    }
 }
 
 -(NSArray *)getSelectedPicktures{

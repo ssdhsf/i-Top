@@ -85,8 +85,9 @@
                                  @"数据":@"zuo_icon_data",
                                  @"分享":@"zuo_icon_share",
                                  @"复制链接":@"zuo_icon_link",
-                                 @"二维码":@"zuo_icon_code"};
-            titleArray = @[@"编辑",@"预览",@"设置",@"数据",@"分享",@"复制链接",@"二维码"];
+                                 @"二维码":@"zuo_icon_code",
+                                 @"删除":@"zuo_icon_delete"};
+            titleArray = @[@"编辑",@"预览",@"设置",@"数据",@"分享",@"复制链接",@"二维码",@"删除"];
             break;
         case UserTypeEnterprise:
             configurationDic = @{@"编辑":@"zuo_icon_edit",

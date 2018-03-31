@@ -61,7 +61,8 @@ static NSString *const H5ListCellIdentifier = @"H5List";
                                     ArticleTypeH5 : ArticleTypeVideo
                                          PageIndex:1
                                          PageCount:10
-                                getArticleListType:_getArticleListType];
+                                getArticleListType:_getArticleListType
+                                         searchKey:nil];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);

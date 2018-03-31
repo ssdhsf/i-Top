@@ -45,5 +45,7 @@
 #import "EarningList.h"
 #import "SearchLocation.h"
 #import "Popularize.h"
+#import "DirectMessages.h"
+#import "UserMessege.h"
 
 #endif /* AllModels_h */

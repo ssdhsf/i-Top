@@ -10,4 +10,11 @@
 
 @interface DirectMessagesTableViewCell : UITableViewCell
 
+@property (weak, nonatomic) IBOutlet UIImageView *otherUserImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *thisUserImageView;
+@property (weak, nonatomic) IBOutlet UILabel *messageLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *bubbleView;
+
+-(void)setItmeOfModel:(DirectMessages *)messages;
+
 @end

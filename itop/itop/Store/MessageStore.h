@@ -12,6 +12,6 @@
 
 + (instancetype)shearMessageStore;
 
--(NSMutableArray *)configurationSetupMenuWithMenu:(NSArray *)arr;
+-(NSMutableArray *)configurationUserMessegeMenuWithMenu:(NSArray *)arr;
 
 @end

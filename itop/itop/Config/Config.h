@@ -41,6 +41,7 @@
 
 // Tencent
 #define TENCENT_APP_ID    CONFIG_DICTIONARY[@"Tencent"][@"appId"]
+#define TENCENT_APP_KEY    CONFIG_DICTIONARY[@"Tencent"][@"appkey"]
 
 // Sina
 #define SINA_APP_ID         CONFIG_DICTIONARY[@"Sina"][@"appId"]

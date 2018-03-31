@@ -11,6 +11,7 @@
 #import "H5ListStore.h"
 #import "H5ListDataSource.h"
 #import "H5ListCollectionViewCell.h"
+#import "DirectMessagesViewController.h"
 
 #define HEADER_TEXTHIGHT 13
 #define HEADER_TEXTWIDTH 100
@@ -90,7 +91,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         [UserManager shareUserManager].designerProductListSuccess = ^(NSArray * obj){
           
             if (obj.count == 0) {
-                self.originY = 210;
+                self.originY = 230;
             }
 
             [self listDataWithListArray:[[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] page:self.page_no];
@@ -331,7 +332,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(HEADER_TEXTHIGHT);
     }];
-    [_massageButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
+    [_massageButton addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchDown];
     [_massageButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_massageButton)];
     [_massageButton setTitle:@"私信" forState:UIControlStateNormal];
     _massageButton.layer.masksToBounds = YES;
@@ -366,6 +367,14 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     _focusButton.layer.cornerRadius = 2;
 }
 
+-(void)message{
+    
+    DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+    vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
+    vc.otherUser_name = _designerInfo.nickname;
+    [UIManager pushVC:vc];
+}
+
 -(void)focus{
     
     [[UserManager shareUserManager]focusOnUserWithUserId:[NSString stringWithFormat:@"%@",_designerInfo.user_id] focusType:_focusType];
@@ -384,5 +393,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     };
 }
 
+//DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+//vc.otherUser_id = message.user_id;
+//vc.otherUser_name = message.nickname;
+//[UIManager pushVC:vc];
 
 @end

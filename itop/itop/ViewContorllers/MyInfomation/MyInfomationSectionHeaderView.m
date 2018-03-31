@@ -69,8 +69,34 @@
     if (section == 0 ) {
         
         UIButton *info = UIButton.new;
+        [self addSubview:info];
+        [info mas_makeConstraints:^(MASConstraintMaker *make){
+            make.centerX.mas_equalTo(self);
+            make.height.width.mas_equalTo(80);
+            make.top.mas_equalTo(73);
+        }];
+        info.layer.masksToBounds = YES;
+        info.layer.cornerRadius = 40;
         
-        if ([[UserManager shareUserManager]crrentUserInfomation] != nil) {
+        UILabel *userNameLabel = [UILabel new];
+        userNameLabel.textAlignment = NSTextAlignmentCenter;
+        [self addSubview:userNameLabel];
+        [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make){
+            make.centerX.mas_equalTo(self);
+            make.width.mas_equalTo(ScreenWidth);
+            make.height.mas_equalTo(21);
+            make.top.mas_equalTo(163);
+        }];
+        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
+        if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {
+            
+            NSString *headView = [[UserManager shareUserManager]crrentInfomationModel].user_info.head_img;
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [info setImage:info.imageView.image forState:UIControlStateNormal];
+            }];
+            userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].name;
+        }else if ([[UserManager shareUserManager]crrentUserInfomation] != nil) {
             NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
             [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
@@ -83,25 +109,7 @@
        
         [info addTarget:self action:@selector(nextInfomation:) forControlEvents:UIControlEventTouchDown];
         //        divisionView.image = [UIImage imageNamed:@"icon_more"];
-        [self addSubview:info];
-        [info mas_makeConstraints:^(MASConstraintMaker *make){
-            make.centerX.mas_equalTo(self);
-            make.height.width.mas_equalTo(80);
-            make.top.mas_equalTo(73);
-        }];
-        info.layer.masksToBounds = YES;
-        info.layer.cornerRadius = 40;
         
-        UILabel *userNameLabel = [UILabel new];
-        userNameLabel.textAlignment = NSTextAlignmentCenter;
-        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
-        [self addSubview:userNameLabel];
-        [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make){
-            make.centerX.mas_equalTo(self);
-            make.width.mas_equalTo(ScreenWidth);
-            make.height.mas_equalTo(21);
-            make.top.mas_equalTo(163);
-        }];
     }
     _titleLbl = UILabel.new;
     [self addSubview:_titleLbl];

@@ -76,6 +76,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
 #pragma mark - 初始化数据,由子类重写改方法
@@ -155,6 +156,13 @@
 - (void)keyBoardDidHide:(NSNotification *)notification{
     
 }
+
+#pragma mark 键盘将要弹出
+- (void)keyBoardWillShow:(NSNotification *)notification{
+    
+}
+
+
 
 #pragma mark - 返回
 - (void)back {

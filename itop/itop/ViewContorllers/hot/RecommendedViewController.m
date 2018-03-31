@@ -60,7 +60,8 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     [[UserManager shareUserManager]hotListWithType:[_itmeType isEqualToString:@"资讯"] ? ArticleTypeDefault :ArticleTypeOther
                                          PageIndex:self.page_no
                                          PageCount:10
-                                getArticleListType: _getArticleListType];
+                                getArticleListType: _getArticleListType
+                                         searchKey:nil];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);

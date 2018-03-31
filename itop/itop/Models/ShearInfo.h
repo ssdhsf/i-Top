@@ -14,5 +14,6 @@
 @property (nonatomic, strong) NSString *shear_title;
 @property (nonatomic, strong) NSString *shear_discrimination;
 @property (nonatomic, strong) NSString *shear_webLink;
+@property (nonatomic, strong) NSString *shear_webImage_Link;
 
 @end

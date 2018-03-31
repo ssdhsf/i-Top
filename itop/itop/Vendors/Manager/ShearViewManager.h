@@ -28,6 +28,10 @@ typedef void (^SelectShearItemBlock)(NSInteger tag);
 //分享网页
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType parameter:(ShearInfo *)parameter;
 
+//分享图片链接
+- (void)shareImageURLToPlatformType:(UMSocialPlatformType)platformType
+                          parameter:(ShearInfo *)parameter;
+
 
 //分享Info
 -(ShearInfo *)shearInfoWithProduct:(H5List *)h5;

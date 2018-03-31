@@ -25,7 +25,8 @@ typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
     H5ProductTypeDefault = 0, //默认
     H5ProductTypeScenario = 1,//场景H5
     H5ProductTypeSinglePage,//单页
-    H5ProductTypeVideo//H5视频
+    H5ProductTypeVideo,//H5视频
+    H5ProductTypeNoel//无
 };
 
 typedef NS_ENUM(NSInteger, TagH5ListType) { //TagH5作品类型
@@ -52,7 +53,7 @@ typedef NS_ENUM(NSInteger, MyProductType) {  //我的作品类型
 };
 
 typedef NS_ENUM(NSInteger, DesignerListType) {  // 获取设计师list入口
-    DesignerListTypeHome = 0, //首页获取
+    DesignerListTypeHome = 0, //首页／搜索获取
     DesignerListTypeFocus = 1,//我关注的设计师
 };
 
@@ -222,9 +223,13 @@ typedef void (^UpdataProductFailure)(id obj);
 typedef void (^MessageListSuccess)(id obj);
 typedef void (^MessageListFailure)(id obj);
 
+typedef void (^MapLocationManagerSuccess)(id obj);//定位
+typedef void (^MapLocationManagerFailure)(id obj);//定位
+
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
+@class InfomationModel;
 @interface UserManager : NSObject
 /*----------------全局错误信息————————————————————————*/
 @property (nonatomic, copy) ErrorFailure  errorFailure;
@@ -352,7 +357,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------消息获取————————————————————————*/
 @property (nonatomic, copy) MessageListSuccess messageListSuccess;
 @property (nonatomic, copy) MessageListFailure messageListFailure;
-
+/*----------------获取定位————————————————————————*/
+@property (nonatomic, copy) MapLocationManagerSuccess mapLocationManagerSuccess;
+@property (nonatomic, copy) MapLocationManagerFailure mapLocationManagerFailure;
 
 + (instancetype)shareUserManager;
 
@@ -375,6 +382,13 @@ typedef void (^ErrorFailure)(id obj);
  *
  */
 - (UserModel*)crrentUserInfomation;
+
+/**
+ *   获取用户可编辑信息
+ *
+ *  @return YSE or No
+ */
+- (InfomationModel*)crrentInfomationModel;
 
 /**
  *  获取本用户类型
@@ -492,10 +506,14 @@ typedef void (^ErrorFailure)(id obj);
  *  @param type H5类型
  *  @param pageIndex 页
  *  @param pageCount 总数／页
+ *  @param tagList tag列表／首页必填
+ *  @param searchKey 搜索关键字／搜索必填
  */
 - (void)homeH5ListWithType:(H5ProductType )type
                  PageIndex:(NSInteger )pageIndex
-                 PageCount:(NSInteger )pageCount;
+                 PageCount:(NSInteger )pageCount
+                   tagList:(NSArray *)tagList
+                 searchKey:(NSString *)searchKey;
 
 /**
  *  tagList
@@ -526,10 +544,12 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param pageIndex 页
  *  @param pageCount 总数／页
+ *  @param searchKey 搜索关键字／页
  */
 - (void)designerlistWithPageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount
-                 designerListType:(DesignerListType)designerListType;
+                 designerListType:(DesignerListType)designerListType
+                        searchKey:(NSString *)searchKey;
 /**
  *  设计师详情
  *
@@ -565,7 +585,8 @@ typedef void (^ErrorFailure)(id obj);
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
               PageCount:(NSInteger )pageCount
-     getArticleListType:(GetArticleListType)getArticleListType;
+     getArticleListType:(GetArticleListType)getArticleListType
+              searchKey:(NSString *)searchKey;
 
 /**
  *  热点详情
@@ -725,9 +746,26 @@ typedef void (^ErrorFailure)(id obj);
 - (void)updataProductWithParameters:(NSDictionary *)parameters;
 
 /**
- *  获取消息
+ *  获取消息列表
  *
  */
 -(void)messageList;
+
+/**
+ *  获取私信记录
+ *
+ *  @param user_id 用户id
+ */
+-(void)userMessageListWithId:(NSString *)user_id;
+
+
+/**
+ *  发送记录
+ *
+ *  @param user_id 发送对象用户id
+ *  @param content 发送消息
+ */
+
+-(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content;
 
 @end

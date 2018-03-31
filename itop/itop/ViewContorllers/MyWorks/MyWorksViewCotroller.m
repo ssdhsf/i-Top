@@ -247,7 +247,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     if ([sender.titleLabel.text isEqualToString:@"分享"]) {
         [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
-            
+              
             [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:[[ShearViewManager sharedShearViewManager] shearInfoWithProduct:_h5]];
         } ];
     }
@@ -266,49 +266,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         
         [UIManager optimizeTitleViewControllerWithProduct:_h5];
     }
-
-
-//    switch (sender.tag) {
-//            
-//        case 1:
-//            
-//            [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
-//            break;
-//            
-//        case 2:
-//            
-//            [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
-//            break;
-//            
-//        case 3:
-//            
-//            [UIManager shearProductWithProductId:_h5.id];
-//            break;
-//        case 4:
-//            
-//            [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
-//                
-//            } ];
-//            break;
-//        case 5:
-//            
-//            [self copyTheLinkWithLinkUrl:_h5.url];
-//            break;
-//        case 6:
-//            
-//            [UIManager  qrCodeViewControllerWithCode:_h5.url];
-//            break;
-//            
-//        case 7:
-//            
-//            [self alertOperation];
-//            break;
-//            
-//        default:
-//            break;
-//    }
-    
-    NSLog(@"%ld",sender.tag);
 }
 
 -(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{

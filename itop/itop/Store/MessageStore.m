@@ -10,7 +10,6 @@
 
 @implementation MessageStore
 
-
 + (instancetype)shearMessageStore{
     
     static MessageStore *store = nil;
@@ -22,9 +21,15 @@
 
 }
 
--(NSMutableArray *)configurationSetupMenuWithMenu:(NSArray *)arr{
+-(NSMutableArray *)configurationUserMessegeMenuWithMenu:(NSArray *)arr{
     
-    return nil;
+    NSMutableArray *array = [NSMutableArray array];
+    for (NSDictionary *dic in arr) {
+        
+        UserMessege *messege = [[UserMessege alloc]initWithDictionary:dic error:nil];
+        [array addObject:messege];
+    }
+    return array;
 }
 
 @end

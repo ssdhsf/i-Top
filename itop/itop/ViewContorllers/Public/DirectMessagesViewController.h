@@ -10,4 +10,7 @@
 
 @interface DirectMessagesViewController : BaseTableViewController
 
+@property (nonatomic,strong)NSString *otherUser_id;
+@property (nonatomic,strong)NSString *otherUser_name;
+
 @end

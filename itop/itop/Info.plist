@@ -109,8 +109,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationWhenInUseUsageDescription - 2</key>
-	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -134,6 +132,8 @@
 	<string>需要定位</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>需要定位</string>
+	<key>NSLocationWhenInUseUsageDescription - 2</key>
+	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>允许后才能访问相册</string>
 	<key>UILaunchStoryboardName</key>
@@ -147,8 +147,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

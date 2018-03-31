@@ -14,11 +14,10 @@
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
-
+#import "MapLocationManager.h"
 
 @interface HotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
-//@property (nonatomic, strong)HotDataSource *hotDataSource;
 @property (nonatomic, strong)SegmentTapView *segment;
 @property (nonatomic, assign)NSInteger itmeIndex;
 
@@ -33,7 +32,7 @@
 @property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UILabel *loctionLable;
-@property (nonatomic, strong) NSString *loctionString;
+//@property (nonatomic, strong) NSString *loctionString;
 
 @end
 
@@ -187,6 +186,7 @@
 -(void)initData{
 
     [self.dataArray addObjectsFromArray:[NSArray arrayWithObjects:@"推荐",@"H5",@"资讯", @"视频", @"本地", nil]];
+//    [[MapLocationManager sharedMapLocationManager]initMapLocation];
 }
 
 -(void)initSegment{
@@ -203,7 +203,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     int index = scrollView.contentOffset.x/ViewWidth;
-    [self.segment selectIndex:index+1];
+    [self.segment selectIndex:index];
     [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
 //    _itmeIndex = index;
 }
@@ -239,9 +239,9 @@
     self.loctionBtn.centerY = searchBtn.centerY;
     
     self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
-    //    self.loctionLable.centerY = searchBtn.centerY;
+//        self.loctionLable.centerY = searchBtn.centerY;
     self.loctionLable.font = [UIFont systemFontOfSize:9];
-    self.loctionLable .text = self.loctionString;
+//    self.loctionLable .text = self.loctionString;
     [navBgView addSubview: self.loctionLable];
     [navBgView addSubview:self.loctionBtn];
     
@@ -252,6 +252,22 @@
     [navBgView addSubview:self.searchBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"hot_icon_location"] forState:UIControlStateNormal];
     [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
+    if ([MapLocationManager sharedMapLocationManager].location == nil) {
+        
+        [[MapLocationManager sharedMapLocationManager] initMapLocation];
+        [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+            
+            self.loctionLable .text = loction;
+        };
+        [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+            
+            [self showToastWithError:error];
+        };
+
+    } else {
+        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+    }
+
 }
 
 

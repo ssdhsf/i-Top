@@ -8,6 +8,8 @@
 
 #import "BaseViewController.h"
 
-@interface SearchViewController : BaseViewController
+@interface SearchViewController : BaseCollectionViewController
+
+
 
 @end

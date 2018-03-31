@@ -53,10 +53,14 @@
 		770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D7768206900D2007601A8 /* PopularizeDataSource.m */; };
 		770D776C20690139007601A8 /* PopularizeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776B20690139007601A8 /* PopularizeStore.m */; };
 		770D776F20690F00007601A8 /* Popularize.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776E20690F00007601A8 /* Popularize.m */; };
-		7717E988206B682E0025DC73 /* DirectMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E986206B682E0025DC73 /* DirectMessagesViewController.m */; };
-		7717E989206B682E0025DC73 /* DirectMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */; };
-		7717E98D206B688A0025DC73 /* DirectMessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */; };
-		7717E98E206B688A0025DC73 /* DirectMessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */; };
+		7717E991206B71530025DC73 /* DirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E990206B71530025DC73 /* DirectMessages.m */; };
+		7717E994206B74B80025DC73 /* UserMessege.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E993206B74B80025DC73 /* UserMessege.m */; };
+		7717E997206B7B020025DC73 /* DirectMessagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E996206B7B020025DC73 /* DirectMessagesDataSource.m */; };
+		7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E999206B7B330025DC73 /* DirectMessagesStore.m */; };
+		7717E9A1206B878D0025DC73 /* DirectMessagesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E99C206B878D0025DC73 /* DirectMessagesTableViewCell.m */; };
+		7717E9A2206B878D0025DC73 /* DirectMessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E99D206B878D0025DC73 /* DirectMessagesTableViewCell.xib */; };
+		7717E9A3206B878D0025DC73 /* DirectMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E99F206B878D0025DC73 /* DirectMessagesViewController.m */; };
+		7717E9A4206B878D0025DC73 /* DirectMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E9A0206B878D0025DC73 /* DirectMessagesViewController.xib */; };
 		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
 		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
 		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
@@ -290,6 +294,11 @@
 		77B86FF6202868370096FB28 /* LeaveDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B86FF5202868370096FB28 /* LeaveDataSource.m */; };
 		77B86FF9202868560096FB28 /* LeaveStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B86FF8202868560096FB28 /* LeaveStore.m */; };
 		77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B86FFB20287A010096FB28 /* LMJDropdownMenu.m */; };
+		77BB2122206D2C08000CADC9 /* SearchHotCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB2120206D2C08000CADC9 /* SearchHotCollectionViewCell.m */; };
+		77BB2123206D2C08000CADC9 /* SearchHotCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BB2121206D2C08000CADC9 /* SearchHotCollectionViewCell.xib */; };
+		77BB2126206D35D4000CADC9 /* SearchListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB2125206D35D4000CADC9 /* SearchListDataSource.m */; };
+		77BB2129206E34BB000CADC9 /* MapLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB2128206E34BB000CADC9 /* MapLocationManager.m */; };
+		77BB212D206E8263000CADC9 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77BB212C206E8263000CADC9 /* Entitlements.plist */; };
 		77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */; };
 		77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */; };
 		77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F7B204C2BF400D77DBD /* SecurityViewController.m */; };
@@ -483,12 +492,20 @@
 		770D776B20690139007601A8 /* PopularizeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeStore.m; sourceTree = "<group>"; };
 		770D776D20690F00007601A8 /* Popularize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popularize.h; sourceTree = "<group>"; };
 		770D776E20690F00007601A8 /* Popularize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popularize.m; sourceTree = "<group>"; };
-		7717E985206B682E0025DC73 /* DirectMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesViewController.h; sourceTree = "<group>"; };
-		7717E986206B682E0025DC73 /* DirectMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesViewController.m; sourceTree = "<group>"; };
-		7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectMessagesViewController.xib; sourceTree = "<group>"; };
-		7717E98A206B688A0025DC73 /* DirectMessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesTableViewCell.h; sourceTree = "<group>"; };
-		7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesTableViewCell.m; sourceTree = "<group>"; };
-		7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DirectMessagesTableViewCell.xib; sourceTree = "<group>"; };
+		7717E98F206B71530025DC73 /* DirectMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessages.h; sourceTree = "<group>"; };
+		7717E990206B71530025DC73 /* DirectMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessages.m; sourceTree = "<group>"; };
+		7717E992206B74B80025DC73 /* UserMessege.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMessege.h; sourceTree = "<group>"; };
+		7717E993206B74B80025DC73 /* UserMessege.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserMessege.m; sourceTree = "<group>"; };
+		7717E995206B7B020025DC73 /* DirectMessagesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesDataSource.h; sourceTree = "<group>"; };
+		7717E996206B7B020025DC73 /* DirectMessagesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesDataSource.m; sourceTree = "<group>"; };
+		7717E998206B7B330025DC73 /* DirectMessagesStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessagesStore.h; sourceTree = "<group>"; };
+		7717E999206B7B330025DC73 /* DirectMessagesStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessagesStore.m; sourceTree = "<group>"; };
+		7717E99B206B878D0025DC73 /* DirectMessagesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectMessagesTableViewCell.h; path = itop/ViewContorllers/Public/DirectMessagesTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		7717E99C206B878D0025DC73 /* DirectMessagesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DirectMessagesTableViewCell.m; path = itop/ViewContorllers/Public/DirectMessagesTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		7717E99D206B878D0025DC73 /* DirectMessagesTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DirectMessagesTableViewCell.xib; path = itop/ViewContorllers/Public/DirectMessagesTableViewCell.xib; sourceTree = SOURCE_ROOT; };
+		7717E99E206B878D0025DC73 /* DirectMessagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DirectMessagesViewController.h; path = itop/ViewContorllers/Public/DirectMessagesViewController.h; sourceTree = SOURCE_ROOT; };
+		7717E99F206B878D0025DC73 /* DirectMessagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DirectMessagesViewController.m; path = itop/ViewContorllers/Public/DirectMessagesViewController.m; sourceTree = SOURCE_ROOT; };
+		7717E9A0206B878D0025DC73 /* DirectMessagesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = DirectMessagesViewController.xib; path = itop/ViewContorllers/Public/DirectMessagesViewController.xib; sourceTree = SOURCE_ROOT; };
 		772F95752050023100F432D2 /* AppDelegate+UmenShear.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+UmenShear.h"; sourceTree = "<group>"; };
 		772F95762050023100F432D2 /* AppDelegate+UmenShear.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+UmenShear.m"; sourceTree = "<group>"; };
 		772F957820503D4800F432D2 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -897,6 +914,14 @@
 		77B86FF8202868560096FB28 /* LeaveStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveStore.m; sourceTree = "<group>"; };
 		77B86FFA20287A010096FB28 /* LMJDropdownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LMJDropdownMenu.h; sourceTree = "<group>"; };
 		77B86FFB20287A010096FB28 /* LMJDropdownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LMJDropdownMenu.m; sourceTree = "<group>"; };
+		77BB211F206D2C08000CADC9 /* SearchHotCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchHotCollectionViewCell.h; sourceTree = "<group>"; };
+		77BB2120206D2C08000CADC9 /* SearchHotCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchHotCollectionViewCell.m; sourceTree = "<group>"; };
+		77BB2121206D2C08000CADC9 /* SearchHotCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchHotCollectionViewCell.xib; sourceTree = "<group>"; };
+		77BB2124206D35D4000CADC9 /* SearchListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchListDataSource.h; sourceTree = "<group>"; };
+		77BB2125206D35D4000CADC9 /* SearchListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchListDataSource.m; sourceTree = "<group>"; };
+		77BB2127206E34BB000CADC9 /* MapLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLocationManager.h; sourceTree = "<group>"; };
+		77BB2128206E34BB000CADC9 /* MapLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLocationManager.m; sourceTree = "<group>"; };
+		77BB212C206E8263000CADC9 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		77C07F74204AD85200D77DBD /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerServiceViewController.xib; sourceTree = "<group>"; };
@@ -1623,6 +1648,10 @@
 				770D774B20649284007601A8 /* SearchLocation.m */,
 				770D776D20690F00007601A8 /* Popularize.h */,
 				770D776E20690F00007601A8 /* Popularize.m */,
+				7717E992206B74B80025DC73 /* UserMessege.h */,
+				7717E993206B74B80025DC73 /* UserMessege.m */,
+				7717E98F206B71530025DC73 /* DirectMessages.h */,
+				7717E990206B71530025DC73 /* DirectMessages.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1674,6 +1703,8 @@
 				770D774E20649B39007601A8 /* SearchLocationStore.m */,
 				770D776A20690139007601A8 /* PopularizeStore.h */,
 				770D776B20690139007601A8 /* PopularizeStore.m */,
+				7717E998206B7B330025DC73 /* DirectMessagesStore.h */,
+				7717E999206B7B330025DC73 /* DirectMessagesStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1764,6 +1795,8 @@
 				77484AB62022BB9200BAC567 /* LoginMannager.m */,
 				77723A8B2043B702006294E8 /* OrganizationManagement.h */,
 				77723A8C2043B702006294E8 /* OrganizationManagement.m */,
+				77BB2127206E34BB000CADC9 /* MapLocationManager.h */,
+				77BB2128206E34BB000CADC9 /* MapLocationManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1857,6 +1890,7 @@
 				777D517B200CC52700CB2A8A /* LaunchScreen.storyboard */,
 				777D517E200CC52700CB2A8A /* Info.plist */,
 				77369C9D200EEB740092AEAC /* Config.plist */,
+				77BB212C206E8263000CADC9 /* Entitlements.plist */,
 				77CE7C87202B0B770067D284 /* city-picker.data.json */,
 				770D773720634487007601A8 /* loadingGif.bundle */,
 				777D516D200CC52700CB2A8A /* Supporting Files */,
@@ -1921,12 +1955,15 @@
 				772F957C20523BA800F432D2 /* SearchViewController.h */,
 				772F957D20523BA800F432D2 /* SearchViewController.m */,
 				772F957E20523BA800F432D2 /* SearchViewController.xib */,
-				7717E985206B682E0025DC73 /* DirectMessagesViewController.h */,
-				7717E986206B682E0025DC73 /* DirectMessagesViewController.m */,
-				7717E987206B682E0025DC73 /* DirectMessagesViewController.xib */,
-				7717E98A206B688A0025DC73 /* DirectMessagesTableViewCell.h */,
-				7717E98B206B688A0025DC73 /* DirectMessagesTableViewCell.m */,
-				7717E98C206B688A0025DC73 /* DirectMessagesTableViewCell.xib */,
+				77BB211F206D2C08000CADC9 /* SearchHotCollectionViewCell.h */,
+				77BB2120206D2C08000CADC9 /* SearchHotCollectionViewCell.m */,
+				77BB2121206D2C08000CADC9 /* SearchHotCollectionViewCell.xib */,
+				7717E99B206B878D0025DC73 /* DirectMessagesTableViewCell.h */,
+				7717E99C206B878D0025DC73 /* DirectMessagesTableViewCell.m */,
+				7717E99D206B878D0025DC73 /* DirectMessagesTableViewCell.xib */,
+				7717E99E206B878D0025DC73 /* DirectMessagesViewController.h */,
+				7717E99F206B878D0025DC73 /* DirectMessagesViewController.m */,
+				7717E9A0206B878D0025DC73 /* DirectMessagesViewController.xib */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -2024,6 +2061,10 @@
 				770D77512064A03A007601A8 /* SearchLocationDataSource.m */,
 				770D7767206900D2007601A8 /* PopularizeDataSource.h */,
 				770D7768206900D2007601A8 /* PopularizeDataSource.m */,
+				7717E995206B7B020025DC73 /* DirectMessagesDataSource.h */,
+				7717E996206B7B020025DC73 /* DirectMessagesDataSource.m */,
+				77BB2124206D35D4000CADC9 /* SearchListDataSource.h */,
+				77BB2125206D35D4000CADC9 /* SearchListDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2173,7 +2214,7 @@
 				TargetAttributes = {
 					777D5169200CC52700CB2A8A = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = NHAV84KS2W;
+						DevelopmentTeam = 7F94JJA8QN;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -2222,7 +2263,6 @@
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
 				77723ABA2043BB42006294E8 /* AssetsPickerVideo@2x.png in Resources */,
 				77B86FEE202861C00096FB28 /* LeaveViewController.xib in Resources */,
-				7717E989206B682E0025DC73 /* DirectMessagesViewController.xib in Resources */,
 				77369CD8200F530F0092AEAC /* MyInfomationViewController.xib in Resources */,
 				77723AB92043BB42006294E8 /* AssetsPickerLocked@2x.png in Resources */,
 				772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */,
@@ -2235,6 +2275,7 @@
 				77723ABE2043BB42006294E8 /* fanhui.png in Resources */,
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
 				7777E5592029F026008FA348 /* LeaveDetailViewController.xib in Resources */,
+				7717E9A4206B878D0025DC73 /* DirectMessagesViewController.xib in Resources */,
 				77369C9E200EEB740092AEAC /* Config.plist in Resources */,
 				770D77612068F87C007601A8 /* PopularizeItmeTableViewController.xib in Resources */,
 				77484A942020BD3300BAC567 /* HotDetailsViewController.xib in Resources */,
@@ -2272,6 +2313,7 @@
 				77723AC22043BB42006294E8 /* OK.png in Resources */,
 				77723AB82043BB42006294E8 /* AssetsPickerChecked~iOS6@2x.png in Resources */,
 				77DA834A2019750400E7CB36 /* H5ListCollectionViewCell.xib in Resources */,
+				77BB212D206E8263000CADC9 /* Entitlements.plist in Resources */,
 				77369CDD200F536C0092AEAC /* MyWorksViewCotroller.xib in Resources */,
 				770D770A206210D9007601A8 /* EarningListViewController.xib in Resources */,
 				77CE7C88202B0B770067D284 /* city-picker.data.json in Resources */,
@@ -2296,6 +2338,7 @@
 				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
 				770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */,
+				77BB2123206D2C08000CADC9 /* SearchHotCollectionViewCell.xib in Resources */,
 				772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */,
 				772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */,
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
@@ -2303,6 +2346,7 @@
 				770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
+				7717E9A2206B878D0025DC73 /* DirectMessagesTableViewCell.xib in Resources */,
 				777D5178200CC52700CB2A8A /* Main.storyboard in Resources */,
 				77723AB52043BB42006294E8 /* add_photo.png in Resources */,
 				77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */,
@@ -2314,7 +2358,6 @@
 				772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */,
 				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
-				7717E98E206B688A0025DC73 /* DirectMessagesTableViewCell.xib in Resources */,
 				770D773820634487007601A8 /* loadingGif.bundle in Resources */,
 				772F95852054C17C00F432D2 /* MessageViewController.xib in Resources */,
 				770D773D20636193007601A8 /* HotBusinessCircleController.xib in Resources */,
@@ -2403,6 +2446,7 @@
 				772F95932054D36A00F432D2 /* MessageDataSource.m in Sources */,
 				77E8A88920136B9A00E253CC /* registeredViewController.m in Sources */,
 				77484AB42022111D00BAC567 /* MyWorksStore.m in Sources */,
+				77BB2122206D2C08000CADC9 /* SearchHotCollectionViewCell.m in Sources */,
 				77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */,
 				770D774C20649284007601A8 /* SearchLocation.m in Sources */,
 				770D77522064A03A007601A8 /* SearchLocationDataSource.m in Sources */,
@@ -2416,6 +2460,7 @@
 				777D5175200CC52700CB2A8A /* ViewController.m in Sources */,
 				77E8A8822011DCB000E253CC /* ViewController+MASAdditions.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
+				7717E9A3206B878D0025DC73 /* DirectMessagesViewController.m in Sources */,
 				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77723AE62043BBB2006294E8 /* MSSBrowseCollectionViewCell.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
@@ -2484,8 +2529,6 @@
 				77E8A87C2011DCB000E253CC /* MASLayoutConstraint.m in Sources */,
 				77723AEB2043BBB2006294E8 /* MSSBrowseRemindView.m in Sources */,
 				772F95C0205A56D800F432D2 /* MyHotH5ItmeViewCell.m in Sources */,
-				7717E988206B682E0025DC73 /* DirectMessagesViewController.m in Sources */,
-				7717E98D206B688A0025DC73 /* DirectMessagesTableViewCell.m in Sources */,
 				77369CBF200F2BBD0092AEAC /* BaseViewController+PlaceholderView.m in Sources */,
 				77B86FF22028621E0096FB28 /* LeaveTableViewCell.m in Sources */,
 				77369CB6200F21CD0092AEAC /* BaseTableViewController.m in Sources */,
@@ -2515,12 +2558,14 @@
 				770D76FF20620ACA007601A8 /* TradingListDataSource.m in Sources */,
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
+				7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
 				770D77602068F87C007601A8 /* PopularizeItmeTableViewController.m in Sources */,
 				77484AC720233DE300BAC567 /* JSBadgeView.m in Sources */,
 				77CE7C7F202AEB990067D284 /* InfomationStore.m in Sources */,
 				77DA833A2018834700E7CB36 /* DesignerListStore.m in Sources */,
+				7717E9A1206B878D0025DC73 /* DirectMessagesTableViewCell.m in Sources */,
 				77723B0F2043CC77006294E8 /* MessagePhotoView.m in Sources */,
 				777AF1DD200E427B009729AD /* KeychainItemWrapper.m in Sources */,
 				7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */,
@@ -2529,11 +2574,14 @@
 				77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */,
 				77DA83502019793C00E7CB36 /* H5ListDataSource.m in Sources */,
 				772F959C2056206A00F432D2 /* SetupProductViewController.m in Sources */,
+				7717E991206B71530025DC73 /* DirectMessages.m in Sources */,
 				775E31C620201822002107DD /* HotTableViewCell.m in Sources */,
 				77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */,
 				77484A982020BDB900BAC567 /* HotDetailsCell.m in Sources */,
+				77BB2126206D35D4000CADC9 /* SearchListDataSource.m in Sources */,
 				77E8A87D2011DCB000E253CC /* MASViewAttribute.m in Sources */,
 				770D776C20690139007601A8 /* PopularizeStore.m in Sources */,
+				7717E997206B7B020025DC73 /* DirectMessagesDataSource.m in Sources */,
 				77484AAB2021A1DB00BAC567 /* HotDetailStore.m in Sources */,
 				7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */,
 				770D771620623732007601A8 /* EarningDetailTableViewCell.m in Sources */,
@@ -2580,6 +2628,7 @@
 				77723AE82043BBB2006294E8 /* MSSBrowseLocalViewController.m in Sources */,
 				77484AA52021966400BAC567 /* HotComments.m in Sources */,
 				77F0789F20464A79004C0596 /* MarketingViewController.m in Sources */,
+				7717E994206B74B80025DC73 /* UserMessege.m in Sources */,
 				77E8A8AE2015BEEC00E253CC /* SNChartBar.m in Sources */,
 				77484AAE2021F26A00BAC567 /* HomeBanner.m in Sources */,
 				77C07F8E204D3A7300D77DBD /* SetupHomeStore.m in Sources */,
@@ -2634,6 +2683,7 @@
 				77723AE52043BBB2006294E8 /* MSSBrowseBaseViewController.m in Sources */,
 				77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */,
 				77369CB0200F05BC0092AEAC /* UIViewController+BarItem.m in Sources */,
+				77BB2129206E34BB000CADC9 /* MapLocationManager.m in Sources */,
 				770D7709206210D9007601A8 /* EarningListViewController.m in Sources */,
 				77484AA2202192E200BAC567 /* Article.m in Sources */,
 				77369CDC200F536C0092AEAC /* MyWorksViewCotroller.m in Sources */,
@@ -2798,7 +2848,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = NHAV84KS2W;
+				DEVELOPMENT_TEAM = 7F94JJA8QN;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/itop/Global/PrefixHeader.pch";
@@ -2888,7 +2938,7 @@
 					"-framework",
 					"\"UShareUI\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sj.itop.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sj.i-top";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/huangli/itop/itop/itop-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -2906,7 +2956,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = NHAV84KS2W;
+				DEVELOPMENT_TEAM = 7F94JJA8QN;
 				ENABLE_BITCODE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/itop/Global/PrefixHeader.pch";
@@ -2996,7 +3046,7 @@
 					"-framework",
 					"\"UShareUI\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.sj.itop.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sj.i-top";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "/Users/huangli/itop/itop/itop-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

@@ -59,8 +59,6 @@
 #import <BaiduMapAPI_Location/BMKLocationComponent.h>
 #import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
 
-
-
 #import "UIViewController+BarItem.h"
 #import "UIView+DYExtension.h"
 #import "UIColor+CAGradientLayer.h"
@@ -86,6 +84,7 @@
 #import "MessagePhotoView.h"
 #import "ShearViewManager.h"
 #import "SegmentTapView.h"
+#import "OSHelper.h"
 
 
 #endif

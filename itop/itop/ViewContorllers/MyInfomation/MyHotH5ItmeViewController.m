@@ -63,7 +63,8 @@ static NSString *const MyHotH5ItmeCellIdentifier = @"MyHot";
                                     ArticleTypeH5 : ArticleTypeVideo
                                          PageIndex:self.page_no
                                          PageCount:10
-                                getArticleListType:GetArticleListTypeMyHot];
+                                getArticleListType:GetArticleListTypeMyHot
+                                         searchKey:nil];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         

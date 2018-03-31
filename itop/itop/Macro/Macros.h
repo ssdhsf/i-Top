@@ -13,6 +13,8 @@
 
 // 缓存最后登录帐户信息
 #define UD_KEY_LAST_LOGIN_USERINFOMATION      @"UserInfomation"   // 登陆返回信息
+#define INFOMATION_EDIT_MODEL(__USER_ID)      [NSString stringWithFormat:@"InfomationModel_%@",__USER_ID]         // 登陆返回信息
+
 #define UD_KEY_LAST_WECHTLOGIN_CODE      @"Wechat_code"   // 微信登陆返回信息
 #define WECHTLOGIN_CACHE_KEY      @"Cache_key"   // 微信登陆返回信息
 #define UD_KEY_LAST_LOGIN_USERNAME            @"LastLoginUsername"//账户名

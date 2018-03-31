@@ -36,12 +36,20 @@ _errorFailure(__id_obj); }
     return manager;
 }
 
-#pragma mark - 获取用户基本信息
+#pragma mark - 获取用户登录基本信息
 - (UserModel*)crrentUserInfomation{
     
      NSString * infoString = [[Global sharedSingleton]
                getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];
     UserModel *user= [[UserModel alloc]initWithString:infoString error:nil];
+    return user;
+}
+
+- (InfomationModel*)crrentInfomationModel{
+    
+    NSString * infoString = [[Global sharedSingleton]
+                             getUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])];
+    InfomationModel *user= [[InfomationModel alloc]initWithString:infoString error:nil];
     return user;
 }
 
@@ -55,7 +63,7 @@ _errorFailure(__id_obj); }
 -(NSNumber *)crrentUserId{
     
     UserModel *user = [self crrentUserInfomation];
-    NSNumber *user_id = user.user_info.id ;
+    NSNumber *user_id = user.user_info.user_id ;
     return user_id;
 }
 
@@ -440,12 +448,32 @@ _errorFailure(__id_obj); }
 
 - (void)homeH5ListWithType:(H5ProductType )type
                  PageIndex:(NSInteger )pageIndex
-                 PageCount:(NSInteger )pageCount{
+                 PageCount:(NSInteger )pageCount
+                   tagList:(NSArray *)tagList
+                 searchKey:(NSString *)searchKey{
+    
     NSString *api = @"/api/product/getpagelist";
-    NSDictionary *parameters = @{@"Product_type" : @(type),
-                                 @"PageIndex" : @(pageIndex),
-                                 @"PageCount" : @(pageCount),
-                                 };
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+   
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"pageCount"];
+    
+    if (tagList.count != 0) {
+        [parameters setObject:tagList forKey:@"TagList"];
+    }else {
+        
+        if (type != H5ProductTypeNoel) {
+            [parameters setObject:@(type) forKey:@"Product_type"];
+        }
+    }
+    if (searchKey != nil) {
+        [parameters setObject:searchKey forKey:@"Keyword"];
+    }
+    
+//    NSDictionary *parameters = @{@"Product_type" : @(type),
+//                                 @"PageIndex" : @(pageIndex),
+//                                 @"PageCount" : @(pageCount),
+//                                 };
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
@@ -522,23 +550,27 @@ _errorFailure(__id_obj); }
 
 - (void)designerlistWithPageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount
-                 designerListType:(DesignerListType)designerListType{
-    
-//    SHOW_GET_DATA
+                 designerListType:(DesignerListType)designerListType
+                        searchKey:(NSString *)searchKey{
     
     NSString *api;
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"pageCount"];
+
     if (designerListType == DesignerListTypeHome) {
+        
         api = @"/api/userdesigner/getpagelist";
+        if (searchKey != nil) {
+           [parameters setObject:searchKey forKey:@"Keyword"];
+        }
     }else{
+        
         api = @"/api/userfollow/getuserlist";
     }
-    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
-                                 @"PageCount" : @(pageCount),
-                                 };
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
-//        HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
             
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
@@ -551,7 +583,6 @@ _errorFailure(__id_obj); }
         
     } failure:^(NSError *error) {
         
-//        HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
@@ -639,14 +670,22 @@ _errorFailure(__id_obj); }
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
               PageCount:(NSInteger )pageCount
-     getArticleListType:(GetArticleListType)getArticleListType{
+     getArticleListType:(GetArticleListType)getArticleListType
+              searchKey:(NSString *)searchKey{
 //    SHOW_GET_DATA
     
     NSString *api =  [NSString string];
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"PageCount"];
+
     switch (getArticleListType) {
        
         case GetArticleListTypeHot:
             api = @"/api/article/getpagelist";
+            if (searchKey != nil) {
+               [parameters setObject:searchKey forKey:@"Title"]; //搜索字段
+            }
             break;
         case GetArticleListTypeFocus:
             api = @"/api/article/getcollection";
@@ -658,10 +697,6 @@ _errorFailure(__id_obj); }
         default:
             break;
     }
-//    NSString *api = getArticleListType == GetArticleListTypeHot ? @"/api/article/getpagelist" :@"/api/article/getcollection";
-    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
-    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
-    [parameters setObject:@(pageCount) forKey:@"PageCount"];
     if (type == ArticleTypeDefault || type ==ArticleTypeVideo ||type == ArticleTypeH5) {
         [parameters setObject:@(type) forKey:@"Article_type"];
     }
@@ -1219,7 +1254,7 @@ _errorFailure(__id_obj); }
 
 -(void)messageList{
     
-    NSString *api = @"/api/usermessage/getlist";
+    NSString *api = @"/api/usermessage/getuserlist";
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
@@ -1240,6 +1275,56 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 }
+
+-(void)userMessageListWithId:(NSString *)user_id{
+    
+    NSString *api = @"/api/usermessage/getlist";
+    NSDictionary *parameters = @{@"id":user_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            //            NSArray *arr = object[@"rows"];
+            _messageListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content {
+    
+    NSString *api = @"/api/usermessage/sendmessage";
+    NSDictionary *parameters = @{@"Receive_user_id":user_id,
+                                 @"Message" : content};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+//        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            //            NSArray *arr = object[@"rows"];
+            _messageListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+//        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 
 
 @end
