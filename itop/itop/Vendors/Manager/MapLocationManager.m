@@ -69,9 +69,6 @@
              }
              if (location.rgcData) {
                  
-//                 self.loctionLable.text = [NSString stringWithFormat:@"%@",[location.rgcData.city description]];
-                 //                 [self setLeftBarItemString:[NSString stringWithFormat:@"%@>",[location.rgcData.city description]] action:@selector(selectorCity)];
-                 
                  self.location = [location.rgcData.city description];
                  [UserManager shareUserManager].mapLocationManagerSuccess(self.location);
                  NSLog(@"rgc = %@",[location.rgcData.city description]);

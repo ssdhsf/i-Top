@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, GetH5ListType) { //获取H5List入口
 @property (nonatomic, assign)GetH5ListType getH5ListType;
 @property (nonatomic, strong)NSString * titleStr;
 @property (nonatomic, strong)NSArray * tagList;
+@property (nonatomic, strong)NSString * searchKey;
 
 
 @end

@@ -8,8 +8,6 @@
 
 #import "HotViewController.h"
 #import "H5ListViewController.h"
-//#import "HotTableViewCell.h"
-//#import "HotDataSource.h"
 #import "SegmentTapView.h"
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
@@ -104,11 +102,8 @@
                 _recommendedVc.itmeType = itmeTitle;
                 _recommendedVc.getArticleListType = GetArticleListTypeHot;
                 _recommendedVc.pushControl = ^ (H5List *h5){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.itemDetailType = HotItemDetailType;
-                    hotDetailsVc.hotDetail_id = h5.id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                     
                 };
             }
@@ -139,10 +134,8 @@
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeHot;
                 _informationVc.pushControl = ^ (H5List *h5){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = h5.id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                 };
             }
             [_scroll addSubview:_informationVc.view];
@@ -169,10 +162,8 @@
                 _localVc.itmeType = itmeTitle;
                 _localVc.getArticleListType = GetArticleListTypeHot;
                 _localVc.pushControl = ^ (H5List *h5){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = h5.id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                 };
             }
             [_scroll addSubview:_localVc.view];
@@ -186,7 +177,6 @@
 -(void)initData{
 
     [self.dataArray addObjectsFromArray:[NSArray arrayWithObjects:@"推荐",@"H5",@"资讯", @"视频", @"本地", nil]];
-//    [[MapLocationManager sharedMapLocationManager]initMapLocation];
 }
 
 -(void)initSegment{

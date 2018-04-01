@@ -20,6 +20,7 @@
 #import "MyWorksViewCotroller.h"
 #import "OptimizeTitleViewController.h"
 #import "LoadingViewController.h"
+#import "RecommendedViewController.h"
 
 @implementation UIManager
 
@@ -229,10 +230,11 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
-+ (void)designerListWithDesignerListType:(DesignerListType)type{
++ (void)designerListWithDesignerListType:(DesignerListType)type searchKey:(NSString *)searchKey{
     
     DesignerListViewController *vc = [[DesignerListViewController alloc]init];
     vc.designerListType = type;
+    vc.searchKey = searchKey;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -317,6 +319,23 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
++(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type{
+    
+    HotDetailsViewController *vc = [[HotDetailsViewController alloc]init];
+    vc.itemDetailType = article_type;
+    vc.hotDetail_id = article_id;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
++(void)recommendedViewControllerWithGetArticleListType:(GetArticleListType )getArticleListType searchKey:(NSString *)searchKey{
+    
+    RecommendedViewController *vc = [[RecommendedViewController alloc]init];
+    vc.getArticleListType = getArticleListType;
+    vc.searchKey = searchKey;
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
 
 + (UINavigationController *)getNavigationController{
     
@@ -324,6 +343,9 @@
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     return nav;
 }
+
+
+
 
 
 @end

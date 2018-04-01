@@ -17,6 +17,7 @@
 #import "HomeSectionHeaderView.h"
 #import "SearchHotCollectionViewCell.h"
 #import "HomeHeaderView.h"
+#import "H5ListViewController.h"
 
 static NSString *const SearchHotIdentifier = @"SearchHot";
 static NSString *const H5ListCellIdentifier = @"H5List";
@@ -47,6 +48,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
+    [self hiddenNavigationController:NO];
 }
 
 -(void)initView{
@@ -217,14 +219,23 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         [infView initSubViewsWithSection:indexPath.section];
         infView.sectionHeader = ^(NSInteger section){
             
-            //                if (section == 2) {
-            //
-            //                    [UIManager designerListWithDesignerListType:DesignerListTypeHome];
-            //
-            //                }else {
-            //
-            //                    [self loadinH5ListWithH5Type:GetH5ListTypeProduct index:section title:home.itemHeader];
-            //                }
+            Home *home = [_searchListDataSource itemAtIndexPath:indexPath.section];
+            if ([home.itemArray[indexPath.row] isKindOfClass:[H5List class]] && [home.itemKey isEqualToString:@"H5"]){
+               
+                H5ListViewController *h5Vc = [[H5ListViewController alloc]init];
+                h5Vc.h5ProductType = H5ProductTypeNoel;
+                h5Vc.getH5ListType = GetH5ListTypeProduct;
+                h5Vc.titleStr = @"H5";
+                h5Vc.searchKey = _searchBar.text; //暂时没有搜索数据   传空可已获取 测试数据
+                h5Vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:h5Vc animated:YES];
+            } else if([home.itemArray[indexPath.row] isKindOfClass:[DesignerList class]]){
+                
+                [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:_searchBar.text];
+            } else {
+                
+                [UIManager recommendedViewControllerWithGetArticleListType:GetArticleListTypeHot searchKey:nil];// searchKey暂时没有搜索数据   传空可已获取 测试数据
+            }
         };
         infView.titleLbl.text = home.itemHeader;
         infView.backgroundColor = UIColor.whiteColor;
@@ -262,14 +273,19 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
-    if (indexPath.section > 2) {
-        
-        Home *home = [_searchListDataSource itemAtIndexPath:indexPath.section];
+    Home * home = [_searchListDataSource itemAtIndexPath:indexPath.section];
+    if ([home.itemArray[indexPath.row] isKindOfClass:[H5List class]]){
         H5List *h5 = home.itemArray[indexPath.row];
         [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+    } else if([home.itemArray[indexPath.row] isKindOfClass:[DesignerList class]]){
+        DesignerList *designer = home.itemArray[indexPath.row];
+        [UIManager designerDetailWithDesignerId:designer.id];
+    } else {
+        
+        H5List *h5 = home.itemArray[indexPath.row];
+        [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
+
     }
-    
-    NSLog(@"23");
 }
 
 -(CGSize)sizeForItemAtIndex:(NSIndexPath *)indexPath{
@@ -344,7 +360,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)addkeywordsViewWithkeywords:(NSArray *)keywords{
     
     // 高度可以设置为0，会自动跟随标题计算
-    
     __weak typeof(self) WeakSelf = self;
     _tagList = [[YZTagList alloc] initWithFrame:CGRectMake(60, 46, ScreenWidth-120, 0)];
     _tagList.backgroundColor = [UIColor whiteColor];
@@ -375,6 +390,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     if ([Global stringIsNullWithString:searchBar.text]) {
         
+        [self setTaglistViewNil];
         [self.dataArray removeAllObjects];
         self.collectionView.hidden = YES;
         _searchListLabel.text = [NSString stringWithFormat:@"搜索历史"];

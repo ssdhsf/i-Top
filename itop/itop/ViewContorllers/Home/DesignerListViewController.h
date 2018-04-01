@@ -14,5 +14,6 @@ typedef void(^PushDesignerDetailControl)(NSString *Designer_id);
 
 @property (nonatomic ,copy) PushDesignerDetailControl pushDesignerDetailControl;
 @property (nonatomic ,assign) DesignerListType designerListType;
+@property (nonatomic ,strong) NSString *searchKey;
 
 @end

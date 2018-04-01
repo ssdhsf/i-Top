@@ -28,6 +28,11 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)initNavigationBarItems{
+    
+    self.title = @"热点搜索结果";
+}
+
 -(void)initView{
     
     NSLog(@"%f",self.view.frame.size.height);
@@ -61,7 +66,7 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
                                          PageIndex:self.page_no
                                          PageCount:10
                                 getArticleListType: _getArticleListType
-                                         searchKey:nil];
+                                         searchKey:_searchKey];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);
@@ -102,7 +107,6 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     H5List *h5list = [_recommendedDataSource itemAtIndexPath:indexPath];
     _pushControl(h5list);
-    
 }
 
 

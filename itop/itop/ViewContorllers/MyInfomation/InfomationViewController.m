@@ -427,7 +427,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 break;
             case PickViewTypeIndustry:
                 
-                return self.provinceArray.count;
+                return self.industryArray.count;
                 break;
         }
     }else{
@@ -608,7 +608,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                    
                     [dic setObject:info.content forKey:info.sendKey];
                 }
-              
                 break;
             case PickViewTypeSex:
                 
@@ -616,16 +615,13 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 break;
                 
          case PickViewTypeProvince:
-                
-                if (_province != nil) {
+
+                if ([info.content componentsSeparatedByString:@","].count == 2) {
                     
-                    [dic setObject:_province.address forKey:@"Province"];
+                    [dic setObject:[info.content componentsSeparatedByString:@","][0] forKey:@"Province"];
+                    [dic setObject:[info.content componentsSeparatedByString:@","][1] forKey:@"City"];
                 }
-                if (_city != nil) {
-                    [dic setObject:_city.address forKey:@"City"];
-                }
-                
-                break;   
+                break;
         }
     }
     
@@ -640,9 +636,10 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             };
         };
     }else {
+        
+        [dic setObject:_info.user_info.head_img forKey:@"Head_img"];
         [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
         [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
-            
             
             [self AlertOperation];
         };

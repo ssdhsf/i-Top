@@ -441,7 +441,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
         
         [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
-        
     } ];
 }
 

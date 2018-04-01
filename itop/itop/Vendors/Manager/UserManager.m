@@ -469,12 +469,6 @@ _errorFailure(__id_obj); }
     if (searchKey != nil) {
         [parameters setObject:searchKey forKey:@"Keyword"];
     }
-    
-//    NSDictionary *parameters = @{@"Product_type" : @(type),
-//                                 @"PageIndex" : @(pageIndex),
-//                                 @"PageCount" : @(pageCount),
-//                                 };
-    
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         if ([object isKindOfClass:[NSError class]]) {

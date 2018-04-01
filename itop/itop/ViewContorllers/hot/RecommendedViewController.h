@@ -15,6 +15,7 @@ typedef void(^PushControl)(H5List *hotDetails);
 @interface RecommendedViewController : BaseTableViewController
 
 @property (nonatomic ,strong)NSString *itmeType;
+@property (nonatomic ,strong)NSString *searchKey;
 @property (nonatomic, assign) GetArticleListType getArticleListType;
 @property (nonatomic ,copy)PushControl pushControl;
 

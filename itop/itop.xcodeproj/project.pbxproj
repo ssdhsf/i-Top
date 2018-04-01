@@ -299,6 +299,12 @@
 		77BB2126206D35D4000CADC9 /* SearchListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB2125206D35D4000CADC9 /* SearchListDataSource.m */; };
 		77BB2129206E34BB000CADC9 /* MapLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB2128206E34BB000CADC9 /* MapLocationManager.m */; };
 		77BB212D206E8263000CADC9 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 77BB212C206E8263000CADC9 /* Entitlements.plist */; };
+		77BB2131207070F1000CADC9 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB212F207070F1000CADC9 /* ProvinceViewController.m */; };
+		77BB2132207070F1000CADC9 /* ProvinceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BB2130207070F1000CADC9 /* ProvinceViewController.xib */; };
+		77BB213620707AA4000CADC9 /* ProvinceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB213420707AA4000CADC9 /* ProvinceTableViewCell.m */; };
+		77BB213720707AA4000CADC9 /* ProvinceTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BB213520707AA4000CADC9 /* ProvinceTableViewCell.xib */; };
+		77BB213A20707AF8000CADC9 /* ProvinceStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB213920707AF8000CADC9 /* ProvinceStore.m */; };
+		77BB213D20707B22000CADC9 /* ProvinceDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB213C20707B22000CADC9 /* ProvinceDataSource.m */; };
 		77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */; };
 		77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */; };
 		77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F7B204C2BF400D77DBD /* SecurityViewController.m */; };
@@ -922,6 +928,16 @@
 		77BB2127206E34BB000CADC9 /* MapLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapLocationManager.h; sourceTree = "<group>"; };
 		77BB2128206E34BB000CADC9 /* MapLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapLocationManager.m; sourceTree = "<group>"; };
 		77BB212C206E8263000CADC9 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		77BB212E207070F1000CADC9 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceViewController.h; sourceTree = "<group>"; };
+		77BB212F207070F1000CADC9 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceViewController.m; sourceTree = "<group>"; };
+		77BB2130207070F1000CADC9 /* ProvinceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProvinceViewController.xib; sourceTree = "<group>"; };
+		77BB213320707AA4000CADC9 /* ProvinceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceTableViewCell.h; sourceTree = "<group>"; };
+		77BB213420707AA4000CADC9 /* ProvinceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceTableViewCell.m; sourceTree = "<group>"; };
+		77BB213520707AA4000CADC9 /* ProvinceTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProvinceTableViewCell.xib; sourceTree = "<group>"; };
+		77BB213820707AF8000CADC9 /* ProvinceStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceStore.h; sourceTree = "<group>"; };
+		77BB213920707AF8000CADC9 /* ProvinceStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceStore.m; sourceTree = "<group>"; };
+		77BB213B20707B22000CADC9 /* ProvinceDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceDataSource.h; sourceTree = "<group>"; };
+		77BB213C20707B22000CADC9 /* ProvinceDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceDataSource.m; sourceTree = "<group>"; };
 		77C07F74204AD85200D77DBD /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerServiceViewController.xib; sourceTree = "<group>"; };
@@ -1705,6 +1721,8 @@
 				770D776B20690139007601A8 /* PopularizeStore.m */,
 				7717E998206B7B330025DC73 /* DirectMessagesStore.h */,
 				7717E999206B7B330025DC73 /* DirectMessagesStore.m */,
+				77BB213820707AF8000CADC9 /* ProvinceStore.h */,
+				77BB213920707AF8000CADC9 /* ProvinceStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1964,6 +1982,12 @@
 				7717E99E206B878D0025DC73 /* DirectMessagesViewController.h */,
 				7717E99F206B878D0025DC73 /* DirectMessagesViewController.m */,
 				7717E9A0206B878D0025DC73 /* DirectMessagesViewController.xib */,
+				77BB212E207070F1000CADC9 /* ProvinceViewController.h */,
+				77BB212F207070F1000CADC9 /* ProvinceViewController.m */,
+				77BB2130207070F1000CADC9 /* ProvinceViewController.xib */,
+				77BB213320707AA4000CADC9 /* ProvinceTableViewCell.h */,
+				77BB213420707AA4000CADC9 /* ProvinceTableViewCell.m */,
+				77BB213520707AA4000CADC9 /* ProvinceTableViewCell.xib */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -2065,6 +2089,8 @@
 				7717E996206B7B020025DC73 /* DirectMessagesDataSource.m */,
 				77BB2124206D35D4000CADC9 /* SearchListDataSource.h */,
 				77BB2125206D35D4000CADC9 /* SearchListDataSource.m */,
+				77BB213B20707B22000CADC9 /* ProvinceDataSource.h */,
+				77BB213C20707B22000CADC9 /* ProvinceDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2265,6 +2291,7 @@
 				77B86FEE202861C00096FB28 /* LeaveViewController.xib in Resources */,
 				77369CD8200F530F0092AEAC /* MyInfomationViewController.xib in Resources */,
 				77723AB92043BB42006294E8 /* AssetsPickerLocked@2x.png in Resources */,
+				77BB2132207070F1000CADC9 /* ProvinceViewController.xib in Resources */,
 				772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */,
 				77DA8345201974C100E7CB36 /* H5ListViewController.xib in Resources */,
 				77723AB42043BB42006294E8 /* 2.png in Resources */,
@@ -2346,6 +2373,7 @@
 				770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
+				77BB213720707AA4000CADC9 /* ProvinceTableViewCell.xib in Resources */,
 				7717E9A2206B878D0025DC73 /* DirectMessagesTableViewCell.xib in Resources */,
 				777D5178200CC52700CB2A8A /* Main.storyboard in Resources */,
 				77723AB52043BB42006294E8 /* add_photo.png in Resources */,
@@ -2446,6 +2474,7 @@
 				772F95932054D36A00F432D2 /* MessageDataSource.m in Sources */,
 				77E8A88920136B9A00E253CC /* registeredViewController.m in Sources */,
 				77484AB42022111D00BAC567 /* MyWorksStore.m in Sources */,
+				77BB2131207070F1000CADC9 /* ProvinceViewController.m in Sources */,
 				77BB2122206D2C08000CADC9 /* SearchHotCollectionViewCell.m in Sources */,
 				77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */,
 				770D774C20649284007601A8 /* SearchLocation.m in Sources */,
@@ -2476,6 +2505,7 @@
 				77F078A82046A4CB004C0596 /* MarketingDataSource.m in Sources */,
 				772F95972055661100F432D2 /* SetupPushViewController.m in Sources */,
 				77723B0E2043CC77006294E8 /* CDRTranslucentSideBar.m in Sources */,
+				77BB213620707AA4000CADC9 /* ProvinceTableViewCell.m in Sources */,
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
 				770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */,
@@ -2515,6 +2545,7 @@
 				77826B992019DBE500F53E28 /* MyInfomation.m in Sources */,
 				774B87EF204E821700F602E3 /* ProtocolViewController.m in Sources */,
 				77848AE6202EA07600C0CCD2 /* BaseViewController+ErrorMassager.m in Sources */,
+				77BB213A20707AF8000CADC9 /* ProvinceStore.m in Sources */,
 				77E8A8AD2015BEEC00E253CC /* SNChart.m in Sources */,
 				77C07F95204D573300D77DBD /* BindPhoneViewController.m in Sources */,
 				77DA833D2018839800E7CB36 /* DesignerListDataSource.m in Sources */,
@@ -2673,6 +2704,7 @@
 				777AF1CE200DFCEB009729AD /* PYNavigationController.m in Sources */,
 				77484A892020551100BAC567 /* RecommendedStore.m in Sources */,
 				7792B728201C7BC100587399 /* HomeModel.m in Sources */,
+				77BB213D20707B22000CADC9 /* ProvinceDataSource.m in Sources */,
 				777D516F200CC52700CB2A8A /* main.m in Sources */,
 				77723AF42043C869006294E8 /* UIView+PYExtension.m in Sources */,
 				770D77402063F3D1007601A8 /* AppDelegate+BaiduMap.m in Sources */,

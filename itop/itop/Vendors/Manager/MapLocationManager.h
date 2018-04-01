@@ -7,8 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <BMKLocationkit/BMKLocationComponent.h>
-#import <BMKLocationKit/BMKLocationAuth.h>
 
 @interface MapLocationManager : NSObject<BMKLocationAuthDelegate,BMKLocationManagerDelegate>
 

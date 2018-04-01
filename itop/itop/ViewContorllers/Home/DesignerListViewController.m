@@ -66,7 +66,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         _designerListType = DesignerListTypeHome;
     }
 
-    [[UserManager shareUserManager]designerlistWithPageIndex:self.page_no PageCount:10 designerListType:_designerListType searchKey:nil];
+    [[UserManager shareUserManager]designerlistWithPageIndex:self.page_no PageCount:10 designerListType:_designerListType searchKey:_searchKey];
     [UserManager shareUserManager].designerlistSuccess = ^(NSArray * arr){
         
         [self listDataWithListArray:[[DesignerListStore shearDesignerListStore] configurationMenuWithMenu:arr] page:self.page_no];

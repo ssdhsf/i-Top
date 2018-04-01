@@ -46,6 +46,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) CAGradientLayer *layer;
 @property (nonatomic, assign) BOOL isFirst;
+@property (nonatomic, assign) BOOL isSelectProvince;
+@property (nonatomic, strong) Province *selectProvince;
 
 @end
 
@@ -123,6 +125,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [super initData];
     [self NSNotificationCenter];
     _isFirst = YES;
+    _isSelectProvince = NO;
     
 //    [self showRefresh];
 //    self.showRefreshHeader = YES;
@@ -371,7 +374,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             _designerbannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
                 
                 Home *home = self.dataArray[2];
-                DesignerList *designer = home.itemArray[selectedIndex];                     [UIManager designerDetailWithDesignerId:designer.id];
+                DesignerList *designer = home.itemArray[selectedIndex];
+                [UIManager designerDetailWithDesignerId:designer.id];
             }];
             [_designerbannerView createdesignerScrollView];
             [newCell addSubview:_designerbannerView];
@@ -405,7 +409,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 
                 if (section == 2) {
 
-                    [UIManager designerListWithDesignerListType:DesignerListTypeHome];
+                    [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:nil];
                     
                 }else {
                     
@@ -602,22 +606,27 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [navBgView addSubview:self.messageBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
     [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
+    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
     
-    
-    if ([MapLocationManager sharedMapLocationManager].location == nil) {
-        
-        [[MapLocationManager sharedMapLocationManager] initMapLocation];
-        [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+    if (!_isSelectProvince) {
+        if ([MapLocationManager sharedMapLocationManager].location == nil) {
             
-            self.loctionLable .text = loction;
-        };
-        
-        [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+            [[MapLocationManager sharedMapLocationManager] initMapLocation];
+            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+                
+                self.loctionLable .text = loction;
+            };
             
-            [self showToastWithError:error];
-        };
+            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+                
+                [self showToastWithError:error];
+            };
+        } else {
+            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+        }
     } else {
-        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+       
+        self.loctionLable .text = _selectProvince.address;
     }
 }
 
@@ -696,58 +705,19 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.navigationController pushViewController:h5Vc animated:YES];
 }
 
-//-(void)initMapLocation{
-//    
-//    NSLog(@"%@",BAIDU_MAP_AKAPKEY);
-//    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:BAIDU_MAP_AKAPKEY authDelegate:self];
-//    //初始化实例
-//    _locationManager = [[BMKLocationManager alloc] init];
-//    //设置delegate
-//    _locationManager.delegate = self;
-//    //设置返回位置的坐标系类型
-//    _locationManager.coordinateType = BMKLocationCoordinateTypeBMK09LL;
-//    //设置距离过滤参数
-//    _locationManager.distanceFilter = kCLDistanceFilterNone;
-//    //设置预期精度参数
-//    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    //设置应用位置类型
-//    _locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-//    //设置是否自动停止位置更新
-//    _locationManager.pausesLocationUpdatesAutomatically = NO;
-//    //设置是否允许后台定位
-//    _locationManager.allowsBackgroundLocationUpdates = NO;
-//    //设置位置获取超时时间
-//    _locationManager.locationTimeout = 10;
-//    //设置获取地址信息超时时间
-//    _locationManager.reGeocodeTimeout = 10;
-//    
-//    [_locationManager requestLocationWithReGeocode:YES withNetworkState:NO completionBlock:^(BMKLocation *location, BMKLocationNetworkState state, NSError *error)
-//     {
-//         if (error)
-//         {
-//             NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-//         }
-//         if (location) {//得到定位信息，添加annotation
-//             
-//             if (location.location) {
-//                 NSLog(@"LOC = %@",location.location);
-//             }
-//             if (location.rgcData) {
-//                 
-//                 self.loctionLable.text = [NSString stringWithFormat:@"%@",[location.rgcData.city description]];
-//                 //                 [self setLeftBarItemString:[NSString stringWithFormat:@"%@>",[location.rgcData.city description]] action:@selector(selectorCity)];
-//                 
-//                 self.loctionString = [location.rgcData.city description];
-//                 NSLog(@"rgc = %@",[location.rgcData.city description]);
-//             }
-//         }
-//         NSLog(@"netstate = %d",state);
-//     }];
-//}
-
 -(void)homeSearch{
     
     [UIManager showVC:@"SearchViewController"];
+}
+
+-(void)selectLoction{
+    
+    [UIManager showVC:@"ProvinceViewController"];
+    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
+        
+        _isSelectProvince = YES;
+        _selectProvince = city;
+    };
 }
 
 

@@ -11,6 +11,8 @@
 #import "LeaveViewController.h"
 #import "SigningStateViewController.h"
 #import "ProtocolViewController.h"
+#import "HotDetailsViewController.h"
+
 
 typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
     StatisticalItmeTypeH5 = 0, //H5
@@ -29,6 +31,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 + (instancetype)sharedUIManager;
 
 @property (copy, nonatomic)BackOffBolck backOffBolck;
+@property (copy, nonatomic)BackOffBolck selectProvinceBackOffBolck;
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
 
 + (AppDelegate *)appDelegate;
@@ -123,7 +126,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *
  *  @param type 获取设计师list入口Type
  */
-+ (void)designerListWithDesignerListType:(DesignerListType)type;
++ (void)designerListWithDesignerListType:(DesignerListType)type searchKey:(NSString *)searchKey;
 
 /**
  *  入驻状态
@@ -192,5 +195,19 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *
  */
 +(void)optimizeTitleViewControllerWithProduct:(H5List *)product;
+
+/**
+ *  文章详情
+ *  @param article_id  文章id
+ *  @param article_type  文章类型
+ */
++(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type;
+
+/**
+ *  搜索热点列表
+ *  @param getArticleListType  文章id
+ *  @param searchKey  搜索关键词
+ */
++(void)recommendedViewControllerWithGetArticleListType:(GetArticleListType )getArticleListType searchKey:(NSString *)searchKey;
 
 @end

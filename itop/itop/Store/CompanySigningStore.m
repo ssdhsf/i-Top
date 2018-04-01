@@ -41,7 +41,7 @@
     
     NSData *JSONData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"city-picker.data" ofType:@"json"]];
     NSDictionary *dataArray = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingAllowFragments error:nil];
-    NSLog(@"%@",dataArray);
+//    NSLog(@"%@",dataArray);
     NSDictionary *dic = dataArray[@"86"];
     NSMutableArray *tempProvinceArray = [NSMutableArray array];
     [tempProvinceArray addObjectsFromArray:(NSArray *)dic[@"A-G"]];

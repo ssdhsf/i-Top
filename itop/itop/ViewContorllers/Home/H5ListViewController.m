@@ -107,27 +107,15 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-//    if (_getH5ListType == GetH5ListTypeProduct) {
-    
-    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:nil];
+    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
         [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
     };
-//    } else { //获取TagListH5
-//        
-//        [[UserManager shareUserManager]tagH5ListWithType:TagH5ListProduct PageIndex:self.page_no PageCount:10];
-//        [UserManager shareUserManager].tagListSuccess = ^(NSArray *arr){
-//          
-//             [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
-//        };
-//    }
-    
     [UserManager shareUserManager].errorFailure = ^ (id obj){
         
         [self collectionEndRefreshing];
     };
-
 }
 
 -(void)steupCollectionView{
