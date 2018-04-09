@@ -13,4 +13,15 @@
 + (CAGradientLayer *)setGradualChangingColor:(UIView *)view
                                    fromColor:(NSString *)fromHexColorStr
                                      toColor:(NSString *)toHexColorStr;
+
+//+ (CAGradientLayer *)setGradualChangingColor:(UIView *)view fromColor:(NSString *)fromHexColorStr toColor:(NSString *)toHexColorStr alpha:(CGFloat)alpha;
+
++ (CAGradientLayer *)setGradualChangingColor:(UIView *)view fromColor:(NSString *)fromHexColorStr toColor:(NSString *)toHexColorStr alpha:(CGFloat)alpha gradientLayer:(CAGradientLayer*)gradientLayer;
+
+
+//局部渐变色
++ (CAGradientLayer *)setLocalGradualChangingColor:(CGRect )frame
+                                        fromColor:(NSString *)fromHexColorStr
+                                          toColor:(NSString *)toHexColorStr;
+
 @end

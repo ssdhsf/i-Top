@@ -18,21 +18,23 @@ typedef NS_ENUM(NSInteger, ArticleType) { //文章类型
 typedef NS_ENUM(NSInteger, GetArticleListType) { //获取文章入口
     GetArticleListTypeHot = 0, //热点获取
     GetArticleListTypeFocus = 1,//收藏获取
+    GetArticleListTypeMyHot //我的热点
 };
 
 typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
     H5ProductTypeDefault = 0, //默认
     H5ProductTypeScenario = 1,//场景H5
     H5ProductTypeSinglePage,//单页
-    H5ProductTypeVideo//H5视频
+    H5ProductTypeVideo,//H5视频
+    H5ProductTypeNoel//无
 };
 
 typedef NS_ENUM(NSInteger, TagH5ListType) { //TagH5作品类型
     TagH5ListDefault = 0, //默认
-    TTagH5ListProduct = 1,//作品
-    TTagH5ListArticle ,//热点
-    TTagH5ListTrade ,//行业
-    TTagH5ListField ,//领域  《设计师用》
+    TagH5ListProduct = 1,//作品
+    TagH5ListArticle ,//热点
+    TagH5ListTrade ,//行业
+    TagH5ListField ,//领域  《设计师用》
 };
 
 typedef NS_ENUM(NSInteger, TagType) { //首页Tag类型
@@ -51,7 +53,7 @@ typedef NS_ENUM(NSInteger, MyProductType) {  //我的作品类型
 };
 
 typedef NS_ENUM(NSInteger, DesignerListType) {  // 获取设计师list入口
-    DesignerListTypeHome = 0, //首页获取
+    DesignerListTypeHome = 0, //首页／搜索获取
     DesignerListTypeFocus = 1,//我关注的设计师
 };
 
@@ -65,10 +67,98 @@ typedef NS_ENUM(NSInteger, CollectionType) { //收藏文章状态
      CollectionTypeCollection = 1,//收藏
 };
 
+typedef NS_ENUM(NSInteger, SigningType) { //入驻申请
+    SigningTypeDesigner = 0, //设计师
+    SigningTypeCompany = 1,//企业
+    SigningTypeMarketing ,//自营销人
+    SigningTypeMarNoel //无
+};
+
+typedef NS_ENUM(NSInteger, SigningStateType) { //入驻申请状态
+    SigningStateTypeUnCheck = 0, //未审核
+    SigningStateTypeCheckOn = 1,//审核中
+    SigningStateTypePass ,//审核通过
+    SigningStateTypeUnPass //审核不通过
+};
+
+typedef NS_ENUM(NSInteger, UserType) { //用户类型
+    UserTypeDefault = 0, //一般用户
+    UserTypeDesigner = 1,//设计师
+    UserTypeEnterprise,//企业
+    UserTypeMarketing//自营销
+};
+
+typedef NS_ENUM(NSInteger, CheckStatusType) { //作品审核状态
+    CheckStatusTypeNoel = 0, //未审核
+    CheckStatusTypeOnCheck = 1,//审核中
+    CheckStatusTypeOK,//通过
+    CheckStatusTypeUnPass//不通过
+};
+
+typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE){ //微信分享类型
+    
+    UMS_SHARE_TYPE_TEXT, //文本
+    UMS_SHARE_TYPE_IMAGE,//图片
+    UMS_SHARE_TYPE_IMAGE_URL,//图片地址
+    UMS_SHARE_TYPE_TEXT_IMAGE,//图文
+    UMS_SHARE_TYPE_WEB_LINK,//链接
+    UMS_SHARE_TYPE_MUSIC_LINK,//音乐地址
+    UMS_SHARE_TYPE_MUSIC,//音频文件
+    UMS_SHARE_TYPE_VIDEO_LINK,//视频地址
+    UMS_SHARE_TYPE_VIDEO,//视频文件
+    UMS_SHARE_TYPE_EMOTION,
+    UMS_SHARE_TYPE_FILE,//文件
+    UMS_SHARE_TYPE_MINI_PROGRAM
+};
+
+typedef NS_ENUM(NSInteger, FeedbackType) { //用户类型
+    FeedbackTypeCustomerService = 1,//联系客服
+    FeedbackTypeOpinion = 2, //意见反馈
+};
+
+typedef NS_ENUM(NSInteger, ItemType) {//H5类型
+    
+    H5ItmeViewController = 0,//H5
+    VideoItmeViewController = 1,//Video
+};
+
+typedef NS_ENUM(NSInteger, StatisticsType) {//统计数据类型
+    
+    StatisticsTypeH5Product = 0,//H5
+    StatisticsTypeHot = 1,//热点
+    StatisticsTypeFuns, //粉丝
+    StatisticsTypePop //粉丝
+};
+
+typedef NS_ENUM(NSInteger, GetProductListType) { //获取文章入口
+    GetProductListTypeHome = 0, //首页
+    GetProductListTypeSelect = 1,//选择作品
+    GetProductListTypeMyProduct //我的作品
+};
+
+typedef NS_ENUM(NSInteger, StatisticalDataType) { //获取数据统计入口
+    StatisticalDataTypeSingle = 0, //单个作品
+    StatisticalDataTypeAll,//全部 作品／热点／粉丝
+};
+
+typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
+    OrderStatusTypeReady = 0, //准备中
+    OrderStatusTypeGoOn = 1, //进行中
+    OrderStatusTypefail , //完成失败
+    OrderStatusTypeSucess , //完成
+    OrderStatusTypeStart, //开启中
+//    OrderStatusTypeStart, //开启中
+    OrderStatusTypeNoel , //全部
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
 typedef void (^VerificationFailure)(id obj);
+typedef void (^BindPhoneSuccess)(id obj);
+typedef void (^BindPhoneFailure)(id obj);
+typedef void (^ChangePassSuccess)(id obj);
+typedef void (^ChangePassFailure)(id obj);
 typedef void (^RegisteredSuccess)(id obj);
 typedef void (^RegisteredFailure)(id obj);
 typedef void (^UserInfoSuccess)(id obj);
@@ -97,6 +187,9 @@ typedef void (^DesignerDetailFailure)(id obj);
 typedef void (^DesignerProductListSuccess)(id obj);
 typedef void (^DesignerProductListFailure)(id obj);
 
+typedef void (^AddHotSuccess)(id obj);
+typedef void (^AddHotFailure)(id obj);
+
 typedef void (^HotlistSuccess)(id obj);
 typedef void (^HotlistFailure)(id obj);
 typedef void (^HotDetailSuccess)(id obj);
@@ -105,8 +198,11 @@ typedef void (^ProductDetailSuccess)(id obj);
 typedef void (^ProductDetailFailure)(id obj);
 typedef void (^HotCommentSuccess)(id obj);
 typedef void (^HotCommentFailure)(id obj);
-typedef void (^CommentHotSuccess)(id obj);
-typedef void (^CommentHotFailure)(id obj);
+typedef void (^CommentListSuccess)(id obj);
+typedef void (^CommentListFailure)(id obj);
+
+typedef void (^CommentSuccess)(id obj);
+typedef void (^CommentFailure)(id obj);
 
 typedef void (^HomeBannerSuccess)(id obj);
 typedef void (^HomeBannerFailure)(id obj);
@@ -114,11 +210,38 @@ typedef void (^MyProductListSuccess)(id obj);
 typedef void (^MyProductListFailure)(id obj);
 typedef void (^LeaveProductSuccess)(id obj);
 typedef void (^LeaveProductFailure)(id obj);
+typedef void (^SubmitFileSuccess)(id obj);
+typedef void (^SubmitFileFailure)(id obj);
+typedef void (^SigningSuccess)(id obj);
+typedef void (^SigningFailure)(id obj);
+typedef void (^CustomerServiceSuccess)(id obj);
+typedef void (^CustomerServiceFailure)(id obj);
+typedef void (^DeledeProductSuccess)(id obj);
+typedef void (^DeledeProductFailure)(id obj);
 
+typedef void (^StatisticsSuccess)(id obj);
+typedef void (^StatisticsFailure)(id obj);
+
+typedef void (^TradingListSuccess)(id obj);
+typedef void (^TradingListFailure)(id obj);
+typedef void (^EarningListSuccess)(id obj);
+typedef void (^EarningListFailure)(id obj);
+typedef void (^PopularizeSuccess)(id obj);
+typedef void (^PopularizeFailure)(id obj);
+
+typedef void (^UpdataProductSuccess)(id obj);
+typedef void (^UpdataProductFailure)(id obj);
+
+typedef void (^MessageListSuccess)(id obj);
+typedef void (^MessageListFailure)(id obj);
+
+typedef void (^MapLocationManagerSuccess)(id obj);//定位
+typedef void (^MapLocationManagerFailure)(id obj);//定位
 
 typedef void (^ErrorFailure)(id obj);
 
-
+@class UserModel;
+@class InfomationModel;
 @interface UserManager : NSObject
 /*----------------全局错误信息————————————————————————*/
 @property (nonatomic, copy) ErrorFailure  errorFailure;
@@ -130,6 +253,14 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取验证码————————————————————————*/
 @property (nonatomic, copy) VerificationSuccess verificationSuccess;
 @property (nonatomic, copy) VerificationFailure verificationFailure;
+
+/*----------------bindPhone————————————————————————*/
+@property (nonatomic, copy) BindPhoneSuccess bindPhoneSuccess;
+@property (nonatomic, copy) BindPhoneFailure bindPhoneFailure;
+
+/*----------------ChangePass————————————————————————*/
+@property (nonatomic, copy) ChangePassSuccess changePassSuccess;
+@property (nonatomic, copy) ChangePassFailure changePassFailure;
 
 /*----------------注册————————————————————————*/
 @property (nonatomic, copy) RegisteredSuccess registeredSuccess;
@@ -171,6 +302,10 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) DesignerProductListSuccess designerProductListSuccess;
 @property (nonatomic, copy) DesignerProductListFailure designerProductListFailure;
 
+/*----------------添加热点————————————————————————*/
+@property (nonatomic, copy) AddHotSuccess addHotSuccess;
+@property (nonatomic, copy) AddHotFailure addHotFailure;
+
 /*----------------热点列表————————————————————————*/
 @property (nonatomic, copy) HotlistSuccess hotlistSuccess;
 @property (nonatomic, copy) HotlistFailure hotlistFailure;
@@ -183,9 +318,13 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------热点评论列表————————————————————————*/
 @property (nonatomic, copy) HotCommentSuccess hotCommentSuccess;
 @property (nonatomic, copy) HotCommentFailure hotCommentFailure;
+/*----------------我的-评论列表————————————————————————*/
+@property (nonatomic, copy) CommentListSuccess commentListSuccess;
+@property (nonatomic, copy) CommentListFailure commentListFailure;
+
 /*----------------评论热点————————————————————————*/
-@property (nonatomic, copy) CommentHotSuccess commentHotSuccess;
-@property (nonatomic, copy) CommentHotFailure commentHotFailure;
+@property (nonatomic, copy) CommentSuccess commentSuccess;
+@property (nonatomic, copy) CommentFailure commentFailure;
 
 /*----------------Home轮播图————————————————————————*/
 @property (nonatomic, copy) HomeBannerSuccess homeBannerSuccess;
@@ -198,6 +337,49 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------作品留资————————————————————————*/
 @property (nonatomic, copy) LeaveProductSuccess leaveProductSuccess;
 @property (nonatomic, copy) LeaveProductFailure LeaveProductFailure;
+/*----------------提交base64文件————————————————————————*/
+@property (nonatomic, copy) SubmitFileSuccess submitFileSuccess;
+@property (nonatomic, copy) SubmitFileFailure submitFileFailure;
+/*----------------入驻————————————————————————*/
+@property (nonatomic, copy) SigningSuccess signingSuccess;
+@property (nonatomic, copy) SigningFailure signingFailure;
+/*----------------反馈和客服————————————————————————*/
+@property (nonatomic, copy) CustomerServiceSuccess customerServiceSuccess;
+@property (nonatomic, copy) CustomerServiceFailure customerServiceFailure;
+
+/*----------------反馈和客服————————————————————————*/
+@property (nonatomic, copy) DeledeProductSuccess deledeProductSuccess;
+@property (nonatomic, copy) DeledeProductFailure deledeProductFailure;
+
+/*----------------数据统计————————————————————————*/
+@property (nonatomic, copy) StatisticsSuccess statisticsSuccess;
+@property (nonatomic, copy) StatisticsFailure statisticsFailure;
+
+/*----------------交易记录————————————————————————*/
+@property (nonatomic, copy) TradingListSuccess tradingListSuccess;
+@property (nonatomic, copy) TradingListFailure tradingListFailure;
+
+/*----------------收益记录————————————————————————*/
+@property (nonatomic, copy) EarningListSuccess earningListSuccess;
+@property (nonatomic, copy) EarningListFailure earningListFailure;
+
+/*----------------推广管理————————————————————————*/
+@property (nonatomic, copy) PopularizeSuccess popularizeSuccess;
+@property (nonatomic, copy) PopularizeFailure popularizeFailure;
+
+/*----------------更行作品————————————————————————*/
+@property (nonatomic, copy) UpdataProductSuccess updataProductSuccess;
+@property (nonatomic, copy) UpdataProductFailure updataProductFailure;
+
+/*----------------消息获取————————————————————————*/
+@property (nonatomic, copy) MessageListSuccess messageListSuccess;
+@property (nonatomic, copy) MessageListFailure messageListFailure;
+/*----------------获取定位————————————————————————*/
+@property (nonatomic, copy) MapLocationManagerSuccess mapLocationManagerSuccess;
+@property (nonatomic, copy) MapLocationManagerFailure mapLocationManagerFailure;
+
+@property (nonatomic, strong) dispatch_source_t timer;
+@property (nonatomic, assign) NSInteger timers;
 
 + (instancetype)shareUserManager;
 
@@ -209,12 +391,69 @@ typedef void (^ErrorFailure)(id obj);
 - (BOOL)isLogin;
 
 /**
+ *  判断用户是否微信登录
+ *
+ *  @return YSE or No
+ */
+- (BOOL)isWechatLogin;
+
+/**
+ *  获取本用户
+ *
+ */
+- (UserModel*)crrentUserInfomation;
+
+/**
+ *   获取用户可编辑信息
+ *
+ *  @return YSE or No
+ */
+- (InfomationModel*)crrentInfomationModel;
+
+/**
+ *  获取本用户类型
+ *
+ */
+-(NSInteger)crrentUserType;
+
+/**
+ *  获取本用户id
+ *
+ */
+-(NSNumber *)crrentUserId;
+
+/**
  *  用户登录
  *
  *  @param userName 用户帐号
  *  @param password 密码
  */
 - (void)loginWithUserName:(NSString *)userName passWord:(NSString *)password;
+
+/**
+ *  微信授权后上传code到服务器
+ *
+ *  @param code 微信授权后的code
+ */
+-(void)wechatLoginWithCallBackCode:(NSString *)code;
+
+/**
+ *  绑定手机号码
+ *
+ *  @param mobili 手机号码
+ *  @param verificationCode 验证码
+ */
+- (void)bindPhoneWithMobili:(NSString *)mobili
+           verificationCode:(NSString *)verificationCode;
+
+/**
+ *  绑定手机号码
+ *
+ *  @param originalPass 旧密码
+ *  @param newPass 新密码
+ */
+- (void)changePassWithOriginalPass:(NSString *)originalPass
+                           newPass:(NSString *)newPass;
 
 /**
  *  用户登出
@@ -242,16 +481,17 @@ typedef void (^ErrorFailure)(id obj);
 
 /**
  *  获取用户信息
- *
+ *  @param user_type 用户类型
  */
-- (void)userInfomation;
+- (void)userInfomationWithUserType:(UserType)user_type;
 
 /**
  *  注册
  *
  *  @param parameters 需要修改的itme
  */
-- (void)updataInfoWithKeyValue:(NSDictionary *)parameters;
+- (void)updataInfoWithKeyValue:(NSDictionary *)parameters
+                      userType:(UserType)userType;
 
 /**
  *  重置
@@ -286,10 +526,14 @@ typedef void (^ErrorFailure)(id obj);
  *  @param type H5类型
  *  @param pageIndex 页
  *  @param pageCount 总数／页
+ *  @param tagList tag列表／首页必填
+ *  @param searchKey 搜索关键字／搜索必填
  */
 - (void)homeH5ListWithType:(H5ProductType )type
                  PageIndex:(NSInteger )pageIndex
-                 PageCount:(NSInteger )pageCount;
+                 PageCount:(NSInteger )pageCount
+                   tagList:(NSArray *)tagList
+                 searchKey:(NSString *)searchKey;
 
 /**
  *  tagList
@@ -320,10 +564,12 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param pageIndex 页
  *  @param pageCount 总数／页
+ *  @param searchKey 搜索关键字／页
  */
 - (void)designerlistWithPageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount
-                 designerListType:(DesignerListType)designerListType;
+                 designerListType:(DesignerListType)designerListType
+                        searchKey:(NSString *)searchKey;
 /**
  *  设计师详情
  *
@@ -341,6 +587,14 @@ typedef void (^ErrorFailure)(id obj);
                               PageCount:(NSInteger )pageCount;
 
 /**
+ *  添加热点
+ *
+ *  @param parameters 添加的内容
+ */
+- (void)addHotListWithParameters:(NSDictionary *)parameters;
+
+
+/**
  *  热点列表
  *
  *  @param type 文章类型
@@ -351,7 +605,8 @@ typedef void (^ErrorFailure)(id obj);
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
               PageCount:(NSInteger )pageCount
-     getArticleListType:(GetArticleListType)getArticleListType;
+     getArticleListType:(GetArticleListType)getArticleListType
+              searchKey:(NSString *)searchKey;
 
 /**
  *  热点详情
@@ -374,15 +629,27 @@ typedef void (^ErrorFailure)(id obj);
  *  获取热点评论列表
  *
  *  @param detail_id 热点详情 id
- *  @param pageIndex 页
- *  @param pageCount 总数／页
+ *  @param pageIndex 页 预留
+ *  @param pageCount 总数／页  预留
  */
 - (void)hotCommentWithHotDetailId:(NSString *)detail_id
                         PageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount;
 
 /**
- *  获取热点评论列表
+ *  获取我的作品评论列表
+ *
+ *  @param product_id 作品 id
+ *  @param pageIndex 页
+ *  @param pageCount 总数／页
+ */
+- (void)commentListWithProductId:(NSString *)product_id
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+
+/**
+ *  评论热点
  *
  *  @param Article_id 文章 id
  *  @param parent_id 回复评论ID
@@ -393,15 +660,31 @@ typedef void (^ErrorFailure)(id obj);
                           content:(NSString *)content;
 
 /**
+ *  评论作品
+ *
+ *  @param product_id 作品 id
+ *  @param parent_id 回复评论ID
+ *  @param content 回复内容
+ */
+- (void)commentProductWithHotProductId:(NSString *)product_id
+                              parentId:(NSString *)parent_id
+                               content:(NSString *)content;
+
+/**
  *  我的作品
  *
- *  @param Product_type 作品详情
+ *  @param product_type 作品详情
+ *  @param checkStatusType 审核状态
+ *  @param isShow 是否展示
  *  @param pageIndex 页
  *  @param pageCount 总数／页
  */
-- (void)myProductListWithProductType:(MyProductType )Product_type
+- (void)myProductListWithProductType:(MyProductType )product_type
+                     checkStatusType:(CheckStatusType)checkStatusType
+                              isShow:(NSInteger )isShow
                            PageIndex:(NSInteger )pageIndex
                            PageCount:(NSInteger )pageCount;
+
 
 /**
  *  作品留资
@@ -414,6 +697,127 @@ typedef void (^ErrorFailure)(id obj);
                         PageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount;
 
+/**
+ *  提交Base64文件
+ *
+ *  @param parameters 文件参数 Base64文件／尾缀
+ */
+- (void)submitImageWithParameters:(NSDictionary *)parameters;
 
+/**
+ *  提交文件  data
+ *
+ *  @param parameters 文件参数 Base64文件／尾缀
+ */
+- (void)submitFileWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  提交入驻申请
+ *
+ *  @param parameters 文件参数
+ *  @param signingType 申请类型
+ */
+- (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType;
+
+/**
+ *   查看入驻申请
+ *
+ */
+- (void)signingState;
+
+/**
+ *  提交意见反馈
+ *
+ *  @param content 提交内容
+ *  @param feedbackType 联系客服／意见反馈
+ */
+-(void)opinionCustomerServiceWithContent:(NSString *)content feedbackType:(FeedbackType)feedbackType;
+
+/**
+ *  删除作品
+ *
+ *  @param product_id 作品id
+ */
+-(void)deleteProductWithProductId:(NSString *)product_id;
+
+/**
+ *  数据统计
+ *
+ *  @param startDate  开始日期
+ *  @param endDate 结束日期
+ *  @param statisticsType 统计类型
+ */
+-(void)dataStatisticsWithStartDate:(NSString *)startDate
+                           endDate:(NSString *)endDate
+                    statisticsType:(StatisticsType)statisticsType;
+
+/**
+ *  收益记录
+ *
+ *  @param pageIndex 页
+ *  @param pageCount 条／页
+ */
+- (void)earningListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+/**
+ *  收益记录
+ *
+ *  @param pageIndex 页
+ *  @param pageCount 条／页
+ */
+- (void)tradingListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+/**
+ *  获取推广订单分页
+ *
+ *  @param user_id 用户id
+ *  @param order_status 订单状态
+ */
+- (void)popularizeListWithUserId:(NSNumber *)user_id
+                     orderStatus:(OrderStatusType )order_status
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+/**
+ *  获取推广订单分页
+ *
+ *  @param order_id 订单id
+ *  @param isAccept 是否接单
+ */
+- (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
+                             isAccept:(NSNumber *)isAccept;
+
+
+/**
+ *   更新作品
+ *
+ *  @param parameters 作品参数
+ */
+- (void)updataProductWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  获取消息列表
+ *
+ */
+-(void)messageList;
+
+/**
+ *  获取私信记录
+ *
+ *  @param user_id 用户id
+ */
+-(void)userMessageListWithId:(NSString *)user_id;
+
+
+/**
+ *  发送记录
+ *
+ *  @param user_id 发送对象用户id
+ *  @param content 发送消息
+ */
+
+-(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content;
 
 @end

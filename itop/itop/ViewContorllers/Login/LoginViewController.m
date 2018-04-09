@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "UIColor+CAGradientLayer.h"
+#import "InterfaceBase.h"
 
 @interface LoginViewController ()<UITextFieldDelegate,WXApiManagerDelegate>
 
@@ -17,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIButton *seeIcon;
+@property (weak, nonatomic) IBOutlet UIButton *backIcon;
 
 @end
 
@@ -28,12 +30,16 @@
 
 -(void)initView{
     
-    [_loginButton.layer addSublayer:[UIColor setGradualChangingColor:_loginButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    
+    _backIcon.hidden = _isLogin;
+    
+    [_loginButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginButton)];
     _loginButton.layer.cornerRadius = _loginButton.frame.size.height/2;
     _loginButton.layer.masksToBounds = YES;
     _accountTF.tag = 1;
     _passwordTF.tag = 2;
-
+    
+    [self setupSeeIconWithAnimation:YES];
 }
 
 -(void)initData{
@@ -54,25 +60,38 @@
 //登录
 - (IBAction)login:(UIButton *)sender {
     
-        [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
-        [UserManager shareUserManager].loginSuccess = ^(id obj){
-    
-            [UIManager goMianViewController];
-            
-            [[Global sharedSingleton]
-             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
-             andValue:_accountTF.text];
-            [[Global sharedSingleton]
-             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
-             andValue:_passwordTF.text];
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
 
-        } ;
+    [_accountTF resignFirstResponder];
+    [_passwordTF resignFirstResponder];
+    
+    if ([Global stringIsNullWithString:_accountTF.text] ||[Global stringIsNullWithString:_passwordTF.text]) {
+        
+        [self showToastWithMessage:@"账号或密码不能为空"];
+        return;
+    }
+    [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
+    [UserManager shareUserManager].loginSuccess = ^(id obj){
+        
+        [UIManager makeKeyAndVisible];
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
+         andValue:_accountTF.text];
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
+         andValue:_passwordTF.text];
+        
+    } ;
 }
 
 //微信登陆
 - (IBAction)weChatLogin:(UIButton *)sender {
     
-        [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
+    [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
                                             State:@"itop"
                                            OpenID:WECHAT_APP_ID
                                  InViewController:self];
@@ -91,23 +110,20 @@
     
     UIViewController *vc = [UIManager viewControllerWithName:@"ResetPasswordViewController"];
     [self.navigationController pushViewController:vc animated:YES];
-    [self hiddenNavigationController:NO];
-
+    [UIManager showVC:@"ResetPasswordViewController"];
 }
 
 //密码可见
 - (IBAction)visible:(UIButton *)sender {
-    
-//    BOOL b = sender.selected;
-    _seeIcon.selected = !sender.selected;
+
+    [self setupSeeIconWithAnimation:!sender.selected];
+}
+
+-(void)setupSeeIconWithAnimation:(BOOL)animation{
+
+    _seeIcon.selected = animation;
     _passwordTF.secureTextEntry = _seeIcon.selected;
-    if (_seeIcon.selected) {
-        
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
-        
-    } else {
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
-    }
+    [_seeIcon seePassword];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -137,16 +153,39 @@
 
 //微信登陆回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
-    NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
-    NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];
-    
-    NSLog(@"strTitle-%@:strMsg-%@",strTitle,strMsg);
-    
+
     if (response.errCode == 0) {
+
+        [[Global sharedSingleton]
+         setUserDefaultsWithKey:UD_KEY_LAST_WECHTLOGIN_CODE
+         andValue:response.code];
+        [[UserManager shareUserManager]wechatLoginWithCallBackCode:response.code];
+        [UserManager shareUserManager].loginSuccess = ^ (id obj){
+            
+            if ([obj isKindOfClass:[NSString class]]) {
+                
+                NSString *cacheKey = [NSString stringWithFormat:@"%@",obj];
+                [[Global sharedSingleton]
+                 setUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY
+                 andValue:cacheKey];
+                UIViewController *vc = [UIManager viewControllerWithName:@"BindPhoneViewController"];
+                [self.navigationController pushViewController:vc animated:YES];
+                [self hiddenNavigationController:NO];
+            } else {
+                
+                NSDictionary *dic = (NSDictionary *)obj;
+                UserModel *user = [[UserModel alloc]initWithDictionary:dic error:nil];
+                [[Global sharedSingleton]
+                 setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
+                 andValue:[user toJSONString]];
+                [UIManager goMianViewController];
+            }
+            NSLog(@"%@",obj);
+        };
         
-        [UIManager goMianViewController];
     } else {
-        
+        NSString *strTitle = [NSString stringWithFormat:@"Auth结果"];
+        NSString *strMsg = [NSString stringWithFormat:@"code:%@,state:%@,errcode:%d", response.code, response.state, response.errCode];
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:strTitle
                                                         message:strMsg
                                                        delegate:self
@@ -159,5 +198,9 @@
     //    [UIAlertView showWithTitle:strTitle message:strMsg sure:nil];
 }
 
+- (IBAction)back:(UIButton *)sender {
+    
+    [self back];
+}
 
 @end

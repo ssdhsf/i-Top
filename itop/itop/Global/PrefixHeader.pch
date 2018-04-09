@@ -14,7 +14,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import <UMMobClick/MobClick.h>
+//#import "MobClick.h"
 //#import <EMSDK.h>
 //#import <EaseUI.h>
 #import <JSONModel.h>
@@ -55,14 +55,42 @@
 #import "LoginMannager.h"
 #import "WebViewController.h"
 
+#import <BaiduMapAPI_Map/BMKMapComponent.h>
+#import <BaiduMapAPI_Location/BMKLocationComponent.h>
+#import <BaiduMapAPI_Utils/BMKUtilsComponent.h>
+#import <BMKLocationkit/BMKLocationComponent.h>
+#import <BMKLocationKit/BMKLocationAuth.h>
+
 #import "UIViewController+BarItem.h"
 #import "UIView+DYExtension.h"
 #import "UIColor+CAGradientLayer.h"
 #import "UIView+Extension.h"
 #import "UINavigationBar+Awesome.h"
 #import <UIAlertView+Blocks.h>
+#import "NSData+Base64.h"
+#import "UITextView+Placeholder.h"
+#import <UMShare/UMShare.h>
+#import <UMCommon/UMConfigure.h>
+#import <UMCommon/UMConfigure.h>
+#import <UMAnalytics/MobClick.h> 
+#import <UShareUI/UShareUI.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <WeiboSDK.h>
+#import "WXApi.h"
+#import "NSString+AttributedString.h"
+#import "UIButton+Timer.h"
+#import "UIButton+See.h"
 
 #import "ThemeNavigationController.h"
+#import "AlertView.h"
+#import "YZTagList.h"
+#import "SubmitFileManager.h"
+#import "MessagePhotoView.h"
+#import "ShearViewManager.h"
+#import "SegmentTapView.h"
+#import "OSHelper.h"
+#import "JPUSHService.h"
+#import "LCRegExpTool.h"
 
 #endif
 

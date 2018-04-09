@@ -19,9 +19,10 @@
 @property (nonatomic, strong) NSString <Optional>*head_img;
 @property (nonatomic, strong) NSString <Optional>*nickname;
 @property (nonatomic, strong) NSString <Optional>*level;
-@property (nonatomic, strong) NSString <Optional>*field;
+@property (nonatomic, strong) NSString <Optional>*field;//一般显示
 @property (nonatomic, strong) NSNumber <Optional>*follow;
 @property (nonatomic, strong) NSString <Optional>*follow_user_id;
+@property (nonatomic, strong) NSString <Optional>*user_type;//用户类型，关注查询显示
 
 
 //"id": 26,

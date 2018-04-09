@@ -24,6 +24,52 @@
 @property (nonatomic, strong) NSString <Optional>*praise_count;
 @property (nonatomic, strong) NSString <Optional>*title;
 @property (nonatomic, strong) NSString <Optional>*price;
+@property (nonatomic, strong) NSString <Optional>*commend;
+@property (nonatomic, strong) NSString <Optional>*check_status;
+@property (nonatomic, strong) NSString <Optional>*commend_datetime;
+@property (nonatomic, strong) NSString <Optional>*create_datetime;
+@property (nonatomic, strong) NSString <Optional>*descrip;
+@property (nonatomic, strong) NSString <Optional>*importance;
+@property (nonatomic, strong) NSString <Optional>*product_type;
+@property (nonatomic, strong) NSString <Optional>*publish_datetime;
+@property (nonatomic, strong) NSString <Optional>*sale_count;
+@property (nonatomic, strong) NSString <Optional>*share_description;
+@property (nonatomic, strong) NSString <Optional>*share_img;
+@property (nonatomic, strong) NSString <Optional>*share_title;
+@property (nonatomic, strong) NSString <Optional>*show;
+@property (nonatomic, strong) NSString <Optional>*update_datetime;
+@property (nonatomic, strong) NSString <Optional>*url;
+@property (nonatomic, strong) NSString <Optional>*user_id;
+
+
+//{
+//    "browse_count" = 38;
+//    "check_status" = 0;
+//    "collection_count" = 0;
+//    commend = 0;
+//    "commend_datetime" = "1900-01-01 00:00:00";
+//    "comment_count" = 0;
+//    "cover_img" = "http://192.168.7.100:8028/files/img/20180312/201803121107170898.png";
+//    "create_datetime" = "2018-03-05 11:40:52";
+//    description = test;
+//    id = 301;
+//    importance = 0;
+//    "praise_count" = 0;
+//    price = 4123123;
+//    "product_type" = 1;
+//    "publish_datetime" = "2018-01-26 14:51:11";
+//    "sale_count" = 0;
+//    "share_description" = "";
+//    "share_img" = "";
+//    "share_title" = "";
+//    show = 0;
+//    title = test;
+//    "update_datetime" = "2018-03-12 11:07:17";
+//    url = "http://m.creatby.com/v2/manage/book/ydcnxx/";
+//    "user_id" = 16;
+//}
+
+
 
 //"browse_count" = 0;
 //"collection_count" = 1;

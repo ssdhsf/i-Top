@@ -3,16 +3,30 @@ target 'itop' do
     
 pod 'JSONModel', '~> 1.1.0'
 pod 'AFNetworking', '~> 3.1.0'
-pod 'UMengAnalytics-NO-IDFA'
+#pod 'UMengAnalytics-NO-IDFA'
 pod 'MJRefresh', '~> 2.3.2'
 pod 'WechatOpenSDK'
 pod 'Reachability', '~> 3.2'
 pod 'MBProgressHUD', '1.1.0'
 pod 'Toast', '~> 2.4'
 pod 'BMKLocationKit'
+pod 'BaiduMapKit'
 pod 'SDWebImage', '~> 3.7.3'
 pod 'IQKeyboardManager'
 pod 'UIAlertView+Blocks', '~> 0.8.1'
+pod 'UITextView+Placeholder', '~> 1.0.6'
+pod 'JPush'
+#pod 'QRCode', '~> 2.0'
+#use_frameworks!
+#Uncomment this line if you're using Swift or would like to use dynamic frameworks
+
+
+pod 'UMCShare/UI'
+pod 'UMCShare/Social/ReducedWeChat' #分享精简版
+pod 'UMCShare/Social/Sina'
+pod 'UMCShare/Social/QQ'
+pod 'UMCAnalytics'
+
 
 #pod 'Charts'
 #use_frameworks!

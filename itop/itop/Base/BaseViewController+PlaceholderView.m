@@ -10,17 +10,49 @@
 
 @implementation BaseViewController (PlaceholderView)
 
-- (void)setHasData:(BOOL)hasData andFrame:(CGRect)frame{
+
+-(void)setHasData:(BOOL)hasData{
     
-    if (!self.hideView) {
-        self.hideView = [[UIView alloc] initWithFrame:frame];
-        self.hideView.tag=1;
-        [self.view addSubview:self.hideView];
-        self.showImg = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noDataBG"]];
-        self.showImg.frame = CGRectMake(40, 40, ScreenWidth-80, 130);
+    [self setisHasData:hasData noDataType:self.noDataType origin:self.originY];
+}
+
+- (void)setisHasData:(BOOL)isHasData
+          noDataType:(NoDataType)noDataType
+              origin:(NSInteger)originY{
+    
+    if (!self.showImg) {
+//        self.hideView = [[UIView alloc] initWithFrame:CGRectMake(0, originY, ScreenWidth, ScreenHeigh-originY)];
+//        self.hideView.tag=1;
+//        [self.view addSubview:self.hideView];
+        self.showImg = [[UIImageView alloc] init];
         
-        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, 170, ScreenWidth-80, 90)];
-        NSString *tipString = @"暂无数据";
+        switch (noDataType) {
+            case NoDataTypeDefult:
+                self.showImg.image =  [UIImage imageNamed:@"nothing"];
+                break;
+            case NoDataTypeProduct:
+                self.showImg.image =  [UIImage imageNamed:@"noproduction"];
+                break;
+
+            case NoDataTypeMessage:
+                self.showImg.image =  [UIImage imageNamed:@"nomassage"];
+                break;
+
+            case NoDataTypeBusiness:
+                self.showImg.image =  [UIImage imageNamed:@"nobusiness"];
+                break;
+                
+            case NoDataTypeLacation:
+                self.showImg.image =  [UIImage imageNamed:@"nolacation"];
+                break;
+                
+            default:
+                break;
+        }
+        self.showImg.frame = CGRectMake(60, self.originY, ScreenWidth-120, (ScreenWidth-120)*1.07f);
+        
+        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 90)];
+        NSString *tipString = @"木有数据";
         if(self.showViewType ==1)
         {
             tipString = @"暂无数据";
@@ -37,17 +69,17 @@
         self.tipsLab.textColor = [UIColor lightGrayColor];
         self.tipsLab.textAlignment = NSTextAlignmentCenter;
         self.tipsLab.font = [UIFont systemFontOfSize:19];
-        [self.hideView addSubview:self.tipsLab];
-        [self.hideView addSubview:self.showImg];
-        self.hideView.hidden = hasData;
-        self.showImg.hidden = hasData;
-        self.tipsLab.hidden = hasData;
+        [self.view addSubview:self.tipsLab];
+        [self.view addSubview:self.showImg];
+//        self.hideView.hidden = isHasData;
+        self.showImg.hidden = isHasData;
+        self.tipsLab.hidden = isHasData;
     } else {
         
-        [self.view addSubview:self.hideView];
-        self.hideView.hidden = hasData;
-        self.showImg.hidden = hasData;
-        self.tipsLab.hidden = hasData;
+//        [self.view addSubview:self.hideView];
+//        self.hideView.hidden = isHasData;
+        self.showImg.hidden = isHasData;
+        self.tipsLab.hidden = isHasData;
     }
 }
 

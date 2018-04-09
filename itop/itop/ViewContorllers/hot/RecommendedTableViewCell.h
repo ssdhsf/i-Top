@@ -17,5 +17,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
-- (void)setItmeOfModel:(H5List*)recommended;
+@property (weak, nonatomic) IBOutlet UIImageView *browseIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *goodIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *commentsIcon;
+@property (weak, nonatomic) IBOutlet UILabel *stateLabel;
+
+- (void)setItmeOfModel:(H5List*)recommended getArticleListType:(GetArticleListType)getArticleListType;
+
 @end

@@ -35,5 +35,18 @@
 #import "InfomationModel.h"
 #import "ProductModel.h"
 #import "ProductDetail.h"
+#import "SpecialityTag.h"
+#import "OtherInfo.h"
+#import "Marketing.h"
+#import "Message.h"
+#import "ShearInfo.h"
+#import "Statistical.h"
+#import "TradingList.h"
+#import "EarningList.h"
+#import "SearchLocation.h"
+#import "Popularize.h"
+#import "DirectMessages.h"
+#import "UserMessege.h"
+#import "SigningState.h"
 
 #endif /* AllModels_h */

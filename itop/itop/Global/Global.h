@@ -104,5 +104,12 @@
 #pragma mark 汉字转拼音
 + (NSString *)transform:(NSString *)chinese;
 
+#pragma mark 时间格式转换 (同一种格式转换 2018-1-1 12:11:40 &2018-1-1)
+-(NSString *)timeFormatTotimeStringFormatWithtime:(NSString*)time
+                                      willPattern:(NSString*)willPattern
+                                       didPattern:(NSString*)didPattern;
+
+#pragma mark 添加虚线边框
+-(CAShapeLayer *)buttonSublayerWithButton:(UIButton *)button;
 
 @end

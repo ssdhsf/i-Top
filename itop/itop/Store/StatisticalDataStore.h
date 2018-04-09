@@ -12,6 +12,11 @@
 
 + (instancetype)shearStatisticalDataStore;
 
-- (NSMutableArray *)configurationStatisticalDataWithData:(NSArray *)statisticalData;
+- (NSMutableArray *)configurationStatisticalItmeDataTitleWithUserType:(UserType )user_type itmeType:(StatisticsType)itme_type;
 
+//组织曲线模型；
+-(NSMutableArray *)itmeDataModelWithDictionarys:(NSArray *)Dictionarys
+                                     ThemeColor:(UIColor *)ThemeColor;
+
+-(NSArray *)coordinatesYElementsPiecewiseWithMaxCount:(NSInteger)maxCount;
 @end

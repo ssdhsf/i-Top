@@ -8,18 +8,14 @@
 
 #import "HotViewController.h"
 #import "H5ListViewController.h"
-#import "HotTableViewCell.h"
-#import "HotDataSource.h"
 #import "SegmentTapView.h"
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
-
-static NSString *const HotCellIdentifier = @"Hot";
+#import "MapLocationManager.h"
 
 @interface HotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
-@property (nonatomic, strong)HotDataSource *hotDataSource;
 @property (nonatomic, strong)SegmentTapView *segment;
 @property (nonatomic, assign)NSInteger itmeIndex;
 
@@ -34,7 +30,9 @@ static NSString *const HotCellIdentifier = @"Hot";
 @property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UILabel *loctionLable;
-@property (nonatomic, strong) NSString *loctionString;
+
+@property (nonatomic, assign) BOOL isSelectProvince;
+@property (nonatomic, strong) Province *selectProvince;
 
 @end
 
@@ -43,9 +41,13 @@ static NSString *const HotCellIdentifier = @"Hot";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+}
+
+-(void)initView{
+    
+    [super initView];
     [self initSegment];
     [self createScrollView];
-//    [self setNavBar];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -68,7 +70,6 @@ static NSString *const HotCellIdentifier = @"Hot";
 
 -(void)initNavigationBarItems{
     
-//    self.title = @"热点";
     [self setLeftBarItemString:@"" action:nil];
 }
 
@@ -102,12 +103,9 @@ static NSString *const HotCellIdentifier = @"Hot";
                 _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _recommendedVc.itmeType = itmeTitle;
                 _recommendedVc.getArticleListType = GetArticleListTypeHot;
-                _recommendedVc.pushControl = ^ (NSString *hotDetails_id){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.itemDetailType = HotItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                _recommendedVc.pushControl = ^ (H5List *h5){
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                     
                 };
             }
@@ -120,10 +118,10 @@ static NSString *const HotCellIdentifier = @"Hot";
                 _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _h5Vc.getArticleListType = GetArticleListTypeHot;
-                _h5Vc.pushH5DetailControl = ^ (NSString *hotDetails_id){
+                _h5Vc.pushH5DetailControl = ^ (H5List *h5){
                     HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
                     hotDetailsVc.itemDetailType = H5ItemDetailType;
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
+                    hotDetailsVc.hotDetail_id = h5.id;
                     hotDetailsVc.hidesBottomBarWhenPushed = YES;
                     [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
                 };
@@ -137,11 +135,9 @@ static NSString *const HotCellIdentifier = @"Hot";
                 _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeHot;
-                _informationVc.pushControl = ^ (NSString *hotDetails_id){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                _informationVc.pushControl = ^ (H5List *h5){
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                 };
             }
             [_scroll addSubview:_informationVc.view];
@@ -153,7 +149,7 @@ static NSString *const HotCellIdentifier = @"Hot";
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeHot;
                 
-                _videoVc.pushH5DetailControl = ^ (NSString *article){
+                _videoVc.pushH5DetailControl = ^ (H5List *h5){
                     
                     [[Global sharedSingleton]showToastInTop:weakSelf.view withMessage:@"暂时未开放"];
                 };
@@ -167,11 +163,9 @@ static NSString *const HotCellIdentifier = @"Hot";
                 _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
                 _localVc.itmeType = itmeTitle;
                 _localVc.getArticleListType = GetArticleListTypeHot;
-                _localVc.pushControl = ^ (NSString *hotDetails_id){
-                    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-                    hotDetailsVc.hotDetail_id = hotDetails_id;
-                    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-                    [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
+                _localVc.pushControl = ^ (H5List *h5){
+                    
+                    [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
                 };
             }
             [_scroll addSubview:_localVc.view];
@@ -184,6 +178,7 @@ static NSString *const HotCellIdentifier = @"Hot";
 
 -(void)initData{
 
+     _isSelectProvince = NO;
     [self.dataArray addObjectsFromArray:[NSArray arrayWithObjects:@"推荐",@"H5",@"资讯", @"视频", @"本地", nil]];
 }
 
@@ -201,7 +196,7 @@ static NSString *const HotCellIdentifier = @"Hot";
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     int index = scrollView.contentOffset.x/ViewWidth;
-    [self.segment selectIndex:index+1];
+    [self.segment selectIndex:index];
     [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
 //    _itmeIndex = index;
 }
@@ -237,19 +232,72 @@ static NSString *const HotCellIdentifier = @"Hot";
     self.loctionBtn.centerY = searchBtn.centerY;
     
     self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
-    //    self.loctionLable.centerY = searchBtn.centerY;
+//        self.loctionLable.centerY = searchBtn.centerY;
     self.loctionLable.font = [UIFont systemFontOfSize:9];
-    self.loctionLable .text = self.loctionString;
+//    self.loctionLable .text = self.loctionString;
     [navBgView addSubview: self.loctionLable];
     [navBgView addSubview:self.loctionBtn];
     
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.searchBtn.frame = CGRectMake(ScreenWidth-50 , 0, 25 , 25 );
     self.searchBtn.centerY = searchBtn.centerY;
-    [self.searchBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchDown];
+    [self.searchBtn addTarget:self action:@selector(hotSearch) forControlEvents:UIControlEventTouchDown];
     [navBgView addSubview:self.searchBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"hot_icon_location"] forState:UIControlStateNormal];
+    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
     [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
+    
+    if (!_isSelectProvince) {
+        if ([MapLocationManager sharedMapLocationManager].location == nil) {
+            
+            [[MapLocationManager sharedMapLocationManager] initMapLocation];
+            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+                
+                self.loctionLable .text = loction;
+            };
+            
+            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+                
+                [self showToastWithError:error];
+            };
+        } else {
+            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+        }
+    } else {
+        
+        self.loctionLable .text = _selectProvince.address;
+    }
+
+//    if ([MapLocationManager sharedMapLocationManager].location == nil) {
+//        
+//        [[MapLocationManager sharedMapLocationManager] initMapLocation];
+//        [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+//            
+//            self.loctionLable .text = loction;
+//        };
+//        [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+//            
+//            [self showToastWithError:error];
+//        };
+//
+//    } else {
+//        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+//    }
+}
+
+-(void)hotSearch{
+    
+    [UIManager showVC:@"SearchViewController"];
+}
+
+-(void)selectLoction{
+    
+    [UIManager showVC:@"ProvinceViewController"];
+    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
+        
+        _isSelectProvince = YES;
+        _selectProvince = city;
+    };
 }
 
 

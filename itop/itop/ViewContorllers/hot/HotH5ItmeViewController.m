@@ -57,7 +57,12 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]hotListWithType:_itemType == H5ItmeViewController? ArticleTypeH5 : ArticleTypeVideo PageIndex:1 PageCount:10 getArticleListType:_getArticleListType];
+    [[UserManager shareUserManager]hotListWithType:_itemType == H5ItmeViewController?
+                                    ArticleTypeH5 : ArticleTypeVideo
+                                         PageIndex:1
+                                         PageCount:10
+                                getArticleListType:_getArticleListType
+                                         searchKey:nil];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
         NSLog(@"%@",obj);
@@ -81,11 +86,11 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     
     CollectionViewCellHeaderConfigureBlock cellHeaderConfigureCellBlock = ^(UICollectionReusableView *headerView, NSIndexPath *indexPath){
         
-        
     };
     
     self.h5ListDataSource = [[H5ListDataSource alloc]initWithItems:self.dataArray
-                                                    cellIdentifier:H5ListCellIdentifier headerIdentifier:nil
+                                                    cellIdentifier:H5ListCellIdentifier
+                                                  headerIdentifier:nil
                                                 cellConfigureBlock:congfigureBlock
                                       cellHeaderConfigureCellBlock:cellHeaderConfigureCellBlock
                              ];
@@ -113,7 +118,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
   
 //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    _pushH5DetailControl(h5.id);
+    _pushH5DetailControl(h5);
 }
 
 @end

@@ -184,8 +184,8 @@
     [self creatShowAnimation];
 }
 
-- (void)creatShowAnimation
-{
+- (void)creatShowAnimation{
+    
     self.alertView.layer.position = self.center;
     self.alertView.transform = CGAffineTransformMakeScale(0.90, 0.90);
     [UIView animateWithDuration:0.25 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:1 options:UIViewAnimationOptionCurveLinear animations:^{

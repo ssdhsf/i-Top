@@ -10,4 +10,6 @@
 
 @interface DesignerSigningViewController : BaseViewController
 
+@property(strong, nonatomic)DesignerSigningState *designer;
+
 @end

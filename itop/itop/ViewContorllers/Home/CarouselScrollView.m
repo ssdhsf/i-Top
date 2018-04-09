@@ -69,6 +69,7 @@ static double kFGGScrollInterval = 5.0f;
         
         CGFloat xpos = i*self.bounds.size.width;
         UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(xpos, 0, self.bounds.size.width, self.bounds.size.height)];
+        
         //设置灰色底
         imv.image = _placeHolderImage;
         imv.userInteractionEnabled = YES;
@@ -87,6 +88,8 @@ static double kFGGScrollInterval = 5.0f;
         [imv sd_setImageWithURL:url placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
             }];
+            imv.clipsToBounds = YES;
+            imv.contentMode = UIViewContentModeScaleAspectFill;
     }
     if(_pageControl)
         _pageControl = nil;
@@ -108,6 +111,7 @@ static double kFGGScrollInterval = 5.0f;
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
+    _scroll.pagingEnabled = YES;
     _scroll = [[UIScrollView alloc]initWithFrame:self.bounds];
     [self addSubview:_scroll];
     _scroll.delegate = self;
@@ -117,13 +121,13 @@ static double kFGGScrollInterval = 5.0f;
     if (_imageURLArray.count%3 != 0) {
         page = page +1;
     }
-
+    _scroll.pagingEnabled=YES;
     _scroll.contentSize = CGSizeMake(page*ScreenWidth, self.bounds.size.height);
     
-    _scroll.pagingEnabled=NO;
     _scroll.showsHorizontalScrollIndicator = NO;
     for(int i = 0;i < _imageURLArray.count;i++){
         
+         H5List *h5 = _imageURLArray[i];
         UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(43/2+i*(self.frame.size.width/3), 5,  self.frame.size.width/3-43, (self.frame.size.width/3-43)*1.7)];
         //设置灰色底
         imv.image = _placeHolderImage;
@@ -144,11 +148,23 @@ static double kFGGScrollInterval = 5.0f;
         workLabel.font = [UIFont systemFontOfSize:12];
         workLabel.textColor = UIColorFromRGB(0xeb6ea5);
         
+        
+        NSInteger saleLabelWith = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5.sale_count] ? @"0" : h5.sale_count] fontSize:7 andHeight:10];
+        UILabel *saleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(imv.frame)+7, CGRectGetMaxY(imv.frame)-15, saleLabelWith+10, 10)];
+        
+        saleLabel.text = [NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5.sale_count] ? @"0" : h5.sale_count];
+        saleLabel.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+        saleLabel.layer.cornerRadius = 5;
+        saleLabel.layer.masksToBounds = YES;
+        saleLabel.textColor = [UIColor whiteColor];
+        saleLabel.font = [UIFont systemFontOfSize:7];
+        
         [_scroll addSubview:NameLabel];
         [_scroll addSubview:workLabel];
         [_scroll addSubview:imv];
-        H5List *h5 = _imageURLArray[i];;
-        [imv sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_scroll addSubview:saleLabel];
+       
+        [imv sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:H5PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
 
@@ -218,7 +234,7 @@ static double kFGGScrollInterval = 5.0f;
             [focus setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
             
         }
-        [focus.layer insertSublayer:[UIColor setGradualChangingColor:focus fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+        [focus.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(focus) atIndex:0];
         [focus setFont:[UIFont systemFontOfSize:12]];
         focus.tag = i;
         [focus addTarget:self action:@selector(focus:) forControlEvents:UIControlEventTouchDown];
@@ -277,7 +293,13 @@ static double kFGGScrollInterval = 5.0f;
             NSLog(@"%f--%f",cell.frame.origin.x,cell.frame.origin.y);
         } else {
         
-            cell.frame = CGRectMake((i%3)*(ScreenWidth/3)+((i/6)*ScreenWidth), ScreenWidth/3-102+19+5+9+5,  ScreenWidth/3, ScreenWidth/3-102+19+5+9+5);
+            CGFloat replenish = 0;
+            
+            if (ScreenWidth/3-102 < 23) {
+                
+                replenish = 20;
+            }
+            cell.frame = CGRectMake((i%3)*(ScreenWidth/3)+((i/6)*ScreenWidth), ScreenWidth/3-102+19+5+9+5+replenish,  ScreenWidth/3, ScreenWidth/3-102+19+5+9+5);
              NSLog(@"%f--%f",cell.frame.origin.x,cell.frame.origin.y);
         }
         
@@ -443,7 +465,7 @@ static double kFGGScrollInterval = 5.0f;
         [button setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
 
     }
-    [button.layer insertSublayer:[UIColor setGradualChangingColor:button fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [button.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(button) atIndex:0];
     button.layer.masksToBounds = YES;
     button.layer.cornerRadius = 2;
 }

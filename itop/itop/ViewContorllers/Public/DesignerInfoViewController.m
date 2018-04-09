@@ -11,6 +11,7 @@
 #import "H5ListStore.h"
 #import "H5ListDataSource.h"
 #import "H5ListCollectionViewCell.h"
+#import "DirectMessagesViewController.h"
 
 #define HEADER_TEXTHIGHT 13
 #define HEADER_TEXTWIDTH 100
@@ -74,7 +75,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 -(void)initData{
     
     [super initData];
-    [self showRefresh];
+    [self refreshData];
 }
 
 -(void)refreshData{
@@ -84,11 +85,16 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         
         _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
         [self setSubViewsValue];
-        
+        [self showRefresh];
+        self.page_no = 1;
         [[UserManager shareUserManager] designerProductListWithDesigner:_desginer_id PageIndex:self.page_no PageCount:10];
-        [UserManager shareUserManager].designerProductListSuccess = ^(id obj){
-            
-            [self listDataWithListArray:[[H5ListStore shearH5ListStore]configurationMenuWithMenu:(NSArray *)obj] page:self.page_no];
+        [UserManager shareUserManager].designerProductListSuccess = ^(NSArray * obj){
+          
+            if (obj.count == 0) {
+                self.originY = 230;
+            }
+
+            [self listDataWithListArray:[[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] page:self.page_no];
             
         };
         
@@ -151,7 +157,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     NSLog(@"%@",bgView);
 
     //    bgView.backgroundColor = [UIColor redColor];
-    [bgView.layer addSublayer:[UIColor setGradualChangingColor:bgView fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [bgView.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(bgView)];
 /*-------------------*/
     
     UIView *iconBgView = [UIView new];
@@ -214,10 +220,10 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     [_backButton mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(20);
         make.top.mas_equalTo(40);
-        make.width.mas_equalTo(7);
-        make.height.mas_equalTo(14);
+        make.width.mas_equalTo(25);
+        make.height.mas_equalTo(25);
     }];
-    [_backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
+    [_backButton setImage:[UIImage imageNamed:@"nav_icon_back"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     NSLog(@"%f",ScreenWidth *0.285);
 /*-------------------*/
@@ -311,7 +317,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.height.mas_equalTo(HEADER_TEXTHIGHT);
     }];
     [_focusButton addTarget:self action:@selector(focus) forControlEvents:UIControlEventTouchDown];
-     [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+     [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
     [_focusButton setTitle:@"关注" forState:UIControlStateNormal];
@@ -326,8 +332,8 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.width.mas_equalTo(40);
         make.height.mas_equalTo(HEADER_TEXTHIGHT);
     }];
-    [_massageButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
-    [_massageButton.layer addSublayer:[UIColor setGradualChangingColor:_massageButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_massageButton addTarget:self action:@selector(message) forControlEvents:UIControlEventTouchDown];
+    [_massageButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_massageButton)];
     [_massageButton setTitle:@"私信" forState:UIControlStateNormal];
     _massageButton.layer.masksToBounds = YES;
     _massageButton.layer.cornerRadius = 2;
@@ -356,9 +362,17 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
         [_focusButton setTitle:@"关注" forState:UIControlStateNormal];
     }
-    [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
+}
+
+-(void)message{
+    
+    DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+    vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
+    vc.otherUser_name = _designerInfo.nickname;
+    [UIManager pushVC:vc];
 }
 
 -(void)focus{
@@ -379,5 +393,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     };
 }
 
+//DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+//vc.otherUser_id = message.user_id;
+//vc.otherUser_name = message.nickname;
+//[UIManager pushVC:vc];
 
 @end

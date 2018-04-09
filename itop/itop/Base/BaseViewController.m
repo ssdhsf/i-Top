@@ -24,8 +24,8 @@
     [self.navigationController.navigationBar setTitleTextAttributes:
      @{NSFontAttributeName:[UIFont systemFontOfSize:17],
        NSForegroundColorAttributeName:UIColorFromRGB(0x434a5c)}];
-    [self setLeftCustomBarItem:@"icon_back" action:@selector(back)];
-        [self hideNavigationBlackLine];
+    [self setLeftCustomBarItem:@"nav_icon_back" action:@selector(back)];
+    [self hideNavigationBlackLine];
     [self addSwipeBack];
     [self initData];
     [self initView];
@@ -45,7 +45,7 @@
     }
 #endif
     self.wantsFullScreenLayout = NO;
- 
+     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,6 +69,21 @@
     NSString *className= NSStringFromClass(self.class);
     [MobClick endLogPageView:className];
      self.navigationController.interactivePopGestureRecognizer.enabled = YES;
+}
+
+- (void)registeredkeyBoardNSNotificationCenter{
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidShow:) name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidHide:) name:UIKeyboardDidHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+}
+
+
+-(void)registeredpushNotification{
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontReceivePushNotificationAlert:) name:JPUSH_Notification_ShowNotice object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundReceiveClickPushNotificationAlert:) name:JPUSH_Notification_PresentView object:nil];
 }
 
 #pragma mark - 初始化数据,由子类重写改方法
@@ -132,6 +147,40 @@
     }
     return nil;
 }
+
+#pragma mark 键盘弹出
+- (void)keyBoardDidShow:(NSNotification *)notification{
+    
+    //获取通知对象
+}
+
+#pragma mark 键盘将要收起
+- (void)keyBoardWillHide:(NSNotification *)notification{
+    
+}
+
+#pragma mark 键盘已经收起
+- (void)keyBoardDidHide:(NSNotification *)notification{
+    
+}
+
+#pragma mark 键盘将要弹出
+- (void)keyBoardWillShow:(NSNotification *)notification{
+    
+}
+
+-(void)fontReceivePushNotificationAlert:(NSNotification *)notification{
+    
+    
+}
+
+-(void)backgroundReceiveClickPushNotificationAlert:(NSNotification *)notification{
+    
+    
+}
+
+
+
 
 #pragma mark - 返回
 - (void)back {

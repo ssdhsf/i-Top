@@ -107,30 +107,15 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-    
-    if (_getH5ListType == GetH5ListTypeProduct) {
+    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey];
+    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
-        [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10];
-        [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
-            
-            [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
-        };
-        
-       
-    } else {
-        
-        [[UserManager shareUserManager]tagH5ListWithType:_tagH5LisType PageIndex:self.page_no PageCount:10];
-        [UserManager shareUserManager].tagListSuccess = ^(NSArray *arr){
-          
-             [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
-        };
-    }
-    
+        [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
+    };
     [UserManager shareUserManager].errorFailure = ^ (id obj){
         
         [self collectionEndRefreshing];
     };
-
 }
 
 -(void)steupCollectionView{
@@ -173,11 +158,14 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
 //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
+    
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
-    hotDetailsVc.hotDetail_id = h5.id;
-    hotDetailsVc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:hotDetailsVc animated:YES];
+    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+//    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
+//    hotDetailsVc.hotDetail_id = h5.id;
+//    hotDetailsVc.itemDetailType = H5ItemDetailType;
+//    hotDetailsVc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:hotDetailsVc animated:YES];
 
 }
 

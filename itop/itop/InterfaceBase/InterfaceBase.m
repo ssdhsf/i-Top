@@ -59,7 +59,15 @@
                 completion:(completion_t)completion
                      failure:(failure_t)failure
 {
-    NSString *url = [self urlWithPath:api];
+    
+    NSString *url;
+    
+    if ([api containsString:WX_BASE_URL]) {
+        
+        url = api;
+    } else {
+        url = [self urlWithPath:api];
+    }
 //    if ([GVUserDefaults standardUserDefaults].userToken) {
 //        url = [NSString stringWithFormat:@"%@?token=%@", [self urlWithPath:api], [GVUserDefaults standardUserDefaults].userToken];
 //    }
@@ -82,6 +90,9 @@
                 }
                 
                 NSDictionary *resultObject = [responseDict objectForKey:@"data"];
+                if (resultObject == nil) {
+                    resultObject = responseDict;
+                }
                 NSInteger code = [[responseDict objectForKey:@"code"] integerValue];
                 NSString *message = [responseDict objectForKey:@"message"];
                 
@@ -101,12 +112,12 @@
     };
     
     AFHTTPSessionManager *manager = [ApiBase sharedSingleton].sharedManager;
-//    NSString *cacheCookie = [[Global sharedSingleton]getUserDefaultsWithKey:UD_CACHE_COOKIE];
+    NSString *cacheCookie = [[Global sharedSingleton]getUserDefaultsWithKey:UD_CACHE_COOKIE];
     
-//    if (cacheCookie != nil) {
-//       
-//        [manager.requestSerializer setValue:cacheCookie forHTTPHeaderField:@"Cookie"];
-//    }
+    if (cacheCookie != nil) {
+       
+        [manager.requestSerializer setValue:cacheCookie forHTTPHeaderField:@"Cookie"];
+    }
 
     /*
      * 使用非认证的SSL证书时，需要添加此处理
@@ -136,8 +147,8 @@
                    failure:(void (^)(NSError * error))failure{
     
     completion_t _completion = ^(id resultObject, NSInteger code, NSString *description) {
-        if (code == SUCCESS_RESULT) {
-
+        if (code == SUCCESS_RESULT || code == WECHTLOGINSUCCESS_RESULT) {
+ 
             completion(resultObject);
             
         } else {
@@ -159,6 +170,38 @@
     };
     
     [self requestDataWithApi:api andRequestType:@"POST" andParameters:parameters completion:_completion failure:_failure];
+    
+}
+
+- (void)requestWeChatDataWithApi:(NSString *)api
+                      parameters:(NSDictionary *)parameters
+                      completion:(void (^)(id object))completion
+                         failure:(void (^)(NSError * error))failure{
+    
+    completion_t _completion = ^(id resultObject, NSInteger code, NSString *description) {
+        if (code == 0) {
+            
+            completion(resultObject);
+            
+        } else {
+            //
+            completion([NSError errorWithDomain:description code:code userInfo:nil]);
+        }
+    };
+    
+    failure_t _failure = ^(NSError *error) {
+        
+        completion(error);
+        NSLog(@"%ld",error.code);
+        if (error.code == -1011) {
+            
+            NSDictionary *dic = @{ERROR_CODE :@(error.code)};
+            [[NSNotificationCenter defaultCenter]postNotificationName:Notification_LogoutView object:self userInfo:dic];
+        }
+        
+    };
+    
+    [self requestDataWithApi:api andRequestType:API_REQUEST_TYPE_GET andParameters:parameters completion:_completion failure:_failure];
     
 }
 

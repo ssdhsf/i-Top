@@ -238,7 +238,7 @@
   [dateFormatter setDateFormat:pattern];
   NSLocale* locale = [NSLocale localeWithLocaleIdentifier: @"zh-CN"];
   [dateFormatter setLocale: locale];
-  NSDate *date = [dateFormatter dateFromString:pattern];
+  NSDate *date = [dateFormatter dateFromString:string];
   return date;
 }
 
@@ -404,6 +404,31 @@
     return [pinYin substringToIndex:1];
 }
 
+-(NSString *)timeFormatTotimeStringFormatWithtime:(NSString*)time
+                                      willPattern:(NSString*)willPattern
+                                       didPattern:(NSString*)didPattern{
+    
+    NSDate *date =  [self dateFromString:time pattern:willPattern];
+    NSString *dateString = [self stringFromDate:date pattern:didPattern];
+    return dateString;
+    
+}
+
+-(CAShapeLayer *)buttonSublayerWithButton:(UIButton *)button{
+    
+    CAShapeLayer *borderLayer = [CAShapeLayer layer];
+    borderLayer.bounds = CGRectMake(0, 0, button.size.width, button.size.height);//虚线框的大小
+    borderLayer.position = CGPointMake(CGRectGetMidX(button.bounds),CGRectGetMidY(button.bounds));//虚线框锚点
+    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;//矩形路径
+    borderLayer.lineWidth = 0.5/[[UIScreen mainScreen] scale];//虚线宽度
+    //虚线边框
+    borderLayer.lineDashPattern = @[@6, @3];
+    //实线边框
+    //    borderLayer.lineDashPattern = nil;
+    borderLayer.fillColor = [UIColor clearColor].CGColor;
+    borderLayer.strokeColor = [UIColor grayColor].CGColor;
+    return borderLayer;
+}
 
 
 @end

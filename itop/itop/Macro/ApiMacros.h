@@ -21,6 +21,9 @@
  */
 // 调用成功的返回码
 #define SUCCESS_RESULT 200
+
+// 微信登陆成功的返回码
+#define WECHTLOGINSUCCESS_RESULT 201
 //错误编码
 #define ERROR_CODE @"error_code"
 

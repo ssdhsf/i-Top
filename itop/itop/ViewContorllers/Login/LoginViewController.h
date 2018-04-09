@@ -10,4 +10,6 @@
 
 @interface LoginViewController : BaseViewController
 
+@property (assign, nonatomic)BOOL isLogin;
+
 @end

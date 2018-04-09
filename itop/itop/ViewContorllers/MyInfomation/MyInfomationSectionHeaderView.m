@@ -69,9 +69,6 @@
     if (section == 0 ) {
         
         UIButton *info = UIButton.new;
-        [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
-        [info addTarget:self action:@selector(nextInfomation:) forControlEvents:UIControlEventTouchDown];
-        //        divisionView.image = [UIImage imageNamed:@"icon_more"];
         [self addSubview:info];
         [info mas_makeConstraints:^(MASConstraintMaker *make){
             make.centerX.mas_equalTo(self);
@@ -83,7 +80,6 @@
         
         UILabel *userNameLabel = [UILabel new];
         userNameLabel.textAlignment = NSTextAlignmentCenter;
-        userNameLabel.text = @"小红帽";
         [self addSubview:userNameLabel];
         [userNameLabel mas_makeConstraints:^(MASConstraintMaker *make){
             make.centerX.mas_equalTo(self);
@@ -91,6 +87,30 @@
             make.height.mas_equalTo(21);
             make.top.mas_equalTo(163);
         }];
+        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
+        if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {
+            
+            NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [info setImage:info.imageView.image forState:UIControlStateNormal];
+            }];
+            userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].name;
+        }else if ([[UserManager shareUserManager]crrentUserInfomation] != nil) {
+            NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+                
+                [info setImage:info.imageView.image forState:UIControlStateNormal];
+            }];
+        } else {
+            
+             [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
+             userNameLabel.text = @"点击登陆";
+        }
+       
+        [info addTarget:self action:@selector(nextInfomation:) forControlEvents:UIControlEventTouchDown];
+        //        divisionView.image = [UIImage imageNamed:@"icon_more"];
+        
     }
     _titleLbl = UILabel.new;
     [self addSubview:_titleLbl];

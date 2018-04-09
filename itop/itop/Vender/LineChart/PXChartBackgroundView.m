@@ -212,20 +212,20 @@ static char OperationKey;
             if ([pointItem respondsToSelector:@selector(px_pointValueColor)]) {
                 titleColor = [pointItem px_pointValueColor];
             }
-            [titlebutton setTitleColor:titleColor forState:UIControlStateNormal];
-            titlebutton.titleLabel.font = pFont;
-            titlebutton.backgroundColor = [UIColor clearColor];
-            titlebutton.tag = j;
-            titlebutton.userInteractionEnabled = YES;
-            
-            titlebutton.frame = CGRectMake(pointCenterX - buttonSize.width/2,
-                                           pointCenterY - CGRectGetHeight(pointButton.frame)/2-5-buttonSize.height,
-                                           buttonSize.width,
-                                           buttonSize.height);
-            [titlebutton actionWithEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
-                [weakSelf pointDidSelect:i subIndex:j];
-            }];
-            [self addSubview:titlebutton];
+//            [titlebutton setTitleColor:titleColor forState:UIControlStateNormal];
+//            titlebutton.titleLabel.font = pFont;
+//            titlebutton.backgroundColor = [UIColor clearColor];
+//            titlebutton.tag = j;
+//            titlebutton.userInteractionEnabled = YES;
+//            
+//            titlebutton.frame = CGRectMake(pointCenterX - buttonSize.width/2,
+//                                           pointCenterY - CGRectGetHeight(pointButton.frame)/2-5-buttonSize.height,
+//                                           buttonSize.width,
+//                                           buttonSize.height);
+//            [titlebutton actionWithEvent:UIControlEventTouchUpInside withBlock:^(id sender) {
+//                [weakSelf pointDidSelect:i subIndex:j];
+//            }];
+//            [self addSubview:titlebutton];
             
             //draw lines
             [path addLineToPoint:CGPointMake(pointCenterX, pointCenterY)];

@@ -31,10 +31,10 @@
     self.designerImage.layer.masksToBounds = YES;
     
     self.designerNameLabel.text = designerList.nickname;
-    self.designerProfessionalLabel.text = designerList.field;
+    
     
     [self.focusButton addTarget:self action:@selector(focus:) forControlEvents:UIControlEventTouchDown];
-    [self.focusButton.layer insertSublayer:[UIColor setGradualChangingColor:self.focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [self.focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     self.focusButton.tag = index;
     self.focusButton.layer.cornerRadius = 2;
     self.focusButton.layer.masksToBounds = YES;
@@ -42,9 +42,30 @@
     if (designerListType == DesignerListTypeFocus) {
        
         [self.focusButton setTitle:FOCUSSTATETITLE_FOCUS forState:UIControlStateNormal];
+        
+    
+        switch ([designerList.user_type integerValue]) {
+            case 0:
+                self.designerProfessionalLabel.text = @"一般用户";
+                break;
+            case 1:
+                self.designerProfessionalLabel.text = @"设计师";
+                break;
+            case 2:
+                self.designerProfessionalLabel.text = @"企业";
+                break;
+            case 3:
+                self.designerProfessionalLabel.text = @"自营销人";
+                break;
+                
+            default:
+                break;
+        }
+        
     } else {
         
         [self.focusButton setTitle:[designerList.follow integerValue] == FocusTypeTypeCancelFocus ? FOCUSSTATETITLE_NOFOCUS : FOCUSSTATETITLE_FOCUS forState:UIControlStateNormal];
+        self.designerProfessionalLabel.text = designerList.field;
     }
 }
 
@@ -66,12 +87,10 @@
         [_focusButton setTitle:FOCUSSTATETITLE_NOFOCUS forState:UIControlStateNormal];
         
     }
-    [_focusButton.layer insertSublayer:[UIColor setGradualChangingColor:_focusButton fromColor:@"FFA5EC" toColor:@"DEA2FF"] atIndex:0];
+    [_focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     _focusButton.layer.masksToBounds = YES;
     _focusButton.layer.cornerRadius = 2;
 }
-
-
 
 
 @end

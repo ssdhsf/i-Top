@@ -10,15 +10,14 @@
 
 @interface LoginMannager : NSObject
 
-
 +(instancetype)sheardLoginMannager;
 
 //- (NSDictionary *) parametersToApiWithUserName:(NSString *)userNameStr password:(NSString*)passwordStr;
 //登出时清楚数据
 - (void)clearLoginUserMassage ;
-//登出即时通讯
-//- (void)logout;
+
+
 //返回登录页面
-- (void)presentViewLoginViewController;
+//- (void)presentViewLoginViewController;
 
 @end

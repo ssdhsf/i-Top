@@ -114,7 +114,6 @@
 
 }
 
-
 - (void)setMenuTitles:(NSArray *)titlesArr rowHeight:(CGFloat)rowHeight{
     
     if (self == nil) {
@@ -253,7 +252,7 @@
         cell.selectionStyle          = UITableViewCellSelectionStyleNone;
         
         UIView * line = [[UIView alloc] initWithFrame:CGRectMake(0, _rowHeight -0.5, VIEW_WIDTH(cell), 0.5)];
-        [line.layer addSublayer:[UIColor setGradualChangingColor:line fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+        [line.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(line)];
 
 //        line.backgroundColor = [UIColor blackColor];
         [cell addSubview:line];

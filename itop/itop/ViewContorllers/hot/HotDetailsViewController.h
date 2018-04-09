@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, ItemDetailType) {
     
     H5ItemDetailType = 0,
     HotItemDetailType = 1,
+    CommentListItemDetailType
 };
 
 @interface HotDetailsViewController : BaseTableViewController

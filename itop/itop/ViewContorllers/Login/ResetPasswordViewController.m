@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIImageView *verificationCodeImage;
+@property (weak, nonatomic) IBOutlet UIButton *passwordVisibleButton;
 
 
 @end
@@ -34,20 +35,22 @@
     
     [super viewWillAppear:animated];
     [self hiddenNavigationController:NO];
+    [self hiddenNavigafindHairlineImageView:YES];
     self.navigationController.navigationBar.translucent = NO;
 }
 
 -(void)initView{
     
     [super initView];
-    [_verificationCodeButton.layer addSublayer:[UIColor setGradualChangingColor:_verificationCodeButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_verificationCodeButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_verificationCodeButton)];
     _verificationCodeButton.layer.cornerRadius = _verificationCodeButton.frame.size.height/2;
     _verificationCodeButton.layer.masksToBounds = YES;
     
-    [_resetFnishButton.layer addSublayer:[UIColor setGradualChangingColor:_resetFnishButton fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    [_resetFnishButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_resetFnishButton)];
     _resetFnishButton.layer.cornerRadius = _resetFnishButton.frame.size.height/2;
     _resetFnishButton.layer.masksToBounds = YES;
     
+    [self setupSeeIconWithAnimation:YES];
 }
 
 -(void)initData{
@@ -65,6 +68,27 @@
 
 - (IBAction)resetFnish:(UIButton *)sender {
     
+    if ([Global stringIsNullWithString:_accountTF.text]) {
+        [self showToastWithMessage:@"请输入手机号码"];
+        return;
+    }
+    
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        [self showToastWithMessage:@"请输入验证码"];
+        return;
+    }
+    
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        [self showToastWithMessage:@"请输入密码"];
+        return;
+    }
+    
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
+    
     [[UserManager shareUserManager]resetPasswordWithUserName:_accountTF.text passWord:_passwordTF.text verificationCode:_verificationCodeTF.text];
     [UserManager shareUserManager].resetPasswordSuccess = ^(id obj){
         
@@ -75,17 +99,42 @@
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
-    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+    [_verificationCodeTF  resignFirstResponder];
+    [_accountTF  resignFirstResponder];
+    [_passwordTF resignFirstResponder];
+    if([Global stringIsNullWithString:_accountTF.text]) {
         
+        [self showToastWithMessage:@"请输入手机号码"];
+        return;
+    }
+    
+    if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
+        [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
+        [UserManager shareUserManager].verificationSuccess = ^(id obj){
+            
+            [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+            NSLog(@"%@",obj);
+            [_verificationCodeButton scheduledGCDTimer];
+        };
         
-        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-        NSLog(@"%@",obj);
-    };
-
+    }else {
+        
+        [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
+        return;
+    }
 }
 
 - (IBAction)passwordVisible:(UIButton *)sender {
+    
+    [self setupSeeIconWithAnimation:!sender.selected];
+
+}
+
+-(void)setupSeeIconWithAnimation:(BOOL)animation{
+    
+    _passwordVisibleButton.selected = animation;
+    _passwordTF.secureTextEntry = _passwordVisibleButton.selected;
+    [_passwordVisibleButton seePassword];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{

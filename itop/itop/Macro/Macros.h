@@ -13,6 +13,10 @@
 
 // 缓存最后登录帐户信息
 #define UD_KEY_LAST_LOGIN_USERINFOMATION      @"UserInfomation"   // 登陆返回信息
+#define INFOMATION_EDIT_MODEL(__USER_ID)      [NSString stringWithFormat:@"InfomationModel_%@",__USER_ID]         // 登陆返回信息
+
+#define UD_KEY_LAST_WECHTLOGIN_CODE      @"Wechat_code"   // 微信登陆返回信息
+#define WECHTLOGIN_CACHE_KEY      @"Cache_key"   // 微信登陆返回信息
 #define UD_KEY_LAST_LOGIN_USERNAME            @"LastLoginUsername"//账户名
 #define UD_KEY_LAST_LOGIN_PASSWORD            @"LastLoginPassword"//密码
 #define UD_CACHE_COOKIE      @"cookie"   // 登陆返回信息
@@ -21,8 +25,8 @@
 #define ScreenWidth [UIScreen mainScreen].bounds.size.width
 #define ScreenHeigh [UIScreen mainScreen].bounds.size.height
 //适配
-#define  KadapterW   [UIScreen mainScreen].bounds.size.width/375
-#define  KadapterH   [UIScreen mainScreen].bounds.size.height/667
+#define  KadapterW   ScreenWidth/375
+#define  KadapterH   ScreenHeigh/667
 
 //当前视图控制器View的宽度高度
 #define ViewWidth self.view.frame.size.width
@@ -34,6 +38,12 @@
 /** 初始化TableView Frame */
 #define TableViewFrame(__X, __Y, __Width, __Heigh) CGRectMake(__X, __Y, __Width, __Heigh)
 
+
+#define REGISTRATION_KEY @"regist_key"
+#define Notification_REGISTRATION_ID @"registration_id"
+#define JPUSH_REGISTRATION_ID @"RegistrationID"
+#define JPUSH_Notification_PresentView       @"PresentView"
+#define JPUSH_Notification_ShowNotice        @"ShowNotice"
 
 //颜色配置
 #define RGB(__R, __G, __B)\
@@ -53,6 +63,8 @@
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 #define XGBVColor UIColorFromRGB(0xf5f9fb)
+
+#define DEFULT_BUTTON_CAGRADIENTLAYER(__BUTTON) [UIColor setGradualChangingColor: __BUTTON fromColor:@"FFA5EC" toColor:@"B499F8"]
 
 //背景浅灰
 #define XBackGrayColor                                                         \
@@ -80,6 +92,9 @@
 #define TIME_PATTERN_day_stye    @"yyyy/MM/dd"
 #define TIME_PATTERN_minute_stye @"yyyy/MM/dd HH:mm"
 
+#define TIME_PATTERN_month_day    @"MM-dd"
+
+
 // 获取ApplicationDelegate
 #define ApplicationDelegate  (AppDelegate *)[UIApplication sharedApplication].delegate
 
@@ -89,16 +104,25 @@
 // 字母数字
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
-
 //背景图
 #define PlaceholderImage [UIImage imageNamed:@"default_man"]
 #define H5PlaceholderImage [UIImage imageNamed:@"h5"]
-
 
 #define FOCUSSTATETITLE_NOFOCUS @"关 注"
 #define FOCUSSTATETITLE_FOCUS @"已关注"
 #define FOCUSSTATETITLE_SUCCESSFOCUS @"关注成功"
 #define FOCUSSTATETITLE_CANCELFOCUS @"已取消关注"
+
+#define WX_ACCESS_TOKEN @"WX_access_token"
+#define WXOPENID @"WX_open_id"
+#define WX_REFRESH_TOKEN @"WX_refresh_token"
+#define WX_BASE_URL @"https://api.weixin.qq.com"
+
+
+#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
+#define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
+#define TIPSMESSEGEADD(__CONTENT) [NSString stringWithFormat:@"请添加%@",__CONTENT]
+
 
 //#define  WeakSelf() __weak typeof(self) weakSelf = self;
 

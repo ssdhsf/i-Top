@@ -21,7 +21,7 @@
             make.height.mas_equalTo(proportion);
         }];
         [self addSubview:bgView];
-        [bgView.layer addSublayer:[UIColor setGradualChangingColor:bgView fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+        [bgView.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(bgView)];
         
         _iconImage = [UIImageView new];
         [_iconImage mas_makeConstraints:^(MASConstraintMaker *make){

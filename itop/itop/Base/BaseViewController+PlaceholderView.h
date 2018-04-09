@@ -13,13 +13,15 @@
 /**
  *  添加背景视图
  *
- *  @param hasData 是否显示无数据背景图片
- *  @param frame  无数据背景图片的大小及位置
+ *  @param isHasData 是否显示无数据背景图片
+ *  @param noDataType 无具体数据类型
+ *  @param originY  无数据背景图片的大小及位置
  */
-- (void)setHasData:(BOOL)hasData andFrame:(CGRect)frame;
+//- (void)setisHasData:(BOOL)isHasData
+//          noDataType:(NoDataType)noDataType
+//              origin:(NSInteger)originY;
 
 /**
- *  添加背景视图
  *
  *  移除无数据背景图片
  */

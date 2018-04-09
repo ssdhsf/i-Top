@@ -18,6 +18,9 @@
                       OpenID:(NSString *)openID
             InViewController:(UIViewController *)viewController;
 
++ (BOOL)sendAuthRequestScope:(NSString *)scope
+                       State:(NSString *)state;
+
 + (BOOL)sendLinkURL:(NSString *)urlString
             TagName:(NSString *)tagName
               Title:(NSString *)title

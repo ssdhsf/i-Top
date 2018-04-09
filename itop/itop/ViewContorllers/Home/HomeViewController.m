@@ -8,8 +8,6 @@
 
 #import "HomeViewController.h"
 #import "Constant.h"
-#import <BMKLocationkit/BMKLocationComponent.h>
-#import <BMKLocationKit/BMKLocationAuth.h>
 #import "CarouselScrollView.h"
 #import "HomeStore.h"
 #import "HomeDataSource.h"
@@ -24,6 +22,7 @@
 #import "H5ListViewController.h"
 #import "DesignerInfoViewController.h"
 #import "TemplateDetaulViewController.h"
+#import "MapLocationManager.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
@@ -31,10 +30,9 @@ static NSString *const HomeCellIdentifier = @"Home";
 static NSString *const H5ListCellIdentifier = @"H5List";
 static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
-@interface HomeViewController ()<BMKLocationAuthDelegate,BMKLocationManagerDelegate,WXApiManagerDelegate>
+@interface HomeViewController ()<UITabBarControllerDelegate>
 
-@property (nonatomic, strong )BMKLocationManager *locationManager;
-@property (nonatomic, copy )BMKLocatingCompletionBlock completionBlock;
+@property (nonatomic, strong)BMKLocationManager *locationManager;
 @property (nonatomic, strong)CarouselScrollView *bannerView;
 @property (nonatomic, strong)CarouselScrollView *h5bannerView;
 @property (nonatomic, strong)CarouselScrollView *designerbannerView;
@@ -45,10 +43,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *messageBtn;
 @property (nonatomic, strong) UILabel *loctionLable;
-@property (nonatomic, strong) NSString *loctionString;
+@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) CAGradientLayer *layer;
 @property (nonatomic, assign) BOOL isFirst;
-
-
+@property (nonatomic, assign) BOOL isSelectProvince;
+@property (nonatomic, strong) Province *selectProvince;
 
 @end
 
@@ -57,7 +56,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    [WXApiManager sharedManager].delegate = self;
+    
+    [UIManager appDelegate].tabBarController.delegate = self;
+    [self registeredpushNotification];
+//    [WXApiManager sharedManager].delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -67,19 +69,20 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         [_bannerView initTimer];
     }
     //取消导航栏最下面的那一条线
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self hiddenNavigationController:NO];
+//    [self.navigationController setNavigationBarHidden:NO animated:NO];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"white_7"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.translucent = YES;
     [self setNavBar];
-    
     if (self.collectionView) {
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
+//        [self.navigationController setNavigationBarHidden:YES animated:NO];
         CGFloat offsetY = self.collectionView.contentOffset.y ;
         NSLog(@"%lf",offsetY);
         CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
-        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-
+        [self haveHiddenAnimationWithAlpha:alpha
+                       navigationBarHidden:NO
+                                   offsetY:offsetY];
     }
 }
 
@@ -113,12 +116,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)initView{
     
     [super initView];
-    [self initMapLocation];
+//    [self initMapLocation];
     [self initCarouselScrollView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initCollectionView];
     [self.collectionView.header beginRefreshing];
-//    [self initCollectionView];
 }
 
 -(void)initData{
@@ -126,6 +128,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [super initData];
     [self NSNotificationCenter];
     _isFirst = YES;
+    _isSelectProvince = NO;
     
 //    [self showRefresh];
 //    self.showRefreshHeader = YES;
@@ -134,7 +137,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)refreshData{
 
-     self.collectionView.scrollEnabled =NO;
+    self.collectionView.scrollEnabled =NO;
     [[UserManager shareUserManager] homeBanner];
     [UserManager shareUserManager].homeBannerSuccess  = ^(NSArray * arr){
         
@@ -146,7 +149,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [UserManager shareUserManager].errorFailure = ^(id obj){
         
-      
         [self collectionEndRefreshing];
     };
 }
@@ -173,7 +175,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingRecommendedH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:3];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:10 tagList:nil searchKey:nil];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
@@ -193,7 +195,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingDesignerList{
     
-    [[UserManager shareUserManager]designerlistWithPageIndex:1 PageCount:10 designerListType:DesignerListTypeHome];
+    [[UserManager shareUserManager]designerlistWithPageIndex:1 PageCount:10 designerListType:DesignerListTypeHome searchKey:nil];
     [UserManager shareUserManager].designerlistSuccess = ^(NSArray * arr){
         
        NSArray *itemArray = [[DesignerListStore shearDesignerListStore]configurationMenuWithMenu:arr];
@@ -213,7 +215,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingScenarioH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeScenario PageIndex:1 PageCount:3];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeScenario PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
         Home *home = [[Home alloc]init];
@@ -232,7 +234,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingOnePageH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeSinglePage PageIndex:1 PageCount:3];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeSinglePage PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
@@ -252,7 +254,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingVideoH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeVideo PageIndex:1 PageCount:3];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeVideo PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
     [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
@@ -273,10 +275,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         [self.collectionView.header endRefreshing];
 //        [self initCollectionView];
-                [self.collectionView reloadData];
+        [self.collectionView reloadData];
         self.collectionView.scrollEnabled = YES;
 
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO];
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];
         
     };
 }
@@ -298,7 +300,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(-44);
+        make.bottom.mas_equalTo(-64);
         make.top.mas_equalTo(self.view);
     }];
     
@@ -332,7 +334,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 [[Global sharedSingleton]showToastInTop:weakSelf.view withMessage:[NSString stringWithFormat:@"选择了第%ldtag",(long)indx]];
                  Home *home = weakSelf.dataArray[0];
                  TagList*tag = home.itemArray[indx];
-                 [weakSelf loadinH5ListWithH5Type:GetH5ListTypeTag index:indx title:tag.name];
+                 [weakSelf loadinH5ListWithH5Type:GetH5ListTypeTag index:[tag.tag_type integerValue] title:tag.name];
                  NSLog(@"%ld",(long)indx);
 
             };
@@ -355,7 +357,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 
                 Home *home = self.dataArray[1];
                 H5List *list = home.itemArray[selectedIndex];
-                [self pushTemplateDetailViewControllerWithTemplateId:list.id];
+                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
 //                NSLog(@"你选择第%ld张图片",selectedIndex);
 
             }];
@@ -375,7 +377,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             _designerbannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
                 
                 Home *home = self.dataArray[2];
-                DesignerList *designer = home.itemArray[selectedIndex];                     [UIManager designerDetailWithDesignerId:designer.id];
+                DesignerList *designer = home.itemArray[selectedIndex];
+                [UIManager designerDetailWithDesignerId:designer.id];
             }];
             [_designerbannerView createdesignerScrollView];
             [newCell addSubview:_designerbannerView];
@@ -409,7 +412,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 
                 if (section == 2) {
 
-                    [UIManager designerListWithDesignerListType:DesignerListTypeHome];
+                    [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:nil];
                     
                 }else {
                     
@@ -460,29 +463,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
         H5List *h5 = home.itemArray[indexPath.row];
-        [self pushTemplateDetailViewControllerWithTemplateId:h5.id];
+        [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
     }
 
     NSLog(@"23");
-}
-
-
-//测试发送消息到微信
-- (IBAction)authWechat:(UIButton *)sender {
-    
-    [WXApiRequestHandler sendText:@"i-Top分享测试"
-                          InScene:WXSceneTimeline];
-}
-
-//测试发送消息到微信回调
-- (void)managerDidRecvMessageResponse:(SendMessageToWXResp *)response{
-   
-    NSLog(@"%@",response);
-}
-
-//选择城市
--(void)selectorCity{
-    
 }
 
 -(CGSize)sizeForItemAtIndex:(NSIndexPath *)indexPath{
@@ -490,7 +474,13 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
     if (indexPath.section == 0) {
         
-        return CGSizeMake(ScreenWidth, (ScreenWidth/3-102+19+5+9+5)*2);
+        CGFloat replenish = 0;
+        
+        if (ScreenWidth/3-102 < 23) {
+           
+            replenish = 20;
+        }
+        return CGSizeMake(ScreenWidth, (ScreenWidth/3-102+19+5+9+5+replenish)*2);
     }else if (indexPath.section == 1) {
         
        
@@ -545,22 +535,13 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 //登陆异常
 - (void)logoutView:(NSNotification *)notification {
     
-    [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+    [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+//    [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
     [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
-//    [[LoginMannager sheardLoginMannager] logout];
-//    [[CacheManager shareCacheManager] clearAllCache];
     AppDelegate *app = ApplicationDelegate;
     app.tabBarController = nil;
     [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager] topViewController].view  withMessage:@"登录过期"];
     [[NSNotificationCenter defaultCenter]removeObserver:self name:Notification_LogoutView object:nil];
-}
-
--(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
-    
-    TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
-    vc.template_id = template_ld;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)setNavBar{
@@ -568,54 +549,71 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
     [self.navigationController.navigationBar addSubview:navBgView];
     self.navBgView = navBgView;
-//    [navBgView.layer addSublayer:[UIColor setGradualChangingColor:navBgView fromColor:@"FFA5EC" toColor:@"DEA2FF"]];
+    
+    _layer = [CAGradientLayer layer];
     navBgView.backgroundColor = [UIColor clearColor];
     
-    UITextField *searchBtn = [[UITextField alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
-    searchBtn.centerX = self.view.centerX;
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
+    _searchBtn.centerX = self.view.centerX;
     
     UIColor *color = [UIColor whiteColor];
     
-    [searchBtn setBackgroundColor:[color colorWithAlphaComponent:1.0]];
-    
-    UILabel * leftView = [[UILabel alloc] initWithFrame:CGRectMake(10,0,20,26)];
-    leftView.backgroundColor = [UIColor clearColor];
-    searchBtn.leftView = leftView;
-    searchBtn.leftViewMode = UITextFieldViewModeAlways;
-    searchBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    searchBtn.layer.masksToBounds = YES;
-    searchBtn.layer.cornerRadius = searchBtn.frame.size.height/2;
-    searchBtn.placeholder = @"搜索感兴趣的H5/设计师/热点";
-    searchBtn.font = [UIFont systemFontOfSize:9];
-    //    self.navigationItem.titleView  = searchBtn;
-
-    [navBgView addSubview:searchBtn];
+    [_searchBtn setBackgroundColor:[color colorWithAlphaComponent:1.0]];
+    _searchBtn.layer.masksToBounds = YES;
+    _searchBtn.layer.cornerRadius = _searchBtn.frame.size.height/2;
+    [_searchBtn setTitle:@"搜索感兴趣的H5/设计师/热点" forState:UIControlStateNormal];
+    [_searchBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    _searchBtn.titleLabel.font = [UIFont systemFontOfSize:9];
+    [_searchBtn setImage:[UIImage imageNamed:@"search_icon_serch"] forState:UIControlStateNormal];
+    [_searchBtn addTarget:self action:@selector(homeSearch) forControlEvents:UIControlEventTouchDown];
+    [navBgView addSubview:_searchBtn];
     
     //左面导航按钮
     UIButton *readerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loctionBtn = readerButton;
     readerButton.frame = CGRectMake(20, 0, 20 , 20 );
-    self.loctionBtn.centerY = searchBtn.centerY;
+    self.loctionBtn.centerY = _searchBtn.centerY;
 
     self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
-//    self.loctionLable.centerY = searchBtn.centerY;
     self.loctionLable.font = [UIFont systemFontOfSize:9];
-    self.loctionLable .text = self.loctionString;
+//    self.loctionLable .text = self.loctionString;
     [navBgView addSubview: self.loctionLable];
     [navBgView addSubview:self.loctionBtn];
     
     self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.messageBtn.frame = CGRectMake(ScreenWidth-20-19 , 0, 19 , 19 );
-    self.messageBtn.centerY = searchBtn.centerY;
-    [self.messageBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchDown];
+    self.messageBtn.frame = CGRectMake(ScreenWidth-20-19 , 0, 25 , 25 );
+    self.messageBtn.centerY = _searchBtn.centerY;
+    [self.messageBtn addTarget:self action:@selector(messageList) forControlEvents:UIControlEventTouchDown];
     
     JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.messageBtn alignment:JSBadgeViewAlignmentTopRight];
     badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
     badgeView.badgeText = @"12";
-    badgeView.size = CGSizeMake(12, 12);
+    badgeView.size = CGSizeMake(10, 10);
     [navBgView addSubview:self.messageBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
     [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
+    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
+    
+    if (!_isSelectProvince) {
+        if ([MapLocationManager sharedMapLocationManager].location == nil) {
+            
+            [[MapLocationManager sharedMapLocationManager] initMapLocation];
+            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+                
+                self.loctionLable .text = loction;
+            };
+            
+            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+                
+                [self showToastWithError:error];
+            };
+        } else {
+            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+        }
+    } else {
+       
+        self.loctionLable .text = _selectProvince.address;
+    }
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -627,51 +625,40 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 #pragma mark HaveHiddenAnimation
         //begin
         
-        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO];
-
+        [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO offsetY:offsetY];
+        
     } else if(offsetY < 0){
 #pragma mark HaveHiddenAnimation
         
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:YES];
-
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:YES offsetY:offsetY];
+        
     }  else {
 #pragma mark HaveHiddenAnimation
         
-        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO];
+        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:offsetY];
     }
 }
 
--(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation{
+-(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation offsetY:(NSInteger)offsetY{
     
-    UIColor * color = [UIColor colorWithRed:0/255.0 green:175/255.0 blue:240/255.0 alpha:1];
-    [self.navigationController setNavigationBarHidden:animation animated:YES];
-    if (animation) { //背景为黑色
+    [self.navigationController setNavigationBarHidden:animation animated:NO];
+    if (offsetY<NAVBAR_CHANGE_POINT) { //icon为黑色
         
-        [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
-        [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
+        [self.loctionBtn setImage:[UIImage imageNamed:@"home_icon_locationblack"] forState:UIControlStateNormal];
+        [self.messageBtn setImage:[UIImage imageNamed:@"home_icon_remindblack"] forState:UIControlStateNormal];
     } else {
         
         [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
         [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
     }
     
-    [self.navigationController.navigationBar lt_setBackgroundColor:[color colorWithAlphaComponent:alpha]];
+    _layer = [UIColor setGradualChangingColor:self.navBgView fromColor:@"FFA5EC" toColor:@"B499F8" alpha:alpha gradientLayer:_layer];
+    [self.navBgView.layer insertSublayer:_layer atIndex:0];
 }
 
--(void)gotoSearch{
-    
-    NSLog(@"dsds");
-}
-
--(void)loginOut{
-    
-    [[UserManager shareUserManager]loginOut];
-    [UserManager shareUserManager].loginSuccess = ^ (id obj){
-        
-        [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
-        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
-
-    };
+-(void)messageList{
+   
+    [UIManager showVC:@"MessageViewController"];
 }
 
 -(void)loadinH5ListWithH5Type:(GetH5ListType)type index:(NSInteger)index title:(NSString *)title{
@@ -679,7 +666,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     H5ListViewController *h5Vc = [[H5ListViewController alloc]init];
     if (type == GetH5ListTypeTag) {
       
-        h5Vc.tagH5LisType = index;
+        h5Vc.tagList = @[title];
     } else {
         switch (index) {
             case 1:
@@ -704,54 +691,58 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.navigationController pushViewController:h5Vc animated:YES];
 }
 
--(void)initMapLocation{
+-(void)homeSearch{
     
-    NSLog(@"%@",AKAPKEY);
-    [[BMKLocationAuth sharedInstance] checkPermisionWithKey:AKAPKEY authDelegate:self];
-    //初始化实例
-    _locationManager = [[BMKLocationManager alloc] init];
-    //设置delegate
-    _locationManager.delegate = self;
-    //设置返回位置的坐标系类型
-    _locationManager.coordinateType = BMKLocationCoordinateTypeBMK09LL;
-    //设置距离过滤参数
-    _locationManager.distanceFilter = kCLDistanceFilterNone;
-    //设置预期精度参数
-    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    //设置应用位置类型
-    _locationManager.activityType = CLActivityTypeAutomotiveNavigation;
-    //设置是否自动停止位置更新
-    _locationManager.pausesLocationUpdatesAutomatically = NO;
-    //设置是否允许后台定位
-    _locationManager.allowsBackgroundLocationUpdates = NO;
-    //设置位置获取超时时间
-    _locationManager.locationTimeout = 10;
-    //设置获取地址信息超时时间
-    _locationManager.reGeocodeTimeout = 10;
-    
-    [_locationManager requestLocationWithReGeocode:YES withNetworkState:NO completionBlock:^(BMKLocation *location, BMKLocationNetworkState state, NSError *error)
-     {
-         if (error)
-         {
-             NSLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
-         }
-         if (location) {//得到定位信息，添加annotation
-             
-             if (location.location) {
-                 NSLog(@"LOC = %@",location.location);
-             }
-             if (location.rgcData) {
-                 
-                 self.loctionLable.text = [NSString stringWithFormat:@"%@",[location.rgcData.city description]];
-                 //                 [self setLeftBarItemString:[NSString stringWithFormat:@"%@>",[location.rgcData.city description]] action:@selector(selectorCity)];
-                 
-                 self.loctionString = [location.rgcData.city description];
-                 NSLog(@"rgc = %@",[location.rgcData.city description]);
-             }
-         }
-         NSLog(@"netstate = %d",state);
-     }];
+    [UIManager showVC:@"SearchViewController"];
 }
+
+-(void)selectLoction{
+    
+    [UIManager showVC:@"ProvinceViewController"];
+    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
+        
+        _isSelectProvince = YES;
+        _selectProvince = city;
+    };
+}
+
+-(void)fontReceivePushNotificationAlert:(NSNotification *)notification{
+    
+    [self AlertOperation];
+}
+
+-(void)AlertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收到i-Top推送消息" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+//        [self back];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)backgroundReceiveClickPushNotificationAlert:(NSNotification *)notification{
+    
+}
+
+//点击我的作品前 判断用户是否登陆
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    
+    ThemeNavigationController *nav=(ThemeNavigationController*)viewController;
+    BOOL isSelectProductItem =  [nav.tabBarItem.title isEqualToString:@"我的推广"]||
+    [nav.tabBarItem.title isEqualToString:@"我的作品"] ? YES : NO;
+    if (![[UserManager shareUserManager]isLogin] && isSelectProductItem) {
+        
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 
 @end

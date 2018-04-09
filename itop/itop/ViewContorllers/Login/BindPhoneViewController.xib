@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BindPhoneViewController">
+            <connections>
+                <outlet property="accountImage" destination="bAE-qg-zdi" id="K35-cf-wSH"/>
+                <outlet property="accountTF" destination="8mw-2e-3JK" id="4SV-5A-89q"/>
+                <outlet property="resetFnishButton" destination="Vy8-tg-Ohn" id="iQ6-rO-hRs"/>
+                <outlet property="verificationCodeButton" destination="Ox7-5I-VHP" id="gvB-OB-fRN"/>
+                <outlet property="verificationCodeImage" destination="l8D-ij-8z3" id="893-WB-Qhr"/>
+                <outlet property="verificationCodeTF" destination="feq-q3-yW6" id="Z8N-Oa-tTk"/>
+                <outlet property="view" destination="zdh-JN-9lA" id="Kcb-bG-KbD"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="zdh-JN-9lA">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="8mw-2e-3JK">
+                    <rect key="frame" x="60" y="36" width="283" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="G9g-7g-ffw"/>
+                    </constraints>
+                    <color key="textColor" red="0.7843137255" green="0.81568627449999997" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="9G5-Pu-SA8"/>
+                    </connections>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qgH-xv-RCT">
+                    <rect key="frame" x="60" y="69" width="283" height="1"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Vzd-Qm-hrZ"/>
+                    </constraints>
+                </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_phone_normal" translatesAutoresizingMaskIntoConstraints="NO" id="bAE-qg-zdi">
+                    <rect key="frame" x="32" y="41" width="15" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="15" id="Cn6-Lm-K9A"/>
+                        <constraint firstAttribute="height" constant="24" id="Kch-Io-AWu"/>
+                    </constraints>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_code" translatesAutoresizingMaskIntoConstraints="NO" id="l8D-ij-8z3">
+                    <rect key="frame" x="32" y="106" width="16" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="16" id="PXq-Ve-7Kf"/>
+                        <constraint firstAttribute="height" constant="16" id="VJt-B9-tlr"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iy-ct-ZI5">
+                    <rect key="frame" x="60" y="127" width="185" height="1"/>
+                    <color key="backgroundColor" red="0.94117647059999998" green="0.94509803920000002" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="0wu-Hx-obg"/>
+                        <constraint firstAttribute="width" constant="185" id="jlz-BP-NgL"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="feq-q3-yW6">
+                    <rect key="frame" x="60" y="94" width="185" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="5ef-ab-4xD"/>
+                        <constraint firstAttribute="width" constant="185" id="HfH-kE-A6S"/>
+                    </constraints>
+                    <color key="textColor" red="0.7843137255" green="0.81568627449999997" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="3F6-aA-Sfr"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-tg-Ohn">
+                    <rect key="frame" x="122" y="239" width="130" height="35"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="1j9-5z-m5o"/>
+                        <constraint firstAttribute="width" constant="130" id="9GC-3N-eMB"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="35" id="J0k-wB-BYu"/>
+                        <constraint firstAttribute="height" constant="35" id="f0s-Vj-MAO"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <state key="normal" title="完    成">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="resetFnish:" destination="-1" eventType="touchUpInside" id="uYE-tY-fg5"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ox7-5I-VHP">
+                    <rect key="frame" x="253" y="93" width="90" height="30"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="90" id="b94-Vf-qG9"/>
+                        <constraint firstAttribute="height" constant="30" id="cs9-0f-yaS"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <state key="normal" title="获取验证码">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="verificationCode:" destination="-1" eventType="touchUpInside" id="4A7-4y-cC3"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="Ox7-5I-VHP" firstAttribute="leading" secondItem="feq-q3-yW6" secondAttribute="trailing" constant="8" id="3rM-OY-cEz"/>
+                <constraint firstItem="Ox7-5I-VHP" firstAttribute="top" secondItem="qgH-xv-RCT" secondAttribute="bottom" constant="23" id="5Hk-2x-Qh5"/>
+                <constraint firstItem="feq-q3-yW6" firstAttribute="leading" secondItem="l8D-ij-8z3" secondAttribute="trailing" constant="12" id="6A1-EO-dBY"/>
+                <constraint firstItem="bAE-qg-zdi" firstAttribute="leading" secondItem="zdh-JN-9lA" secondAttribute="leading" constant="32" id="9ye-jN-tzV"/>
+                <constraint firstAttribute="trailing" secondItem="Ox7-5I-VHP" secondAttribute="trailing" constant="32" id="DrZ-iJ-kUp"/>
+                <constraint firstItem="qgH-xv-RCT" firstAttribute="leading" secondItem="zdh-JN-9lA" secondAttribute="leading" constant="60" id="EOB-9P-J7J"/>
+                <constraint firstAttribute="trailing" secondItem="8mw-2e-3JK" secondAttribute="trailing" constant="32" id="GK7-V6-6Mp"/>
+                <constraint firstItem="feq-q3-yW6" firstAttribute="top" secondItem="qgH-xv-RCT" secondAttribute="bottom" constant="24" id="IPT-lk-Xu7"/>
+                <constraint firstItem="qgH-xv-RCT" firstAttribute="top" secondItem="8mw-2e-3JK" secondAttribute="bottom" constant="3" id="Xez-Jy-jMs"/>
+                <constraint firstItem="Vy8-tg-Ohn" firstAttribute="top" secondItem="4iy-ct-ZI5" secondAttribute="bottom" constant="111" id="Xnu-jf-gbi"/>
+                <constraint firstItem="4iy-ct-ZI5" firstAttribute="top" secondItem="feq-q3-yW6" secondAttribute="bottom" constant="3" id="cyJ-ud-oAP"/>
+                <constraint firstItem="4iy-ct-ZI5" firstAttribute="leading" secondItem="zdh-JN-9lA" secondAttribute="leading" constant="60" id="d2G-kQ-7Nv"/>
+                <constraint firstItem="Vy8-tg-Ohn" firstAttribute="centerX" secondItem="zdh-JN-9lA" secondAttribute="centerX" id="dhG-NZ-8pX"/>
+                <constraint firstItem="bAE-qg-zdi" firstAttribute="top" secondItem="zdh-JN-9lA" secondAttribute="top" constant="41" id="jAs-L3-das"/>
+                <constraint firstItem="8mw-2e-3JK" firstAttribute="top" secondItem="zdh-JN-9lA" secondAttribute="top" constant="36" id="kj0-jp-MTC"/>
+                <constraint firstAttribute="trailing" secondItem="qgH-xv-RCT" secondAttribute="trailing" constant="32" id="mPK-3s-FBJ"/>
+                <constraint firstItem="l8D-ij-8z3" firstAttribute="top" secondItem="bAE-qg-zdi" secondAttribute="bottom" constant="41" id="rmo-UX-c2Q"/>
+                <constraint firstItem="l8D-ij-8z3" firstAttribute="leading" secondItem="zdh-JN-9lA" secondAttribute="leading" constant="32" id="sLa-Lw-Nb9"/>
+                <constraint firstItem="8mw-2e-3JK" firstAttribute="leading" secondItem="bAE-qg-zdi" secondAttribute="trailing" constant="13" id="sUo-Fs-jlh"/>
+            </constraints>
+            <point key="canvasLocation" x="34.5" y="54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_code" width="15" height="15"/>
+        <image name="icon_phone_normal" width="15" height="24"/>
+    </resources>
+</document>

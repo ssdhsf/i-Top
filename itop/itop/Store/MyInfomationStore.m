@@ -20,40 +20,100 @@
     return store;
 }
 
-- (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu{
+- (NSMutableArray *)configurationMenuWithUserType:(UserType)user_type{
     
     NSMutableArray *sectionArray = [NSMutableArray array];
-    NSMutableArray *itmeArray1 = [NSMutableArray array];
-    NSMutableArray *itmeArray2 = [NSMutableArray array];
-    [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
-    [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的钱包" imageName:@"me_icon_purse" vcName:@""]];
-    [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"我的留资" imageName:@"me_icon_liuzi" vcName:@"LeaveViewController"]];
-    [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
-    [itmeArray1 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
-    
-    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@""]];
-    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"UsersSigningViewController"]];
-    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"意见反馈" imageName:@"me_icon_comment" vcName:@""]];
-    [itmeArray2 addObject:[self setupMyInfomationWithLeaveDetailTitle:@"设置" imageName:@"me_icon_set" vcName:@""]];
-    
-    [sectionArray addObject:itmeArray1];
-    [sectionArray addObject:itmeArray2];
-    
-//    for (int i = 0 ; i<2; i++) {
-//        
-//        NSMutableArray *itmeArray = [NSMutableArray array];
-//        for (int i = 0 ; i<5; i++) {
-//            
-//            MyInfomation *myInfomation = [[MyInfomation alloc]init];
-//            myInfomation.myInfoTitle = [NSString stringWithFormat:@"我的作品"];
-//            myInfomation.myInfoImageUrl = [NSString stringWithFormat:@"h5"];
-//            [itmeArray addObject:myInfomation];
-//        }
-//        
-//        [sectionArray addObject:itmeArray];
-//    }
-    
+    switch (user_type) {
+        case UserTypeDefault:
+            [sectionArray addObject:[self configurationAverageUserMenu]];
+            break;
+        case UserTypeDesigner:
+            [sectionArray addObject:[self configurationDesignerMenu]];
+            break;
+        case UserTypeEnterprise:
+            [sectionArray addObject:[self configurationCompenyMenu]];
+            break;
+        case UserTypeMarketing:
+            [sectionArray addObject:[self configurationMarktingMenu]];
+            break;
+
+        default:
+            break;
+    }
+    [sectionArray addObject: [self configurationItopMenuWithUserType:user_type]];
     return sectionArray;
+}
+
+-(NSMutableArray *)configurationItopMenuWithUserType:(UserType)user_type{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@"ShearViewController"]];
+    if (user_type == UserTypeDefault) {
+        [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"SigningTypeViewController"]];
+    }
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"意见反馈" imageName:@"me_icon_comment" vcName:@"CustomerServiceViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"设置" imageName:@"me_icon_set" vcName:@"SetupHomeViewController"]];
+    
+    return array;
+}
+
+//一般用户
+-(NSMutableArray *)configurationAverageUserMenu{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"留资" imageName:@"me_icon_liuzi" vcName:@"LeaveViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@""]];
+    return array;
+}
+
+//企业用户
+-(NSMutableArray *)configurationCompenyMenu{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyhotViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"推广" imageName:@"me_icon_extend" vcName:@"PopularizeManagementViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataSegmentViewController"]];
+    
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+    return array;
+}
+
+
+//设计师用户
+-(NSMutableArray *)configurationDesignerMenu{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"作品" imageName:@"me_icon_production" vcName:@"MyWorksViewCotroller"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyhotViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataSegmentViewController"]];
+    
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+    return array;
+}
+
+//自营销人用户
+-(NSMutableArray *)configurationMarktingMenu{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"订单" imageName:@"me_icon_ordermanage" vcName:@"PopularizeManagementViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"热点" imageName:@"me_icon_hot" vcName:@"MyhotViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"钱包" imageName:@"me_icon_purse" vcName:@"MyWalletViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"数据" imageName:@"me_icon_data" vcName:@"StatisticalDataSegmentViewController"]];
+    
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+    return array;
 }
 
 //- (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu{
@@ -78,7 +138,5 @@
     
     return info;
 }
-
-
 
 @end

@@ -14,40 +14,56 @@
 
 static NSString *const MyWorksCellIdentifier = @"MyWork";
 
-@interface MyWorksViewCotroller ()
+@interface MyWorksViewCotroller ()<UIScrollViewDelegate>
 
 @property (nonatomic, strong) MyWorksDataSource *myWorksDataSource;
-@property (nonatomic, strong) NSDictionary *imageArrayTitle;
+@property (nonatomic, strong) NSDictionary *config;
 @property (nonatomic, strong) NSArray *titleArray;
 @property (strong, nonatomic) UIView *editorBgView;
 @property (strong, nonatomic) IBOutlet UIView *editorView;
 @property (nonatomic, strong) NSString *link;
 
-@property (nonatomic, strong) UIButton *searchBtn;
-@property (nonatomic, strong) UIView *navBgView;
-@property (nonatomic, strong) H5List *h5;
 
+@property (nonatomic, strong) UIButton *searchBtn;
+@property (nonatomic, strong) H5List *h5;
+@property (nonatomic, assign) NSInteger currentIndex;
+@property (nonatomic, assign) NSInteger currentOffset;
+
+@property (nonatomic, strong) UIImageView *instruct;
 @end
 
 @implementation MyWorksViewCotroller
 
 - (void)viewDidLoad {
+   
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
     
-    if (self.navigationController.navigationBar.hidden) {
-        [self hiddenNavigationController:NO];
-    } else {
-        [self setLeftCustomBarItem:@"" action:nil];
+    switch (_showProductType) {
+        case GetProductListTypeHome:
+            
+            [self hiddenNavigafindHairlineImageView:NO];
+            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+            [self setLeftCustomBarItem:@"" action:nil];
+            break;
+        case GetProductListTypeMyProduct:
+            
+            [self hiddenNavigafindHairlineImageView:YES];
+            [self hiddenNavigationController:NO];
+            self.navigationItem.rightBarButtonItem.tintColor = RGB(232, 98, 159);
+            break;
+        case GetProductListTypeSelect:
+            
+            [self hiddenNavigafindHairlineImageView:YES];
+            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+            break;
+        default:
+            break;
     }
-    
-    [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
-    [self hiddenNavigafindHairlineImageView:NO];
     self.navigationController.navigationBar.translucent = NO;
 }
 
@@ -58,6 +74,41 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     [self.navigationController.navigationBar setShadowImage:nil];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.translucent = NO;
+}
+
+-(void)viewDidAppear:(BOOL)animated{
+  
+    [super viewDidAppear:animated];
+    
+    if (!self.editorBgView) {
+       
+        [self setupEditor];
+        [self steupEditorBuuton];
+    }
+    
+    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
+        
+    };
+}
+
+-(void)initNavigationBarItems{
+    
+    [super initNavigationBarItems];
+    switch (_showProductType) {
+        case GetProductListTypeHome:
+            self.navigationItem.title = @"";
+            break;
+        case GetProductListTypeMyProduct:
+            self.navigationItem.title = @"我的作品";
+            break;
+
+        case GetProductListTypeSelect:
+            self.navigationItem.title = @"选择作品";
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)initView{
@@ -74,31 +125,24 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         make.bottom.top.mas_equalTo(self.view);
     }];
     
-    [self setupEditor];
     [self steupCollectionView];
-    [self steupEditorBuuton];
 }
 
 -(void)initData{
     
     [super initData];
     [self showRefresh];
-    self.imageArrayTitle = @{@"编辑":@"zuo_icon_edit",
-                             @"预览":@"zuo_icon_preview",
-                             @"留资":@"zuo_icon_liuzi",
-                             @"设置":@"zuo_icon_set",
-                             @"分享":@"zuo_icon_share",
-                             @"复制链接":@"zuo_icon_link",
-                             @"二维码":@"zuo_icon_code",
-                             @"删除":@"zuo_icon_delete"};
-    self.titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"分享",@"复制链接",@"二维码",@"删除",];
+    
+    NSDictionary * config = [[MyWorksStore shearMyWorksStore] editProductConfigurationMenuWithGetProductType:[[UserManager shareUserManager ] crrentUserType]];
+    self.config = config[@"config"];
+    self.titleArray = config[@"title"];
 }
 
 -(void)setupEditor{
     
-    self.editorBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh-300)];
-    self.editorBgView.backgroundColor = [UIColor colorWithWhite:0.1 alpha:0.7];
-    [self.view addSubview:self.editorBgView];
+    self.editorBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh)];
+    self.editorBgView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
+    [self.view.window addSubview:self.editorBgView];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cancelEditor)];
     [self.editorBgView addGestureRecognizer:tap];
     self.editorBgView.hidden = YES;
@@ -106,11 +150,18 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myProductListWithProductType:100 PageIndex:self.page_no PageCount:10];
+    NSInteger defultType = 100;
+    
+    [[UserManager shareUserManager]myProductListWithProductType:defultType  checkStatusType:defultType isShow:defultType  PageIndex:self.page_no PageCount:10];
     [UserManager shareUserManager].myProductListSuccess = ^(NSArray * obj){
-        
-        NSLog(@"%@",obj);
-        
+
+        if (obj.count == 0) {
+            
+            self.noDataType = NoDataTypeProduct;
+            self.originY = 0;
+        } else {
+            
+        }
         [self listDataWithListArray:[[MyWorksStore shearMyWorksStore] configurationMenuWithMenu:obj] page:self.page_no];
     };
     
@@ -161,31 +212,59 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     _h5 = [_myWorksDataSource itemAtIndexPath:indexPath];
-     [self editoeViewWithAnimation:YES];
-      NSLog(@"23");
-    
+    if (_showProductType == GetProductListTypeSelect) {
+        
+        [self back];
+        [UIManager sharedUIManager].selectProductBolck(_h5);
+        
+    } else {
+        _currentIndex = indexPath.row;
+        [self editoeViewWithAnimation:YES];
+        NSLog(@"23");
+    }
 }
 
 - (void)editor:(UIButton *)sender {
     
     [self editoeViewWithAnimation:NO];
-    switch (sender.tag) {
-        case 2:
-            
-            [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
-            break;
-            
-        case 5:
-            
-            _link = @"http";
-            [self copyTheLinkWithLinkUrl:_link];
-            break;
-            
-        default:
-            break;
+    
+    if ([sender.titleLabel.text isEqualToString:@"编辑"]) {
+        [self showToastWithMessage:@"暂未开放"];
     }
     
-    NSLog(@"%ld",sender.tag);
+    if ([sender.titleLabel.text isEqualToString:@"预览"]) {
+       [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"留资"]) {
+         [UIManager leaveWithProduct:_h5 leaveType:GetLeaveListTypeProduct];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"设置"]) {
+        [UIManager shearProductWithProduct:_h5];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"分享"]) {
+        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+              
+            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:[[ShearViewManager sharedShearViewManager] shearInfoWithProduct:_h5]];
+        } ];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"复制链接"]) {
+        [self copyTheLinkWithLinkUrl:_h5.url];
+    }
+    if ([sender.titleLabel.text isEqualToString:@"二维码"]) {
+        [UIManager  qrCodeViewControllerWithCode:_h5.url];
+    }
+    if ([sender.titleLabel.text isEqualToString:@"删除"]) {
+        [self alertOperation];
+    }
+    
+    if ([sender.titleLabel.text isEqualToString:@"标题优化"]) {
+        
+        [UIManager optimizeTitleViewControllerWithProduct:_h5];
+    }
 }
 
 -(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
@@ -201,42 +280,93 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 -(void)steupEditorBuuton{
     
+    UIScrollView * scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 50, ScreenWidth, 251-50)];
+    [self.editorView addSubview:scroll];
+    scroll.delegate = self;
+    
+    NSInteger page= self.titleArray.count/8;
+    
+    if (self.titleArray.count%6 != 0) {
+        page = page +1;
+    }
+    scroll.contentSize = CGSizeMake(page*ScreenWidth, 251-50);
+    
+    scroll.pagingEnabled=YES;
+    scroll.showsHorizontalScrollIndicator = NO;
     self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
     self.editorView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.editorView];
+    [self.editorBgView addSubview:self.editorView];
 
     for (int i = 0; i < self.titleArray.count; i++) {
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        UILabel *label = [[UILabel alloc]init];
-        if (i < 4) {
-            button.frame = CGRectMake(47+i*47+(((ScreenWidth-(47*5))/4)*i), 68, ((ScreenWidth-(47*5))/4), ((ScreenWidth-(47*5))/4));
-            
-            label.frame = CGRectMake(10+i*10+(((ScreenWidth-(10*5))/4)*i), CGRectGetMaxY(button.frame)+5, ((ScreenWidth-(10*5))/4),19);
-            
+        
+        if ((i/4)%2<1) {
+            button.frame = CGRectMake((i%4)*(ScreenWidth/4)+((i/8)*ScreenWidth), 0, ScreenWidth/4, (251-50)/2);
+
         } else {
-            button.frame = CGRectMake(47+(i-4)*47+(((ScreenWidth-(47*5))/4)*(i-4)), 68+((ScreenWidth-(47*5))/4)+27+24, ((ScreenWidth-(47*5))/4), ((ScreenWidth-(47*5))/4));
             
-            label.frame = CGRectMake(10+(i-4)*10+(((ScreenWidth-(10*5))/4)*(i-4)), CGRectGetMaxY(button.frame)+5,((ScreenWidth-(10*5))/4),19);
+            button.frame = CGRectMake((i%4)*(ScreenWidth/4)+((i/8)*ScreenWidth), (251-50)/2, ScreenWidth/4, (251-50)/2);
         }
         
+        if (i>7) {
+            
+            _instruct = [[UIImageView alloc]initWithFrame:CGRectMake(ScreenWidth -25, 201/2-12.5, 25, 25)];
+            [scroll addSubview:_instruct];
+            _instruct.image = [UIImage imageNamed:@"purse_icon_more"];
+            _currentOffset = 0;
+        }
+        
+//        if (i < 4) {
+//            button.frame = CGRectMake(ScreenWidth/4*i, 50, ScreenWidth/4, (251-50)/2);
+//        } else {
+//            button.frame = CGRectMake(ScreenWidth/4*(i-4), 50+(251-50)/2, ScreenWidth/4, (251-50)/2);
+//        }
+        
         [button addTarget:self action:@selector(editor:) forControlEvents:UIControlEventTouchDown];
-         label.centerX = button.centerX;
-        
-//        NSLog(@"%f--%f--%f--%f",button.frame.origin.x,button.frame.origin.y,button.frame.size.height,button.frame.size.width);
-//        button.titleEdgeInsets = UIEdgeInsetsMake(button.imageView.frame.size.height+5, -button.imageView.bounds.size.width, 0,0);
-//        // button图片的偏移量
-//        button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel.frame.size.width/2,button.titleLabel.frame.size.height+5, -button.titleLabel.frame.size.width/2);
-        
+
+        [scroll addSubview:button];
         NSString *string = self.titleArray[i];
-        [button setImage:[UIImage imageNamed:self.imageArrayTitle[string]] forState:UIControlStateNormal];
-        label.text = string;
-        label.font = [UIFont systemFontOfSize:14];
-        label.textAlignment = NSTextAlignmentCenter;
+        [button setTitle:string forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:self.config[string]] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+     
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(button.imageView.frame.size.height+21 ,-button.imageView.frame.size.width, 0.0,0.0)];
+        
+        CGFloat cha = button.titleLabel.bounds.size.width - button.imageView.frame.size.width;
+        if (cha > 6) {
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -button.titleLabel.bounds.size.width - cha+6)];
+        } else {
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0,0.0, -button.titleLabel.bounds.size.width)];
+        }
         button.tag = i;
-        [self.editorView addSubview:button];
-        [self.editorView addSubview:label];
     }
+}
+
+#pragma mark --- scrollView delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    
+    int index = scrollView.contentOffset.x/ViewWidth;
+    if (index < _currentOffset) {
+        
+        _instruct.frame = CGRectMake(ScreenWidth -25, 201/2-12.5, 25, 25);
+         _instruct.image = [UIImage imageNamed:@"purse_icon_more"];
+    }else if (index > _currentOffset){
+        
+        _instruct.frame = CGRectMake(index*ScreenWidth, 201/2-12.5, 25, 25);
+        _instruct.image = [UIImage imageNamed:@"nav_icon_back"];
+    }else{
+       
+        NSLog(@"本页");
+    }
+    
+    _currentOffset = index;
+}
+
+-(void)search{
+    
 }
 
 - (IBAction)cancel:(UIButton *)sender {
@@ -253,36 +383,52 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 
 -(void)editoeViewWithAnimation:(BOOL)animation{
     
-    [self.navigationController.tabBarController.tabBar setHidden:animation];
+    if (_showProductType == GetProductListTypeHome) {
+       
+        [self.navigationController.tabBarController.tabBar setHidden:animation];
+    }
     __weak typeof(self) weakSelf = self;
     //添加滚动动画
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         
+        self.editorBgView.hidden = !animation;
         if (animation) {
-             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-300, ScreenWidth, 300);
+             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-251, ScreenWidth, 251);
         }else {
              weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
-            
         }
        
     } completion:^(BOOL finished) {
-
-        self.editorBgView.hidden = !animation;
+        
     }];
 }
 
-//- (void)setNavBar{
-//    
-//    UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
-//    [self.navigationController.navigationBar addSubview:navBgView];
-//    self.navBgView = navBgView;
-//    navBgView.backgroundColor = [UIColor clearColor];
-//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.searchBtn.frame = CGRectMake(ScreenWidth-50 , 30, 25 , 25 );
-//    [self.searchBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchDown];
-//    [navBgView addSubview:self.searchBtn];
-//    [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
-//}
+-(void)deleteProductWithId:(NSString *)product_id{
+    
+    [[UserManager shareUserManager]deleteProductWithProductId:product_id];
+    [UserManager shareUserManager].deledeProductSuccess = ^(id obj){
+        
+        [self.dataArray removeObjectAtIndex:_currentIndex];
+        [self.collectionView reloadData];
+        
+        NSLog(@"%@",obj);
+    };
+}
 
+-(void)alertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"删除作品后数据不可恢复，确定要删除吗？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+        
+        
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+         [self  deleteProductWithId:_h5.id];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 
 @end

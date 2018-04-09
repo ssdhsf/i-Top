@@ -13,7 +13,6 @@
 
 @interface PXLineChartView ()
 
-
 @property (nonatomic, strong) NSDictionary *axisAttributes;
 @property (nonatomic, strong) PXXview *xAxisView;
 @property (nonatomic, strong) PXYview *yAxisView;
@@ -181,6 +180,7 @@
     if (_axisAttributes[scrollAnimationDuration]) {
         duration = [_axisAttributes[scrollAnimationDuration] floatValue];
     }
+    
     if ([_axisAttributes[scrollAnimation] boolValue] && self.scrollView.contentSize.width > CGRectGetWidth(self.scrollView.frame)) {
         [UIView animateWithDuration:duration delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             
@@ -189,6 +189,9 @@
         } completion:^(BOOL finished) {
             
         }];
+    } else {
+       
+        [self.scrollView setContentOffset:CGPointMake(0,0)];
     }
 }
 

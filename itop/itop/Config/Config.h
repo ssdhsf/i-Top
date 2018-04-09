@@ -10,8 +10,13 @@
 #ifndef Config_h
 #define Config_h
 
-#define CONFIG_PLIST [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
-#define CONFIG_DICTIONARY [[NSDictionary alloc] initWithContentsOfFile:CONFIG_PLIST]
+#define CONFIG_PLIST    [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
+#define CONFIG_DICTIONARY   [[NSDictionary alloc] initWithContentsOfFile:CONFIG_PLIST]
+
+#define PUSHCONFIG_PLIST       [[NSBundle mainBundle] pathForResource:@"PushConfig" ofType:@"plist"]
+#define PUSHCONFIG_DICTIONARY  [[NSDictionary alloc] initWithContentsOfFile:PUSHCONFIG_PLIST]
+#define PUSHCONFIG_APP_KEY      PUSHCONFIG_DICTIONARY[@"APP_KEY"]
+#define PUSHCONFIG_CHANNEL      PUSHCONFIG_DICTIONARY[@"CHANNEL"]
 
 /**
  *    服务器环境设置
@@ -33,9 +38,23 @@
 #define UMengChannel      CONFIG_DICTIONARY[@"UMeng"][@"UMengChannel"]
 
 // 百度地图 (baidu)
-#define AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
+#define BAIDU_MAP_AKAPKEY           CONFIG_DICTIONARY[@"BaiduMap"][@"AKAPKEY"]
+
 // WeChat
 #define WECHAT_APP_ID     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appId"]
+#define WECHAT_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][SERVER_ENVIRONMENT][@"appSecret"]
+
+// Tencent
+#define TENCENT_APP_ID    CONFIG_DICTIONARY[@"Tencent"][@"appId"]
+#define TENCENT_APP_KEY    CONFIG_DICTIONARY[@"Tencent"][@"appkey"]
+
+// Sina
+#define SINA_APP_ID         CONFIG_DICTIONARY[@"Sina"][@"appId"]
+#define SINA_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][@"appSecret"]
+
+//searchList
+#define SEARCH_LIST     @"Search_list"
+
 
 // 触发token自动更新的剩余有效时长，默认2小时
 #define kTokenValidTime 7200

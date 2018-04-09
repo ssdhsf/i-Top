@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "UserManager.h"
 
 @interface MyInfomationStore : NSObject
 
 + (instancetype)shearMyInfomationStore;
 
-- (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
+- (NSMutableArray *)configurationMenuWithUserType:(UserType)user_type;
 
 
 @end

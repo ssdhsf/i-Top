@@ -36,19 +36,49 @@ _errorFailure(__id_obj); }
     return manager;
 }
 
-#pragma mark - 获取用户基本信息
-- (UserInfomation*)crrentUserInfomation{
+#pragma mark - 获取用户登录基本信息
+- (UserModel*)crrentUserInfomation{
     
-    UserInfomation * info = (UserInfomation *)[[Global sharedSingleton]
-               getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION ];
-    return info;
+    NSString * infoString = [[Global sharedSingleton]
+               getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];
+    UserModel *user= [[UserModel alloc]initWithString:infoString error:nil];
+    return user;
+}
+
+- (InfomationModel*)crrentInfomationModel{
+    
+    NSString * infoString = [[Global sharedSingleton]
+                             getUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])];
+    InfomationModel *user= [[InfomationModel alloc]initWithString:infoString error:nil];
+    return user;
+}
+
+-(NSInteger)crrentUserType{
+    
+    UserModel *user = [self crrentUserInfomation];
+    NSInteger user_type = [user.user_type integerValue];
+    return user_type;
+}
+
+-(NSNumber *)crrentUserId{
+    
+    UserModel *user = [self crrentUserInfomation];
+    NSNumber *user_id = user.user_info.user_id ;
+    return user_id;
 }
 
 - (BOOL)isLogin{
     
-//    if ([self crrentUserInfomation] != nil) return YES;
+    if ([self crrentUserInfomation] != nil) return YES;
     return NO;
-//    return YES;
+}
+
+- (BOOL)isWechatLogin{
+    
+    NSString *string = [[Global sharedSingleton]
+                        getUserDefaultsWithKey:UD_KEY_LAST_WECHTLOGIN_CODE];
+    if (string != nil) return YES;
+    return NO;
 }
 
 #pragma mark - 登录
@@ -82,6 +112,91 @@ _errorFailure(__id_obj); }
     }];
 }
 
+-(void)wechatLoginWithCallBackCode:(NSString *)code{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/wechatlogin";
+    NSDictionary *parameters = @{@"code" : code,
+                                 @"type" : @"app" };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+//            _loginFailure(object);
+            
+        } else {
+            
+            _loginSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)bindPhoneWithMobili:(NSString *)mobili
+              verificationCode:(NSString *)verificationCode{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/bindphone";
+    NSString *cacheKey = [[Global sharedSingleton]
+                          getUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY];
+    NSDictionary *parameters = @{@"phone" : mobili,
+                                 @"cacheKey" : cacheKey,
+                                 @"phoneCode" : verificationCode
+                                 };
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            _bindPhoneSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+        
+    }];
+}
+
+
+- (void)changePassWithOriginalPass:(NSString *)originalPass
+                           newPass:(NSString *)newPass {
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/changepassword";
+    NSDictionary *parameters = @{@"oldPassword" : originalPass,
+                                 @"newPassword" : newPass};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _changePassSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 -(void)loginOut{
     
     SHOW_GET_DATA
@@ -95,12 +210,7 @@ _errorFailure(__id_obj); }
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
             
         } else {
-            
-//            UserModel *user = [[UserModel alloc]initWithDictionary:object error:nil];
-//            [[Global sharedSingleton]
-//             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
-//             andValue:[user toJSONString]];
-            
+
             _loginSuccess(object);
         }
         
@@ -109,7 +219,6 @@ _errorFailure(__id_obj); }
         HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
-
 }
 
 #pragma mark - 获取验证码
@@ -168,15 +277,31 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
         
     }];
-
 }
 
-- (void)userInfomation{
+- (void)userInfomationWithUserType:(UserType)user_type{
     
     SHOW_GET_DATA
     NSString *api = @"/api/user/getinfo";
-    NSDictionary *parameters = @{};
-    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+    
+//    switch (user_type) {
+//        case UserTypeDefault:
+//            api = @"/api/user/getinfo";
+//            break;
+//        case UserTypeDesigner:
+//            api = @"/api/userdesigner/get";
+//            break;
+//        case UserTypeEnterprise:
+//            api = @"/api/userenterprise/get";
+//            break;
+//        case UserTypeMarketing:
+//            api = @"/api/usermarketing/getinfo";
+//            break;
+//            
+//        default:
+//            break;
+//    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:nil completion:^(id object) {
         
         HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
@@ -194,10 +319,27 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)updataInfoWithKeyValue:(NSDictionary *)parameters{
+- (void)updataInfoWithKeyValue:(NSDictionary *)parameters
+                      userType:(UserType)userType{
     
     SHOW_GET_DATA
-    NSString *api = @"/api/user/updateinfo";
+    NSString *api = [NSString string];
+    switch (userType) {
+            
+        case UserTypeEnterprise:
+            api = @"/api/userenterprise/updateinfo";
+            break;
+        case UserTypeMarketing:
+            api = @"/api/usermarketing/updateinfo";
+            break;
+        case UserTypeDefault:
+        case UserTypeDesigner:
+            api = @"/api/user/updateinfo";
+            break;
+        default:
+            break;
+    }
+
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         HIDDEN_GET_DATA
@@ -306,13 +448,27 @@ _errorFailure(__id_obj); }
 
 - (void)homeH5ListWithType:(H5ProductType )type
                  PageIndex:(NSInteger )pageIndex
-                 PageCount:(NSInteger )pageCount{
-    NSString *api = @"/api/product/getpagelist";
-    NSDictionary *parameters = @{@"Product_type" : @(type),
-                                 @"PageIndex" : @(pageIndex),
-                                 @"PageCount" : @(pageCount),
-                                 };
+                 PageCount:(NSInteger )pageCount
+                   tagList:(NSArray *)tagList
+                 searchKey:(NSString *)searchKey{
     
+    NSString *api = @"/api/product/getpagelist";
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+   
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"pageCount"];
+    
+    if (tagList.count != 0) {
+        [parameters setObject:tagList forKey:@"TagList"];
+    }else {
+        
+        if (type != H5ProductTypeNoel) {
+            [parameters setObject:@(type) forKey:@"Product_type"];
+        }
+    }
+    if (searchKey != nil) {
+        [parameters setObject:searchKey forKey:@"Keyword"];
+    }
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         if ([object isKindOfClass:[NSError class]]) {
@@ -336,7 +492,7 @@ _errorFailure(__id_obj); }
                  PageIndex:(NSInteger )pageIndex
                  PageCount:(NSInteger )pageCount{
     
-    NSString *api = @"/api/tag/getindexlist";
+    NSString *api = @"/api/tag/getlist";
     NSDictionary *parameters = @{@"Product_type" : @(type),
                                  @"PageIndex" : @(pageIndex),
                                  @"PageCount" : @(pageCount),
@@ -388,23 +544,27 @@ _errorFailure(__id_obj); }
 
 - (void)designerlistWithPageIndex:(NSInteger )pageIndex
                         PageCount:(NSInteger )pageCount
-                 designerListType:(DesignerListType)designerListType{
-    
-//    SHOW_GET_DATA
+                 designerListType:(DesignerListType)designerListType
+                        searchKey:(NSString *)searchKey{
     
     NSString *api;
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"pageCount"];
+
     if (designerListType == DesignerListTypeHome) {
+        
         api = @"/api/userdesigner/getpagelist";
+        if (searchKey != nil) {
+           [parameters setObject:searchKey forKey:@"Keyword"];
+        }
     }else{
+        
         api = @"/api/userfollow/getuserlist";
     }
-    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
-                                 @"PageCount" : @(pageCount),
-                                 };
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
-//        HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
             
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
@@ -417,7 +577,6 @@ _errorFailure(__id_obj); }
         
     } failure:^(NSError *error) {
         
-//        HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
@@ -478,16 +637,60 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)addHotListWithParameters:(NSDictionary *)parameters{
+    
+    NSString *api = @"/api/article/add";
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        //        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _addHotSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        //        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
               PageCount:(NSInteger )pageCount
-     getArticleListType:(GetArticleListType)getArticleListType{
+     getArticleListType:(GetArticleListType)getArticleListType
+              searchKey:(NSString *)searchKey{
 //    SHOW_GET_DATA
     
-    NSString *api = getArticleListType == GetArticleListTypeHot ? @"/api/article/getpagelist" :@"/api/article/getcollection";
+    NSString *api =  [NSString string];
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
+
+    switch (getArticleListType) {
+       
+        case GetArticleListTypeHot:
+            api = @"/api/article/getpagelist";
+            if (searchKey != nil) {
+               [parameters setObject:searchKey forKey:@"Title"]; //搜索字段
+            }
+            break;
+        case GetArticleListTypeFocus:
+            api = @"/api/article/getcollection";
+            break;
+        case GetArticleListTypeMyHot:
+            api = @"/api/article/getuserarticle";
+            break;
+
+        default:
+            break;
+    }
     if (type == ArticleTypeDefault || type ==ArticleTypeVideo ||type == ArticleTypeH5) {
         [parameters setObject:@(type) forKey:@"Article_type"];
     }
@@ -590,6 +793,36 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)commentListWithProductId:(NSString *)product_id
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/getcommentlist";
+    NSDictionary * parameters = @{@"id" : product_id,
+                                  @"PageIndex" : @(pageIndex),
+                                  @"PageCount" : @(pageCount)
+                                  };
+
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _commentListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)homeBanner{
     
 //    SHOW_GET_DATA
@@ -637,7 +870,7 @@ _errorFailure(__id_obj); }
             
         } else {
             
-            _commentHotSuccess(object);
+            _commentSuccess(object);
         }
         
     } failure:^(NSError *error) {
@@ -647,22 +880,66 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)myProductListWithProductType:(MyProductType )Product_type
+
+- (void)commentProductWithHotProductId:(NSString *)product_id
+                              parentId:(NSString *)parent_id
+                               content:(NSString *)content{
+    SHOW_GET_DATA
+    NSString *api = @"/api/product/comment";
+    
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:product_id forKey:@"Product_id"];
+    [parameters setObject:content forKey:@"Content"];
+    
+    if (parent_id != nil) {
+        [parameters setObject:parent_id forKey:@"Parent_id"];
+    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _commentSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)myProductListWithProductType:(MyProductType )product_type
+                     checkStatusType:(CheckStatusType)checkStatusType
+                              isShow:(NSInteger )isShow
                            PageIndex:(NSInteger )pageIndex
                            PageCount:(NSInteger )pageCount{
     
-    SHOW_GET_DATA
+//    SHOW_GET_DATA
     NSString *api = @"/api/product/getuserproduct";
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
-    if (Product_type == MyProductTypeVideo || Product_type == MyProductTypeDefault ||Product_type == MyProductTypeScenario || Product_type == MyProductTypeSinglePage) {
-        [parameters setObject:@(Product_type) forKey:@"Product_type"];
+    if (product_type == MyProductTypeVideo || product_type == MyProductTypeDefault ||product_type == MyProductTypeScenario || product_type == MyProductTypeSinglePage) {
+        [parameters setObject:@(product_type) forKey:@"Product_type"];
+    }
+    if (checkStatusType == CheckStatusTypeOK || checkStatusType == CheckStatusTypeNoel || checkStatusType == CheckStatusTypeUnPass || checkStatusType == CheckStatusTypeOnCheck ) {
+        
+        [parameters setObject:@(checkStatusType) forKey:@"Check_status"];
+    }
+    
+    if (isShow == 0 || isShow == 1) {
+        
+        [parameters setObject:@(isShow) forKey:@"Show"];
     }
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
-        HIDDEN_GET_DATA
+//        HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
             
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
@@ -675,7 +952,7 @@ _errorFailure(__id_obj); }
         
     } failure:^(NSError *error) {
         
-        HIDDEN_GET_DATA
+//        HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
@@ -699,7 +976,7 @@ _errorFailure(__id_obj); }
         } else {
             
             NSArray *arr = object[@"rows"];
-            _myProductListSuccess(arr);
+            _leaveProductSuccess(arr);
         }
         
     } failure:^(NSError *error) {
@@ -708,5 +985,447 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 }
+
+
+- (void)submitImageWithParameters:(NSDictionary *)parameters{
+    
+    SHOW_GET_DATA
+    NSString *api =@"/api/common/uploadbase64";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _submitFileSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)submitFileWithParameters:(NSDictionary *)parameters{
+    
+    SHOW_GET_DATA
+    NSString *api =@"/api/common/uploadfile";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _submitFileSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType{
+    
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    switch (signingType) {
+        
+        case SigningTypeDesigner:
+            api = @"/api/userdesigner/apply";
+            break;
+        case SigningTypeCompany:
+            api = @"/api/userenterprise/apply";
+            break;
+        case SigningTypeMarketing:
+            api = @"/api/usermarketing/apply";
+            break;
+        default:
+            break;
+    }
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _signingSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+
+}
+
+- (void)signingState{
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/getapplyinfo";
+    NSDictionary *parameters = nil;
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+//            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _signingSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+    
+}
+
+-(void)opinionCustomerServiceWithContent:(NSString *)content feedbackType:(FeedbackType)feedbackType{
+   
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    if (feedbackType == FeedbackTypeOpinion) {
+        
+        api = @"/api/userfeedback/add";
+    }else {
+        
+        api = @"/api/userfeedback/add";
+    }
+    
+    NSDictionary *parameters = @{@"Content" : content,};
+
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _customerServiceSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)deleteProductWithProductId:(NSString *)product_id{
+    
+    SHOW_GET_DATA
+    NSString *api =  [NSString string];
+    
+    api = @"/api/product/delete";
+    
+    NSDictionary *parameters = @{@"id" : product_id,};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _deledeProductSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)dataStatisticsWithStartDate:(NSString *)startDate
+                           endDate:(NSString *)endDate
+                    statisticsType:(StatisticsType)statisticsType{
+    
+    SHOW_GET_DATA
+    NSString *api;
+
+    switch (statisticsType ) {
+        case StatisticsTypeH5Product:
+            api = @"/api/count/product";
+            break;
+        case StatisticsTypeHot:
+            api = @"/api/count/article";
+            break;
+        case StatisticsTypeFuns:
+            api = @"/api/count/fansattr";
+            break;
+        case StatisticsTypePop:
+            api = @"/api/count/order";
+            break;
+        default:
+            break;
+    }
+    NSDictionary *parameters = @{@"startDate" : startDate,
+                                 @"endDate" : endDate,
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            _statisticsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)earningListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+//    SHOW_GET_DATA
+    NSString *api = @"/api/rewardrecord/getpagelist";
+    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
+                                 @"PageCount" : @(pageCount),
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _earningListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)tradingListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+    
+    NSString *api = @"/api/payment/getrecordlist";
+    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
+                                 @"PageCount" : @(pageCount),
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _tradingListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)popularizeListWithUserId:(NSNumber *)user_id
+                     orderStatus:(OrderStatusType )order_status
+                       PageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+    //    SHOW_GET_DATA
+    NSString *api = @"/api/order/getuserlist";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageCount) forKey:@"PageCount"];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    if (order_status != OrderStatusTypeNoel) {
+       [parameters setObject:@(order_status) forKey:@"Order_status"];
+    }
+//  @{@"PageIndex" : @(pageIndex),
+//                                 @"PageCount" : @(pageCount),
+//                                 @"Order_status" : @(order_status),
+////                                 @"User_id" : user_id,
+//                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _popularizeSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
+- (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
+                             isAccept:(NSNumber *)isAccept{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/order/acceptorder";
+    NSDictionary *parameters = @{@"id" : order_id,
+                                 @"isAccept" : isAccept};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _popularizeSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)updataProductWithParameters:(NSDictionary *)parameters{
+  
+    SHOW_GET_DATA
+    NSString *api =@"/api/product/update";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _updataProductSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
+-(void)messageList{
+    
+    NSString *api = @"/api/usermessage/getuserlist";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _messageListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)userMessageListWithId:(NSString *)user_id{
+    
+    NSString *api = @"/api/usermessage/getlist";
+    NSDictionary *parameters = @{@"id":user_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            //            NSArray *arr = object[@"rows"];
+            _messageListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content {
+    
+    NSString *api = @"/api/usermessage/sendmessage";
+    NSDictionary *parameters = @{@"Receive_user_id":user_id,
+                                 @"Message" : content};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+//        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            //            NSArray *arr = object[@"rows"];
+            _messageListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+//        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
 
 @end

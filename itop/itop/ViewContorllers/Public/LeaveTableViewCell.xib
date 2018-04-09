@@ -43,26 +43,19 @@
                             <action selector="call:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NJK-ly-DY8"/>
                         </connections>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WnH-fe-D1i">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW4-vg-StF">
                         <rect key="frame" x="20" y="21" width="12" height="12"/>
-                        <color key="backgroundColor" red="0.8784313725490196" green="0.8901960784313725" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="12" id="ArJ-DG-1CQ"/>
-                            <constraint firstAttribute="height" constant="12" id="hAt-j4-0i1"/>
+                            <constraint firstAttribute="height" constant="12" id="UnV-gt-VWp"/>
+                            <constraint firstAttribute="width" constant="12" id="aP6-Ei-3yJ"/>
                         </constraints>
-                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <state key="normal">
-                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        </state>
-                        <connections>
-                            <action selector="delete:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="YeM-ZA-rtA"/>
-                        </connections>
-                    </button>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="oW4-vg-StF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="7dc-U7-yaF"/>
                     <constraint firstAttribute="trailing" secondItem="H6j-6p-KxG" secondAttribute="trailing" constant="20" id="Mt5-nd-hll"/>
-                    <constraint firstItem="WnH-fe-D1i" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="Xz0-a7-cZ2"/>
-                    <constraint firstItem="WnH-fe-D1i" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="pJw-qs-hi1"/>
+                    <constraint firstItem="oW4-vg-StF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="21" id="q1L-AI-Bje"/>
                 </constraints>
             </tableViewCellContentView>
             <constraints>
@@ -70,8 +63,8 @@
             </constraints>
             <connections>
                 <outlet property="callButton" destination="H6j-6p-KxG" id="SjF-sA-xOJ"/>
-                <outlet property="deleteButton" destination="WnH-fe-D1i" id="0B6-KP-oQZ"/>
                 <outlet property="nameLabel" destination="60S-nx-btb" id="Tsw-81-Y8P"/>
+                <outlet property="selectStateView" destination="oW4-vg-StF" id="nfk-Yw-OEW"/>
                 <outlet property="timeLabel" destination="Jyx-iV-hGm" id="pG1-Hl-bQP"/>
             </connections>
             <point key="canvasLocation" x="186" y="128"/>

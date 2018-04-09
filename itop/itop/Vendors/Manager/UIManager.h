@@ -9,14 +9,40 @@
 #import <Foundation/Foundation.h>
 #import "UserManager.h"
 #import "LeaveViewController.h"
+#import "SigningStateViewController.h"
+#import "ProtocolViewController.h"
+#import "HotDetailsViewController.h"
+#import "PopularizeManagementViewController.h"
+
+typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
+    StatisticalItmeTypeH5 = 0, //H5
+    StatisticalItmeTypeHot = 1, //热点
+    StatisticalItmeTypeFuns , //粉丝
+    StatisticalItmeTypePop , //推广管理
+};
+
+typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^SelectProductBolck)(id product); //选择作品回掉
+
+@class H5List;
 
 @interface UIManager : NSObject
 
 + (instancetype)sharedUIManager;
 
+@property (copy, nonatomic)BackOffBolck backOffBolck;
+@property (copy, nonatomic)BackOffBolck selectProvinceBackOffBolck;
+@property (copy, nonatomic)SelectProductBolck selectProductBolck;
+
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
 + (UIWindow *)newWindow;
+
+/**
+ *  加载启动页
+ */
++(void)loadinglaunchImageView;
+
 
 /**
  *  显示主窗口
@@ -33,7 +59,12 @@
  */
 + (void)goMianViewController;
 
+/**
+ *  @param vcName 构建视图控制器的名称
+ *  @retrun  视图控制器
+ */
 + (UIViewController *)viewControllerWithName:(NSString *)vcName;
+
 /**
  *  通过视图控制器名称进入某个控制器(rootVC为TabBarController)
  *
@@ -73,17 +104,131 @@
  */
 + (void)showVC:(NSString *)vcName;
 
+/**
+ *  通过视图控制器名称进入某个控制器
+ *
+ *  @param vc 视图控制器
+ */
++ (void)pushVC:(UIViewController *)vc;
+
+/**
+ *  获取tabbar高度
+ *  retuen tabbar高度
+ */
 +(CGFloat)getTabBarHeight;
 
+/**
+ *  登陆页
+ *
+ *  @param isLogin  是否已经登录
+ */
+- (void)LoginViewControllerWithLoginState:(BOOL)isLogin;
 
-//设计师信息
+/**
+*   设计师信息
+*
+*  @param designer_id 设计师id
+*/
 + (void)designerDetailWithDesignerId:(NSString*)designer_id;
 
-//设计师list
-+ (void)designerListWithDesignerListType:(DesignerListType)type;
+/**
+ *  设计师列表
+ *
+ *  @param type 获取设计师list入口Type
+ */
++ (void)designerListWithDesignerListType:(DesignerListType)type searchKey:(NSString *)searchKey;
 
-//留资list
-+(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;
+/**
+ *  入驻状态
+ *
+ *  @param type 展示入驻状态类型
+ *  @param signingState 审核状态
+ *  @param signingType 申请用户类型
+ */
++ (void)signingStateWithShowViewType:(ShowSigningStateViewType)type signingState:(SigningState *)signingState signingType:(SigningType)signingType;
+
+/**
+ *  留资
+ *
+ *  @param product //获取留资的作品
+ *  @param leaveType //获取留资入口类型
+ */
++(void)leaveWithProduct:(H5List *)product leaveType:(GetLeaveListType)leaveType;
+
+
+/**
+ *  分享作品设置
+ *
+ *  @param product //分享的作品
+ */
++(void)shearProductWithProduct:(H5List *)product;
+
+/**
+ *  协议预览
+ *
+ *  @param protocolType //协议类型类型
+ */
++(void)protocolWithProtocolType:(ProtocolType)protocolType;
+
+/**
+ *  预览H5
+ *
+ *  @param template_ld H5  id
+ */
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld;
+
+/**
+ *  联系客服／意见反馈公用
+ *
+ *  @param type //联系客服／意见反馈
+ */
++(void)customerServiceAndFeedbackWithTitle:(NSString *)type;
+
+/**
+ *  生成二维码
+ *
+ *  @param link 链接
+ */
++(void)qrCodeViewControllerWithCode:(NSString *)link;
+
+/**
+ *  获取当前导航栏
+ *
+ */
++ (UINavigationController *)getNavigationController;
+
+/**
+ *  @param showProductType 获取作品入口
+ *
+ */
++(void)productViewControllerWithType:(GetProductListType )showProductType;
+
+/**
+ *  @param  product 优化作品标题
+ *
+ */
++(void)optimizeTitleViewControllerWithProduct:(H5List *)product;
+
+/**
+ *  文章详情
+ *  @param article_id  文章id
+ *  @param article_type  文章类型
+ */
++(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type;
+
+/**
+ *  搜索热点列表
+ *  @param getArticleListType  文章id
+ *  @param searchKey  搜索关键词
+ */
++(void)recommendedViewControllerWithGetArticleListType:(GetArticleListType )getArticleListType searchKey:(NSString *)searchKey;
+
+/**
+ *  推广管理
+ *  @param isHome  是否是首页推广
+ */
+-(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome;
+
 
 
 @end

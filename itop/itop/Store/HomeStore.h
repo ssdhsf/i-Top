@@ -11,6 +11,7 @@
 static NSString *const Type_Home = @"Home";
 static NSString *const Type_H5 = @"H5";
 static NSString *const Type_Designer = @"Designer";
+static NSString *const Type_SearchHot = @"SearchHot";
 
 @interface HomeStore : NSObject
 

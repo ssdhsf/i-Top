@@ -43,7 +43,6 @@ static NSString *const LeaveDetailCellIdentifier = @"LeaveDetail";
 -(void)initNavigationBarItems{
     
     self.title = @"留资详情";
-//    [self setupNavigationItemTintWithTint:MANAGEMENT];
 }
 
 -(void)initView{

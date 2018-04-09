@@ -10,4 +10,6 @@
 
 @interface MyWorksViewCotroller : BaseCollectionViewController
 
+@property(assign, nonatomic)GetProductListType showProductType;
+
 @end
