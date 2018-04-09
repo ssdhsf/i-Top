@@ -64,6 +64,11 @@ static NSString *const EarningListCellIdentifier = @"EarningList";
         [self listDataWithListArray:[[TradingListStore shearTradingListStore]configurationEarningListMenuWithUserInfo:arr] page:self.page_no];
         [self steupTableView];
     };
+    
+    [UserManager shareUserManager].errorFailure = ^ (id obj){
+        
+        [self tableViewEndRefreshing];
+    };
 }
 
 - (void)steupTableView{
@@ -93,6 +98,7 @@ static NSString *const EarningListCellIdentifier = @"EarningList";
     
     EarningDetailViewController *vc = [[EarningDetailViewController alloc]init];
     vc.earningList = earningList;
+    vc.detailType = DetailTypeEarningList;
     [UIManager pushVC:vc];
 //    [self.navigationController pushViewController:vc animated:YES];
 //    _parent_id = comment.id;

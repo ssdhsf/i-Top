@@ -121,12 +121,13 @@ static double kFGGScrollInterval = 5.0f;
     if (_imageURLArray.count%3 != 0) {
         page = page +1;
     }
-
+    _scroll.pagingEnabled=YES;
     _scroll.contentSize = CGSizeMake(page*ScreenWidth, self.bounds.size.height);
     
     _scroll.showsHorizontalScrollIndicator = NO;
     for(int i = 0;i < _imageURLArray.count;i++){
         
+         H5List *h5 = _imageURLArray[i];
         UIImageView *imv = [[UIImageView alloc]initWithFrame:CGRectMake(43/2+i*(self.frame.size.width/3), 5,  self.frame.size.width/3-43, (self.frame.size.width/3-43)*1.7)];
         //设置灰色底
         imv.image = _placeHolderImage;
@@ -147,11 +148,23 @@ static double kFGGScrollInterval = 5.0f;
         workLabel.font = [UIFont systemFontOfSize:12];
         workLabel.textColor = UIColorFromRGB(0xeb6ea5);
         
+        
+        NSInteger saleLabelWith = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5.sale_count] ? @"0" : h5.sale_count] fontSize:7 andHeight:10];
+        UILabel *saleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMinX(imv.frame)+7, CGRectGetMaxY(imv.frame)-15, saleLabelWith+10, 10)];
+        
+        saleLabel.text = [NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5.sale_count] ? @"0" : h5.sale_count];
+        saleLabel.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+        saleLabel.layer.cornerRadius = 5;
+        saleLabel.layer.masksToBounds = YES;
+        saleLabel.textColor = [UIColor whiteColor];
+        saleLabel.font = [UIFont systemFontOfSize:7];
+        
         [_scroll addSubview:NameLabel];
         [_scroll addSubview:workLabel];
         [_scroll addSubview:imv];
-        H5List *h5 = _imageURLArray[i];;
-        [imv sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_scroll addSubview:saleLabel];
+       
+        [imv sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:H5PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
 

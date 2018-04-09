@@ -45,7 +45,7 @@
     }
 #endif
     self.wantsFullScreenLayout = NO;
- 
+     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,6 +77,13 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardDidHide:) name:UIKeyboardDidHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyBoardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+}
+
+
+-(void)registeredpushNotification{
+    
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fontReceivePushNotificationAlert:) name:JPUSH_Notification_ShowNotice object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(backgroundReceiveClickPushNotificationAlert:) name:JPUSH_Notification_PresentView object:nil];
 }
 
 #pragma mark - 初始化数据,由子类重写改方法
@@ -161,6 +168,17 @@
 - (void)keyBoardWillShow:(NSNotification *)notification{
     
 }
+
+-(void)fontReceivePushNotificationAlert:(NSNotification *)notification{
+    
+    
+}
+
+-(void)backgroundReceiveClickPushNotificationAlert:(NSNotification *)notification{
+    
+    
+}
+
 
 
 

@@ -12,7 +12,7 @@
 
 + (instancetype)shearStatisticalDataStore;
 
-- (NSMutableArray *)configurationStatisticalDataWithUserType:(UserType )user_type itmeType:(StatisticalItmeType)itme_type;
+- (NSMutableArray *)configurationStatisticalItmeDataTitleWithUserType:(UserType )user_type itmeType:(StatisticsType)itme_type;
 
 //组织曲线模型；
 -(NSMutableArray *)itmeDataModelWithDictionarys:(NSArray *)Dictionarys

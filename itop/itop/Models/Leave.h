@@ -12,5 +12,18 @@
 
 @property (nonatomic, strong) NSString <Optional>*name;
 @property (nonatomic, strong) NSString <Optional>*time;
-@property (nonatomic, assign) BOOL select;
+@property (nonatomic, strong) NSString <Optional>*create_datetime;
+@property (nonatomic, strong) NSString <Optional>*id;
+@property (nonatomic, strong) NSString <Optional>*json_result;
+@property (nonatomic, strong) NSString <Optional>*product_id;
+@property (nonatomic, strong) NSNumber <Optional>*select;
+
+//{
+//    "create_datetime" = "2018-04-08 16:38:37";
+//    id = 59;
+//    "json_result" = "{\\\"name\\\":\\\"test2445555\\\",\\\"phone\\\":\\\"312313\\\",\\\"email\\\":\\\"test@qq.com\\\"}";
+//    "product_id" = 285;
+//}
+
+
 @end

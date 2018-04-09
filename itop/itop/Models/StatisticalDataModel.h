@@ -11,6 +11,8 @@
 @interface StatisticalDataModel : JSONModel
 
 @property (nonatomic, strong)NSString <Optional>*date;
+@property (nonatomic, strong)NSString <Optional>*title;
+@property (nonatomic, strong)UIColor  *markColor;
 @property (nonatomic, strong)NSString <Optional>*accessNumber;
 
 @end

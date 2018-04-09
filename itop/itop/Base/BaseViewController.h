@@ -36,6 +36,7 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 
 
 - (void)registeredkeyBoardNSNotificationCenter;
+- (void)registeredpushNotification;
 
 #pragma mark 键盘已经弹出
 - (void)keyBoardDidShow:(NSNotification *)notification;
@@ -47,4 +48,6 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 - (void)keyBoardWillShow:(NSNotification *)notification;
 //-(UIImageView *)findHairlineImageViewUnder:(UIView *)view;
 
+-(void)fontReceivePushNotificationAlert:(NSNotification *)notification;
+-(void)backgroundReceiveClickPushNotificationAlert:(NSNotification *)notification;
 @end

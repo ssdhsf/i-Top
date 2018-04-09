@@ -20,4 +20,7 @@
 
 //解析收益记录详情
 -(NSMutableArray *)configurationEarningDetailMenuWithUserInfo:(EarningList *)earningList;
+
+//解析交易记录详情
+-(NSMutableArray *)configurationTradingDetailMenuWithUserInfo:(TradingList *)tradingList;
 @end

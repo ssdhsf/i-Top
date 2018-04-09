@@ -14,5 +14,6 @@
 @property (nonatomic, strong)NSString <Optional>*content;
 @property (nonatomic, strong)NSString <Optional>*type;
 @property (nonatomic, strong)NSArray  <Optional>*dataModel;
+@property (nonatomic, strong)UIColor  *markColor;
 
 @end

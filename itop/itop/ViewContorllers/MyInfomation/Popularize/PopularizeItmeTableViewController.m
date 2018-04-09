@@ -10,6 +10,7 @@
 #import "PopularizeTableViewCell.h"
 #import "PopularizeStore.h"
 #import "PopularizeDataSource.h"
+#import "YYGestureRecognizer.h"
 
 static NSString *const PopularizeCellIdentifier = @"Popularize";
 
@@ -52,6 +53,12 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
                                                   PageCount:10];
     [UserManager shareUserManager].popularizeSuccess = ^(NSArray * arr){
         
+//        NSMutableArray *array = [NSMutableArray array];
+//        [array addObjectsFromArray:arr];
+//        [array addObjectsFromArray:arr];
+//        [array addObjectsFromArray:arr];
+//        [array addObjectsFromArray:arr];
+        
         [self listDataWithListArray: [[PopularizeStore shearPopularizeStore]configurationPopularizeWithMenu:arr] page:self.page_no];
         [self steupTableView];
     };
@@ -62,6 +69,20 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
     TableViewCellConfigureBlock congfigureCell = ^(PopularizeTableViewCell *cell , Popularize *item , NSIndexPath *indexPath){
         
         [cell setItmeOfPopularizeModel:item];
+        cell.orderManagementBolck = ^(PopularizeTableViewCell *cell , UIButton *selectButton){
+          
+            NSIndexPath *index = [self.tableView indexPathForCell:cell];
+            Popularize *pop = [self.popularizeDataSource itemAtIndexPath:index];
+            
+            if ([selectButton.titleLabel.text  isEqualToString:@"接单"] || [selectButton.titleLabel.text  isEqualToString:@"拒绝"]) {
+                
+                [[UserManager shareUserManager]popularizeIsAcceptWithOrderId:pop.id isAccept:[selectButton.titleLabel.text  isEqualToString:@"接单"] ? @1 : @0];
+                [UserManager shareUserManager].popularizeSuccess = ^(id obj){
+                    
+                    NSLog(@"%@",obj);
+                };
+            }
+        };
     };
     self.popularizeDataSource = [[PopularizeDataSource alloc]initWithItems:self.dataArray cellIdentifier:PopularizeCellIdentifier cellConfigureBlock:congfigureCell];
     
@@ -75,7 +96,7 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 71;
+    return 99;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{

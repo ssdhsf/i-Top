@@ -19,6 +19,10 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIImageView *verificationCodeImage;
+@property (weak, nonatomic) IBOutlet UIButton *seeIcon;
+
+@property (nonatomic, strong) dispatch_source_t timer;
+
 @end
 
 @implementation registeredViewController
@@ -45,7 +49,7 @@
     [_registeredButoon.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_registeredButoon)];
     _registeredButoon.layer.cornerRadius = _registeredButoon.frame.size.height/2;
     _registeredButoon.layer.masksToBounds = YES;
-    
+     [self setupSeeIconWithAnimation:YES];
 }
 
 -(void)initData{
@@ -53,11 +57,31 @@
     _accountTF.tag = 1;
     _verificationCodeTF.tag = 2;
     _passwordTF.tag = 3;
-    
 }
 
 - (IBAction)registered:(UIButton *)sender {
     
+    if ([Global stringIsNullWithString:_accountTF.text]) {
+        [self showToastWithMessage:@"请输入手机号码"];
+        return;
+    }
+    
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        [self showToastWithMessage:@"请输入验证码"];
+        return;
+    }
+    
+    if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
+        [self showToastWithMessage:@"请输入密码"];
+        return;
+    }
+    
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
+
     [[UserManager shareUserManager]registeredWithUserName:_accountTF.text passWord:_passwordTF.text verificationCode:_verificationCodeTF.text];
     [UserManager shareUserManager].registeredSuccess = ^(id obj){
         
@@ -68,25 +92,47 @@
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
-    [UserManager shareUserManager].verificationSuccess = ^(id obj){
-      
-        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-        NSLog(@"%@",obj);
-    };
+    if([Global stringIsNullWithString:_accountTF.text]) {
+        
+        [self showToastWithMessage:@"请输入手机号码"];
+        return;
+    }
+    
+    [_accountTF resignFirstResponder];
+    [_passwordTF resignFirstResponder];
+    [_verificationCodeTF resignFirstResponder];
+    
+    if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
+        [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
+        [UserManager shareUserManager].verificationSuccess = ^(id obj){
+            
+            [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+            NSLog(@"%@",obj);
+            [_verificationCodeButton scheduledGCDTimer];
+        };
+
+    }else {
+        
+        [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
+        return;
+    }
 }
 
 - (IBAction)passwordVisible:(UIButton *)sender {
+    
+    [self setupSeeIconWithAnimation:!sender.selected];
 }
+
+-(void)setupSeeIconWithAnimation:(BOOL)animation{
+    
+    _seeIcon.selected = animation;
+    _passwordTF.secureTextEntry = _seeIcon.selected;
+    [_seeIcon seePassword];
+}
+
 - (IBAction)login:(UIButton *)sender {
    
-    
     [self back];
-    
-//    ThemeNavigationController* loginNavigation = [[ThemeNavigationController alloc] initWithRootViewController:[[self class] viewControllerWithName:@"LoginViewController"]];
-//    [UIManager appDelegate].window.rootViewController = loginNavigation;
-//    [[UIManager appDelegate].window makeKeyAndVisible];
-
     
 }
 

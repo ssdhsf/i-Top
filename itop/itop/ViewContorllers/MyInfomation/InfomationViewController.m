@@ -39,7 +39,9 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, assign)PickViewType pickViewType; //选择类型
 @property (nonatomic, assign)NSInteger selectRow; //选择类型
 @property (nonatomic, strong)InfomationModel *info; //选择类型
+@property (nonatomic, strong)AlertView *alertView; //选择类型
 @property (nonatomic, assign)BOOL isUpdataInfo; //是否修改信息
+
 
 @end
 
@@ -48,6 +50,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 - (void)viewDidLoad {
    
     [super viewDidLoad];
+    [self registeredkeyBoardNSNotificationCenter];
 }
 
 -(void)initNavigationBarItems{
@@ -355,12 +358,12 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         string  = [NSString stringWithFormat:@"请选择%@",_editorItem.title];
     }
     
-    AlertView *alertView = [[AlertView alloc]initWithTitle:string
+    _alertView = [[AlertView alloc]initWithTitle:string
                                                    message:view
                                                    sureBtn:@"确定"
                                                  cancleBtn:@"取消"
                                               pickViewType:info.pickViewType];
-    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
+    _alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
         
         if (index == 2 && picViewType == PickViewTypeIndustry | picViewType == PickViewTypeProvince | picViewType == PickViewTypeEdit) {
             
@@ -370,7 +373,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             [self.tableView reloadData];
         }
     };
-    [alertView showXLAlertView];
+    [_alertView showXLAlertView];
 }
 
 #pragma mark 数据源 Method numberOfComponentsInPickerView
@@ -562,6 +565,34 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [self.tableView reloadData];
 }
 
+
+-(void)keyBoardWillShow:(NSNotification *)notification{
+    
+    //获取通知对象
+    NSDictionary *userInfo = [notification userInfo];
+    //获取键盘对象
+    NSValue *value = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //获取键盘frame
+    CGRect keyboardRect = [value CGRectValue];
+    //获取键盘高度
+    int height = keyboardRect.size.height;
+
+    NSLog(@"%f",ScreenHeigh/2 - 143.5/2);
+    
+    CGFloat alertViewY = (height-(ScreenHeigh/2 - 143.5/2))*KadapterH+20;
+    if (ScreenHeigh/2 - 143.5/2  < height) {
+       
+        self.alertView.frame = CGRectMake(0,-alertViewY, ScreenWidth, ScreenHeigh+alertViewY+44);
+    }
+    
+    NSLog(@"123");
+}
+
+-(void)keyBoardWillHide:(NSNotification *)notification{
+    
+    self.alertView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh);
+}
+
 //-(NSArray *)showItemAletViewWithItemViewType:(PickViewType )pickViewType{
 //    
 //    Infomation *info = self.dataArray[_selectRow];
@@ -659,7 +690,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [alertController addAction:okAction];
     [self presentViewController:alertController animated:YES completion:nil];
 }
-
 
 -(void)back{
     

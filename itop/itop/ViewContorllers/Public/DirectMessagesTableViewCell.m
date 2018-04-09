@@ -37,7 +37,7 @@
         
         UIImage * backImage;
         
-        backImage = [UIImage imageNamed:@"this_user_bubble"];
+        backImage = [UIImage imageNamed:@"messageblue"];
         backImage = [backImage resizableImageWithCapInsets:UIEdgeInsetsMake(35, 22, 10, 10)];
         _bubbleView.image = backImage;
         _bubbleView.frame = CGRectMake(ScreenWidth-90-messageLong, 10, messageLong+30,messageHeigth+20);
@@ -53,7 +53,7 @@
         
         UIImage * backImage;
     
-        backImage = [UIImage imageNamed:@"other_user_bubble"];
+        backImage = [UIImage imageNamed:@"messagegrey"];
         backImage = [backImage resizableImageWithCapInsets:UIEdgeInsetsMake(35, 22, 10, 10)];
         _bubbleView.image = backImage;
         _bubbleView.frame = CGRectMake(CGRectGetMaxX(self.otherUserImageView.frame)+10, 10, messageLong+30,messageHeigth+20);

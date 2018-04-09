@@ -10,8 +10,13 @@
 #ifndef Config_h
 #define Config_h
 
-#define CONFIG_PLIST [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
-#define CONFIG_DICTIONARY [[NSDictionary alloc] initWithContentsOfFile:CONFIG_PLIST]
+#define CONFIG_PLIST    [[NSBundle mainBundle] pathForResource:@"Config" ofType:@"plist"]
+#define CONFIG_DICTIONARY   [[NSDictionary alloc] initWithContentsOfFile:CONFIG_PLIST]
+
+#define PUSHCONFIG_PLIST       [[NSBundle mainBundle] pathForResource:@"PushConfig" ofType:@"plist"]
+#define PUSHCONFIG_DICTIONARY  [[NSDictionary alloc] initWithContentsOfFile:PUSHCONFIG_PLIST]
+#define PUSHCONFIG_APP_KEY      PUSHCONFIG_DICTIONARY[@"APP_KEY"]
+#define PUSHCONFIG_CHANNEL      PUSHCONFIG_DICTIONARY[@"CHANNEL"]
 
 /**
  *    服务器环境设置

@@ -24,7 +24,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="obK-0s-cB0">
                     <rect key="frame" x="0.0" y="40" width="375" height="80"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fxR-Xb-PGK">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifu-Diamond" translatesAutoresizingMaskIntoConstraints="NO" id="fxR-Xb-PGK">
                             <rect key="frame" x="20" y="0.0" width="90" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="YvJ-Nf-F8E"/>
@@ -110,7 +110,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyz-EP-P5G">
                     <rect key="frame" x="0.0" y="143" width="375" height="80"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="p8Q-hD-PpO">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifu-BlueDiamond" translatesAutoresizingMaskIntoConstraints="NO" id="p8Q-hD-PpO">
                             <rect key="frame" x="20" y="0.0" width="90" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="8gd-7U-OGm"/>
@@ -204,7 +204,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zL-Xp-HK9">
                     <rect key="frame" x="0.0" y="245" width="375" height="80"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fSC-yV-xi7">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifu-BlackDiamond" translatesAutoresizingMaskIntoConstraints="NO" id="fSC-yV-xi7">
                             <rect key="frame" x="20" y="0.0" width="90" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="sGT-Q3-nCo"/>
@@ -261,7 +261,7 @@
                                 <action selector="selectBuyVipType:" destination="-1" eventType="touchUpInside" id="x89-Nv-iDv"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifu_icon_pink" translatesAutoresizingMaskIntoConstraints="NO" id="yRJ-Kv-EDg">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zhifu_icon_black" translatesAutoresizingMaskIntoConstraints="NO" id="yRJ-Kv-EDg">
                             <rect key="frame" x="204" y="4" width="16" height="14"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="16" id="F8T-Rf-aRT"/>
@@ -297,10 +297,12 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67.5" id="x6y-f0-YzH"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wOL-k3-7Ua">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wOL-k3-7Ua">
                     <rect key="frame" x="0.0" y="578" width="375" height="8"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="kSx-9T-P0h"/>
+                    </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VaR-FK-zvn">
                     <rect key="frame" x="20" y="617" width="52" height="21"/>
@@ -339,6 +341,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="wOL-k3-7Ua" secondAttribute="trailing" id="7cb-GD-yjJ"/>
                 <constraint firstItem="LQ5-R5-27z" firstAttribute="centerY" secondItem="VaR-FK-zvn" secondAttribute="centerY" id="EWb-Rp-exJ"/>
                 <constraint firstItem="obK-0s-cB0" firstAttribute="leading" secondItem="Yd3-BZ-YEj" secondAttribute="leading" id="HG0-D0-UGY"/>
                 <constraint firstItem="LQ5-R5-27z" firstAttribute="leading" secondItem="eAF-kB-KJg" secondAttribute="trailing" constant="20" id="HXr-1T-5jG"/>
@@ -348,10 +351,12 @@
                 <constraint firstItem="zyz-EP-P5G" firstAttribute="leading" secondItem="Yd3-BZ-YEj" secondAttribute="leading" id="Z0s-JT-eNr"/>
                 <constraint firstItem="eAF-kB-KJg" firstAttribute="leading" secondItem="VaR-FK-zvn" secondAttribute="trailing" id="bXc-e4-n6Q"/>
                 <constraint firstItem="LQ5-R5-27z" firstAttribute="centerY" secondItem="eAF-kB-KJg" secondAttribute="centerY" id="cjw-aJ-MRx"/>
+                <constraint firstItem="LQ5-R5-27z" firstAttribute="top" secondItem="wOL-k3-7Ua" secondAttribute="bottom" constant="26" id="gC7-BW-xCv"/>
                 <constraint firstAttribute="bottom" secondItem="LQ5-R5-27z" secondAttribute="bottom" constant="25" id="hUd-YQ-HlW"/>
                 <constraint firstAttribute="trailing" secondItem="8zL-Xp-HK9" secondAttribute="trailing" id="jdN-ws-GE1"/>
                 <constraint firstAttribute="trailing" secondItem="LQ5-R5-27z" secondAttribute="trailing" constant="20" id="mN1-li-Rdk"/>
                 <constraint firstAttribute="trailing" secondItem="zyz-EP-P5G" secondAttribute="trailing" id="pYc-cX-h9O"/>
+                <constraint firstItem="wOL-k3-7Ua" firstAttribute="leading" secondItem="Yd3-BZ-YEj" secondAttribute="leading" id="t9D-2z-Oae"/>
                 <constraint firstItem="VaR-FK-zvn" firstAttribute="leading" secondItem="Yd3-BZ-YEj" secondAttribute="leading" constant="20" id="w2V-MY-hDK"/>
                 <constraint firstAttribute="trailing" secondItem="obK-0s-cB0" secondAttribute="trailing" id="wn9-NG-qK6"/>
                 <constraint firstItem="zyz-EP-P5G" firstAttribute="top" secondItem="obK-0s-cB0" secondAttribute="bottom" constant="23" id="znV-lH-2Ey"/>
@@ -360,6 +365,10 @@
         </view>
     </objects>
     <resources>
+        <image name="zhifu-BlackDiamond" width="90" height="67"/>
+        <image name="zhifu-BlueDiamond" width="90" height="67"/>
+        <image name="zhifu-Diamond" width="90" height="67"/>
+        <image name="zhifu_icon_black" width="16" height="14"/>
         <image name="zhifu_icon_blue" width="15" height="14"/>
         <image name="zhifu_icon_pink" width="16" height="14"/>
     </resources>

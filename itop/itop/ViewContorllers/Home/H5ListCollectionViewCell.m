@@ -24,6 +24,16 @@
     self.h5ListMoneyLabel.frame = CGRectMake(43/2, CGRectGetMaxY(self.h5ListTitleLabel.frame)+9, CGRectGetMaxX(self.h5ListImage.frame),16);
     self.h5ListMoneyLabel.textColor  =UIColorFromRGB(0x61bef4);
     
+    NSInteger saleLabelWith = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count] fontSize:7 andHeight:10];
+    
+    self.saleLable.frame = CGRectMake(CGRectGetMinX(self.h5ListImage.frame)+7, CGRectGetMaxY(self.h5ListImage.frame)-15, saleLabelWith+10, 10);
+    
+    
+    self.saleLable.text = [NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count];
+    self.saleLable.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+    self.saleLable.layer.cornerRadius = 5;
+    self.saleLable.layer.masksToBounds = YES;
+    
 //    NSLog(@"%f-----%f",(ScreenWidth/3-33)*1.7+32+5+7+9+5,(self.frame.size.width-43)*1.7+32+5+5+9+7);
 //    [self homeLayoutSubviews];
 }
@@ -41,6 +51,16 @@
     self.h5ListMoneyLabel.text = [NSString stringWithFormat:@"￥%@",h5Model.price] ;
     self.h5ListMoneyLabel.frame = CGRectMake(20/2, CGRectGetMaxY(self.h5ListTitleLabel.frame)+7, CGRectGetMaxX(self.h5ListImage.frame),16);
     self.h5ListMoneyLabel.textColor  = UIColorFromRGB(0xeb6ea5);
+    
+    NSInteger saleLabelWith = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count] fontSize:7 andHeight:10];
+    
+    self.saleLable.frame = CGRectMake(CGRectGetMinX(self.h5ListImage.frame)+7, CGRectGetMaxY(self.h5ListImage.frame)-15, saleLabelWith+10, 10);
+    
+    
+    self.saleLable.text = [NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count];
+    self.saleLable.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+    self.saleLable.layer.cornerRadius = 5;
+    self.saleLable.layer.masksToBounds = YES;
 }
 
 - (void)setMyWorkLietItmeOfModel:(H5List*)h5Model{
@@ -72,6 +92,17 @@
     self.h5ListMoneyLabel.text = [NSString stringWithFormat:@"¥%@",h5Model.price];
     self.h5ListMoneyLabel.frame = CGRectMake(20/2, CGRectGetMaxY(self.h5ListTitleLabel.frame)+7, CGRectGetMaxX(self.h5ListImage.frame),16);
     self.h5ListMoneyLabel.textColor  = UIColorFromRGB(0xeb6ea5);
+    
+    NSInteger saleLabelWith = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count] fontSize:7 andHeight:10];
+    
+    self.saleLable.frame = CGRectMake(CGRectGetMinX(self.h5ListImage.frame)+7, CGRectGetMaxY(self.h5ListImage.frame)-15, saleLabelWith+10, 10);
+    
+    
+    self.saleLable.text = [NSString stringWithFormat:@"  %@人使用",[Global stringIsNullWithString:h5Model.sale_count] ? @"0" : h5Model.sale_count];
+    self.saleLable.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+    self.saleLable.layer.cornerRadius = 5;
+    self.saleLable.layer.masksToBounds = YES;
+
 }
 
 

@@ -37,27 +37,57 @@
     return dataArray;
 }
 
--(NSArray *)configurationStatisticalItmeDataWithUserType:(UserType )user_type itmeType:(StatisticalItmeType)itme_type{
+-(NSArray *)configurationStatisticalItmeDataTitleWithUserType:(UserType )user_type itmeType:(StatisticsType)itme_type{
     
     NSMutableArray *dataArray = [NSMutableArray array];
     
     switch (itme_type) {
-        case StatisticalItmeTypeH5:
+        case StatisticsTypeH5Product:
             
-            return @[@"使用量",@"作品量",@"浏览量",@"粉丝使用量",@"推荐量",@"评论量"];
+            [dataArray addObject: [self statisticalModelWithTitle:@"使用量" markColor:UIColorFromRGB(0x90e0ff)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"作品" markColor:UIColorFromRGB(0xfd91bd)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"浏览量" markColor:UIColorFromRGB(0xffc58c)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"粉丝使用量" markColor:UIColorFromRGB(0xffa0a0)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"推荐量" markColor:UIColorFromRGB(0xacbbfc)]];
+            [dataArray addObject: [self statisticalModelWithTitle:@"评论量" markColor:UIColorFromRGB(0x7ee794)]];
+//            return @[@"使用量",@"作品量",@"浏览量",@"粉丝使用量",@"推荐量",@"评论量"];
             break;
-        case StatisticalItmeTypeHot:
+        case StatisticsTypeHot:
             
-            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
+            [dataArray addObject:[self statisticalModelWithTitle:@"发布量" markColor:UIColorFromRGB(0xfd91bd)]];
+            [dataArray addObject: [self statisticalModelWithTitle:@"推荐量" markColor:UIColorFromRGB(0x90e0ff)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"浏览量" markColor:UIColorFromRGB(0xffc58c)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"粉丝阅读量" markColor:UIColorFromRGB(0xffa0a0)]];
+            [dataArray addObject: [self statisticalModelWithTitle:@"评论量" markColor:UIColorFromRGB(0x7ee794)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"跳出率" markColor:UIColorFromRGB(0xacbbfc)]];
+//            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
             break;
-        case StatisticalItmeTypeFuns:
+        case StatisticsTypeFuns:
             
-            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
+            [dataArray addObject: [self statisticalModelWithTitle:@"粉丝总量" markColor:UIColorFromRGB(0x90e0ff)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"新增粉丝" markColor:UIColorFromRGB(0xfd91bd)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"取消关注" markColor:UIColorFromRGB(0xffc58c)]];
+            [dataArray addObject:[self statisticalModelWithTitle:@"我关注" markColor:UIColorFromRGB(0xffa0a0)]];
+//            [dataArray addObject:[self statisticalModelWithTitle:@"跳出率" markColor:UIColorFromRGB(0xacbbfc)]];
+//            [dataArray addObject: [self statisticalModelWithTitle:@"评论量" markColor:UIColorFromRGB(0x7ee794)]];
+//            return @[@"推荐量",@"发布量",@"浏览量",@"粉丝阅读量",@"跳出率",@"评论量"];
             break;
 
-        case StatisticalItmeTypePop:
+        case StatisticsTypePop:
             
-            return @[@"使用量",@"发布量",@"浏览量",@"粉丝阅读量",@"推荐量",@"评论量"];
+            [dataArray addObject:[self statisticalModelWithTitle:@"浏览量" markColor:UIColorFromRGB(0xfd91bd)]];
+            [dataArray addObject: [self statisticalModelWithTitle:@"转发量" markColor:UIColorFromRGB(0x90e0ff)]];
+            [dataArray addObject: [self statisticalModelWithTitle:@"评论量" markColor:UIColorFromRGB(0x7ee794)]];
+            
+            if (user_type == UserTypeMarketing) {
+                
+                 [dataArray addObject:[self statisticalModelWithTitle:@"收益" markColor:UIColorFromRGB(0xacbbfc)]];
+            } else{
+                
+                 [dataArray addObject:[self statisticalModelWithTitle:@"消费" markColor:UIColorFromRGB(0xacbbfc)]];
+            }
+           
+//            return @[@"使用量",@"发布量",@"浏览量",@"粉丝阅读量",@"推荐量",@"评论量"];
             
             break;
         default:
@@ -110,5 +140,13 @@
     return yElements;
 }
 
+-(StatisticalDataModel *)statisticalModelWithTitle:(NSString *)title
+                                            markColor:(UIColor *)color{
+    
+    StatisticalDataModel *statistical = [[StatisticalDataModel alloc]init];
+    statistical.title = title;
+    statistical.markColor = color;
+    return statistical;
+}
 
 @end

@@ -90,7 +90,7 @@
         userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
         if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {
             
-            NSString *headView = [[UserManager shareUserManager]crrentInfomationModel].user_info.head_img;
+            NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
             [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 [info setImage:info.imageView.image forState:UIControlStateNormal];
@@ -105,6 +105,7 @@
         } else {
             
              [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
+             userNameLabel.text = @"点击登陆";
         }
        
         [info addTarget:self action:@selector(nextInfomation:) forControlEvents:UIControlEventTouchDown];

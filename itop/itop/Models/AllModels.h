@@ -47,5 +47,6 @@
 #import "Popularize.h"
 #import "DirectMessages.h"
 #import "UserMessege.h"
+#import "SigningState.h"
 
 #endif /* AllModels_h */

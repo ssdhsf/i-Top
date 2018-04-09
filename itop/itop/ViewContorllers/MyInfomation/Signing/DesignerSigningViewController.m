@@ -8,10 +8,12 @@
 
 #import "DesignerSigningViewController.h"
 #import "DesignerSigningStore.h"
+//#import <FileProvider/FileProvider.h>
+
 
 //#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 
-@interface DesignerSigningViewController ()
+@interface DesignerSigningViewController ()<UIDocumentPickerDelegate,UIDocumentMenuDelegate>
 
 //设计师信息页
 @property (strong, nonatomic) YZTagList *tagList;
@@ -35,6 +37,12 @@
 @property (weak, nonatomic) IBOutlet UIView *agreedView;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 //@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
+
+@property (strong, nonatomic) H5List *select_h5;
+@property (strong, nonatomic) UIImageView *h5_cover;
+@property (strong, nonatomic) CAShapeLayer *currentH5ShapeLayer;
+
+@property (strong, nonatomic) UIDocumentPickerViewController *documentPicker;
 
 @end
 
@@ -89,10 +97,13 @@
     [_uploadButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_uploadButton)];
     _uploadButton.layer.masksToBounds = YES;
     _uploadButton.layer.cornerRadius = _uploadButton.height/2;
-    [_selectItopProductButton.layer addSublayer:[[Global sharedSingleton] buttonSublayerWithButton:_selectItopProductButton]];
+//    [_selectItopProductButton.layer addSublayer:[[Global sharedSingleton] buttonSublayerWithButton:_selectItopProductButton]];
     
     _agreedView.layer.masksToBounds = YES;
     _agreedView.layer.cornerRadius = _agreedView.height/2;
+    
+    _currentH5ShapeLayer = [[Global sharedSingleton] buttonSublayerWithButton:_selectItopProductButton];
+    [_selectItopProductButton.layer addSublayer:_currentH5ShapeLayer];
 }
 
 -(void)initNavigationBarItems{
@@ -161,13 +172,32 @@
         [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
         return;
     }
+    [_mobiliTF resignFirstResponder];
+    [_verificationCodeTF resignFirstResponder];
+    [_nameTF resignFirstResponder];
     
-    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
-    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+    if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
+        [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+        [UserManager shareUserManager].verificationSuccess = ^(id obj){
+            
+            [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+            NSLog(@"%@",obj);
+            [_verificationCodeButton scheduledGCDTimer];
+        };
         
-        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-        NSLog(@"%@",obj);
-    };
+    }else {
+        
+        [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
+        return;
+    }
+
+    
+//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+//        
+//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+//        NSLog(@"%@",obj);
+//    };
 }
 
 - (IBAction)next:(UIButton *)sender {
@@ -204,7 +234,6 @@
     }
     
     self.view  = [_views lastObject];
-
 }
 
 - (IBAction)agreedProtcol:(UIButton *)sender {
@@ -224,6 +253,92 @@
     [UIManager protocolWithProtocolType:ProtocolTypeDesginer];
 }
 
+- (IBAction)selectProduct:(UIButton *)sender {
+    
+    [UIManager productViewControllerWithType:GetProductListTypeSelect];
+    [UIManager sharedUIManager].selectProductBolck = ^(H5List *h5){
+        
+        _select_h5 = h5;
+        _h5_cover = [[UIImageView alloc]init];
+        [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            
+            [_selectItopProductButton setImage:_h5_cover.image forState:UIControlStateNormal];
+            [_currentH5ShapeLayer removeFromSuperlayer];
+            
+        }];
+    };
+
+}
+
+- (IBAction)selectZipFile:(UIButton *)sender {
+    
+    NSArray* docTypes = @[ (NSString*)kUTTypeZipArchive ,(NSString*)kUTTypeBzip2Archive,(NSString *)kUTTypeGNUZipArchive,(NSString *)kUTTypeArchive];
+     _documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:docTypes inMode:UIDocumentPickerModeImport];
+    
+    _documentPicker.delegate = self;
+    _documentPicker.modalPresentationStyle = UIModalPresentationCustom;
+
+//    UIBarButtonItem *left = [UIBarButtonItem ]
+//    documentPicker.navigationController.navigationItem.leftBarButtonItem
+    UIButton* leftBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+    [leftBtn setImage:[UIImage imageNamed:@"nav_icon_back"] forState:UIControlStateNormal];
+//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+//    [leftBtn setTitleColor:UIColorFromRGB(0xFFA5EC) forState:UIControlStateNormal];
+//    [leftBtn setTintColor:UIColorFromRGB(0xFFA5EC)];
+    [leftBtn addTarget:self action:@selector(documentPickerBack) forControlEvents:UIControlEventTouchUpInside];
+//    leftBtn.backgroundColor = [UIColor blueColor];
+    leftBtn.frame = CGRectMake(20, 30, 30, 30);
+    [_documentPicker.view addSubview:leftBtn];
+    
+    
+    UIButton* rightBtn= [UIButton buttonWithType:UIButtonTypeCustom];
+    [rightBtn setTitle:@"取消" forState:UIControlStateNormal];
+    
+//    [rightBtn setTintColor:UIColorFromRGB(0xFFA5EC)];
+    //    leftBtn.backgroundColor = [UIColor blueColor];
+    rightBtn.frame = CGRectMake(ScreenWidth-80, 30, 60, 30);
+    [rightBtn setTitleColor:UIColorFromRGB(0xFFA5EC) forState:UIControlStateNormal];
+    [rightBtn addTarget:self action:@selector(cancel) forControlEvents:UIControlEventTouchUpInside];
+    [_documentPicker.view addSubview:rightBtn];
+    
+    
+    [self presentViewController:_documentPicker animated:YES completion:^{
+        
+        NSLog(@"12");
+    }];
+}
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentAtURL:(NSURL *)url {
+    if (controller.documentPickerMode == UIDocumentPickerModeImport) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+
+            NSData *data = [NSData dataWithContentsOfURL:url];
+            NSInteger length = [data length]/1000/1000;
+            
+            if (length > 10) {
+                
+                [self AlertOperation];
+            } else {
+                
+                _fileNameTF.text = [url lastPathComponent];
+            }
+            NSLog(@"%ldfM",length);
+        });
+    }
+}
+
+-(void)documentPickerBack{
+    
+    [self.documentPicker.navigationController popToViewController:self.documentPicker animated:YES];
+}
+
+-(void)cancel{
+    
+    [self.documentPicker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+
 -(void)back{
     
     if (self.view == [_views lastObject]) {
@@ -235,20 +350,60 @@
     }
 }
 
-//-(void)buttonSublayer{
-//    
-//    CAShapeLayer *borderLayer = [CAShapeLayer layer];
-//    borderLayer.bounds = CGRectMake(0, 0, _selectItopProductButton.size.width, _selectItopProductButton.size.height);//虚线框的大小
-//    borderLayer.position = CGPointMake(CGRectGetMidX(_selectItopProductButton.bounds),CGRectGetMidY(_selectItopProductButton.bounds));//虚线框锚点
-//    borderLayer.path = [UIBezierPath bezierPathWithRect:borderLayer.bounds].CGPath;//矩形路径
-//    borderLayer.lineWidth = 0.5/[[UIScreen mainScreen] scale];//虚线宽度
-//    //虚线边框
-//    borderLayer.lineDashPattern = @[@6, @3];
-//    //实线边框
-//    //    borderLayer.lineDashPattern = nil;
-//    borderLayer.fillColor = [UIColor clearColor].CGColor;
-//    borderLayer.strokeColor = [UIColor grayColor].CGColor;
-//    _currentShapeLayer = borderLayer;
-//}
+-(void)AlertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"压缩文件不能大于10M" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+//    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+//        
+//        [self back];
+//    }];
+    [alertController addAction:cancelAction];
+//    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+- (IBAction)submit:(UIButton *)sender {
+    
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    
+    NSString *field ;
+    for (SpecialityTag *sTag in self.tagArray) {
+        if (sTag.selecteTag ==YES) {
+            
+            if (field == nil) {
+                
+                field = [NSString stringWithFormat:@"%@",sTag.tag];
+            } else {
+                
+                field = [NSString stringWithFormat:@"%@,%@",field,sTag.tag];
+            }
+        }
+    }
+
+    [parameters setObject:_nameTF.text forKey:@"Name"];
+    [parameters setObject:_mobiliTF.text forKey:@"Phone"];
+    [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
+    [parameters setObject:field forKey:@"Field"];
+    [parameters setObject:@"http://192.168.7.100:8029/Lib/images/main/Designer1.jpg" forKey:@"Url"];
+    
+    [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeDesigner];
+    [UserManager shareUserManager].signingSuccess =  ^(id obj){
+        
+        [UIManager signingStateWithShowViewType:ShowSigningStateViewTypeNext signingState:nil signingType:SigningTypeMarNoel];
+    };
+
+    
+//    if (_select_h5 != nil || _fileNameTF.text != nil || _productLinkTF != nil) {
+//        
+//        
+//    }
+}
+- (IBAction)guide:(UIButton *)sender {
+    
+    
+    
+}
 
 @end

@@ -13,6 +13,8 @@
 #import "MyInfomationCollectionViewCell.h"
 #import "MyInfomationSectionHeaderView.h"
 #import "InfomationViewController.h"
+#import "StatisticalDataSegmentViewController.h"
+#import "SigningStateViewController.h"
 
 static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 
@@ -30,6 +32,10 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+//    [[NSUserDefaults standardUserDefaults] setObject:@"huangli" forKey:@"huangli"];
+//    NSString * path  =  NSHomeDirectory();
+//    NSLog(@"path：%@",path);
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -47,7 +53,6 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         
     };
 }
-
 
 -(void)initView{
     
@@ -67,20 +72,26 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     [super initData];
     UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
-    self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
     
-    [UIManager sharedUIManager].backOffBolck = ^(id obj){
+    if (user == nil) {
         
-        [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
-        [UserManager shareUserManager].userInfoSuccess = ^(id obj){
+        self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:UserTypeDefault];
+    } else {
+        self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
+        
+        [UIManager sharedUIManager].backOffBolck = ^(id obj){
             
-        InfomationModel * info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
-            [[Global sharedSingleton]
-             setUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])
-             andValue:[info toJSONString]];
-            [self.collectionView reloadData];
+            [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
+            [UserManager shareUserManager].userInfoSuccess = ^(id obj){
+                
+                InfomationModel * info = [[InfomationModel alloc]initWithDictionary:obj error:nil];
+                [[Global sharedSingleton]
+                 setUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])
+                 andValue:[info toJSONString]];
+                [self.collectionView reloadData];
+            };
         };
-    };
+    }
 }
 
 -(void)steupCollectionView{
@@ -103,8 +114,12 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         MyInfomationSectionHeaderView *infView = [[MyInfomationSectionHeaderView alloc] init];
         infView.sectionHeader = ^(){
             
-            [self nextBaseInfomationVc];
-            
+            if ([[UserManager shareUserManager] isLogin]) { //登录跳入个人信息编辑
+                [self nextBaseInfomationVc];
+            } else { //未登陆跳入登录页面
+                
+                [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+            }
         };
         infView.frame = headerView.bounds; //TODO
         [infView initMyInfoSubViewsWithSection:indexPath.section];
@@ -162,8 +177,35 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
             [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
         } ];
 
-    }
-    else {
+    }else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
+        
+        [[UserManager shareUserManager]signingState];
+        [UserManager shareUserManager].signingSuccess = ^ (NSDictionary *obj){
+          
+            SigningState *state = [[SigningState alloc]initWithDictionary:obj error:nil];
+            
+            if (state.designer != nil) {
+                
+                [UIManager signingStateWithShowViewType:ShowSigningStateViewTypeRequest signingState:state signingType:SigningTypeDesigner];
+            }else if (state.enterprise != nil) {
+                
+                [UIManager signingStateWithShowViewType:ShowSigningStateViewTypeRequest signingState:state signingType:SigningTypeCompany];
+            
+            }else if (state.marketing != nil) {
+                
+                 [UIManager signingStateWithShowViewType:ShowSigningStateViewTypeRequest signingState:state signingType:SigningTypeMarketing];
+            } else {
+                
+                [UIManager showVC:@"SigningTypeViewController"];
+            }
+
+            NSLog(@"%@",obj);
+        };
+        
+    }else if ([info.myInfoTitle isEqualToString:@"留资"]){
+        
+        [UIManager leaveWithProduct:nil leaveType:GetLeaveListTypeMyLeave];
+    } else {
         
         [UIManager showVC:info.nextVcName];
     }

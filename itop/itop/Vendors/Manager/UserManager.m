@@ -39,7 +39,7 @@ _errorFailure(__id_obj); }
 #pragma mark - 获取用户登录基本信息
 - (UserModel*)crrentUserInfomation{
     
-     NSString * infoString = [[Global sharedSingleton]
+    NSString * infoString = [[Global sharedSingleton]
                getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION];
     UserModel *user= [[UserModel alloc]initWithString:infoString error:nil];
     return user;
@@ -976,7 +976,7 @@ _errorFailure(__id_obj); }
         } else {
             
             NSArray *arr = object[@"rows"];
-            _myProductListSuccess(arr);
+            _leaveProductSuccess(arr);
         }
         
     } failure:^(NSError *error) {
@@ -987,7 +987,7 @@ _errorFailure(__id_obj); }
 }
 
 
-- (void)submitFileWithParameters:(NSDictionary *)parameters{
+- (void)submitImageWithParameters:(NSDictionary *)parameters{
     
     SHOW_GET_DATA
     NSString *api =@"/api/common/uploadbase64";
@@ -1000,6 +1000,30 @@ _errorFailure(__id_obj); }
             
         } else {
 
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _submitFileSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)submitFileWithParameters:(NSDictionary *)parameters{
+    
+    SHOW_GET_DATA
+    NSString *api =@"/api/common/uploadfile";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
             NSString *string = [NSString stringWithFormat:@"%@",object];
             _submitFileSuccess(string);
         }
@@ -1050,6 +1074,31 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 
+}
+
+- (void)signingState{
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/getapplyinfo";
+    NSDictionary *parameters = nil;
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+//            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _signingSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+    
 }
 
 -(void)opinionCustomerServiceWithContent:(NSString *)content feedbackType:(FeedbackType)feedbackType{
@@ -1133,6 +1182,9 @@ _errorFailure(__id_obj); }
         case StatisticsTypeFuns:
             api = @"/api/count/fansattr";
             break;
+        case StatisticsTypePop:
+            api = @"/api/count/order";
+            break;
         default:
             break;
     }
@@ -1184,6 +1236,33 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)tradingListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount{
+    
+    NSString *api = @"/api/payment/getrecordlist";
+    NSDictionary *parameters = @{@"PageIndex" : @(pageIndex),
+                                 @"PageCount" : @(pageCount),
+                                 };
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _tradingListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)popularizeListWithUserId:(NSNumber *)user_id
                      orderStatus:(OrderStatusType )order_status
                        PageIndex:(NSInteger )pageIndex
@@ -1212,6 +1291,34 @@ _errorFailure(__id_obj); }
             
             NSArray *arr = object[@"rows"];
             _popularizeSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
+- (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
+                             isAccept:(NSNumber *)isAccept{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/order/acceptorder";
+    NSDictionary *parameters = @{@"id" : order_id,
+                                 @"isAccept" : isAccept};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _popularizeSuccess(object);
         }
         
     } failure:^(NSError *error) {

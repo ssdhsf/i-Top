@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *feedbackSubmitButton;
 @property (weak, nonatomic) IBOutlet UITextView *feedbackTV;
 
+@property (weak, nonatomic) IBOutlet UILabel *ee;
 @property (strong, nonatomic) NSArray *views;
 
 @end
@@ -26,6 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+//    _ee.backgroundColor = [UIColor colorWithRed:((float)((0xcbe8f3 & 0xFF0000) >> 16))/255.0 green:((float)((0xcbe8f3 & 0xFF00) >> 8))/255.0 blue:((float)(0xcbe8f3 & 0xFF))/255.0 alpha:0.5];
+//    _ee.text = @"你好";
     // Do any additional setup after loading the view from its nib.
 }
 

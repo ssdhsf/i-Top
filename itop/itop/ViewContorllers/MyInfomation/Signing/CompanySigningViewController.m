@@ -521,12 +521,32 @@
         return;
     }
     
-    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
-    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+    [_mobiliTF resignFirstResponder];
+    [_verificationCodeTF resignFirstResponder];
+    [_nameTF resignFirstResponder];
+    
+    if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
+        [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+        [UserManager shareUserManager].verificationSuccess = ^(id obj){
+            
+            [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+            NSLog(@"%@",obj);
+            [_verificationCodeButton scheduledGCDTimer];
+        };
         
-        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-        NSLog(@"%@",obj);
-    };
+    }else {
+        
+        [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
+        return;
+    }
+
+//    
+//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
+//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
+//        
+//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
+//        NSLog(@"%@",obj);
+//    };
 }
 
 - (IBAction)subMit:(UIButton *)sender {
@@ -577,8 +597,7 @@
         [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeCompany];
         [UserManager shareUserManager].signingSuccess =  ^(id obj){
             
-            [UIManager signingStateWithShowViewType:ShowViewTypeNext];
-            
+       [UIManager signingStateWithShowViewType:ShowSigningStateViewTypeNext signingState:nil signingType:SigningTypeMarNoel];
         };
         
     };

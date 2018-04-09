@@ -10,6 +10,7 @@
 #import "TradingListTableViewCell.h"
 #import "TradingListStore.h"
 #import "TradingListDataSource.h"
+#import "EarningDetailViewController.h"
 
 static NSString *const TradingListCellIdentifier = @"TradingList";
 
@@ -29,6 +30,20 @@ static NSString *const TradingListCellIdentifier = @"TradingList";
 -(void)initView{
     
     [super initView];
+    [self initTableViewWithFrame:TableViewFrame(0, 0, ScreenWidth, ScreenHeigh-40)];
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.top.bottom.left.right.mas_equalTo(self.view);
+        
+    }];
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+}
+
+-(void)initNavigationBarItems{
+    
+    self.title = @"交易记录";
 }
 
 -(void)initData{
@@ -39,9 +54,22 @@ static NSString *const TradingListCellIdentifier = @"TradingList";
 
 -(void)refreshData{
     
+    [[UserManager shareUserManager] tradingListWithPageIndex:self.page_no PageCount:10];
+    [UserManager shareUserManager].tradingListSuccess = ^(NSArray *arr){
+        
+        if (arr.count == 0) {
+            
+            self.noDataType = NoDataTypeDefult;
+            self.originY = 50;
+        }
+        [self listDataWithListArray:[[TradingListStore shearTradingListStore]configurationTradingListMenuWithUserInfo:arr] page:self.page_no];
+        [self steupTableView];
+    };
     
-    
-    
+    [UserManager shareUserManager].errorFailure = ^ (id obj){
+        
+        [self tableViewEndRefreshing];
+    };
 }
 
 - (void)steupTableView{
@@ -58,6 +86,23 @@ static NSString *const TradingListCellIdentifier = @"TradingList";
     
     self.tableView.dataSource = self.tradingListDataSource;
     [self.tableView registerNib:[[UIManager sharedUIManager]nibWithNibName:@"TradingListTableViewCell"] forCellReuseIdentifier:TradingListCellIdentifier];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 54;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    TradingList *tradingList = [self.tradingListDataSource itemAtIndexPath:indexPath];
+    
+    EarningDetailViewController *vc = [[EarningDetailViewController alloc]init];
+    vc.tradingList = tradingList;
+    vc.detailType = DetailTypeTradingList;
+    [UIManager pushVC:vc];
+    //    [self.navigationController pushViewController:vc animated:YES];
+    //    _parent_id = comment.id;
 }
 
 

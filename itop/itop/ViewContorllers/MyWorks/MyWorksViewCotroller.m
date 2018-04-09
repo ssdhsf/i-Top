@@ -27,8 +27,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) H5List *h5;
 @property (nonatomic, assign) NSInteger currentIndex;
-
-
 @property (nonatomic, assign) NSInteger currentOffset;
 
 @property (nonatomic, strong) UIImageView *instruct;
@@ -37,6 +35,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @implementation MyWorksViewCotroller
 
 - (void)viewDidLoad {
+   
     [super viewDidLoad];
 }
 
@@ -238,7 +237,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"留资"]) {
-         [UIManager leaveWithProductId:_h5.id leaveType:GetLeaveListTypeProduct];
+         [UIManager leaveWithProduct:_h5 leaveType:GetLeaveListTypeProduct];
     }
     
     if ([sender.titleLabel.text isEqualToString:@"设置"]) {

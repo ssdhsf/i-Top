@@ -12,14 +12,16 @@
 
 @interface StatisticalDataViewController : BaseViewController
 
-@end
-
-@interface RecordStatisticsItem : NSObject
-
-//@property (nonatomic, assign) StatisticsType statisticsType;
-@property (nonatomic, assign) NSInteger dayIndex;
-@property (nonatomic, strong) NSMutableArray *lines;//line count
-@property (nonatomic, strong) NSMutableArray *xElements;//x轴数据
-@property (nonatomic, strong) NSMutableArray *yElements;//y轴数据
+@property (assign,nonatomic)StatisticsType statisticsType;
 
 @end
+
+//@interface RecordStatisticsItem : NSObject
+//
+////@property (nonatomic, assign) StatisticsType statisticsType;
+//@property (nonatomic, assign) NSInteger dayIndex;
+//@property (nonatomic, strong) NSMutableArray *lines;//line count
+//@property (nonatomic, strong) NSMutableArray *xElements;//x轴数据
+//@property (nonatomic, strong) NSMutableArray *yElements;//y轴数据
+//
+//@end

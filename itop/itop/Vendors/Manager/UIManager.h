@@ -12,7 +12,7 @@
 #import "SigningStateViewController.h"
 #import "ProtocolViewController.h"
 #import "HotDetailsViewController.h"
-
+#import "PopularizeManagementViewController.h"
 
 typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
     StatisticalItmeTypeH5 = 0, //H5
@@ -113,12 +113,22 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 
 /**
  *  获取tabbar高度
- *
+ *  retuen tabbar高度
  */
 +(CGFloat)getTabBarHeight;
 
+/**
+ *  登陆页
+ *
+ *  @param isLogin  是否已经登录
+ */
+- (void)LoginViewControllerWithLoginState:(BOOL)isLogin;
 
-//设计师信息
+/**
+*   设计师信息
+*
+*  @param designer_id 设计师id
+*/
 + (void)designerDetailWithDesignerId:(NSString*)designer_id;
 
 /**
@@ -132,26 +142,29 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *  入驻状态
  *
  *  @param type 展示入驻状态类型
+ *  @param signingState 审核状态
+ *  @param signingType 申请用户类型
  */
-+ (void)signingStateWithShowViewType:(ShowViewType)type;
++ (void)signingStateWithShowViewType:(ShowSigningStateViewType)type signingState:(SigningState *)signingState signingType:(SigningType)signingType;
 
 /**
- *  入驻状态
+ *  留资
  *
+ *  @param product //获取留资的作品
  *  @param leaveType //获取留资入口类型
  */
-+(void)leaveWithProductId:(NSString *)product_id leaveType:(GetLeaveListType)leaveType;
++(void)leaveWithProduct:(H5List *)product leaveType:(GetLeaveListType)leaveType;
 
 
 /**
- *  入驻状态
+ *  分享作品设置
  *
  *  @param product //分享的作品
  */
 +(void)shearProductWithProduct:(H5List *)product;
 
 /**
- *  入驻状态
+ *  协议预览
  *
  *  @param protocolType //协议类型类型
  */
@@ -209,5 +222,13 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *  @param searchKey  搜索关键词
  */
 +(void)recommendedViewControllerWithGetArticleListType:(GetArticleListType )getArticleListType searchKey:(NSString *)searchKey;
+
+/**
+ *  推广管理
+ *  @param isHome  是否是首页推广
+ */
+-(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome;
+
+
 
 @end

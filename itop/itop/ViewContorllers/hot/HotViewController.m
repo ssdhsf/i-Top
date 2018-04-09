@@ -30,7 +30,9 @@
 @property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) UILabel *loctionLable;
-//@property (nonatomic, strong) NSString *loctionString;
+
+@property (nonatomic, assign) BOOL isSelectProvince;
+@property (nonatomic, strong) Province *selectProvince;
 
 @end
 
@@ -176,6 +178,7 @@
 
 -(void)initData{
 
+     _isSelectProvince = NO;
     [self.dataArray addObjectsFromArray:[NSArray arrayWithObjects:@"推荐",@"H5",@"资讯", @"视频", @"本地", nil]];
 }
 
@@ -238,26 +241,63 @@
     self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     self.searchBtn.frame = CGRectMake(ScreenWidth-50 , 0, 25 , 25 );
     self.searchBtn.centerY = searchBtn.centerY;
-    [self.searchBtn addTarget:self action:@selector(loginOut) forControlEvents:UIControlEventTouchDown];
+    [self.searchBtn addTarget:self action:@selector(hotSearch) forControlEvents:UIControlEventTouchDown];
     [navBgView addSubview:self.searchBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"hot_icon_location"] forState:UIControlStateNormal];
+    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
     [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
-    if ([MapLocationManager sharedMapLocationManager].location == nil) {
-        
-        [[MapLocationManager sharedMapLocationManager] initMapLocation];
-        [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+    
+    if (!_isSelectProvince) {
+        if ([MapLocationManager sharedMapLocationManager].location == nil) {
             
-            self.loctionLable .text = loction;
-        };
-        [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+            [[MapLocationManager sharedMapLocationManager] initMapLocation];
+            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+                
+                self.loctionLable .text = loction;
+            };
             
-            [self showToastWithError:error];
-        };
-
+            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+                
+                [self showToastWithError:error];
+            };
+        } else {
+            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+        }
     } else {
-        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+        
+        self.loctionLable .text = _selectProvince.address;
     }
 
+//    if ([MapLocationManager sharedMapLocationManager].location == nil) {
+//        
+//        [[MapLocationManager sharedMapLocationManager] initMapLocation];
+//        [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+//            
+//            self.loctionLable .text = loction;
+//        };
+//        [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+//            
+//            [self showToastWithError:error];
+//        };
+//
+//    } else {
+//        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+//    }
+}
+
+-(void)hotSearch{
+    
+    [UIManager showVC:@"SearchViewController"];
+}
+
+-(void)selectLoction{
+    
+    [UIManager showVC:@"ProvinceViewController"];
+    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
+        
+        _isSelectProvince = YES;
+        _selectProvince = city;
+    };
 }
 
 

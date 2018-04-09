@@ -60,7 +60,7 @@
 
 - (IBAction)tradingList:(UIButton *)sender {
     
-    
+    [UIManager showVC:@"TradingListViewController"];
 }
 
 - (IBAction)earningsList:(UIButton *)sender {

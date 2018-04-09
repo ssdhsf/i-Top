@@ -160,7 +160,7 @@
         NSDictionary * parameters = @{@"fileName" : file_type,
                                       @"imageBase64" : str
                                       };
-        [[UserManager shareUserManager] submitFileWithParameters:parameters];
+        [[UserManager shareUserManager] submitImageWithParameters:parameters];
 //        [UserManager shareUserManager] .submitFileSuccess = ^(id obj){
 //            
 //            if ([obj isKindOfClass:[SubmitFile class]]) {

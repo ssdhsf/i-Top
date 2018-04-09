@@ -44,11 +44,9 @@
     _originalPassTF.tag = 1;
     _passNewTF.tag = 2;
     _againPassTF.tag = 3;
-    _passNewTF.secureTextEntry = YES;
-    _againPassTF.secureTextEntry = YES;
     
-    _passNewSeeButton.selected = YES;
-    _againPassSeeButton.selected = YES;
+    [self setupSeeIconWithAnimation:YES tag:_passNewSeeButton.tag];
+    [self setupSeeIconWithAnimation:YES tag:_againPassSeeButton.tag];
 }
 
 -(void)initNavigationBarItems{
@@ -58,31 +56,24 @@
 
 - (IBAction)see:(UIButton *)sender {
     
-    if (sender.tag == 1) {
-        
-        _passNewSeeButton.selected = !sender.selected;
-        _passNewTF.secureTextEntry = _passNewSeeButton.selected;
-        if (_passNewSeeButton.selected) {
-            
-            [_passNewSeeButton setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
-            
-        } else {
-            [_passNewSeeButton setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
-        }
+    [self setupSeeIconWithAnimation:!sender.selected tag:sender.tag];
+}
 
-    } else {
+
+-(void)setupSeeIconWithAnimation:(BOOL)animation tag:(NSInteger)tag{
+    
+    if (tag == 1) {
         
-        _againPassSeeButton.selected = !sender.selected;
+        _passNewSeeButton.selected = animation;
+        _passNewTF.secureTextEntry = _passNewSeeButton.selected;
+        [_passNewSeeButton seePassword];
+    } else {
+        _againPassSeeButton.selected = animation;
         _againPassTF.secureTextEntry = _againPassSeeButton.selected;
-        if (_againPassSeeButton.selected) {
-            
-            [_againPassSeeButton setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
-            
-        } else {
-            [_againPassSeeButton setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
-        }
+        [_againPassSeeButton seePassword];
     }
 }
+
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     
@@ -106,7 +97,6 @@
 
 - (IBAction)submit:(UIButton *)sender {
     
-    
     if ([Global stringIsNullWithString:_originalPassTF.text]) {
         [self showToastWithMessage:@"请输入旧密码"];
         return;
@@ -122,14 +112,18 @@
         return;
     }
     
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_againPassTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_againPassTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
+    
     [[UserManager shareUserManager]changePassWithOriginalPass:_originalPassTF.text newPass:_passNewTF.text];
     [UserManager shareUserManager].changePassSuccess = ^(id obj){
     
         [self showToastWithMessage:@"密码修改成功"];
         [self back];
-    
     };
-    
 }
 
 

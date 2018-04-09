@@ -157,7 +157,7 @@
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a84-Bd-Snb">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a84-Bd-Snb">
                                     <rect key="frame" x="270" y="1" width="85" height="30"/>
                                     <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
@@ -255,6 +255,9 @@
                         <constraint firstAttribute="width" constant="100" id="fTh-c8-yib"/>
                     </constraints>
                     <state key="normal" image="ruzhu_icon_add"/>
+                    <connections>
+                        <action selector="selectProduct:" destination="-1" eventType="touchUpInside" id="l4b-Pa-MPk"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="i-Top作品" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YY3-94-aDr">
                     <rect key="frame" x="20" y="50" width="77" height="21"/>
@@ -339,6 +342,20 @@
                             <state key="normal" title="上传">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="selectZipFile:" destination="-1" eventType="touchUpInside" id="a6G-ox-jLa"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uKY-qp-von">
+                            <rect key="frame" x="225" y="-2" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="8Ez-Ni-1Dk"/>
+                                <constraint firstAttribute="width" constant="25" id="G3M-0N-It4"/>
+                            </constraints>
+                            <state key="normal" image="ruzhu_icon_check"/>
+                            <connections>
+                                <action selector="guide:" destination="-1" eventType="touchUpInside" id="lXl-j6-8ZV"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -354,11 +371,13 @@
                         <constraint firstAttribute="height" constant="31" id="eyf-Dj-DMA"/>
                         <constraint firstAttribute="bottom" secondItem="k8a-f7-E6j" secondAttribute="bottom" id="fZM-VW-fg0"/>
                         <constraint firstAttribute="height" relation="lessThanOrEqual" constant="31" id="iuq-hH-NoL"/>
+                        <constraint firstItem="k8a-f7-E6j" firstAttribute="leading" secondItem="uKY-qp-von" secondAttribute="trailing" constant="15" id="mxu-oN-hAN"/>
+                        <constraint firstItem="uKY-qp-von" firstAttribute="centerY" secondItem="qCG-g9-pl3" secondAttribute="centerY" id="x3c-Nl-Vim"/>
                         <constraint firstItem="k8a-f7-E6j" firstAttribute="leading" secondItem="qCG-g9-pl3" secondAttribute="trailing" constant="15" id="zMC-QJ-f6L"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nos-pj-obu">
-                    <rect key="frame" x="122" y="474" width="130" height="35"/>
+                    <rect key="frame" x="123" y="474" width="130" height="35"/>
                     <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="130" id="gMC-Q9-uHk"/>
@@ -369,7 +388,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="next:" destination="-1" eventType="touchUpInside" id="sCa-yf-kRk"/>
+                        <action selector="submit:" destination="-1" eventType="touchUpInside" id="yBI-Q4-neH"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同意《                          》" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Seb-gv-Obq">
@@ -460,5 +479,6 @@
     </objects>
     <resources>
         <image name="ruzhu_icon_add" width="35" height="35"/>
+        <image name="ruzhu_icon_check" width="25" height="25"/>
     </resources>
 </document>

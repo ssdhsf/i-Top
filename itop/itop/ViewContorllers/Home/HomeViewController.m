@@ -30,7 +30,7 @@ static NSString *const HomeCellIdentifier = @"Home";
 static NSString *const H5ListCellIdentifier = @"H5List";
 static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
-@interface HomeViewController ()
+@interface HomeViewController ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong)BMKLocationManager *locationManager;
 @property (nonatomic, strong)CarouselScrollView *bannerView;
@@ -56,6 +56,9 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [UIManager appDelegate].tabBarController.delegate = self;
+    [self registeredpushNotification];
 //    [WXApiManager sharedManager].delegate = self;
 }
 
@@ -466,24 +469,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     NSLog(@"23");
 }
 
-//测试发送消息到微信
-- (IBAction)authWechat:(UIButton *)sender {
-    
-    [WXApiRequestHandler sendText:@"i-Top分享测试"
-                          InScene:WXSceneTimeline];
-}
-
-//测试发送消息到微信回调
-- (void)managerDidRecvMessageResponse:(SendMessageToWXResp *)response{
-   
-    NSLog(@"%@",response);
-}
-
-//选择城市
--(void)selectorCity{
-    
-}
-
 -(CGSize)sizeForItemAtIndex:(NSIndexPath *)indexPath{
     
     Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
@@ -550,7 +535,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 //登陆异常
 - (void)logoutView:(NSNotification *)notification {
     
-    [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+    [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+//    [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
     [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
     AppDelegate *app = ApplicationDelegate;
     app.tabBarController = nil;
@@ -595,14 +581,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [navBgView addSubview:self.loctionBtn];
     
     self.messageBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.messageBtn.frame = CGRectMake(ScreenWidth-20-19 , 0, 19 , 19 );
+    self.messageBtn.frame = CGRectMake(ScreenWidth-20-19 , 0, 25 , 25 );
     self.messageBtn.centerY = _searchBtn.centerY;
     [self.messageBtn addTarget:self action:@selector(messageList) forControlEvents:UIControlEventTouchDown];
     
     JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.messageBtn alignment:JSBadgeViewAlignmentTopRight];
     badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
     badgeView.badgeText = @"12";
-    badgeView.size = CGSizeMake(12, 12);
+    badgeView.size = CGSizeMake(10, 10);
     [navBgView addSubview:self.messageBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
     [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
@@ -719,6 +705,44 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         _selectProvince = city;
     };
 }
+
+-(void)fontReceivePushNotificationAlert:(NSNotification *)notification{
+    
+    [self AlertOperation];
+}
+
+-(void)AlertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"收到i-Top推送消息" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"打开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+//        [self back];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+-(void)backgroundReceiveClickPushNotificationAlert:(NSNotification *)notification{
+    
+}
+
+//点击我的作品前 判断用户是否登陆
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
+    
+    ThemeNavigationController *nav=(ThemeNavigationController*)viewController;
+    BOOL isSelectProductItem =  [nav.tabBarItem.title isEqualToString:@"我的推广"]||
+    [nav.tabBarItem.title isEqualToString:@"我的作品"] ? YES : NO;
+    if (![[UserManager shareUserManager]isLogin] && isSelectProductItem) {
+        
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+        return NO;
+    }
+    
+    return YES;
+}
+
 
 
 @end

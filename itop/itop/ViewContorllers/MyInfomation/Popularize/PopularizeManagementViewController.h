@@ -10,4 +10,6 @@
 
 @interface PopularizeManagementViewController : BaseViewController
 
+@property (assign, nonatomic)BOOL isHome;
+
 @end

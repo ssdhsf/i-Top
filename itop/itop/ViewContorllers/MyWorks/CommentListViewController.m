@@ -22,7 +22,7 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
 @property(nonatomic, strong)NSArray *myProductArray; //我的作品
 @property(nonatomic, strong)H5List *currentProduct; //当前的作品
 @property(nonatomic, strong)NSArray *dropdownItme; //下拉分类
-@property (weak, nonatomic) IBOutlet LMJDropdownMenu *dropdownMenu;
+@property (strong, nonatomic)  LMJDropdownMenu *dropdownMenu;
 
 @property (strong, nonatomic) UITextView *commentTV;
 @property (strong, nonatomic) UIView *commentTVBgView;
@@ -52,6 +52,7 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
 -(void)initView{
     
     [super initView];
+    
     [self initTableViewWithFrame:TableViewFrame(0, 0, ScreenWidth, ScreenHeigh-40)];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
@@ -61,6 +62,8 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
+     _dropdownMenu = [[LMJDropdownMenu alloc]initWithFrame:CGRectMake(50, 30, ScreenWidth-100, 44)];
+    [self.view addSubview:_dropdownMenu];
 }
 
 -(void)setupkeyBoardDidShowView{

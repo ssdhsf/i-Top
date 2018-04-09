@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoadingViewController">
             <connections>
-                <outlet property="myImgView" destination="FzA-7a-wnd" id="G1H-LM-YHk"/>
+                <outlet property="dicripLabel" destination="XBN-cj-3wz" id="NgD-U3-LrB"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,12 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FzA-7a-wnd">
-                    <rect key="frame" x="16" y="161" width="343" height="222"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="222" id="OTb-Ux-fpL"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="人人都是自营销专家" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XBN-cj-3wz">
                     <rect key="frame" x="16" y="557" width="343" height="30"/>
                     <constraints>
@@ -38,11 +32,8 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="FzA-7a-wnd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Ana-Lk-vJh"/>
                 <constraint firstAttribute="trailing" secondItem="XBN-cj-3wz" secondAttribute="trailing" constant="16" id="PhG-A6-YIX"/>
                 <constraint firstItem="XBN-cj-3wz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Twz-p9-RE4"/>
-                <constraint firstAttribute="trailing" secondItem="FzA-7a-wnd" secondAttribute="trailing" constant="16" id="ZBf-pZ-qVh"/>
-                <constraint firstItem="FzA-7a-wnd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="161" id="bgk-nQ-c1u"/>
                 <constraint firstAttribute="bottom" secondItem="XBN-cj-3wz" secondAttribute="bottom" constant="80" id="tAE-Go-0O9"/>
             </constraints>
             <point key="canvasLocation" x="39.5" y="79.5"/>

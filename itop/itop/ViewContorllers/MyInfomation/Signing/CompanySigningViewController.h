@@ -10,7 +10,6 @@
 
 @interface CompanySigningViewController : BaseViewController
 
-
-//@property (strong,nonatomic) NSMutableDictionary *parameters;
+@property(strong, nonatomic)EnterpriseSigningState *enterprise;
 
 @end

@@ -30,11 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *focusButton;
 @property (nonatomic, assign)FocusType focusType;
 @property (nonatomic, strong)DesignerInfo *designerInfo;
-
-
-
 @property (weak, nonatomic) IBOutlet UIButton *pricebutton;
-
 
 @end
 
@@ -42,8 +38,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    // Do any additional setup after loading the view from its nib.
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -65,20 +59,23 @@
         
         _productDetail = [[ProductDetail alloc]initWithDictionary:dic error:nil];
         _productDetail.product.descrip = dic[@"product"][@"description"];
-        [self lodingDesignerInfomation];
+        [self createScrollView];
+        [self setupDetailSubViewData];
+
+//        [self lodingDesignerInfomation];
     };
 }
 
--(void)lodingDesignerInfomation{
-    
-    [[UserManager shareUserManager]designerDetailWithDesigner:_productDetail.product.user_id];
-    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
-        
-        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
-        [self createScrollView];
-        [self setupDetailSubViewData];
-    };
-}
+//-(void)lodingDesignerInfomation{
+//    
+//    [[UserManager shareUserManager]designerDetailWithDesigner:_productDetail.product.user_id];
+//    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
+//        
+//        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
+//        [self createScrollView];
+//        [self setupDetailSubViewData];
+//    };
+//}
 
 -(void)initView{
     
@@ -116,8 +113,8 @@
     
     _detailView.frame = CGRectMake(ScreenWidth,0 , ScreenWidth, ScreenHeigh-109);
     
-    NSInteger introduceLabelHeight = [Global heightWithString:_productDetail.product.share_description width:ScreenWidth-50 fontSize:15];
-    _introduceLabel.frame = CGRectMake(25, 157, ScreenWidth-50, introduceLabelHeight);
+    NSInteger introduceLabelHeight = [Global heightWithString:_productDetail.product.descrip width:ScreenWidth-50 fontSize:15];
+    _introduceLabel.frame = CGRectMake(25, 157, ScreenWidth-50, introduceLabelHeight+10);
     _mutabelCountLabel.frame = CGRectMake(25, CGRectGetMaxY(_introduceLabel.frame)+40, ScreenWidth-50, 21);
     _imageCountLabel.frame = CGRectMake(25, CGRectGetMaxY(_mutabelCountLabel.frame)+25, ScreenWidth-50, 21);
     _desginerTiltleLabel.frame = CGRectMake(25, CGRectGetMaxY(_imageCountLabel.frame)+40, ScreenWidth-50, 21);
@@ -198,8 +195,12 @@
 }
 
 - (IBAction)price:(UIButton *)sender {
+    
+    
 }
 - (IBAction)company:(UIButton *)sender {
+    
+    [UIManager showVC:@"BuyVipPayViewController"];
 }
 
 - (void)didReceiveMemoryWarning {

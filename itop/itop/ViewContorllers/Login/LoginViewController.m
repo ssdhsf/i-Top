@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIButton *seeIcon;
+@property (weak, nonatomic) IBOutlet UIButton *backIcon;
 
 @end
 
@@ -29,13 +30,16 @@
 
 -(void)initView{
     
+    
+    _backIcon.hidden = _isLogin;
+    
     [_loginButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginButton)];
     _loginButton.layer.cornerRadius = _loginButton.frame.size.height/2;
     _loginButton.layer.masksToBounds = YES;
     _accountTF.tag = 1;
     _passwordTF.tag = 2;
-    _seeIcon.selected = YES;
-    [self seePassword];
+    
+    [self setupSeeIconWithAnimation:YES];
 }
 
 -(void)initData{
@@ -56,6 +60,15 @@
 //登录
 - (IBAction)login:(UIButton *)sender {
     
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
+
+    [_accountTF resignFirstResponder];
+    [_passwordTF resignFirstResponder];
+    
     if ([Global stringIsNullWithString:_accountTF.text] ||[Global stringIsNullWithString:_passwordTF.text]) {
         
         [self showToastWithMessage:@"账号或密码不能为空"];
@@ -64,8 +77,7 @@
     [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
     [UserManager shareUserManager].loginSuccess = ^(id obj){
         
-        [UIManager goMianViewController];
-        
+        [UIManager makeKeyAndVisible];
         [[Global sharedSingleton]
          setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
          andValue:_accountTF.text];
@@ -98,26 +110,20 @@
     
     UIViewController *vc = [UIManager viewControllerWithName:@"ResetPasswordViewController"];
     [self.navigationController pushViewController:vc animated:YES];
-    [self hiddenNavigationController:NO];
+    [UIManager showVC:@"ResetPasswordViewController"];
 }
 
 //密码可见
 - (IBAction)visible:(UIButton *)sender {
-    
-    _seeIcon.selected = !sender.selected;
-    [self seePassword];
+
+    [self setupSeeIconWithAnimation:!sender.selected];
 }
 
--(void)seePassword{
-    
+-(void)setupSeeIconWithAnimation:(BOOL)animation{
+
+    _seeIcon.selected = animation;
     _passwordTF.secureTextEntry = _seeIcon.selected;
-    if (_seeIcon.selected) {
-        
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_see"] forState:UIControlStateNormal];
-        
-    } else {
-        [_seeIcon setImage:[UIImage imageNamed:@"icon_unsee"] forState:UIControlStateNormal];
-    }
+    [_seeIcon seePassword];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -192,5 +198,9 @@
     //    [UIAlertView showWithTitle:strTitle message:strMsg sure:nil];
 }
 
+- (IBAction)back:(UIButton *)sender {
+    
+    [self back];
+}
 
 @end

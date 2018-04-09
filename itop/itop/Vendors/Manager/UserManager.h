@@ -71,6 +71,14 @@ typedef NS_ENUM(NSInteger, SigningType) { //入驻申请
     SigningTypeDesigner = 0, //设计师
     SigningTypeCompany = 1,//企业
     SigningTypeMarketing ,//自营销人
+    SigningTypeMarNoel //无
+};
+
+typedef NS_ENUM(NSInteger, SigningStateType) { //入驻申请状态
+    SigningStateTypeUnCheck = 0, //未审核
+    SigningStateTypeCheckOn = 1,//审核中
+    SigningStateTypePass ,//审核通过
+    SigningStateTypeUnPass //审核不通过
 };
 
 typedef NS_ENUM(NSInteger, UserType) { //用户类型
@@ -118,7 +126,8 @@ typedef NS_ENUM(NSInteger, StatisticsType) {//统计数据类型
     
     StatisticsTypeH5Product = 0,//H5
     StatisticsTypeHot = 1,//热点
-    StatisticsTypeFuns //粉丝
+    StatisticsTypeFuns, //粉丝
+    StatisticsTypePop //粉丝
 };
 
 typedef NS_ENUM(NSInteger, GetProductListType) { //获取文章入口
@@ -138,6 +147,7 @@ typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
     OrderStatusTypefail , //完成失败
     OrderStatusTypeSucess , //完成
     OrderStatusTypeStart, //开启中
+//    OrderStatusTypeStart, //开启中
     OrderStatusTypeNoel , //全部
 };
 
@@ -212,6 +222,8 @@ typedef void (^DeledeProductFailure)(id obj);
 typedef void (^StatisticsSuccess)(id obj);
 typedef void (^StatisticsFailure)(id obj);
 
+typedef void (^TradingListSuccess)(id obj);
+typedef void (^TradingListFailure)(id obj);
 typedef void (^EarningListSuccess)(id obj);
 typedef void (^EarningListFailure)(id obj);
 typedef void (^PopularizeSuccess)(id obj);
@@ -342,6 +354,11 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------数据统计————————————————————————*/
 @property (nonatomic, copy) StatisticsSuccess statisticsSuccess;
 @property (nonatomic, copy) StatisticsFailure statisticsFailure;
+
+/*----------------交易记录————————————————————————*/
+@property (nonatomic, copy) TradingListSuccess tradingListSuccess;
+@property (nonatomic, copy) TradingListFailure tradingListFailure;
+
 /*----------------收益记录————————————————————————*/
 @property (nonatomic, copy) EarningListSuccess earningListSuccess;
 @property (nonatomic, copy) EarningListFailure earningListFailure;
@@ -360,6 +377,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取定位————————————————————————*/
 @property (nonatomic, copy) MapLocationManagerSuccess mapLocationManagerSuccess;
 @property (nonatomic, copy) MapLocationManagerFailure mapLocationManagerFailure;
+
+@property (nonatomic, strong) dispatch_source_t timer;
+@property (nonatomic, assign) NSInteger timers;
 
 + (instancetype)shareUserManager;
 
@@ -682,6 +702,13 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param parameters 文件参数 Base64文件／尾缀
  */
+- (void)submitImageWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  提交文件  data
+ *
+ *  @param parameters 文件参数 Base64文件／尾缀
+ */
 - (void)submitFileWithParameters:(NSDictionary *)parameters;
 
 /**
@@ -691,6 +718,12 @@ typedef void (^ErrorFailure)(id obj);
  *  @param signingType 申请类型
  */
 - (void)submitSigningWithParameters:(NSDictionary *)parameters signingType:(SigningType)signingType;
+
+/**
+ *   查看入驻申请
+ *
+ */
+- (void)signingState;
 
 /**
  *  提交意见反馈
@@ -708,7 +741,7 @@ typedef void (^ErrorFailure)(id obj);
 -(void)deleteProductWithProductId:(NSString *)product_id;
 
 /**
- *  删除作品
+ *  数据统计
  *
  *  @param startDate  开始日期
  *  @param endDate 结束日期
@@ -719,7 +752,7 @@ typedef void (^ErrorFailure)(id obj);
                     statisticsType:(StatisticsType)statisticsType;
 
 /**
- *  删除作品
+ *  收益记录
  *
  *  @param pageIndex 页
  *  @param pageCount 条／页
@@ -728,7 +761,16 @@ typedef void (^ErrorFailure)(id obj);
                        PageCount:(NSInteger )pageCount;
 
 /**
- *  删除作品
+ *  收益记录
+ *
+ *  @param pageIndex 页
+ *  @param pageCount 条／页
+ */
+- (void)tradingListWithPageIndex:(NSInteger )pageIndex
+                       PageCount:(NSInteger )pageCount;
+
+/**
+ *  获取推广订单分页
  *
  *  @param user_id 用户id
  *  @param order_status 订单状态
@@ -739,7 +781,17 @@ typedef void (^ErrorFailure)(id obj);
                        PageCount:(NSInteger )pageCount;
 
 /**
- *  更新作品
+ *  获取推广订单分页
+ *
+ *  @param order_id 订单id
+ *  @param isAccept 是否接单
+ */
+- (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
+                             isAccept:(NSNumber *)isAccept;
+
+
+/**
+ *   更新作品
  *
  *  @param parameters 作品参数
  */

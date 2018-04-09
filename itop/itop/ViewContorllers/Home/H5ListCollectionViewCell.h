@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *h5ListImage;
 @property (weak, nonatomic) IBOutlet UILabel *h5ListTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5ListMoneyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *saleLable;
 
 - (void)setItmeOfModel:(H5List*)h5Model;
 - (void)setH5LietItmeOfModel:(H5List*)h5Model;//热点H5

@@ -39,6 +39,12 @@
 #define TableViewFrame(__X, __Y, __Width, __Heigh) CGRectMake(__X, __Y, __Width, __Heigh)
 
 
+#define REGISTRATION_KEY @"regist_key"
+#define Notification_REGISTRATION_ID @"registration_id"
+#define JPUSH_REGISTRATION_ID @"RegistrationID"
+#define JPUSH_Notification_PresentView       @"PresentView"
+#define JPUSH_Notification_ShowNotice        @"ShowNotice"
+
 //颜色配置
 #define RGB(__R, __G, __B)\
     [UIColor colorWithRed:(__R) / 255.0f\

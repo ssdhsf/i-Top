@@ -10,4 +10,6 @@
 
 @interface MarketingViewController : BaseTableViewController
 
+@property(strong, nonatomic)MarketingSigningState *marketing;
+
 @end

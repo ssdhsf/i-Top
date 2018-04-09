@@ -42,12 +42,23 @@ static NSString *const EarningDetailCellIdentifier = @"EarningDetail";
 -(void)initData{
     
     [super initData];
-    self.dataArray = [[TradingListStore shearTradingListStore]configurationEarningDetailMenuWithUserInfo:_earningList];
+    
+    if (_detailType == DetailTypeEarningList) {
+        
+        self.dataArray = [[TradingListStore shearTradingListStore]configurationEarningDetailMenuWithUserInfo:_earningList];
+    }else {
+        
+        self.dataArray = [[TradingListStore shearTradingListStore]configurationTradingDetailMenuWithUserInfo:_tradingList];
+    }
 }
 
 -(void)initNavigationBarItems{
     
-    self.title = @"收益记录";
+    if (_detailType == DetailTypeEarningList) {
+        self.title = @"收益详情";
+    }else {
+        self.title = @"交易详情";
+    }
 }
 
 - (void)steupTableView{

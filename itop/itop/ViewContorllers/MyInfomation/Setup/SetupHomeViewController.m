@@ -41,6 +41,13 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     _loginOutButton.layer.masksToBounds = YES;
     _loginOutButton.layer.cornerRadius = _loginOutButton.frame.size.height/2;
     [_loginOutButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginOutButton)];
+    
+    if (![[UserManager shareUserManager]isLogin]) {
+        
+        [_loginOutButton setTitle:@"登陆" forState:UIControlStateNormal];
+    } else {
+        [_loginOutButton setTitle:@"退出登录" forState:UIControlStateNormal];
+    }
     [self steupTableView];
 }
 
@@ -109,7 +116,8 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     [UserManager shareUserManager].loginSuccess = ^ (id obj){
         
         [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
-        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+//        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
         
     };
 }

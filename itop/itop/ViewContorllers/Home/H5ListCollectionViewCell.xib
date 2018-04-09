@@ -36,6 +36,13 @@
                         <rect key="frame" x="5" y="5" width="95" height="160"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TAP-0P-DjY">
+                        <rect key="frame" x="11" y="150" width="83" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="7"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <size key="customSize" width="135" height="215"/>
@@ -43,8 +50,9 @@
                 <outlet property="h5ListImage" destination="qDm-fk-vN5" id="hY4-Nq-M2c"/>
                 <outlet property="h5ListMoneyLabel" destination="0bX-35-ib5" id="7ck-Xo-EYs"/>
                 <outlet property="h5ListTitleLabel" destination="II9-8Z-ey5" id="zHV-Qg-TpD"/>
+                <outlet property="saleLable" destination="TAP-0P-DjY" id="3en-6u-6uX"/>
             </connections>
-            <point key="canvasLocation" x="43.5" y="159.5"/>
+            <point key="canvasLocation" x="43.5" y="159"/>
         </collectionViewCell>
     </objects>
 </document>

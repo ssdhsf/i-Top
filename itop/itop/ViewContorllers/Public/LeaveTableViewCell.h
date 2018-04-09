@@ -17,7 +17,7 @@ typedef void (^SelectDeleteButtonBlock)(LeaveTableViewCell *selectIndex);
 @property (weak, nonatomic) IBOutlet UIButton *callButton;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+@property (weak, nonatomic) IBOutlet UIView *selectStateView;
 @property (nonatomic ,copy)SelectDeleteButtonBlock deleteIndex;
 
 -(void)setItmeOfModel:(Leave *)leave animation:(BOOL)animation;

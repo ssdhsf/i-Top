@@ -24,10 +24,12 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NDN-dy-sY4">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NDN-dy-sY4">
                     <rect key="frame" x="0.0" y="578" width="375" height="8"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.96078431369999995" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="SQV-TC-shf"/>
+                    </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSG-dx-iex">
                     <rect key="frame" x="20" y="617" width="52" height="21"/>
@@ -110,6 +112,7 @@
                 <constraint firstItem="2re-Kx-KrS" firstAttribute="top" secondItem="Ry8-Fq-2ge" secondAttribute="bottom" constant="24" id="TVZ-7V-tlZ"/>
                 <constraint firstItem="N42-hU-Rac" firstAttribute="top" secondItem="Ry8-Fq-2ge" secondAttribute="bottom" constant="21" id="V3I-eH-eyi"/>
                 <constraint firstItem="2re-Kx-KrS" firstAttribute="leading" secondItem="AJc-Xe-5my" secondAttribute="trailing" constant="30" id="VSC-q0-Z3T"/>
+                <constraint firstAttribute="trailing" secondItem="NDN-dy-sY4" secondAttribute="trailing" id="Xs0-zT-Jr2"/>
                 <constraint firstAttribute="trailing" secondItem="Apc-gJ-gas" secondAttribute="trailing" constant="20" id="YWG-io-adK"/>
                 <constraint firstItem="Apc-gJ-gas" firstAttribute="centerY" secondItem="F0E-eq-GvY" secondAttribute="centerY" id="esD-72-6QT"/>
                 <constraint firstItem="F0E-eq-GvY" firstAttribute="leading" secondItem="hSG-dx-iex" secondAttribute="trailing" id="glO-2g-xd8"/>
@@ -117,6 +120,8 @@
                 <constraint firstItem="Apc-gJ-gas" firstAttribute="leading" secondItem="F0E-eq-GvY" secondAttribute="trailing" constant="20" id="hjL-np-bOr"/>
                 <constraint firstItem="Ry8-Fq-2ge" firstAttribute="top" secondItem="D54-4f-7ku" secondAttribute="top" constant="28" id="jg5-WO-iVd"/>
                 <constraint firstItem="AJc-Xe-5my" firstAttribute="leading" secondItem="D54-4f-7ku" secondAttribute="leading" constant="20" id="lsq-zx-J1V"/>
+                <constraint firstItem="NDN-dy-sY4" firstAttribute="leading" secondItem="D54-4f-7ku" secondAttribute="leading" id="p70-jL-1pj"/>
+                <constraint firstItem="Apc-gJ-gas" firstAttribute="top" secondItem="NDN-dy-sY4" secondAttribute="bottom" constant="26" id="tL5-20-zS7"/>
                 <constraint firstItem="Apc-gJ-gas" firstAttribute="centerY" secondItem="hSG-dx-iex" secondAttribute="centerY" id="vc4-ei-qbS"/>
             </constraints>
             <point key="canvasLocation" x="468.5" y="79.5"/>

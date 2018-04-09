@@ -28,7 +28,7 @@
 @property (nonatomic, strong) NSString <Optional>*check_status;
 @property (nonatomic, strong) NSString <Optional>*commend_datetime;
 @property (nonatomic, strong) NSString <Optional>*create_datetime;
-@property (nonatomic, strong) NSString <Optional>*description;
+@property (nonatomic, strong) NSString <Optional>*descrip;
 @property (nonatomic, strong) NSString <Optional>*importance;
 @property (nonatomic, strong) NSString <Optional>*product_type;
 @property (nonatomic, strong) NSString <Optional>*publish_datetime;

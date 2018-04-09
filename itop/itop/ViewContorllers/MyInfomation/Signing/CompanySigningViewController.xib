@@ -586,7 +586,7 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwM-SK-bBY">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BwM-SK-bBY">
                             <rect key="frame" x="270" y="1" width="85" height="30"/>
                             <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -594,9 +594,7 @@
                                 <constraint firstAttribute="height" constant="30" id="Na9-tR-ffZ"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="获取验证码">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
+                            <state key="normal" title="获取验证码"/>
                             <connections>
                                 <action selector="verificationCode:" destination="-1" eventType="touchUpInside" id="6pu-5h-qVx"/>
                             </connections>
