@@ -143,7 +143,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     self.editorBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh)];
     self.editorBgView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     [self.view.window addSubview:self.editorBgView];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cancelEditor)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cancelEditor:)];
     [self.editorBgView addGestureRecognizer:tap];
     self.editorBgView.hidden = YES;
 }
@@ -286,14 +286,14 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     NSInteger page= self.titleArray.count/8;
     
-    if (self.titleArray.count%6 != 0) {
+    if (self.titleArray.count%8 != 0) {
         page = page +1;
     }
     scroll.contentSize = CGSizeMake(page*ScreenWidth, 251-50);
     
     scroll.pagingEnabled=YES;
     scroll.showsHorizontalScrollIndicator = NO;
-    self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
+    self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 251);
     self.editorView.backgroundColor = [UIColor whiteColor];
     [self.editorBgView addSubview:self.editorView];
 
@@ -375,10 +375,18 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     [self editoeViewWithAnimation:NO];
 }
 
--(void)cancelEditor{
+-(void)cancelEditor:(UITapGestureRecognizer *)sender{
     
-    self.editorBgView.hidden = YES;
-    [self editoeViewWithAnimation:NO];
+    CGPoint point = [sender locationInView:self.view];
+    NSLog(@"handleSingleTap!pointx:%f,y:%f",point.x,point.y);
+    
+    NSLog(@"%f",ScreenHeigh);
+    if (point.y < ScreenHeigh - 251-64) {
+        
+        self.editorBgView.hidden = YES;
+        [self editoeViewWithAnimation:NO];
+
+    }
 }
 
 -(void)editoeViewWithAnimation:(BOOL)animation{

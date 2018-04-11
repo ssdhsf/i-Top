@@ -8,9 +8,18 @@
 
 #import <JSONModel/JSONModel.h>
 
+@protocol LeaveDetail <NSObject>
+
+
+
+@end
+
 @interface LeaveDetail : JSONModel
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *content;
+//@property (nonatomic, strong) NSString *title;
+//@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString <Optional>*email;
+@property (nonatomic, strong) NSString <Optional>*phone;
+@property (nonatomic, strong) NSString <Optional>*name;
 
 @end

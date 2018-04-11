@@ -26,11 +26,9 @@ static NSString *const LeaveDetailCellIdentifier = @"LeaveDetail";
     // Do any additional setup after loading the view from its nib.
 }
 
-
 -(void)initData{
     
-    self.dataArray = [[LeaveDetailStore shearLeaveDetailStore]configurationMenuWithMenu:nil ];
-
+    self.dataArray = [[LeaveDetailStore shearLeaveDetailStore]configurationMenuWithMenu:_leave];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -63,7 +61,7 @@ static NSString *const LeaveDetailCellIdentifier = @"LeaveDetail";
 - (void)steupTableView{
     
 //    __weak typeof(self) weakSelf = self;
-    TableViewCellConfigureBlock congfigureCell = ^(LeaveDateilCell *cell , LeaveDetail *item , NSIndexPath *indexPath){
+    TableViewCellConfigureBlock congfigureCell = ^(LeaveDateilCell *cell , Infomation *item , NSIndexPath *indexPath){
         
         [cell setItmeOfModel:item ];
         
@@ -84,7 +82,7 @@ static NSString *const LeaveDetailCellIdentifier = @"LeaveDetail";
         
         return 70;
     } else {
-        LeaveDetail *leave = [_leaveDetailDataSource itemAtIndexPath:indexPath];
+        Infomation *leave = [_leaveDetailDataSource itemAtIndexPath:indexPath];
         NSInteger content = [Global heightWithString:leave.content width:ScreenWidth-113 fontSize:15];
         
         return content +30;

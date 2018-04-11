@@ -11,6 +11,6 @@
 @interface LeaveDetailStore : NSObject
 
 + (instancetype)shearLeaveDetailStore;
-- (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
+- (NSMutableArray *)configurationMenuWithMenu:(Leave *)menu;
 
 @end

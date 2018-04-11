@@ -11,6 +11,7 @@
 @class LeaveTableViewCell;
 
 typedef void (^SelectDeleteButtonBlock)(LeaveTableViewCell *selectIndex);
+typedef void (^CallButtonBlock)(LeaveTableViewCell *selectIndex);
 
 @interface LeaveTableViewCell : UITableViewCell
 
@@ -19,6 +20,7 @@ typedef void (^SelectDeleteButtonBlock)(LeaveTableViewCell *selectIndex);
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIView *selectStateView;
 @property (nonatomic ,copy)SelectDeleteButtonBlock deleteIndex;
+@property (nonatomic ,copy)CallButtonBlock callButtonBlock;
 
 -(void)setItmeOfModel:(Leave *)leave animation:(BOOL)animation;
 

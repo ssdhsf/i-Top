@@ -290,7 +290,7 @@
     
     LeaveViewController *vc = [[LeaveViewController alloc]init];
     vc.currentProduct = product;
-    vc.getLeaveListType = GetLeaveListTypeProduct;
+    vc.getLeaveListType = leaveType;
     vc.hidesBottomBarWhenPushed = YES;
     [UIManager showViewController:vc Animated:YES];
 }

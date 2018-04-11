@@ -7,14 +7,14 @@
 //
 
 #import <JSONModel/JSONModel.h>
-
+#import "LeaveDetail.h"
 @interface Leave : JSONModel
 
 @property (nonatomic, strong) NSString <Optional>*name;
 @property (nonatomic, strong) NSString <Optional>*time;
 @property (nonatomic, strong) NSString <Optional>*create_datetime;
 @property (nonatomic, strong) NSString <Optional>*id;
-@property (nonatomic, strong) NSString <Optional>*json_result;
+@property (nonatomic, strong) LeaveDetail <Optional>*json_result;
 @property (nonatomic, strong) NSString <Optional>*product_id;
 @property (nonatomic, strong) NSNumber <Optional>*select;
 

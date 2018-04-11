@@ -10,5 +10,6 @@
 
 @interface LeaveDetailViewController : BaseTableViewController
 
-@property(nonatomic,strong)NSString *leave_id;
+@property(nonatomic,strong)Leave *leave;
+
 @end

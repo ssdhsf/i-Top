@@ -13,6 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
--(void)setItmeOfModel:(LeaveDetail *)leave;
+-(void)setItmeOfModel:(Infomation *)leave;
 
 @end
