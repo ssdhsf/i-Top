@@ -112,14 +112,7 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
 
 - (IBAction)loginOut:(UIButton *)sender {
     
-    [[UserManager shareUserManager]loginOut];
-    [UserManager shareUserManager].loginSuccess = ^ (id obj){
-        
-        [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
-        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
-//        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
-        
-    };
+    [self alertOperation];
 }
 
 #pragma mark 点击清理缓存空间
@@ -137,6 +130,31 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
                             waitUntilDone:YES];
         
     });
+}
+
+-(void)alertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定退出登录吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [[UserManager shareUserManager]loginOut];
+        [UserManager shareUserManager].loginSuccess = ^ (id obj){
+            
+            [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [UIManager sharedUIManager].loginOutBackOffBolck (nil);
+            //        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+            //        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+            
+        };
+
+//        [self back];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)clearCacheSuccess {

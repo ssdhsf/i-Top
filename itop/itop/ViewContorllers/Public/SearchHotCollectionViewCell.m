@@ -21,7 +21,7 @@
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.browse_count fontSize:11 andHeight:15];
     NSInteger commentsLabelTextWidth = [[Global sharedSingleton]widthForString:recommended.comment_count fontSize:11 andHeight:15];
     
-    NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
+    NSInteger oringinY = (ScreenHeigh-65)/3-28;
     self.browseIcon.frame = CGRectMake(20, oringinY, 19, 14);
     self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, oringinY, browseLabelTextWidth+5, 15);
     

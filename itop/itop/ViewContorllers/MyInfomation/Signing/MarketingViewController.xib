@@ -263,7 +263,6 @@
                             </state>
                             <connections>
                                 <action selector="browseProtcol:" destination="-1" eventType="touchUpInside" id="7tt-Q6-PCK"/>
-                                <action selector="protcol:" destination="-1" eventType="touchUpInside" id="2t2-f9-6aq"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKV-sM-wQ8">

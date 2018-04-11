@@ -167,15 +167,15 @@
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    if ([Global stringIsNullWithString:_mobiliTF.text]) {
-        
-        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
-        return;
-    }
     [_mobiliTF resignFirstResponder];
     [_verificationCodeTF resignFirstResponder];
     [_nameTF resignFirstResponder];
-    
+
+    if([Global stringIsNullWithString:_mobiliTF.text] || ![LCRegExpTool lc_checkingMobile:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:@"请输入正确的手机号码"];
+        return;
+    }
     if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
         [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){

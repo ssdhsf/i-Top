@@ -277,7 +277,7 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         [self back];
-        [UIManager sharedUIManager].backOffBolck( @(_itmeIndex));
+        [UIManager sharedUIManager].realesHotBackOffBolck( @(_itmeIndex));
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];

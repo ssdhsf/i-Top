@@ -11,6 +11,7 @@
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
 #import "MyHotH5ItmeViewController.h"
+#import "MyHotDetailViewController.h"
 
 @interface MyhotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
@@ -104,16 +105,17 @@
                 _h5Vc.getArticleListType = GetArticleListTypeMyHot;
                 _h5Vc.pushMyHotH5Control = ^ (H5List *h5){
                     
-                    if ([h5.check_status integerValue] == 2) {
-                        HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
+//                    if ([h5.check_status integerValue] == 2) {
+                        MyHotDetailViewController *hotDetailsVc = [[MyHotDetailViewController alloc]init];
                         hotDetailsVc.itemDetailType = H5ItemDetailType;
                         hotDetailsVc.hotDetail_id = h5.id;
+                        hotDetailsVc.checkStatusType = [h5.check_status integerValue];
                         hotDetailsVc.hidesBottomBarWhenPushed = YES;
                         [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
-                    } else {
-                        
-                        [weakSelf showToastWithMessage:@"审核中"];
-                    }
+//                    } else {
+//                        
+//                        [weakSelf showToastWithMessage:@"审核中"];
+//                    }
                 };
             }
             [_scroll addSubview:_h5Vc.view];
@@ -127,16 +129,17 @@
                 _informationVc.getArticleListType = GetArticleListTypeMyHot;
                 _informationVc.pushControl = ^ (H5List *h5){
                     
-                    if ([h5.check_status integerValue] == 2) {
-                        HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
+//                    if ([h5.check_status integerValue] == 2) {
+                        MyHotDetailViewController *hotDetailsVc = [[MyHotDetailViewController alloc]init];
                         hotDetailsVc.itemDetailType = HotItemDetailType;
                         hotDetailsVc.hotDetail_id = h5.id;
+                        hotDetailsVc.checkStatusType = [h5.check_status integerValue];
                         hotDetailsVc.hidesBottomBarWhenPushed = YES;
                         [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
-                    } else {
-                        
-                        [weakSelf showToastWithMessage:@"审核中"];
-                    }
+//                    } else {
+//                        
+//                        [weakSelf showToastWithMessage:@"审核中"];
+//                    }
                 };
             }
             [_scroll addSubview:_informationVc.view];
@@ -186,7 +189,7 @@
 - (IBAction)release:(UIButton *)sender {
     
     [UIManager showVC:@"ReleaseHotViewController"];
-    [UIManager sharedUIManager].backOffBolck = ^(NSString *itmeIndex){
+    [UIManager sharedUIManager].realesHotBackOffBolck = ^(NSString *itmeIndex){
        
         _itmeIndex = [itmeIndex integerValue];
         _isSubmitBackOff = YES;

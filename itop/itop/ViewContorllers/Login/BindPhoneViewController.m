@@ -66,11 +66,10 @@
     
     [_verificationCodeTF  resignFirstResponder];
     [_accountTF  resignFirstResponder];
-    if ([Global stringIsNullWithString:_accountTF.text]) {
-        [self showToastWithMessage:@"请输入手机号码"];
+    if([Global stringIsNullWithString:_accountTF.text] || ![LCRegExpTool lc_checkingMobile:_accountTF.text]) {
+        [self showToastWithMessage:@"请输入正确的手机号码"];
         return;
     }
-    
     if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
         [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){

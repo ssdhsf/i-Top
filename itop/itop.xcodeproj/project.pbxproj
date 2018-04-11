@@ -284,6 +284,10 @@
 		77A436A3204533DD00620F58 /* OtherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A436A2204533DD00620F58 /* OtherInfo.m */; };
 		77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A436A52045394900620F58 /* SigningTypeViewController.m */; };
 		77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A436A62045394900620F58 /* SigningTypeViewController.xib */; };
+		77A5148F207CA3C2003206B5 /* MyHotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A5148D207CA3C2003206B5 /* MyHotDetailViewController.m */; };
+		77A51490207CA3C2003206B5 /* MyHotDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A5148E207CA3C2003206B5 /* MyHotDetailViewController.xib */; };
+		77A51494207DA5E8003206B5 /* CommentPopularizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */; };
+		77A51495207DA5E8003206B5 /* CommentPopularizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */; };
 		77B1A0F220440BAA00F922DD /* SigningStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B1A0F020440BAA00F922DD /* SigningStateViewController.m */; };
 		77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */; };
 		77B2F47020109CA300EF4119 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B2F46F20109CA300EF4119 /* WXApiManager.m */; };
@@ -920,6 +924,12 @@
 		77A436A42045394900620F58 /* SigningTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningTypeViewController.h; sourceTree = "<group>"; };
 		77A436A52045394900620F58 /* SigningTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningTypeViewController.m; sourceTree = "<group>"; };
 		77A436A62045394900620F58 /* SigningTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SigningTypeViewController.xib; sourceTree = "<group>"; };
+		77A5148C207CA3C2003206B5 /* MyHotDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHotDetailViewController.h; sourceTree = "<group>"; };
+		77A5148D207CA3C2003206B5 /* MyHotDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHotDetailViewController.m; sourceTree = "<group>"; };
+		77A5148E207CA3C2003206B5 /* MyHotDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyHotDetailViewController.xib; sourceTree = "<group>"; };
+		77A51491207DA5E8003206B5 /* CommentPopularizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentPopularizeViewController.h; sourceTree = "<group>"; };
+		77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentPopularizeViewController.m; sourceTree = "<group>"; };
+		77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentPopularizeViewController.xib; sourceTree = "<group>"; };
 		77B1A0EF20440BAA00F922DD /* SigningStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningStateViewController.h; sourceTree = "<group>"; };
 		77B1A0F020440BAA00F922DD /* SigningStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningStateViewController.m; sourceTree = "<group>"; };
 		77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SigningStateViewController.xib; sourceTree = "<group>"; };
@@ -1256,6 +1266,9 @@
 				770D77622068F89D007601A8 /* PopularizeTableViewCell.h */,
 				770D77632068F89D007601A8 /* PopularizeTableViewCell.m */,
 				770D77642068F89D007601A8 /* PopularizeTableViewCell.xib */,
+				77A51491207DA5E8003206B5 /* CommentPopularizeViewController.h */,
+				77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */,
+				77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */,
 			);
 			path = Popularize;
 			sourceTree = "<group>";
@@ -1372,6 +1385,9 @@
 				772F95B3205A48FB00F432D2 /* MyhotViewController.h */,
 				772F95B4205A48FB00F432D2 /* MyhotViewController.m */,
 				772F95B5205A48FB00F432D2 /* MyhotViewController.xib */,
+				77A5148C207CA3C2003206B5 /* MyHotDetailViewController.h */,
+				77A5148D207CA3C2003206B5 /* MyHotDetailViewController.m */,
+				77A5148E207CA3C2003206B5 /* MyHotDetailViewController.xib */,
 				772F95B8205A569D00F432D2 /* MyHotH5ItmeViewController.h */,
 				772F95B9205A569D00F432D2 /* MyHotH5ItmeViewController.m */,
 				772F95BA205A569D00F432D2 /* MyHotH5ItmeViewController.xib */,
@@ -2429,6 +2445,7 @@
 				77484A992020BDB900BAC567 /* HotDetailsCell.xib in Resources */,
 				7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */,
 				77484A7B2020473E00BAC567 /* RecommendedViewController.xib in Resources */,
+				77A51495207DA5E8003206B5 /* CommentPopularizeViewController.xib in Resources */,
 				774B87F0204E821700F602E3 /* ProtocolViewController.xib in Resources */,
 				7792B717201ACB3800587399 /* HomeCollectionViewCell.xib in Resources */,
 				777D517A200CC52700CB2A8A /* Assets.xcassets in Resources */,
@@ -2458,6 +2475,7 @@
 				772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */,
 				77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */,
 				772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */,
+				77A51490207CA3C2003206B5 /* MyHotDetailViewController.xib in Resources */,
 				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
 				770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */,
@@ -2689,6 +2707,7 @@
 				770D770220620B72007601A8 /* TradingListStore.m in Sources */,
 				77484A9C202162D800BAC567 /* BaseTableViewController+DisposeSubView.m in Sources */,
 				770D76FF20620ACA007601A8 /* TradingListDataSource.m in Sources */,
+				77A5148F207CA3C2003206B5 /* MyHotDetailViewController.m in Sources */,
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */,
@@ -2810,6 +2829,7 @@
 				777AF1CE200DFCEB009729AD /* PYNavigationController.m in Sources */,
 				77484A892020551100BAC567 /* RecommendedStore.m in Sources */,
 				7792B728201C7BC100587399 /* HomeModel.m in Sources */,
+				77A51494207DA5E8003206B5 /* CommentPopularizeViewController.m in Sources */,
 				77BB213D20707B22000CADC9 /* ProvinceDataSource.m in Sources */,
 				777D516F200CC52700CB2A8A /* main.m in Sources */,
 				77723AF42043C869006294E8 /* UIView+PYExtension.m in Sources */,

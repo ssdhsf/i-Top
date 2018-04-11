@@ -76,7 +76,7 @@
         return;
     }
     
-    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+     if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text]){
         
         [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
         return;
@@ -92,9 +92,9 @@
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    if([Global stringIsNullWithString:_accountTF.text]) {
+    if([Global stringIsNullWithString:_accountTF.text] || ![LCRegExpTool lc_checkingMobile:_accountTF.text]) {
         
-        [self showToastWithMessage:@"请输入手机号码"];
+        [self showToastWithMessage:@"请输入正确的手机号码"];
         return;
     }
     

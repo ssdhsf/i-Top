@@ -22,7 +22,7 @@
     self.hotTitleLabel.text = h5Model.title;
     self.hotTitleLabel.frame = CGRectMake(20/2, CGRectGetMaxY(self.hotImage.frame)+7, CGRectGetMaxX(self.hotImage.frame),16);
     
-    if ([h5Model.check_status integerValue] == 3) {
+    if ([h5Model.check_status integerValue] == CheckStatusTypeUnPass) {
         
         self.stateLabel.frame = CGRectMake(20/2, CGRectGetMaxY(self.hotTitleLabel.frame)+9, 65,16);
         self.stateLabel.backgroundColor = UIColorFromRGB(0xffcde3);
@@ -33,20 +33,25 @@
         self.stateLabel.backgroundColor = UIColorFromRGB(0xcbedfb);
     }
     
+    
     switch ([h5Model.check_status integerValue]) {
         case 0:
-            self.stateLabel.text = @"未审核";
+            self.stateLabel.text = @" 未审核";
+            [self hiddenViewsWithState:YES];
             break;
         case 1:
-            self.stateLabel.text = @"审核中";
+            self.stateLabel.text = @" 审核中";
+            [self hiddenViewsWithState:YES];
             break;
 
         case 2:
-            self.stateLabel.text = @"通过";
+            self.stateLabel.text = @" 已通过";
+            [self hiddenViewsWithState:NO];
             break;
 
         case 3:
-            self.stateLabel.text = @"审核不通过";
+            self.stateLabel.text = @" 不通过";
+            [self hiddenViewsWithState:YES];
             break;
 
         default:
@@ -63,6 +68,14 @@
     
     self.commentsIcon.frame =  CGRectMake(CGRectGetMaxX(self.browseLabel.frame), CGRectGetMaxY(self.hotImage.frame)-16, 14, 13);
     self.commentsLabel.frame =  CGRectMake(CGRectGetMaxX(self.commentsIcon.frame), CGRectGetMaxY(self.hotImage.frame)-16, CGRectGetWidth(self.hotImage.frame)/2-14, 15);
+}
+
+-(void)hiddenViewsWithState:(BOOL)animation{
+    
+    self.browseIcon.hidden = animation;
+    self.browseLabel.hidden = animation;
+    self.commentsIcon.hidden = animation;
+    self.commentsLabel.hidden = animation;
 }
 
 @end

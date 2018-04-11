@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void (^SubmitBackBolck)(NSInteger submitType);
-
 @interface ReleaseHotViewController : BaseViewController
 
-@property (copy, nonatomic)SubmitBackBolck submitBack;
 
 @end

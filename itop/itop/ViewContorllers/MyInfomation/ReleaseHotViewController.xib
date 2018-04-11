@@ -253,7 +253,7 @@
                 <constraint firstItem="0pr-JY-foy" firstAttribute="leading" secondItem="ngo-7I-W0c" secondAttribute="leading" constant="20" id="uVS-CF-3Gw"/>
                 <constraint firstItem="Glf-XV-XIB" firstAttribute="top" secondItem="jvd-eR-Bum" secondAttribute="bottom" constant="21" id="yP6-EN-R9B"/>
             </constraints>
-            <point key="canvasLocation" x="719" y="32"/>
+            <point key="canvasLocation" x="272" y="32"/>
         </view>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="7YC-2Z-0fn">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>

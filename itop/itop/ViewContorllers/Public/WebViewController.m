@@ -55,7 +55,7 @@
 #pragma mark-视图加载完执行的方法
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     
-    [MBProgressHUD hideHUDForView: self.view animated:NO];
+//    [MBProgressHUD hideHUDForView: self.view animated:NO];
     [self loadJsCallOC];
 }
 

@@ -31,30 +31,116 @@
 -(void)setItmeOfPopularizeModel:(Popularize *)popularize{
     
     self.titleLabel.text = popularize.product_name;
-    switch ([popularize.order_status integerValue]) {
-        case OrderStatusTypeReady:
-            self.stateLabel.text = @"待接单";
-            [self.orderButton setTitle:@"接单" forState:UIControlStateNormal];
-            [self.refusedButton setTitle:@"拒绝" forState:UIControlStateNormal];
-            self.refusedButton.hidden = NO;
-            break;
-        case OrderStatusTypeGoOn:
-            self.stateLabel.text = @"进行中";
-            [self.orderButton setTitle:@"完成" forState:UIControlStateNormal];
-            self.refusedButton.hidden = YES;
-            break;
-        case OrderStatusTypefail:
-            self.stateLabel.text = @"已取消";
-            [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
-            self.refusedButton.hidden = YES;
-            break;
-        case OrderStatusTypeSucess:
-            self.stateLabel.text = @"已完成";
-            [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
-            self.refusedButton.hidden = YES;
-            break;
-        default:
-            break;
+    
+    if ([[UserManager shareUserManager]crrentUserType] == 2) {
+        
+        switch ([popularize.order_status integerValue]) {
+            case OrderStatusTypeReady:
+                self.stateLabel.text = @"待接单";
+                [self.orderButton setTitle:@"取消" forState:UIControlStateNormal];
+                [self.refusedButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = NO;
+                break;
+            case OrderStatusTypeStart:
+                self.stateLabel.text = @"进行中";
+                [self.orderButton setTitle:@"完成" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeRefuse:
+                self.stateLabel.text = @"已拒绝";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeSucess:
+                self.stateLabel.text = @"已完成";
+                [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeFail:
+                self.stateLabel.text = @"失败";
+                [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeScore:
+                self.stateLabel.text = @"已评价";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypePending:
+                self.stateLabel.text = @"待审核";
+                [self.orderButton setTitle:@"取消" forState:UIControlStateNormal];
+                [self.refusedButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = NO;
+                break;
+            case OrderStatusTypeCanceled:
+                self.stateLabel.text = @"已取消";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeNotPass:
+                self.stateLabel.text = @"不通过";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+                
+            default:
+                break;
+        }
+        
+    } else {
+        
+        switch ([popularize.order_status integerValue]) {
+            case OrderStatusTypeReady:
+                self.stateLabel.text = @"待接单";
+                [self.orderButton setTitle:@"接单" forState:UIControlStateNormal];
+                [self.refusedButton setTitle:@"拒绝" forState:UIControlStateNormal];
+                self.refusedButton.hidden = NO;
+                break;
+            case OrderStatusTypeStart:
+                self.stateLabel.text = @"进行中";
+                [self.orderButton setTitle:@"完成" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeRefuse:
+                self.stateLabel.text = @"已拒绝";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+            case OrderStatusTypeSucess:
+                self.stateLabel.text = @"已完成";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+//            case OrderStatusTypeFail:
+//                self.stateLabel.text = @"失败";
+//                [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+//                self.refusedButton.hidden = YES;
+//                break;
+            case OrderStatusTypeScore:
+                self.stateLabel.text = @"已评价";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+//            case OrderStatusTypePending:
+//                self.stateLabel.text = @"待审核";
+//                [self.orderButton setTitle:@"取消" forState:UIControlStateNormal];
+//                [self.refusedButton setTitle:@"删除" forState:UIControlStateNormal];
+//                self.refusedButton.hidden = NO;
+//                break;
+            case OrderStatusTypeCanceled:
+                self.stateLabel.text = @"已取消";
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+                self.refusedButton.hidden = YES;
+                break;
+//            case OrderStatusTypeNotPass:
+//                self.stateLabel.text = @"不通过";
+//                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
+//                self.refusedButton.hidden = YES;
+//                break;
+                
+            default:
+                break;
+        }
     }
     
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:[NSString stringWithFormat:@"浏览  %@",[Global stringIsNullWithString:popularize.browse_count]? @"0" : popularize.browse_count] fontSize:12 andHeight:15];

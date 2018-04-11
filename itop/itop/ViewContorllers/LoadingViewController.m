@@ -60,7 +60,7 @@
 - (void)sequenceImageDidPlayCompeletion:(KKSequenceImageView *)imageView
 {
     /** 运行完成--clean */
-    [UIManager sharedUIManager].backOffBolck(nil);
+    [UIManager sharedUIManager].loadingBackOffBolck(nil);
 //    [UIManager makeKeyAndVisible];
     [imageView removeFromSuperview];
     imageView = nil;

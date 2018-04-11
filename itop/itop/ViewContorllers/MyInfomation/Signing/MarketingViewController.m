@@ -107,12 +107,18 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
     self.tableView.tableFooterView = _fooderView;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+}
+
 -(void)setupSubView{
     
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
     [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
     
+    _addChannelButton.frame = CGRectMake(100, 42, ScreenWidth-120, 30);
     _addChannelButton.layer.masksToBounds = YES;
     _addChannelButton.layer.cornerRadius = 5;
     [_addChannelButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_addChannelButton)];
@@ -451,14 +457,14 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    if ([Global stringIsNullWithString:_mobiliTF.text]) {
-        
-        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
-        return;
-    }
     [_mobiliTF resignFirstResponder];
     [_verificationCodeTF resignFirstResponder];
     [_nameTF resignFirstResponder];
+    if([Global stringIsNullWithString:_mobiliTF.text] || ![LCRegExpTool lc_checkingMobile:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:@"请输入正确的手机号码"];
+        return;
+    }
     if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
         [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){

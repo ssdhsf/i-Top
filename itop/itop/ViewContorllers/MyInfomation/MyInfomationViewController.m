@@ -33,7 +33,12 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     [super viewDidLoad];
     
-//    [[NSUserDefaults standardUserDefaults] setObject:@"huangli" forKey:@"huangli"];
+    [UIManager sharedUIManager].loginOutBackOffBolck  = ^ (id obj){
+    
+        [super viewDidLoad];
+    };
+    
+    //    [[NSUserDefaults standardUserDefaults] setObject:@"huangli" forKey:@"huangli"];
 //    NSString * path  =  NSHomeDirectory();
 //    NSLog(@"path：%@",path);
 }
@@ -79,7 +84,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     } else {
         self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
         
-        [UIManager sharedUIManager].backOffBolck = ^(id obj){
+        [UIManager sharedUIManager].submitInfomationBackOffBolck = ^(id obj){
             
             [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
             [UserManager shareUserManager].userInfoSuccess = ^(id obj){

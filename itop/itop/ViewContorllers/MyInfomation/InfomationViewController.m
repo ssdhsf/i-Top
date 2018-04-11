@@ -697,7 +697,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     if (_isUpdataInfo) {
     
-        [UIManager sharedUIManager].backOffBolck(nil);
+        [UIManager sharedUIManager].submitInfomationBackOffBolck(nil);
     }
 }
 

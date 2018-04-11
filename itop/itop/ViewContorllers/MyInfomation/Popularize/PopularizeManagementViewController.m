@@ -165,7 +165,7 @@ static CGFloat floatViewHeight = 40.0;
                 
                 _itemAllVc = [[PopularizeItmeTableViewController alloc]initWithNibName:@"PopularizeItmeTableViewController" bundle:nil];
                 _itemAllVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-40);
-                _itemAllVc.orderStatus = OrderStatusTypeNoel;
+//                _itemAllVc.orderStatus = OrderStatusTypeNoel;
                 _itemAllVc.delegate = weakSelf;
 
             }
@@ -188,7 +188,7 @@ static CGFloat floatViewHeight = 40.0;
                 
                 _itemGoingVc = [[PopularizeItmeTableViewController alloc]initWithNibName:@"PopularizeItmeTableViewController" bundle:nil];
                 _itemGoingVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-104);
-                _itemGoingVc.orderStatus = OrderStatusTypeGoOn;
+//                _itemGoingVc.orderStatus = OrderStatusTypeGoOn;
                 
             }
             [_scroll addSubview:_itemGoingVc.view];
@@ -199,7 +199,7 @@ static CGFloat floatViewHeight = 40.0;
                 
                 _itemCancelVc = [[PopularizeItmeTableViewController alloc]initWithNibName:@"PopularizeItmeTableViewController" bundle:nil];
                 _itemCancelVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-104);
-                _itemCancelVc.orderStatus = OrderStatusTypefail;
+//                _itemCancelVc.orderStatus = OrderStatusTypefail;
                 
             }
             [_scroll addSubview:_itemCancelVc.view];

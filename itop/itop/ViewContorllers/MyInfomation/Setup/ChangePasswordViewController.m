@@ -112,11 +112,18 @@
         return;
     }
     
-    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_againPassTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_againPassTF.text]){
+   if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_againPassTF.text]){
         
         [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
         return;
     }
+    
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passNewTF.text]){
+        
+        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+        return;
+    }
+
     
     [[UserManager shareUserManager]changePassWithOriginalPass:_originalPassTF.text newPass:_passNewTF.text];
     [UserManager shareUserManager].changePassSuccess = ^(id obj){

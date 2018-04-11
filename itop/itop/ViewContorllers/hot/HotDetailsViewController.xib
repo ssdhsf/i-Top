@@ -262,7 +262,7 @@
                 <constraint firstItem="Y1z-3M-ZUG" firstAttribute="top" secondItem="l1S-gv-m19" secondAttribute="bottom" constant="32" id="w4k-Gf-Z8R"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="966.5" y="174"/>
+            <point key="canvasLocation" x="876" y="174"/>
         </view>
         <view contentMode="scaleToFill" id="4if-7X-VeP">
             <rect key="frame" x="0.0" y="0.0" width="375" height="470"/>

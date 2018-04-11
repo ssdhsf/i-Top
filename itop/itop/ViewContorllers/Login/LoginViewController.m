@@ -60,7 +60,7 @@
 //登录
 - (IBAction)login:(UIButton *)sender {
     
-    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
+    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text]){
         
         [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
         return;
@@ -110,7 +110,7 @@
     
     UIViewController *vc = [UIManager viewControllerWithName:@"ResetPasswordViewController"];
     [self.navigationController pushViewController:vc animated:YES];
-    [UIManager showVC:@"ResetPasswordViewController"];
+//    [UIManager showVC:@"ResetPasswordViewController"];
 }
 
 //密码可见

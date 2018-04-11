@@ -142,13 +142,15 @@ typedef NS_ENUM(NSInteger, StatisticalDataType) { //获取数据统计入口
 };
 
 typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
-    OrderStatusTypeReady = 0, //准备中
-    OrderStatusTypeGoOn = 1, //进行中
-    OrderStatusTypefail , //完成失败
+    OrderStatusTypeReady = 0, //待接单
+    OrderStatusTypeStart = 1, //进行中
+    OrderStatusTypeRefuse , //拒绝
     OrderStatusTypeSucess , //完成
-    OrderStatusTypeStart, //开启中
-//    OrderStatusTypeStart, //开启中
-    OrderStatusTypeNoel , //全部
+    OrderStatusTypeFail, //失败
+    OrderStatusTypeScore , //已经评价
+    OrderStatusTypePending, //待审核
+    OrderStatusTypeCanceled, //已取消
+    OrderStatusTypeNotPass //审核不通过
 };
 
 typedef void (^LoginSuccess)(id obj);
@@ -781,7 +783,23 @@ typedef void (^ErrorFailure)(id obj);
                        PageCount:(NSInteger )pageCount;
 
 /**
- *  获取推广订单分页
+ *  删除推广订单
+ *
+ *  @param order_id 订单id
+ */
+- (void)deletePopularizeWithOrderId:(NSNumber *)order_id;
+
+/**
+ *  更新推广订单状态
+ *
+ *  @param order_id 订单id
+ *  @param state 状态
+ */
+- (void)updataOrderStatePopularizeWithOrderId:(NSNumber *)order_id
+                                        state:(OrderStatusType)state;
+
+/**
+ *  接／拒单
  *
  *  @param order_id 订单id
  *  @param isAccept 是否接单
@@ -789,7 +807,20 @@ typedef void (^ErrorFailure)(id obj);
 - (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
                              isAccept:(NSNumber *)isAccept;
 
-
+/**
+ *  接／拒单
+ *
+ *  @param order_id 订单id
+ *  @param effect 是否接单
+ *  @param service 是否接单
+ *  @param sincerity 是否接单
+ *  @param content 是否接单
+ */
+- (void)commentPopularizeWithOrderId:(NSNumber *)order_id
+                              effect:(NSNumber *)effect
+                             service:(NSNumber *)service
+                           sincerity:(NSNumber *)sincerity
+                             content:(NSNumber *)content;
 /**
  *   更新作品
  *

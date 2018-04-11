@@ -62,7 +62,7 @@
     [appDelegate.window makeKeyAndVisible];
     LoadingViewController *loadingVc = [[LoadingViewController alloc]init];
     appDelegate.window.rootViewController = loadingVc;
-    [UIManager sharedUIManager].backOffBolck = ^ ( id obj){
+    [UIManager sharedUIManager].loadingBackOffBolck = ^ ( id obj){
         
         UIViewController *vc = [[UIViewController alloc]init];
         vc.view.backgroundColor = [UIColor whiteColor];

@@ -22,6 +22,10 @@ typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
 };
 
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^RealesHotBackOffBolck)(id parameter); //发布热点返回上一级回掉
+typedef void (^LoadingBackOffBolck)(id parameter); //加载完启动GIF返回上一级回掉
+typedef void (^SubmitInfomationBackOffBolck)(id parameter); //提交用户信息返回上一级回掉
+typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一级回掉
 typedef void (^SelectProductBolck)(id product); //选择作品回掉
 
 @class H5List;
@@ -30,7 +34,11 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 
 + (instancetype)sharedUIManager;
 
-@property (copy, nonatomic)BackOffBolck backOffBolck;
+@property (copy, nonatomic)BackOffBolck backOffBolck;//
+@property (copy, nonatomic)RealesHotBackOffBolck realesHotBackOffBolck;//
+@property (copy, nonatomic)LoadingBackOffBolck loadingBackOffBolck;//
+@property (copy, nonatomic)SubmitInfomationBackOffBolck submitInfomationBackOffBolck;//
+@property (copy, nonatomic)LoginOutBackOffBolck loginOutBackOffBolck;//
 @property (copy, nonatomic)BackOffBolck selectProvinceBackOffBolck;
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
 
