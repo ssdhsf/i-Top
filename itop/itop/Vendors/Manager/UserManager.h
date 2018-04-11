@@ -200,6 +200,8 @@ typedef void (^ProductDetailSuccess)(id obj);
 typedef void (^ProductDetailFailure)(id obj);
 typedef void (^HotCommentSuccess)(id obj);
 typedef void (^HotCommentFailure)(id obj);
+typedef void (^HotStareSuccess)(id obj);
+typedef void (^HotStareFailure)(id obj);
 typedef void (^CommentListSuccess)(id obj);
 typedef void (^CommentListFailure)(id obj);
 
@@ -327,6 +329,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------评论热点————————————————————————*/
 @property (nonatomic, copy) CommentSuccess commentSuccess;
 @property (nonatomic, copy) CommentFailure commentFailure;
+/*----------------删除／是否展示热点————————————————————————*/
+@property (nonatomic, copy) HotStareSuccess hotStareSuccess;
+@property (nonatomic, copy) HotStareFailure hotStareFailure;
 
 /*----------------Home轮播图————————————————————————*/
 @property (nonatomic, copy) HomeBannerSuccess homeBannerSuccess;
@@ -425,6 +430,12 @@ typedef void (^ErrorFailure)(id obj);
 -(NSNumber *)crrentUserId;
 
 /**
+ *  获取本用户头像
+ *
+ */
+-(NSString *)crrentUserHeadImage;
+
+/**
  *  用户登录
  *
  *  @param userName 用户帐号
@@ -521,6 +532,22 @@ typedef void (^ErrorFailure)(id obj);
 - (void)collectionOnHotWithHotId:(NSString *)hot_id
                   CollectionType:(CollectionType)collectionType;
 
+/**
+ *  下架热点
+ *
+ *  @param hot_id 用户id
+ *  @param isShow 会否展示
+ */
+- (void)soldOutMyHotWithHotId:(NSString *)hot_id
+                       isShow:(NSNumber *)isShow;
+
+
+/**
+ *  删除热点
+ *
+ *  @param hot_id 用户id
+ */
+- (void)deleteMyHotWithHotId:(NSString *)hot_id;
 
 /**
  *  首页H5
@@ -595,6 +622,12 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (void)addHotListWithParameters:(NSDictionary *)parameters;
 
+/**
+ *  修改热点
+ *
+ *  @param parameters 修改的内容
+ */
+- (void)updateHotListWithParameters:(NSDictionary *)parameters;
 
 /**
  *  热点列表
@@ -781,6 +814,12 @@ typedef void (^ErrorFailure)(id obj);
                      orderStatus:(OrderStatusType )order_status
                        PageIndex:(NSInteger )pageIndex
                        PageCount:(NSInteger )pageCount;
+/**
+ *  获取推广订单总量
+ *
+ *  @param user_id 用户id
+ */
+- (void)popularizeStatisticsCountWithUserId:(NSNumber *)user_id;
 
 /**
  *  删除推广订单
@@ -820,7 +859,7 @@ typedef void (^ErrorFailure)(id obj);
                               effect:(NSNumber *)effect
                              service:(NSNumber *)service
                            sincerity:(NSNumber *)sincerity
-                             content:(NSNumber *)content;
+                             content:(NSString *)content;
 /**
  *   更新作品
  *

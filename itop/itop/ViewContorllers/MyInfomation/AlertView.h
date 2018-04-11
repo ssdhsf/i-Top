@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger, PickViewType) { //选择个人信息Type
     PickViewTypeScope , //选择范围
 };
 
-typedef NS_ENUM(NSInteger, SignPickViewType) { //选择个人信息Type
+typedef NS_ENUM(NSInteger, SignPickViewType) { //入驻Type
     SignPickViewTypeIndustry = 1, //选择所属行业
     SignPickViewTypeCompnySize = 2, //选择企业规模
     SignPickViewTypeProvince , //选择城市
@@ -35,6 +35,7 @@ typedef void(^AlertResult)(NSInteger index , PickViewType pickViewType);
 @property (nonatomic, strong)NSMutableArray *provinceArray;
 @property (nonatomic, strong)NSMutableArray *cityArray;
 @property (nonatomic, copy) AlertResult resultIndex;
+@property (nonatomic, copy) AlertResult alertCancel;
 @property (nonatomic, strong)UIPickerView *pickView;
 @property (nonatomic, assign)PickViewType pickViewType; //选择类型
 

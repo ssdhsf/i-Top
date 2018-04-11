@@ -56,11 +56,11 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
     [[UserManager shareUserManager]userMessageListWithId:_otherUser_id];
     [UserManager shareUserManager].messageListSuccess = ^(NSArray *arr){
       
-        if (arr.count == 0) {
-           
-            self.noDataType = NoDataTypeMessage;
-            [self setHasData:NO];
-        }
+//        if (arr.count == 0) {
+//           
+//            self.noDataType = NoDataTypeMessage;
+//            [self setHasData:NO];
+//        }
         self.dataArray = [[DirectMessagesStore shearDirectMessagesStore]configurationDirectMessagesMenuWithMenu:arr];
          [self steupTableView];
     };
@@ -86,8 +86,16 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
     
     self.tableView.dataSource = self.directMessagesDataSource;
     [self.tableView registerNib:[[UIManager sharedUIManager]nibWithNibName:@"DirectMessagesTableViewCell"] forCellReuseIdentifier:DirectMessagesCellIdentifier];
-    NSIndexPath * index  = [NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0];
-    [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+    if (self.dataArray.count != 0) {
+      
+        NSIndexPath * index  = [NSIndexPath indexPathForRow:self.dataArray.count-1 inSection:0];
+        [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+        _messageTV.placeholder = @"回复";
+    } else {
+        
+        _messageTV.placeholder = @"我来说两句";
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -158,22 +166,31 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
     };
     
     [_messageTV resignFirstResponder];
-    for (DirectMessages * message in self.dataArray) {
-        
-        if ([message.sender_user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
-            
-            DirectMessages * messageNew = [[DirectMessages alloc]init];
-            messageNew.message = _messageTV.text;
-            messageNew.sender_head_img = message.sender_head_img;
-            messageNew.sender_user_id = message.sender_user_id;
-            [self.dataArray addObject:messageNew];
-            NSLog(@"内存地址1：%p",message);
-            NSLog(@"内存地址2：%p",messageNew);
-            _messageTV.text = nil;
-            [self steupTableView];
-            return;
-        }
-    }
+    
+//    if(self.dataArray.count == 0){
+//        
+//        
+//    } else {
+//        
+//        
+//        for (DirectMessages * message in self.dataArray) {
+    
+//            if ([message.sender_user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
+    
+                DirectMessages * messageNew = [[DirectMessages alloc]init];
+                messageNew.message = _messageTV.text;
+                messageNew.sender_head_img = [[UserManager shareUserManager]crrentUserHeadImage];
+
+                messageNew.sender_user_id = [[UserManager shareUserManager]crrentUserId];
+                [self.dataArray addObject:messageNew];
+//                NSLog(@"内存地址1：%p",message);
+//                NSLog(@"内存地址2：%p",messageNew);
+                _messageTV.text = nil;
+                [self steupTableView];
+                return;
+//            }
+//        }
+//    }
 }
 
 #pragma mark 键盘已经收起

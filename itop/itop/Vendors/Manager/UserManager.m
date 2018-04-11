@@ -67,6 +67,14 @@ _errorFailure(__id_obj); }
     return user_id;
 }
 
+-(NSString *)crrentUserHeadImage{
+    
+    UserModel *user = [self crrentUserInfomation];
+    NSString *head_img = user.user_info.head_img ;
+    return head_img;
+}
+
+
 - (BOOL)isLogin{
     
     if ([self crrentUserInfomation] != nil) return YES;
@@ -450,6 +458,58 @@ _errorFailure(__id_obj); }
 
 }
 
+- (void)soldOutMyHotWithHotId:(NSString *)hot_id
+                       isShow:(NSNumber *)isShow{
+    
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/show";
+    NSDictionary *parameters = @{@"id" : hot_id,
+                                 @"isShow": isShow};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            _hotStareSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)deleteMyHotWithHotId:(NSString *)hot_id{
+    
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/delete";
+    NSDictionary *parameters = @{@"id" : hot_id};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            _hotStareSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)homeH5ListWithType:(H5ProductType )type
                  PageIndex:(NSInteger )pageIndex
                  PageCount:(NSInteger )pageCount
@@ -643,11 +703,12 @@ _errorFailure(__id_obj); }
 
 - (void)addHotListWithParameters:(NSDictionary *)parameters{
     
+    SHOW_GET_DATA
     NSString *api = @"/api/article/add";
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
-        //        HIDDEN_GET_DATA
+                HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
             
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
@@ -660,10 +721,35 @@ _errorFailure(__id_obj); }
         
     } failure:^(NSError *error) {
         
-        //        HIDDEN_GET_DATA
+                HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
+
+- (void)updateHotListWithParameters:(NSDictionary *)parameters{
+    
+     SHOW_GET_DATA
+    NSString *api = @"/api/article/update";
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+                HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            _addHotSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 
 - (void)hotListWithType:(ArticleType )type
               PageIndex:(NSInteger )pageIndex
@@ -1304,6 +1390,30 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)popularizeStatisticsCountWithUserId:(NSNumber *)user_id{
+    
+//    SHOW_GET_DATA
+    NSString *api = @"/api/count/orderforuserid";
+    NSDictionary *parameters = @{@"user_id" : user_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+//        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            _popularizeSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+//        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 - (void)deletePopularizeWithOrderId:(NSNumber *)order_id {
     
     SHOW_GET_DATA
@@ -1384,12 +1494,12 @@ _errorFailure(__id_obj); }
                               effect:(NSNumber *)effect
                              service:(NSNumber *)service
                            sincerity:(NSNumber *)sincerity
-                             content:(NSNumber *)content{
+                             content:(NSString *)content{
     
     
     SHOW_GET_DATA
     NSString *api = @"/api/order/score";
-    NSDictionary *parameters = @{@"id" : order_id,
+    NSDictionary *parameters = @{@"order_id" : order_id,
                                  @"effect" : effect,
                                  @"service" : service,
                                  @"sincerity" : sincerity,

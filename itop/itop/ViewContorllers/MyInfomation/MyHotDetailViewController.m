@@ -17,6 +17,7 @@
 static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 @interface MyHotDetailViewController ()<UITextViewDelegate>
+
 /*---------------Hotheaderview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -59,6 +60,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (nonatomic, strong)HotDetails *hotDetail;
 @property (nonatomic, strong)HotDetailDataSource *hotDetailDataSource;
 @property (nonatomic, strong)NSString *parent_id;
+
 @end
 
 @implementation MyHotDetailViewController
@@ -156,6 +158,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         
         [_shelvesButton setImage:[UIImage imageNamed:@"zuo_icon_delete"] forState:UIControlStateNormal];
         [_shelvesButton setTitle:@"删除" forState:UIControlStateNormal];
+        _shelvesButton.tag = 2;
     }
     [self setupkeyBoardDidShowView];
 }
@@ -177,7 +180,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [self.view addSubview:_commentTVBgView];
     
     [self setupTextViewWithKeyboardShowAnimation:NO];
-    
 }
 
 - (void)steupTableView{
@@ -441,26 +443,35 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 - (void)keyBoardDidHide:(NSNotification *)notification{
     
     [self shutDownTableViewCellEventWithAnimation:YES];
-    
 }
 
 - (IBAction)edit:(UIButton *)sender {
     
-    
-    if (_itemDetailType == H5ItemDetailType) {
-        
-        
-        [UIManager showVC:@"ReleaseHotViewController"];
-        
-    } else {
-        
-        
-    }
-    
-    
+    ReleaseHotViewController *vc = [[ReleaseHotViewController alloc]init];
+    vc.hotDetail = _hotDetail;
+    vc.itemDetailType = _itemDetailType;
+    vc.releaseHotType = ReleaseHotTypeUpdata;
+    [UIManager pushVC:vc];
 }
 
 - (IBAction)soldOut:(UIButton *)sender {
+   
+    
+    if (sender.tag == 1) {
+        
+        [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@0];
+
+    } else {
+        
+        [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@0];
+    }
+    
+    [UserManager shareUserManager].hotStareSuccess = ^ (id obj){
+        
+        [UIManager sharedUIManager].updateHotBackOffBolck (@(_itemDetailType));
+        [self back];
+        
+    };
 }
 
 - (void)didReceiveMemoryWarning {

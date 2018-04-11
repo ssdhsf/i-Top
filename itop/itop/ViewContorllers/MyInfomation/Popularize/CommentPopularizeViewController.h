@@ -10,6 +10,6 @@
 
 @interface CommentPopularizeViewController : BaseViewController
 
-@property (nonatomic, strong)NSString *popularize_id;
+@property (nonatomic, strong)NSNumber *popularize_id;
 
 @end

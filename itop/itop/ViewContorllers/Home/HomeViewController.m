@@ -171,6 +171,12 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         }
         [self loadingRecommendedH5List];
     };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self collectionEndRefreshing];
+    };
+
 }
 
 -(void)loadingRecommendedH5List{
@@ -191,6 +197,12 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 //        [self.dataArray addObject: home];
         [self loadingDesignerList];
     };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self collectionEndRefreshing];
+    };
+
 }
 
 -(void)loadingDesignerList{
@@ -211,6 +223,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 //        [self.dataArray addObject: home];
         [self loadingScenarioH5List];
     };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self collectionEndRefreshing];
+    };
 }
 
 -(void)loadingScenarioH5List{
@@ -229,6 +246,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         }
 //        [self.dataArray addObject: home];
         [self loadingOnePageH5List];
+    };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self collectionEndRefreshing];
     };
 }
 
@@ -249,6 +271,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         }
 //        [self.dataArray addObject: home];
         [self loadingVideoH5List];
+    };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self collectionEndRefreshing];
     };
 }
 
@@ -279,7 +306,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         self.collectionView.scrollEnabled = YES;
 
         [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];
+    };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
         
+        [self collectionEndRefreshing];
     };
 }
 

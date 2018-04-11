@@ -288,6 +288,7 @@
 		77A51490207CA3C2003206B5 /* MyHotDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A5148E207CA3C2003206B5 /* MyHotDetailViewController.xib */; };
 		77A51494207DA5E8003206B5 /* CommentPopularizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */; };
 		77A51495207DA5E8003206B5 /* CommentPopularizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */; };
+		77A51498207DDD34003206B5 /* PopularizeAllCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A51497207DDD34003206B5 /* PopularizeAllCount.m */; };
 		77B1A0F220440BAA00F922DD /* SigningStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B1A0F020440BAA00F922DD /* SigningStateViewController.m */; };
 		77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */; };
 		77B2F47020109CA300EF4119 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B2F46F20109CA300EF4119 /* WXApiManager.m */; };
@@ -930,6 +931,8 @@
 		77A51491207DA5E8003206B5 /* CommentPopularizeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentPopularizeViewController.h; sourceTree = "<group>"; };
 		77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentPopularizeViewController.m; sourceTree = "<group>"; };
 		77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentPopularizeViewController.xib; sourceTree = "<group>"; };
+		77A51496207DDD34003206B5 /* PopularizeAllCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeAllCount.h; sourceTree = "<group>"; };
+		77A51497207DDD34003206B5 /* PopularizeAllCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeAllCount.m; sourceTree = "<group>"; };
 		77B1A0EF20440BAA00F922DD /* SigningStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningStateViewController.h; sourceTree = "<group>"; };
 		77B1A0F020440BAA00F922DD /* SigningStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningStateViewController.m; sourceTree = "<group>"; };
 		77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SigningStateViewController.xib; sourceTree = "<group>"; };
@@ -1753,6 +1756,8 @@
 				7733E3042079E9920081B05E /* EnterpriseSigningState.m */,
 				7733E3062079E9B20081B05E /* MarketingSigningState.h */,
 				7733E3072079E9B20081B05E /* MarketingSigningState.m */,
+				77A51496207DDD34003206B5 /* PopularizeAllCount.h */,
+				77A51497207DDD34003206B5 /* PopularizeAllCount.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -2693,6 +2698,7 @@
 				77DA833120187BD200E7CB36 /* DesignerListViewController.m in Sources */,
 				7733E30B207B040A0081B05E /* LCRegExpTool.m in Sources */,
 				77E8A87B2011DCB000E253CC /* MASConstraintMaker.m in Sources */,
+				77A51498207DDD34003206B5 /* PopularizeAllCount.m in Sources */,
 				77B86FE7202803080096FB28 /* TagView.m in Sources */,
 				775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */,
 				77B86FED202861C00096FB28 /* LeaveViewController.m in Sources */,

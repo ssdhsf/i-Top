@@ -11,7 +11,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PopularizeItmeTableViewController">
             <connections>
+                <outlet property="allItemLabel" destination="RHo-Vf-cOr" id="5In-Zb-NiN"/>
+                <outlet property="allItemTitleLabel" destination="fnM-L2-ChD" id="bxc-QB-nK4"/>
                 <outlet property="headView" destination="vvy-Gf-PmN" id="5Om-oH-DNZ"/>
+                <outlet property="item1Label" destination="i9e-Gj-RER" id="uYC-d1-LaV"/>
+                <outlet property="item2Label" destination="qAl-Sa-upy" id="e3S-L0-a92"/>
+                <outlet property="item3Label" destination="z0v-bA-Rq1" id="lEm-pp-01r"/>
+                <outlet property="itemTitle1Label" destination="ht5-vM-QbF" id="cXQ-AD-ore"/>
+                <outlet property="itemTitle2Label" destination="yfr-Bs-FbR" id="52c-Ge-Mwt"/>
+                <outlet property="itemTitle3Label" destination="qHl-X7-PwR" id="HlJ-gv-0ls"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,7 +47,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="syX-aJ-pWs"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -77,7 +85,7 @@
                         <constraint firstAttribute="height" constant="8" id="sHg-Vy-V4H"/>
                     </constraints>
                 </view>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-vM-QbF">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总费用" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ht5-vM-QbF">
                     <rect key="frame" x="0.0" y="181" width="125" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="T5N-ta-0iz"/>
@@ -86,7 +94,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfr-Bs-FbR">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总浏览" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yfr-Bs-FbR">
                     <rect key="frame" x="125" y="181" width="125" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="Zt6-eN-GMY"/>
@@ -95,7 +103,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHl-X7-PwR">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总留资" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qHl-X7-PwR">
                     <rect key="frame" x="250" y="181" width="125" height="21"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="21" id="4D3-3o-dAn"/>

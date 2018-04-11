@@ -201,6 +201,11 @@
         if (self.resultIndex) {
             self.resultIndex(sender.tag, _pickViewType);
         }
+    } else{
+        
+        if (self.alertCancel) {
+            self.alertCancel(sender.tag, _pickViewType);
+        }
     }
     [self removeFromSuperview];
 }

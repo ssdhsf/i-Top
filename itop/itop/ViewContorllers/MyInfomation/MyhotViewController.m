@@ -32,7 +32,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
+    
+    [UIManager sharedUIManager].updateHotBackOffBolck = ^ (NSString *itmeIndex){ //修改hot状态后回调操作
+        _itmeIndex = [itmeIndex integerValue];
+        _isSubmitBackOff = YES;
+        [self initSegment];
+        [self createScrollView];
+    };
 }
 
 -(void)initView{
