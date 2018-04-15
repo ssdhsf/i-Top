@@ -84,8 +84,13 @@ static NSString *const LeaveDetailCellIdentifier = @"LeaveDetail";
     } else {
         Infomation *leave = [_leaveDetailDataSource itemAtIndexPath:indexPath];
         NSInteger content = [Global heightWithString:leave.content width:ScreenWidth-113 fontSize:15];
-        
-        return content +30;
+        if(content == 0){
+            
+            return 44;
+        } else {
+            
+             return content +30;
+        }
     }
 }
 

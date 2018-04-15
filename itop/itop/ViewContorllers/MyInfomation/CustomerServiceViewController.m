@@ -83,7 +83,7 @@
 - (IBAction)submit:(UIButton *)sender {
    
     if ([_titel isEqualToString:Customer_Service] &&[Global stringIsNullWithString:_contentTV.text]) {
-        [self showToastWithMessage:@"输入内容"];
+        [self showToastWithMessage:@"请输入内容"];
         return;
     }
     

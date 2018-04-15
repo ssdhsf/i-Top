@@ -289,6 +289,7 @@
 		77A51494207DA5E8003206B5 /* CommentPopularizeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A51492207DA5E8003206B5 /* CommentPopularizeViewController.m */; };
 		77A51495207DA5E8003206B5 /* CommentPopularizeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */; };
 		77A51498207DDD34003206B5 /* PopularizeAllCount.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A51497207DDD34003206B5 /* PopularizeAllCount.m */; };
+		77A5149B207EF900003206B5 /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A5149A207EF900003206B5 /* City.m */; };
 		77B1A0F220440BAA00F922DD /* SigningStateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B1A0F020440BAA00F922DD /* SigningStateViewController.m */; };
 		77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */; };
 		77B2F47020109CA300EF4119 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 77B2F46F20109CA300EF4119 /* WXApiManager.m */; };
@@ -933,6 +934,8 @@
 		77A51493207DA5E8003206B5 /* CommentPopularizeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentPopularizeViewController.xib; sourceTree = "<group>"; };
 		77A51496207DDD34003206B5 /* PopularizeAllCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopularizeAllCount.h; sourceTree = "<group>"; };
 		77A51497207DDD34003206B5 /* PopularizeAllCount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeAllCount.m; sourceTree = "<group>"; };
+		77A51499207EF900003206B5 /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		77A5149A207EF900003206B5 /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
 		77B1A0EF20440BAA00F922DD /* SigningStateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningStateViewController.h; sourceTree = "<group>"; };
 		77B1A0F020440BAA00F922DD /* SigningStateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningStateViewController.m; sourceTree = "<group>"; };
 		77B1A0F120440BAA00F922DD /* SigningStateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SigningStateViewController.xib; sourceTree = "<group>"; };
@@ -1716,6 +1719,8 @@
 				77CE7C81202AEC0C0067D284 /* Infomation.m */,
 				77CE7C89202B14290067D284 /* Province.h */,
 				77CE7C8A202B14290067D284 /* Province.m */,
+				77A51499207EF900003206B5 /* City.h */,
+				77A5149A207EF900003206B5 /* City.m */,
 				77848AE7202EE1A300C0CCD2 /* ProductDetail.h */,
 				77848AE8202EE1A300C0CCD2 /* ProductDetail.m */,
 				77848AEA202EE20800C0CCD2 /* ProductModel.h */,
@@ -2741,6 +2746,7 @@
 				77E8A87D2011DCB000E253CC /* MASViewAttribute.m in Sources */,
 				770D776C20690139007601A8 /* PopularizeStore.m in Sources */,
 				7717E997206B7B020025DC73 /* DirectMessagesDataSource.m in Sources */,
+				77A5149B207EF900003206B5 /* City.m in Sources */,
 				77E9815420785827007CDFED /* StatisticalDataSegmentViewController.m in Sources */,
 				77484AAB2021A1DB00BAC567 /* HotDetailStore.m in Sources */,
 				7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */,

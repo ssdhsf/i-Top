@@ -12,6 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *cityLabel;
 
--(void)setItmeOfModel:(Province*)province;
+-(void)setItmeOfModel:(City*)province;
 
 @end

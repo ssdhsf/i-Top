@@ -112,8 +112,9 @@ typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE){ //微信分享类型
 };
 
 typedef NS_ENUM(NSInteger, FeedbackType) { //用户类型
-    FeedbackTypeCustomerService = 1,//联系客服
-    FeedbackTypeOpinion = 2, //意见反馈
+   
+    FeedbackTypeOpinion = 1, //意见反馈
+     FeedbackTypeCustomerService = 2,//联系客服
 };
 
 typedef NS_ENUM(NSInteger, ItemType) {//H5类型
@@ -242,6 +243,9 @@ typedef void (^MessageListFailure)(id obj);
 typedef void (^MapLocationManagerSuccess)(id obj);//定位
 typedef void (^MapLocationManagerFailure)(id obj);//定位
 
+typedef void (^CityListSuccess)(id obj);
+typedef void (^CityListFailure)(id obj);
+
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
@@ -294,6 +298,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------TagList————————————————————————*/
 @property (nonatomic, copy) TagListSuccess tagListSuccess;
 @property (nonatomic, copy) TagListFailure tagListFailure;
+
+/*----------------CityList————————————————————————*/
+@property (nonatomic, copy) CityListSuccess cityListSuccess;
+@property (nonatomic, copy) CityListFailure cityListFailure;
 
 /*----------------设计师列表————————————————————————*/
 @property (nonatomic, copy) DesignerlistSuccess designerlistSuccess;
@@ -581,6 +589,12 @@ typedef void (^ErrorFailure)(id obj);
  *  @param type Tag类型
  */
 - (void)hometagListWithType:(TagType )type;
+
+/**
+ *  获取消息列表
+ *
+ */
+-(void)cityList;
 
 /**
  *  首页轮播图

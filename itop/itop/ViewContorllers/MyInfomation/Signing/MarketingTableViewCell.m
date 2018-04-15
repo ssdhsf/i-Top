@@ -31,13 +31,14 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
     
-    NSString *temp ;
-    if(range.length == 0){
-        temp = [NSString stringWithFormat:@"%@%@",textField.text,string];
-    } else if(range.length == 1) {
-        temp = [textField.text substringWithRange:NSMakeRange(0,textField.text.length - 1)];
-    }
-    self.inputConfigureBlock(temp,self);
+//    NSString *temp ;
+//    if(range.length == 0){
+//        temp = [NSString stringWithFormat:@"%@%@",textField.text,string];
+//    } else if(range.length == 1) {
+//        temp = [textField.text substringWithRange:NSMakeRange(0,textField.text.length-1)];
+//    }
+    
+    self.inputConfigureBlock(textField.text,self);
     return YES;
 }
 
@@ -55,5 +56,15 @@
 }
 
 
+//- (BOOL)textFieldShouldClear:(UITextField *)textField{
+//    
+//    return NO;
+//}
+// called when clear button pressed. return NO to ignore (no notifications)
+- (BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    self.inputConfigureBlock(textField.text,self);
+    return YES;
+}
 
 @end

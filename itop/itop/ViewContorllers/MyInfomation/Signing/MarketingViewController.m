@@ -144,7 +144,10 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
         [cell setItmeOfModel:item];
         cell.inputConfigureBlock = ^(NSString *inputText, MarketingTableViewCell *cell1){
             
+            NSLog(@"%@",inputText);
             NSIndexPath *index = [self.tableView indexPathForCell:cell1];
+            MarketingTableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+            NSLog(@"%@",cell.ContentTF.text);
             Marketing *markt = [_marketingDataSource itemAtIndexPath:index];
             markt.content = inputText;
         };
@@ -217,6 +220,9 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 
 - (IBAction)selectItem:(UIButton *)sender {
     
+    [_nameTF resignFirstResponder];
+    [_mobiliTF resignFirstResponder];
+    [_verificationCodeTF resignFirstResponder];
     [self showAlertViewWithItem:sender];
 }
 

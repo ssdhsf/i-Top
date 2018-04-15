@@ -22,4 +22,10 @@ static NSString *const Type_SearchHot = @"SearchHot";
 - (NSMutableArray *)requestConfigurationMenuWithMenu:(NSArray *)menu;
 - (NSMutableArray *)configurationBanner:(NSArray *)banner;//轮播图
 - (NSMutableArray *)configurationTag:(NSArray *)tag;//轮播图
+
+- (NSMutableArray *)configurationTagNameWithMenu:(NSArray *)menu  tagType:(NSString *)tagType;//设置标签name
+- (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType; //设置标签模型
+- (NSMutableArray *)configurationTagNameWithTag:(NSString *)tag;//根据H5类型show标签title
+
+-(NSMutableArray *)configurationAllTagWithMenu:(NSArray *)menu;//解析全部tag模型
 @end

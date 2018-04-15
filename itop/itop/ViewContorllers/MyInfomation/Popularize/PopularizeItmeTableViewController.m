@@ -44,13 +44,18 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
     
     [super viewWillAppear:animated];
     [self hiddenNavigationController:NO];
-    [self hiddenNavigafindHairlineImageView:YES];
+    [self hiddenNavigafindHairlineImageView:!_isHome];
     self.navigationController.navigationBar.translucent = NO;
 }
 
 -(void)initNavigationBarItems{
     
     self.title = @"推广管理";
+    
+    if (_isHome) {
+        
+        [self setLeftCustomBarItem:@"" action:nil];
+    }
 }
 
 -(void)initView{
@@ -77,6 +82,7 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
         self.itemTitle3Label .text = @"总浏览";
         self.allItemTitleLabel .text = @"收益";
     }
+    [self steupTableView];
 }
 
 -(void)initData{
@@ -114,8 +120,9 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
     [UserManager shareUserManager].popularizeSuccess = ^(NSArray * arr){
         
         [self listDataWithListArray: [[PopularizeStore shearPopularizeStore]configurationPopularizeWithMenu:arr] page:self.page_no];
-        [self steupTableView];
+
         self.tableView.tableHeaderView = _headView;
+        [self steupTableView];
 
     };
 }

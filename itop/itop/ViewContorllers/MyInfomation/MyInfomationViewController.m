@@ -168,21 +168,24 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
         
-    }else if ([info.myInfoTitle isEqualToString:@"作品"]){
+    }
+    else if ([info.myInfoTitle isEqualToString:@"作品"]){
         
         [UIManager productViewControllerWithType:GetProductListTypeMyProduct];
-    }else if ([info.myInfoTitle isEqualToString:@"分享"]){
-        
-        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
-            ShearInfo *sherInfo = [[ShearInfo alloc]init];
-            sherInfo.shear_title = @"itop";
-            sherInfo.shear_discrimination = @"H5内容制作";
-            sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
-            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html ";
-            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
-        } ];
-
-    }else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
+    }
+//    else if ([info.myInfoTitle isEqualToString:@"分享"]){
+//        
+//        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
+//            ShearInfo *sherInfo = [[ShearInfo alloc]init];
+//            sherInfo.shear_title = @"itop";
+//            sherInfo.shear_discrimination = @"H5内容制作";
+//            sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
+//            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html";
+//            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
+//        } ];
+//
+//    }
+    else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
         
         [[UserManager shareUserManager]signingState];
         [UserManager shareUserManager].signingSuccess = ^ (NSDictionary *obj){
@@ -210,7 +213,14 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     }else if ([info.myInfoTitle isEqualToString:@"留资"]){
         
         [UIManager leaveWithProduct:nil leaveType:GetLeaveListTypeMyLeave];
-    } else {
+    }
+    
+//    else if ([info.myInfoTitle isEqualToString:@"推广管理"]){
+//        
+//        [[UIManager sharedUIManager]  popularizeManagementViewControllerWithHome:NO];
+//    }
+    
+    else{
         
         [UIManager showVC:info.nextVcName];
     }

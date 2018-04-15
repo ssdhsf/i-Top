@@ -44,6 +44,7 @@
     
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
+    [self hiddenNavigationController:NO];
 }
 
 -(void)initNavigationBarItems{
@@ -196,11 +197,16 @@
 
 - (IBAction)price:(UIButton *)sender {
     
+    [self showToastWithMessage:@"功能暂未开放"];
     
 }
+
 - (IBAction)company:(UIButton *)sender {
     
-    [UIManager showVC:@"BuyVipPayViewController"];
+    
+    [self showToastWithMessage:@"功能暂未开放"];
+    
+//    [UIManager showVC:@"BuyVipPayViewController"];
 }
 
 - (void)didReceiveMemoryWarning {

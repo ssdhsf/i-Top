@@ -15,9 +15,9 @@
     // Initialization code
 }
 
--(void)setItmeOfModel:(Province*)province{
+-(void)setItmeOfModel:(City*)province{
     
-    self.cityLabel.text = province.address;
+    self.cityLabel.text = province.name;
 }
 
 @end

@@ -479,25 +479,36 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
         result = [NSString stringWithFormat:@"分享成功"];
     }
     else{
-        NSMutableString *str = [NSMutableString string];
-        if (error.userInfo) {
-            for (NSString *key in error.userInfo) {
-                [str appendFormat:@"%@ = %@\n", key, error.userInfo[key]];
-            }
+        
+        if (error.code == 2009) {
+            
+            result = [NSString stringWithFormat:@"分享取消"];
+        }else {
+            result = [NSString stringWithFormat:@"分享失败"];
+            
         }
-        if (error) {
-            result = [NSString stringWithFormat:@"Share fail with error code: %d\n%@",(int)error.code, str];
-        }
-        else{
-            result = [NSString stringWithFormat:@"Share fail"];
-        }
+//        NSMutableString *str = [NSMutableString string];
+//        if (error.userInfo) {
+//            for (NSString *key in error.userInfo) {
+//                [str appendFormat:@"%@ = %@\n", key, error.userInfo[key]];
+//            }
+//        }
+//        if (error) {
+//            result = [NSString stringWithFormat:@"Share fail with error code: %d\n%@",(int)error.code, str];
+//        }
+//        else{
+//            result = [NSString stringWithFormat:@"Share fail"];
+//        }
     }
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
-                                                    message:result
-                                                   delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"sure", @"确定")
-                                          otherButtonTitles:nil];
-    [alert show];
+    [self hiddenBgViewAndPickerView];
+    [self alertOperationWithMessage:result];
+    
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示"
+//                                                    message:result
+//                                                   delegate:nil
+//                                          cancelButtonTitle:NSLocalizedString(@"sure", @"确定")
+//                                          otherButtonTitles:nil];
+//    [alert show];
 }
 
 -(void)alertOperationWithMessage:(NSString*)message{

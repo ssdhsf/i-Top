@@ -72,11 +72,11 @@
             
             if (star.selected == YES) {
                 
-                [star setImage:[UIImage imageNamed:@"hot_icon_havecollection"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starfen"] forState:UIControlStateNormal];
                 _effect ++;
             } else {
                 
-                [star setImage:[UIImage imageNamed:@"hot_icon_collect"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starhui"] forState:UIControlStateNormal];
             }
         }
         
@@ -85,10 +85,10 @@
             if (star.selected == YES) {
                 
                 _service ++;
-                [star setImage:[UIImage imageNamed:@"hot_icon_havecollection"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starfen"] forState:UIControlStateNormal];
             } else {
                 
-                [star setImage:[UIImage imageNamed:@"hot_icon_collect"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starhui"] forState:UIControlStateNormal];
             }
         }
         
@@ -96,10 +96,10 @@
             
             if (star.selected == YES) {
                 _sincerity ++;
-                [star setImage:[UIImage imageNamed:@"hot_icon_havecollection"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starfen"] forState:UIControlStateNormal];
             } else {
                 
-                [star setImage:[UIImage imageNamed:@"hot_icon_collect"] forState:UIControlStateNormal];
+                [star setImage:[UIImage imageNamed:@"dingzhi_icon_starhui"] forState:UIControlStateNormal];
             }
         }
     } else {
@@ -124,7 +124,7 @@
                 [_sincerityButtons addObject:star];
             }
             star.tag = i;
-            [star setImage:[UIImage imageNamed:@"hot_icon_collect"] forState:UIControlStateNormal];
+            [star setImage:[UIImage imageNamed:@"dingzhi_icon_starhui"] forState:UIControlStateNormal];
             [star addTarget:self action:@selector(grade:) forControlEvents:UIControlEventTouchDown];
             
             [self.view addSubview:star];

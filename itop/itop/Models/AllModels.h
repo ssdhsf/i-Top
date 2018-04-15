@@ -49,5 +49,6 @@
 #import "UserMessege.h"
 #import "SigningState.h"
 #import "PopularizeAllCount.h"
+#import "City.h"
 
 #endif /* AllModels_h */

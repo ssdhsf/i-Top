@@ -44,7 +44,7 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     
     if (![[UserManager shareUserManager]isLogin]) {
         
-        [_loginOutButton setTitle:@"登陆" forState:UIControlStateNormal];
+        [_loginOutButton setTitle:@"登录" forState:UIControlStateNormal];
     } else {
         [_loginOutButton setTitle:@"退出登录" forState:UIControlStateNormal];
     }
@@ -112,7 +112,13 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
 
 - (IBAction)loginOut:(UIButton *)sender {
     
-    [self alertOperation];
+    if ([sender.titleLabel.text  isEqualToString:@"登录"]) {
+        
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+    } else {
+        
+        [self alertOperation];
+    }
 }
 
 #pragma mark 点击清理缓存空间

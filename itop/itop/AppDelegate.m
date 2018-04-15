@@ -199,8 +199,10 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 }
 
 -(BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString *,id> *)options{
+    
     BOOL result = [[UMSocialManager defaultManager] handleOpenURL:url];
     
+    [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     if (result == NO){
         //调用其他SDK，例如支付宝SDK等
         NSLog(@"添加了系统回调，在appdelegate类里");

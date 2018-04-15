@@ -8,7 +8,7 @@
 
 #import "BaseViewController.h"
 
-@interface LoginViewController : BaseViewController
+@interface LoginViewController : BaseViewController <WXApiManagerDelegate>
 
 @property (assign, nonatomic)BOOL isLogin;
 

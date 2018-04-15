@@ -22,59 +22,86 @@
     return store;
 }
 
--(NSMutableArray *)configurationProvinceStoreMenuWithMenu:(NSArray *)arr{
-   
-    NSArray *provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
-    NSMutableArray *cityArray = [NSMutableArray array];
-    NSMutableArray *cityModelArray = [NSMutableArray array];
-    
-    for (Province *province in provinceArray) {
-        
-        [cityArray addObjectsFromArray:province.cityArray];
-    }
 
+-(NSMutableArray *)configurationProvinceStoreMenuWithMenu:(NSArray *)arr{
+    
+    NSMutableArray *cityModelArray = [NSMutableArray array];
     for (NSString *letter in [self partition]) {
-        
-        SelecteProvinceModel *province = [[SelecteProvinceModel alloc]init];
-        province.letterProvince = [NSMutableArray array];
-        
-        for (Province *city in cityArray) {
+    
+        for (NSDictionary *dic in arr) {
             
-            NSString *first = [Global transform:city.address];
-            
-            if ([first isEqualToString:letter]) {
+            if ([dic[@"pinyin"] isEqualToString:letter]) {
                 
-                [province.letterProvince addObject:city];
+                SelecteProvinceModel *province = [[SelecteProvinceModel alloc]init];
+                province.letterKey = dic[@"pinyin"];
+                province.letterProvince = [NSMutableArray array];
+                
+                for (NSDictionary *cityDic in dic[@"city"]) {
+                    
+                    City *city = [[City alloc]initWithDictionary:cityDic error:nil];
+                    [province.letterProvince addObject:city];
+                    
+                }
+                
+                [cityModelArray addObject:province];
             }
         }
-        province.letterKey = letter;
-        
-        
-        if (province.letterProvince.count != 0) {
-            [cityModelArray addObject:province];
-        }
     }
+//
+//    for (NSString *letter in [self partition]) {
+//        
+//        SelecteProvinceModel *province = [[SelecteProvinceModel alloc]init];
+//        province.letterProvince = [NSMutableArray array];
+//        
+//        for (Province *city in cityArray) {
+//            
+//            NSString *first = [Global transform:city.address];
+//            
+//            if ([first isEqualToString:letter]) {
+//                
+//                [province.letterProvince addObject:city];
+//            }
+//        }
+//        province.letterKey = letter;
+//        
+//        
+//        if (province.letterProvince.count != 0) {
+//            [cityModelArray addObject:province];
+//        }
+//    }
     SelecteProvinceModel *model = [[SelecteProvinceModel alloc]init];
     model.letterKey = @"当";
     model.letterProvince = [NSMutableArray array];
-    Province *locationCity  = [[Province alloc]init];
+    City *locationCity  = [[City alloc]init];
     [model.letterProvince addObject:locationCity];
     
     if ([MapLocationManager sharedMapLocationManager].location != nil) {
-        
-        for (SelecteProvinceModel *provinceModel in cityModelArray) {
-            for (Province *tempCity in provinceModel.letterProvince) {
+        NSArray *provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
+        NSMutableArray *nativeCityArray = [NSMutableArray array];
+        for (Province *province in provinceArray) {
+            
+            [nativeCityArray addObjectsFromArray:province.cityArray];
+        }
+        for (Province *tempCity in nativeCityArray) {
+            
+            if ([tempCity.address isEqualToString:[MapLocationManager sharedMapLocationManager].location]) {
                 
-                if ([tempCity.address isEqualToString:[MapLocationManager sharedMapLocationManager].location]) {
-                    
-                    locationCity.address = tempCity.address;
-                    locationCity.code = tempCity.code;
-                    
-                    [cityModelArray insertObject:model atIndex:0];
-                    return cityModelArray;
-                }
+                locationCity.name = tempCity.address;
+                locationCity.code = tempCity.code;
+                
+                [cityModelArray insertObject:model atIndex:0];
+//                return cityModelArray;
             }
         }
+        
+    } else {
+        
+        locationCity.name = @"定位失败";
+//        locationCity.code = tempCity.code;
+        
+        [cityModelArray insertObject:model atIndex:0];
+//        return cityModelArray;
+
     }
     return cityModelArray;
 }

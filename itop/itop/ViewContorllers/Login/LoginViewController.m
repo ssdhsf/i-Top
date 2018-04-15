@@ -59,12 +59,12 @@
 
 //登录
 - (IBAction)login:(UIButton *)sender {
-    
-    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text]){
-        
-        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
-        return;
-    }
+//    
+//    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text]){
+//        
+//        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+//        return;
+//    }
 
     [_accountTF resignFirstResponder];
     [_passwordTF resignFirstResponder];
@@ -92,7 +92,7 @@
 - (IBAction)weChatLogin:(UIButton *)sender {
     
     [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
-                                            State:@"itop"
+                                            State:@"i-Top"
                                            OpenID:WECHAT_APP_ID
                                  InViewController:self];
 }

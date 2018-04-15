@@ -36,9 +36,6 @@
 #pragma mark 返回登陆页
 //- (void)presentViewLoginViewController{
 //    
-//    
-//    
-//    
 //    AppDelegate *appdelegat = [UIManager appDelegate];
 //    LoginViewController *vc = [[LoginViewController alloc] init];
 //    ThemeNavigationController* loginNavigation = [[ThemeNavigationController alloc] initWithRootViewController:vc];

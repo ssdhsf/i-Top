@@ -584,7 +584,7 @@ _errorFailure(__id_obj); }
 - (void)hometagListWithType:(TagType )type{
     
 //    SHOW_GET_DATA
-    NSString *api = @"/api/tag/getindexlist";
+    NSString *api = @"/api/tag/getlist";
     NSDictionary *parameters = @{@"tagType" : @(type)};
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
@@ -602,6 +602,30 @@ _errorFailure(__id_obj); }
     } failure:^(NSError *error) {
         
 //        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)cityList{
+
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/getcitylist";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:nil completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+            
+        } else {
+            NSArray *arr = object[@"rows"];
+            _cityListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
@@ -1196,15 +1220,16 @@ _errorFailure(__id_obj); }
     SHOW_GET_DATA
     NSString *api =  [NSString string];
     
-    if (feedbackType == FeedbackTypeOpinion) {
-        
-        api = @"/api/userfeedback/add";
-    }else {
-        
-        api = @"/api/userfeedback/add";
-    }
+//    if (feedbackType == FeedbackTypeOpinion) {
     
-    NSDictionary *parameters = @{@"Content" : content,};
+        api = @"/api/userfeedback/add";
+//    }else {
+//        
+//        api = @"/api/userfeedback/add";
+//    }
+//    
+    NSDictionary *parameters = @{@"Content" : content,
+                                 @"FeedBackType" : @(feedbackType)};
 
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         

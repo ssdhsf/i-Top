@@ -22,7 +22,8 @@
 #import "OptimizeTitleViewController.h"
 #import "LoadingViewController.h"
 #import "RecommendedViewController.h"
-#import "PopularizeManagementViewController.h"
+//#import "PopularizeManagementViewController.h"
+#import "PopularizeItmeTableViewController.h"
 
 @implementation UIManager
 
@@ -89,9 +90,6 @@
         
         vc = [[UIManager sharedUIManager] homeProductViewControllerWithType:GetProductListTypeHome];
     }
-    
-    
-    
     ThemeNavigationController *nav3 = [[ThemeNavigationController alloc]initWithRootViewController: vc];
 
     ThemeNavigationController *nav4 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"MyInfomationViewController"]];
@@ -377,9 +375,9 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
--(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome{
+-(PopularizeItmeTableViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome{
     
-    PopularizeManagementViewController *vc = [[PopularizeManagementViewController alloc]init];
+    PopularizeItmeTableViewController *vc = [[PopularizeItmeTableViewController alloc]init];
     vc.isHome = isHome;
     if (isHome) {
         return vc;

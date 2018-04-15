@@ -47,7 +47,7 @@
 -(NSMutableArray *)configurationItopMenuWithUserType:(UserType)user_type{
     
     NSMutableArray *array = [NSMutableArray array];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@"ShearViewController"]];
+    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"分享" imageName:@"me_icon_share" vcName:@"SetupProductViewController"]];
     if (user_type == UserTypeDefault) {
         [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"入驻申请" imageName:@"me_icon_ruzhu" vcName:@"SigningTypeViewController"]];
     }

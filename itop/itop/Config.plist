@@ -23,7 +23,7 @@
 			<key>protocol</key>
 			<string>http</string>
 			<key>host</key>
-			<string>192.168.7.100:8028</string>
+			<string>125.88.152.77:8028</string>
 		</dict>
 		<key>Product</key>
 		<dict>
@@ -58,16 +58,16 @@
 	<key>Tencent</key>
 	<dict>
 		<key>appId</key>
-		<string>1106763212</string>
+		<string>1106761631</string>
 		<key>appkey</key>
-		<string>noR5L7SSG1qB9Ely</string>
+		<string>dPeSih4qOpm904ej</string>
 	</dict>
 	<key>Sina</key>
 	<dict>
 		<key>appId</key>
-		<string>3098688735</string>
+		<string>660295711</string>
 		<key>appkey</key>
-		<string>fad5b37dbf6c243ad98fc93c902ed242</string>
+		<string>1a4396a272c71e0b7c474ced63d1eb5c</string>
 	</dict>
 </dict>
 </plist>

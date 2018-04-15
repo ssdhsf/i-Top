@@ -20,6 +20,7 @@
     });
     return store;
 }
+
 - (NSMutableArray *)configurationMenuWithMenu:(Leave *)menu{
     NSMutableArray *sectionArray = [NSMutableArray array];
     
@@ -28,8 +29,8 @@
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"作品来源" content:@""]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"电话" content:menu.json_result.phone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"邮箱" content:menu.json_result.email]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"地址" content:@""]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"留言" content:@""]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"地址" content:menu.json_result.address]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"留言" content:menu.json_result.content]];
     
     return sectionArray;
 }

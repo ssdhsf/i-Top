@@ -21,7 +21,10 @@
         self.contentLabel.hidden = !info.isEdit;
         self.editorImage.hidden = info.isEdit;
         
-        [self.iconImage sd_setImageWithURL:[NSURL URLWithString:info.content] placeholderImage:PlaceholderImage];
+        if (self.iconImage.image == nil) {
+            [self.iconImage sd_setImageWithURL:[NSURL URLWithString:info.content] placeholderImage:PlaceholderImage];
+        }
+        
         self.iconImage.layer.masksToBounds = YES;
         self.iconImage.layer.cornerRadius = self.iconImage.height/2;
     }

@@ -47,7 +47,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong) CAGradientLayer *layer;
 @property (nonatomic, assign) BOOL isFirst;
 @property (nonatomic, assign) BOOL isSelectProvince;
-@property (nonatomic, strong) Province *selectProvince;
+@property (nonatomic, strong) City *selectProvince;
 
 @end
 
@@ -602,7 +602,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     //左面导航按钮
     UIButton *readerButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loctionBtn = readerButton;
-    readerButton.frame = CGRectMake(20, 0, 20 , 20 );
+    readerButton.frame = CGRectMake(20, 0, 25 , 25 );
     self.loctionBtn.centerY = _searchBtn.centerY;
 
     self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
@@ -643,7 +643,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         }
     } else {
        
-        self.loctionLable .text = _selectProvince.address;
+        self.loctionLable .text = _selectProvince.name;
     }
 }
 
@@ -730,7 +730,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)selectLoction{
     
     [UIManager showVC:@"ProvinceViewController"];
-    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
+    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(City *city){
         
         _isSelectProvince = YES;
         _selectProvince = city;
@@ -763,8 +763,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController{
     
     ThemeNavigationController *nav=(ThemeNavigationController*)viewController;
-    BOOL isSelectProductItem =  [nav.tabBarItem.title isEqualToString:@"我的推广"]||
-    [nav.tabBarItem.title isEqualToString:@"我的作品"] ? YES : NO;
+    BOOL isSelectProductItem =
+    [nav.tabBarItem.title isEqualToString:@"我的推广"]||
+    [nav.tabBarItem.title isEqualToString:@"我的作品"]||
+    [nav.tabBarItem.title isEqualToString:@"推广管理"] ? YES : NO;
     if (![[UserManager shareUserManager]isLogin] && isSelectProductItem) {
         
         [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];

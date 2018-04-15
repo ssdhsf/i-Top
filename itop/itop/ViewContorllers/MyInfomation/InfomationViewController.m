@@ -337,7 +337,8 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     InfomationTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.iconImage.image = [array lastObject];
+    cell.iconImage.image = [[Global sharedSingleton]compressImage:[array lastObject]];
+//    cell.iconImage.layer.cornerRadius = cell.iconImage.height/2;
 }
 
 -(void)showAlertViewWithItem:(Infomation *)info{

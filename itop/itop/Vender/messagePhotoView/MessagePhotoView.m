@@ -106,15 +106,18 @@
 //通过拍摄
 - (void)reloadDataWithImage:(UIImage *)image{
     
-    UIImageView*img=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ItemWidth, ItemWidth)];
-    img.image = image;
-    if (_urlImage.count!=0) {
-          NSDictionary*dic = [NSDictionary dictionaryWithObjectsAndKeys: @"", @"urlString",img, IMAGE_KEY,nil];
-        [self.photoMenuItems insertObject:dic atIndex:self.photoMenuItems.count-1];
-        
-    }else{
-        [self.photoMenuItems insertObject:img atIndex:self.photoMenuItems.count-1];
-    }
+//    UIImageView*img=[[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ItemWidth, ItemWidth)];
+//    img.image = image;
+    [photoMenuItems removeAllObjects];
+    [photoMenuItems addObject:image];
+//
+//    if (_urlImage.count!=0) {
+//          NSDictionary*dic = [NSDictionary dictionaryWithObjectsAndKeys: @"", @"urlString",img, IMAGE_KEY,nil];
+//        [self.photoMenuItems insertObject:dic atIndex:self.photoMenuItems.count-1];
+//        
+//    }else{
+//        [self.photoMenuItems insertObject:img atIndex:self.photoMenuItems.count-1];
+//    }
     [_collectionView reloadData];
     [self delegateRespondsToSelector];
 }

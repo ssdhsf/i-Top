@@ -50,7 +50,7 @@ static CGFloat floatViewHeight = 40.0;
 -(void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    [self hiddenNavigationController:_isHome];
+//    [self hiddenNavigationController:_isHome];
     [self hiddenNavigafindHairlineImageView:YES];
     self.navigationController.navigationBar.translucent = NO;
 }

@@ -145,6 +145,15 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     return 0;
 }
 
+
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
+    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+}
+
+
+
 -(void)addHeaderSubViews{
   
     UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenWidth *0.285)];

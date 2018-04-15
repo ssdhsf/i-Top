@@ -484,7 +484,7 @@ static UIColor *titleColor;
                                     action:@selector(finishPickingAssets:)];
     if([[[UIDevice currentDevice]systemVersion]doubleValue]>=7.0){
     self.navigationItem.rightBarButtonItem.tintColor = UIColorFromRGB(0x434a5c);
-            [[UINavigationBar appearance]setTintColor:UIColorFromRGB(0x434a5c)];
+    [[UINavigationBar appearance]setTintColor:UIColorFromRGB(0x434a5c)];
     self.navigationItem.leftBarButtonItem.tintColor = UIColorFromRGB(0x434a5c);
     }
 }
@@ -820,8 +820,12 @@ static UIColor *titleColor;
 - (void)localize
 {
     self.title = NSLocalizedString(@"相簿", nil);
-    
     [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:UIColorFromRGB(0x434a5c),NSForegroundColorAttributeName,nil]];
+    
+    [self.navigationController.navigationItem.leftBarButtonItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:UIColorFromRGB(0x434a5c),NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    
+//    self.navigationController.leftBarButtonItem   = UIColorFromRGB(0x434a5c);
+
 
 //    self.navigationController.navigationBar.tintColor = [UIColor blackColor];
 //     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navigationBar_background_blue"]forBarMetrics:UIBarMetricsDefault];

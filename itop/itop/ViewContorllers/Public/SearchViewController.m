@@ -170,7 +170,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                                          PageIndex:1
                                          PageCount:3
                                 getArticleListType: GetArticleListTypeHot
-                                         searchKey:nil];
+                                         searchKey:_searchBar.text];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * arr){
         
         _searchListCount = _searchListCount+arr.count;
@@ -284,7 +284,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         H5List *h5 = home.itemArray[indexPath.row];
         [UIManager hotDetailsViewControllerWithArticleId:h5.id articleType:HotItemDetailType];
-
     }
 }
 

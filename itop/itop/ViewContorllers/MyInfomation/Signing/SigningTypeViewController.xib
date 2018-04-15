@@ -26,7 +26,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Osw-34-tuC">
                     <rect key="frame" x="0.0" y="40" width="375" height="68"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G5v-zz-7Xf">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Designer_icon1" translatesAutoresizingMaskIntoConstraints="NO" id="G5v-zz-7Xf">
                             <rect key="frame" x="20" y="0.0" width="90" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="JDj-g5-r50"/>
@@ -89,7 +89,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BNh-Hz-eF5">
                     <rect key="frame" x="0.0" y="143" width="375" height="67"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="phu-yx-ZCp">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="enterprise_icon2" translatesAutoresizingMaskIntoConstraints="NO" id="phu-yx-ZCp">
                             <rect key="frame" x="20" y="0.0" width="90" height="67"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="JnE-YO-uXi"/>
@@ -153,7 +153,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pk3-od-8CF">
                     <rect key="frame" x="0.0" y="245" width="375" height="68"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="A0j-za-ren">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Extension_icon3" translatesAutoresizingMaskIntoConstraints="NO" id="A0j-za-ren">
                             <rect key="frame" x="20" y="0.0" width="90" height="68"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="90" id="DMf-nz-ZrA"/>
@@ -247,4 +247,9 @@
             <point key="canvasLocation" x="35.5" y="140.5"/>
         </view>
     </objects>
+    <resources>
+        <image name="Designer_icon1" width="95" height="72"/>
+        <image name="Extension_icon3" width="95" height="72"/>
+        <image name="enterprise_icon2" width="95" height="72"/>
+    </resources>
 </document>
