@@ -246,7 +246,7 @@ static double kFGGScrollInterval = 5.0f;
         [_scroll addSubview:workLabel];
         [_scroll addSubview:focus];
         [_scroll addSubview:imv];
-        [imv sd_setImageWithURL:[NSURL URLWithString:designer.head_img] placeholderImage:[UIImage imageNamed:@"default_man" ] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imv sd_setImageWithURL:[NSURL URLWithString:designer.head_img] placeholderImage:PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
         }];
 

@@ -111,7 +111,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
     NSString *industryKey = _industryArray[0];
     _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
-    
     _isUpdataInfo = NO;
 }
 

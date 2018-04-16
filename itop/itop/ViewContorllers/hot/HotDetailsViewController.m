@@ -294,7 +294,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _userNameLabel.text = _hotDetail.author_nickname;
     
     [_iconImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
-    [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:nil];
+    [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:ArticlePlaceholderImage];
     
     UIFont *font = [UIFont systemFontOfSize:16];
     self.contentLabel.font = font;

@@ -80,7 +80,7 @@
 //    UIImageView *imageView = [UIImageView new];
 //    [imageView sd_setImageWithURL:[NSURL URLWithString:h5Model.cover_img] placeholderImage:nil];
     
-    [self.h5ListImage sd_setImageWithURL:[NSURL URLWithString:h5Model.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.h5ListImage sd_setImageWithURL:[NSURL URLWithString:h5Model.cover_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
 //        self.h5ListImage.image = image;
         

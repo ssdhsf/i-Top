@@ -477,6 +477,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     NSString *result = nil;
     if (!error) {
         result = [NSString stringWithFormat:@"分享成功"];
+        _shearSuccessBlock (0);
     }
     else{
         

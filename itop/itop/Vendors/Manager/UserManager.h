@@ -618,14 +618,14 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param designer_id 设计师ID
  */
-- (void)designerDetailWithDesigner:(NSString *)designer_id;
+- (void)designerDetailWithDesigner:(NSNumber *)designer_id;
 
 /**
  *  设计师作品列表
  *
  *  @param designer_id 设计师ID
  */
-- (void)designerProductListWithDesigner:(NSString *)designer_id
+- (void)designerProductListWithDesigner:(NSNumber *)designer_id
                               PageIndex:(NSInteger )pageIndex
                               PageCount:(NSInteger )pageCount;
 

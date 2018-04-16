@@ -11,4 +11,5 @@
 @interface SetupProductViewController : BaseViewController
 
 @property (strong ,nonatomic)H5List *product;
+
 @end

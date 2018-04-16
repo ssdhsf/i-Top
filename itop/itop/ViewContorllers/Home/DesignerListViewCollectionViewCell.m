@@ -24,7 +24,7 @@
         self.focusButton.frame = CGRectMake((self.frame.size.width/2-25), CGRectGetMaxY(self.designerProfessionalLabel.frame)+6,50, 16);
     }
     
-    [self.designerImage sd_setImageWithURL:[NSURL URLWithString:designerList.head_img] placeholderImage:[UIImage imageNamed:@"default_man"] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.designerImage sd_setImageWithURL:[NSURL URLWithString:designerList.head_img] placeholderImage:PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
     self.designerImage.layer.cornerRadius =  self.designerImage.frame.size.height/2;
     

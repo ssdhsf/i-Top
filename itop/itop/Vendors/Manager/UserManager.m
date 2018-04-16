@@ -669,7 +669,7 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)designerDetailWithDesigner:(NSString *)designer_id{
+- (void)designerDetailWithDesigner:(NSNumber *)designer_id{
     
     SHOW_GET_DATA
     NSString *api = @"/api/userdesigner/getinfo";
@@ -694,7 +694,7 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)designerProductListWithDesigner:(NSString *)designer_id
+- (void)designerProductListWithDesigner:(NSNumber *)designer_id
                               PageIndex:(NSInteger )pageIndex
                               PageCount:(NSInteger )pageCount{
     

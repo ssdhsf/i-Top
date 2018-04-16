@@ -30,7 +30,7 @@
             make.height.mas_equalTo(make.width);
         }];
         
-        _iconImage.image = [UIImage imageNamed:@"default_man"];
+        _iconImage.image = PlaceholderImage;
         [self addSubview:_iconImage];
         
     }

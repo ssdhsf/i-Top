@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stringCount;
 @property (weak, nonatomic) IBOutlet UILabel *producContentCount;
 @property (strong, nonatomic) UIImageView *shear_cover;
-@property (strong, nonatomic) UIImageView *prosuct_cover;
+@property (strong, nonatomic) UIImageView *product_cover;
 @property (strong, nonatomic) UIImage *selectProsuctCover;
 @property (strong, nonatomic) UIImage *selectShearCover;
 @property (strong, nonatomic) NSArray *views;
@@ -131,7 +131,7 @@
     _shear_cover = [[UIImageView alloc]init];
     [_shear_cover sd_setImageWithURL:[NSURL URLWithString:_product.share_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
-        [_shearIconButton setImage:_shear_cover.image forState:UIControlStateNormal];
+        [_shearIconButton setImage:image forState:UIControlStateNormal];
     }];
     
     [[UserManager shareUserManager] hometagListWithType:TagTypeProduct];
@@ -205,11 +205,22 @@
     } else{
         
         [self whetherOrNotPerfect];
+        
+        ShearInfo * shear = [[ShearInfo alloc]init];
+        shear.shear_title = _titleTV.text;
+        shear.shear_discrimination = _contentTV.text;
+        shear.shear_thume_image = _selectShearCover;
+        shear.shear_webLink = _product.url;
+        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
+            
+            [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
+        } ];
+        
+        [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger tag){
+            
+            
+        };
     }
-    
-    
-    
-    
 }
 
 
@@ -238,10 +249,10 @@
 
 -(void)setupProductInfoViews{
    
-    _prosuct_cover = [[UIImageView alloc]init];
-    [_prosuct_cover sd_setImageWithURL:[NSURL URLWithString:_product.cover_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    _product_cover = [[UIImageView alloc]init];
+    [_product_cover sd_setImageWithURL:[NSURL URLWithString:_product.cover_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
-        [_productCoveImage setImage:_prosuct_cover.image forState:UIControlStateNormal];
+        [_productCoveImage setImage:image forState:UIControlStateNormal];
     }];
 
     _productName.layer.cornerRadius = 4;
@@ -249,15 +260,22 @@
     _productPrice.layer.cornerRadius = 4;
     _productDiscription.delegate = self;
     
-    _productName.text = _product.nickname;
+    _productName.text = _product.title;
     _productPrice.text = _product.price;
     _productDiscription.text =  _product.descrip;
     _producContentCount.text = @"0/80";
     
-    if ([Global stringIsNullWithString:_product.nickname]) {
+    if ([Global stringIsNullWithString:_product.title]) {
        
         _productName.placeholder = @"请输入作品名称";
+        
+    }
+    if ([Global stringIsNullWithString:_product.price]) {
+        
         _productPrice.placeholder = @"请设置作品价格";
+    }
+    if ([Global stringIsNullWithString:_product.descrip]) {
+        
         _productDiscription.placeholder = @"请输入作品描述，80字以内";
     }
 }
@@ -285,7 +303,6 @@
 
 -(void)setupSelectViewsTagTitleWithTag:(NSInteger )index{
 
-    
     NSString *h5Type = _h5TypeArray[index];
     NSArray *tagTitle = [[HomeStore shearHomeStore]configurationTagNameWithTag:h5Type];
 
@@ -348,6 +365,21 @@
     [[self currentTempArray] addObjectsFromArray:@[_useLMJDropdownMenu.mainBtn.titleLabel.text,_industryLMJDropdownMenu.mainBtn.titleLabel.text,_technologyLMJDropdownMenu.mainBtn.titleLabel.text,_styleLMJDropdownMenu.mainBtn.titleLabel.text]];
 }
 
+-(NSString *)getTagIdWithTagArray:(NSArray * )TagArray tagStr:(NSString *)tagStr{
+    
+    
+    for (TagList *tag in TagArray) {
+        
+        if ([tag.name isEqualToString:tagStr]) {
+        
+            return tag.id;
+            
+        }
+    }
+    
+    return nil;
+}
+
 - (void)dropdownMenu:(LMJDropdownMenu *)menu selectedCellNumber:(NSInteger)number{
     
     [self getLMJDropdownMenuWithTempArry:_itmeIndex];
@@ -391,12 +423,12 @@
     
     if ([_views indexOfObject:self.view] == 2){
         
-        [_shearIconButton setBackgroundImage:[array firstObject] forState:UIControlStateNormal];
+        [_shearIconButton setImage:[array firstObject] forState:UIControlStateNormal];
         self.selectShearCover = [array firstObject];
         
     } else {
         
-        [_productCoveImage setBackgroundImage:[array firstObject] forState:UIControlStateNormal];
+        [_productCoveImage setImage:[array firstObject] forState:UIControlStateNormal];
         self.selectProsuctCover = [array firstObject];
     }
 }
@@ -406,16 +438,10 @@
     [self whetherOrNotPerfect];
     NSMutableArray *selectTag = [NSMutableArray array];
     
-    for (NSString *tagStr in [self currentTempArray]) {
-        
-        for (TagList *tagList in _allTagArray) {
-            
-            if ([tagStr isEqualToString:tagList.name]) {
-                
-                [selectTag addObject:tagList.id];
-            }
-        }
-    }
+    [selectTag addObject:[self getTagIdWithTagArray:_useArray tagStr:[self currentTempArray][0]]];
+    [selectTag addObject:[self getTagIdWithTagArray:_industryArray tagStr:[self currentTempArray][1]]];
+    [selectTag addObject:[self getTagIdWithTagArray:_technologyArray tagStr:[self currentTempArray][2]]];
+    [selectTag addObject:[self getTagIdWithTagArray:_styleArray tagStr:[self currentTempArray][3]]];
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:_product.title forKey:@"Title"];
@@ -450,6 +476,10 @@
                 };
             } else {
                 
+                if (![Global stringIsNullWithString:_product.share_img]) {
+                    
+                    [dic setObject:_product.share_img forKey:@"Share_img"];
+                }
                 [[UserManager shareUserManager]updataProductWithParameters:dic];
                 [UserManager shareUserManager].updataProductSuccess = ^(id obj){
                     
@@ -463,11 +493,32 @@
         [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
             
             [dic setObject:obj forKey:@"Share_img"];
+            if (![Global stringIsNullWithString:_product.cover_img]) {
+                
+                [dic setObject:_product.cover_img forKey:@"Cover_img"];
+            }
             [[UserManager shareUserManager]updataProductWithParameters:dic];
             [UserManager shareUserManager].updataProductSuccess = ^(id obj){
                 
                 [self AlertOperation];
             };
+        };
+    } else {
+        
+        if (![Global stringIsNullWithString:_product.cover_img]) {
+            
+             [dic setObject:_product.cover_img forKey:@"Cover_img"];
+        }
+        
+        if (![Global stringIsNullWithString:_product.share_img]) {
+            
+            [dic setObject:_product.share_img forKey:@"Share_img"];
+        }
+        
+        [[UserManager shareUserManager]updataProductWithParameters:dic];
+        [UserManager shareUserManager].updataProductSuccess = ^(id obj){
+            
+            [self AlertOperation];
         };
     }
     
@@ -523,7 +574,8 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续修改" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        [self back];
+        [super back];
+        [UIManager sharedUIManager].setupProductBackOffBolck(nil);
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];

@@ -351,7 +351,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 -(void)setSubViewsValue{
     
-    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:_designerInfo.head_img] placeholderImage:[UIImage imageNamed:@"default_man"]];
+    [self.iconImage sd_setImageWithURL:[NSURL URLWithString:_designerInfo.head_img] placeholderImage:PlaceholderImage];
     self.nameLabel.text = _designerInfo.nickname;
     self.introductionLabel.text = _designerInfo.field;
     _workNumberLabel.text = _designerInfo.follow_total;

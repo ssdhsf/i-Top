@@ -60,23 +60,31 @@
         
         _productDetail = [[ProductDetail alloc]initWithDictionary:dic error:nil];
         _productDetail.product.descrip = dic[@"product"][@"description"];
-        [self createScrollView];
-        [self setupDetailSubViewData];
+        
+        if ([_productDetail.product.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
+         
+            [self createScrollView];
+            [self setupDetailSubViewData];
+            _focusButton.hidden = YES;
 
-//        [self lodingDesignerInfomation];
+        } else {
+            
+            [self lodingDesignerInfomation];
+            _focusButton.hidden = NO;
+        }
     };
 }
 
-//-(void)lodingDesignerInfomation{
-//    
-//    [[UserManager shareUserManager]designerDetailWithDesigner:_productDetail.product.user_id];
-//    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
-//        
-//        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
-//        [self createScrollView];
-//        [self setupDetailSubViewData];
-//    };
-//}
+-(void)lodingDesignerInfomation{
+    
+    [[UserManager shareUserManager]designerDetailWithDesigner:_productDetail.product.user_id];
+    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
+        
+        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
+        [self createScrollView];
+        [self setupDetailSubViewData];
+    };
+}
 
 -(void)initView{
     

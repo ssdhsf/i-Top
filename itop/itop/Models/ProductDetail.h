@@ -12,7 +12,7 @@
 
 @interface ProductDetail : JSONModel
 
-@property (nonatomic, strong) NSString <Optional>*designer_id;
+@property (nonatomic, strong) NSNumber <Optional>*designer_id;
 @property (nonatomic, strong) NSString <Optional>*designer_head_img;
 @property (nonatomic, strong) NSString <Optional>*designer_name;
 @property (nonatomic, strong) ProductModel <ProductModel, Optional>*product;

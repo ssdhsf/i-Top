@@ -105,8 +105,9 @@
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 //背景图
-#define PlaceholderImage [UIImage imageNamed:@"default_man"]
-#define H5PlaceholderImage [UIImage imageNamed:@"h5"]
+#define PlaceholderImage [UIImage imageNamed:@"home_icon_portrait_default"]
+#define H5PlaceholderImage [UIImage imageNamed:@"img_default"]
+#define ArticlePlaceholderImage [UIImage imageNamed:@"hotimg_bg_default"]
 
 #define FOCUSSTATETITLE_NOFOCUS @"关 注"
 #define FOCUSSTATETITLE_FOCUS @"已关注"

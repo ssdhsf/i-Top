@@ -26,8 +26,8 @@
     for (NSDictionary *dic in menu) {
         
             H5List *h5Model = [[H5List alloc]initWithDictionary:dic error:nil];
+            h5Model.descrip = dic[@"description"];
             [sectionArray addObject:h5Model];
-
     }
     
 #ifdef DEBUG

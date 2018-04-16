@@ -30,6 +30,7 @@ typedef void (^SubmitInfomationBackOffBolck)(id parameter); //提交用户信息
 typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一级回掉
 typedef void (^SelectProductBolck)(id product); //选择作品回掉
 typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
+typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
 
 
 @class H5List;
@@ -47,6 +48,7 @@ typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
 @property (copy, nonatomic)SelectProvinceBackOffBolck selectProvinceBackOffBolck;
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
 @property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
+@property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;

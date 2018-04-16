@@ -242,6 +242,11 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     if ([sender.titleLabel.text isEqualToString:@"设置"]) {
         [UIManager shearProductWithProduct:_h5];
+        
+        [UIManager sharedUIManager].setupProductBackOffBolck = ^ (id obj){
+          
+        [self collectionBeginRefreshing];
+        };
     }
     
     if ([sender.titleLabel.text isEqualToString:@"分享"]) {

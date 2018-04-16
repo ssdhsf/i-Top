@@ -10,7 +10,7 @@
 
 @interface ShearInfo : JSONModel
 
-@property (nonatomic, strong) NSString *shear_thume_image;
+@property (nonatomic, strong) id shear_thume_image;
 @property (nonatomic, strong) NSString *shear_title;
 @property (nonatomic, strong) NSString *shear_discrimination;
 @property (nonatomic, strong) NSString *shear_webLink;

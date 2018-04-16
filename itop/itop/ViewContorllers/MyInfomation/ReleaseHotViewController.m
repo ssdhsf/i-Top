@@ -393,7 +393,7 @@
             
             _select_h5 = h5;
             _h5_cover = [[UIImageView alloc]init];
-            [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 [_addH5Image setImage:_h5_cover.image forState:UIControlStateNormal];
                 [_currentH5ShapeLayer removeFromSuperlayer];

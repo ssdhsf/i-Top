@@ -204,9 +204,9 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
     _webVc = [[WebViewController alloc]init];
-//    _webVc.h5Url = _hotDetail.article.url;
+    _webVc.h5Url = _hotDetail.article.url;
     _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
-//    [_h5HeaderView addSubview:_webVc.view];
+    [_h5HeaderView addSubview:_webVc.view];
     
     NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
