@@ -40,14 +40,14 @@
 			<key>appId</key>
 			<string>wx3f8bce8de11318fc</string>
 			<key>appSecret</key>
-			<string>bbc986637486a54899ef0930258d16aa</string>
+			<string>a3d12f38804b6d1283ca7e73ba5306e2</string>
 		</dict>
 		<key>Testing</key>
 		<dict>
 			<key>appId</key>
 			<string>wx3f8bce8de11318fc</string>
 			<key>appSecret</key>
-			<string>bbc986637486a54899ef0930258d16aa</string>
+			<string>a3d12f38804b6d1283ca7e73ba5306e2</string>
 		</dict>
 	</dict>
 	<key>BaiduMap</key>

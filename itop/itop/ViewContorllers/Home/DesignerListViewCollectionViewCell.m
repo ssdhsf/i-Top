@@ -31,8 +31,7 @@
     self.designerImage.layer.masksToBounds = YES;
     
     self.designerNameLabel.text = designerList.nickname;
-    
-    
+
     [self.focusButton addTarget:self action:@selector(focus:) forControlEvents:UIControlEventTouchDown];
     [self.focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     self.focusButton.tag = index;

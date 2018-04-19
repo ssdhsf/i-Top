@@ -8,7 +8,7 @@
 
 #import <JSONModel/JSONModel.h>
 
-@interface ShearInfo : JSONModel
+@interface ShearInfo : NSObject
 
 @property (nonatomic, strong) id shear_thume_image;
 @property (nonatomic, strong) NSString *shear_title;

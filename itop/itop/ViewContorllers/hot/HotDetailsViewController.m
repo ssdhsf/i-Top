@@ -53,12 +53,12 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
 @property (weak, nonatomic) IBOutlet UIButton *shearButton;
-@property (strong, nonatomic)WebViewController *webVc;
-@property (nonatomic, strong)HotDetails *hotDetail;
-@property (nonatomic, strong)HotDetailDataSource *hotDetailDataSource;
-@property (nonatomic, strong)NSString *parent_id;
-@property (nonatomic, assign)FocusType focusType;
-@property (nonatomic, assign)CollectionType collectionType;
+@property (strong, nonatomic) WebViewController *webVc;
+@property (nonatomic, strong) HotDetails *hotDetail;
+@property (nonatomic, strong) HotDetailDataSource *hotDetailDataSource;
+@property (nonatomic, strong) NSString *parent_id;
+@property (nonatomic, assign) FocusType focusType;
+@property (nonatomic, assign) CollectionType collectionType;
 
 @end
 
@@ -76,7 +76,13 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
     [IQKeyboardManager sharedManager].enable = NO;
+
+    if (_webVc != nil) {
+        
+       [self initWebView];
+    }
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated{
     
@@ -150,8 +156,13 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.right.top.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(-50);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -83 : -50);
     }];
+    
+//    if (kDevice_Is_iPhoneX) {
+//
+//        self.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh-34);
+//    }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
 }
@@ -160,15 +171,35 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     
     _commentTVBgView = [[UIView alloc]init];
     _commentTV = [[UITextView alloc]init];
-        _commentTVBgView.backgroundColor = [UIColor whiteColor];
-    _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
+    _commentTVBgView.backgroundColor = [UIColor whiteColor];
+    _commentTV.frame = CGRectMake(20, ScreenHeigh-64, ScreenWidth-127, 30);
+     [self.view addSubview:_commentTV];
+    [self.commentTV mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(20);
+        make.right.mas_equalTo(-127);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -44 : -10);
+        make.height.mas_equalTo(30);
+    }];
+
     _commentTV.layer.cornerRadius = 5;
-    [self.view addSubview:_commentTV];
     _commentTV.delegate = self;
     _commentTV.layer.masksToBounds = YES;
     _commentTV.backgroundColor = UIColorFromRGB(0xf5f7f9);
     _sendButton.hidden = YES;
     [self.view addSubview:_commentTVBgView];
+    
+    [self.shearButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.mas_equalTo(-19);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -38 : -4);
+        make.height.mas_equalTo(40);
+         make.width.mas_equalTo(25);
+    }];
+    [self.collectionButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.mas_equalTo(-67);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -38 : -4);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(25);
+    }];
 }
 
 - (void)steupTableView{
@@ -237,15 +268,20 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [self setupTextViewWithKeyboardShowAnimation:NO];
 }
 
+
+-(void)initWebView{
+    _webVc = [[WebViewController alloc]init];
+    _webVc.h5Url = _hotDetail.article.url;
+    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
+    [_h5HeaderView addSubview:_webVc.view];
+}
+
 -(void)setupH5HeaderView{
     
     self.title = _hotDetail.article.title;
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
-    _webVc = [[WebViewController alloc]init];
-    _webVc.h5Url = _hotDetail.article.url;
-    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
-    [_h5HeaderView addSubview:_webVc.view];
+    [self initWebView];
     
     NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
@@ -442,6 +478,11 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         
         [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
     } ];
+    
+    [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger  index){
+        
+        NSLog(@"分享成功");
+    };
 }
 
 -(void)alertOperation{
@@ -490,7 +531,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     CGRect keyboardRect = [value CGRectValue];
     //获取键盘高度
     int height = keyboardRect.size.height;
-    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
+    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-NAVIGATION_HIGHT-80, ScreenWidth, 80);
      [self setupTextViewWithKeyboardShowAnimation:YES];
     [self shutDownTableViewCellEventWithAnimation:NO];
 }
@@ -518,19 +559,36 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)setupTextViewWithKeyboardShowAnimation:(BOOL)animation{
     
     if (animation) {
-        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-120, 60);
+//        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-120, 60);
         _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
         _sendButton.centerY = _commentTV.centerY;
         _commentTV.layer.cornerRadius = 5;
+//        [_commentTV removeFromSuperview];
         [_commentTVBgView addSubview:_commentTV];
         [_commentTVBgView addSubview:_sendButton];
-        
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-80);
+            make.top.mas_equalTo(10);
+            make.bottom.mas_equalTo(-10);
+        }];
+        [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make){
+            make.right.mas_equalTo(-38);
+            make.top.mas_equalTo(20);
+            make.height.mas_equalTo(40);
+            make.width.mas_equalTo(25);
+        }];
     }else {
         
-        _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
-        _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
         [_commentTV resignFirstResponder];
         [self.view addSubview:_commentTV];
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-127);
+            make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -44 : -10);
+            make.height.mas_equalTo(30);
+        }];
+        _commentTV.layer.cornerRadius = 30/2;
     }
     
     _sendButton.hidden = !animation;

@@ -163,7 +163,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     int index = scrollView.contentOffset.x/ViewWidth;
-    [self.segment selectIndex:index+1];
+    [self.segment selectIndex:index];
     [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
     //    _itmeIndex = index;
 }

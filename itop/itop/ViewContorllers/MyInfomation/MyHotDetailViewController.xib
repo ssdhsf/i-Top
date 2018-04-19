@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -31,6 +31,7 @@
                 <outlet property="headerView" destination="bF5-lR-70T" id="Ixz-qr-jLt"/>
                 <outlet property="hotCheckStateLabel" destination="fEb-XI-qpR" id="TjJ-kZ-mWp"/>
                 <outlet property="iconImage" destination="oin-ja-50K" id="8bz-HK-jO9"/>
+                <outlet property="lineView" destination="Czq-GB-WyQ" id="gZm-d3-nDd"/>
                 <outlet property="praiseIcon" destination="Oqs-WT-yUg" id="6if-29-rcJ"/>
                 <outlet property="praiseLabel" destination="Luc-v1-c74" id="kBS-32-MFP"/>
                 <outlet property="sendButton" destination="9Me-WU-vlJ" id="COo-RH-KTM"/>
@@ -47,18 +48,14 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Czq-GB-WyQ">
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Czq-GB-WyQ">
                     <rect key="frame" x="0.0" y="616" width="375" height="1"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.99607843137254903" green="0.90588235294117647" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="1" id="rrC-Ta-JcU"/>
-                    </constraints>
                 </view>
-                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkk-OQ-CkS">
+                <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mkk-OQ-CkS">
                     <rect key="frame" x="187.5" y="617" width="187.5" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="Ggf-eC-WBW"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="titleEdgeInsets" minX="-19" minY="-6" maxX="0.0" maxY="-32"/>
                     <inset key="imageEdgeInsets" minX="23" minY="-15" maxX="0.0" maxY="0.0"/>
                     <state key="normal" image="hotdetail_icon_xiajia">
@@ -91,11 +88,9 @@
                         </attributedString>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7EV-A3-jmm">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7EV-A3-jmm">
                     <rect key="frame" x="0.0" y="617" width="187.5" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="6mv-kr-Jwx"/>
-                    </constraints>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <inset key="titleEdgeInsets" minX="-23" minY="-6" maxX="0.0" maxY="-32"/>
                     <inset key="imageEdgeInsets" minX="23" minY="-15" maxX="0.0" maxY="0.0"/>
                     <state key="normal" image="hotdetail_icon_edit">
@@ -114,20 +109,6 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstAttribute="bottom" secondItem="7EV-A3-jmm" secondAttribute="bottom" id="1oK-Ki-wYy"/>
-                <constraint firstAttribute="trailing" secondItem="Czq-GB-WyQ" secondAttribute="trailing" id="6vj-Nc-r7g"/>
-                <constraint firstItem="mkk-OQ-CkS" firstAttribute="width" secondItem="7EV-A3-jmm" secondAttribute="width" id="80M-UJ-FDB"/>
-                <constraint firstAttribute="bottom" secondItem="Czq-GB-WyQ" secondAttribute="bottom" constant="50" id="CS2-72-zFo"/>
-                <constraint firstAttribute="trailing" secondItem="mkk-OQ-CkS" secondAttribute="trailing" id="FfB-f2-h6F"/>
-                <constraint firstItem="mkk-OQ-CkS" firstAttribute="top" secondItem="Czq-GB-WyQ" secondAttribute="bottom" id="Jpl-zi-vfb"/>
-                <constraint firstItem="mkk-OQ-CkS" firstAttribute="leading" secondItem="7EV-A3-jmm" secondAttribute="trailing" id="Ypp-Ed-Fzl"/>
-                <constraint firstItem="7EV-A3-jmm" firstAttribute="leading" secondItem="lUY-Ef-yk3" secondAttribute="leading" id="gRs-DE-dYX"/>
-                <constraint firstAttribute="bottom" secondItem="mkk-OQ-CkS" secondAttribute="bottom" id="iMJ-Yb-7sC"/>
-                <constraint firstItem="mkk-OQ-CkS" firstAttribute="height" secondItem="7EV-A3-jmm" secondAttribute="height" id="lXc-5J-ncY"/>
-                <constraint firstItem="7EV-A3-jmm" firstAttribute="top" secondItem="Czq-GB-WyQ" secondAttribute="bottom" id="rQY-6B-0vQ"/>
-                <constraint firstItem="Czq-GB-WyQ" firstAttribute="leading" secondItem="lUY-Ef-yk3" secondAttribute="leading" id="uxh-PV-3UL"/>
-            </constraints>
             <point key="canvasLocation" x="475.5" y="53.5"/>
         </view>
         <view contentMode="scaleToFill" id="bF5-lR-70T">

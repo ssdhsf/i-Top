@@ -95,6 +95,7 @@
     [self initSegment];
     [self setupSelectViews];
     [self setupProductInfoViews];
+    [self setupShearData];
     
     _titleTV.layer.cornerRadius = 4;
     _contentTV.layer.cornerRadius = 4;
@@ -104,8 +105,7 @@
     _contentTV.placeholder = @"请输入分享描述";
     
     _stringCount.text = @"0/80";
-    
-    
+
     [_saveShearSetupButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_saveShearSetupButton)];
     _saveShearSetupButton.layer.cornerRadius = _saveShearSetupButton.frame.size.height/2;
     _saveShearSetupButton.layer.masksToBounds = YES;
@@ -115,6 +115,35 @@
     [SubmitFileManager sheardSubmitFileManager].photoView.howMany = @"1";
     [[SubmitFileManager sheardSubmitFileManager]emptyThePictureArray];
 
+}
+
+
+-(void)setupShearData{
+    
+    _shear_cover = [[UIImageView alloc]init];
+    [_shear_cover sd_setImageWithURL:[NSURL URLWithString:_product.share_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        [_shearIconButton setImage:image forState:UIControlStateNormal];
+    }];
+    
+    _titleTV.layer.cornerRadius = 4;
+    _contentTV.layer.cornerRadius = 4;
+    _productDiscription.delegate = self;
+    
+    _titleTV.text = _product.share_title;
+    _contentTV.text = _product.share_description;
+    _productDiscription.text =  _product.descrip;
+    _stringCount.text = @"0/80";
+    
+    if ([Global stringIsNullWithString:_product.share_title]) {
+        
+        _productName.placeholder = @"请输分享抬头";
+        
+    }
+    if ([Global stringIsNullWithString:_product.share_description]) {
+        
+        _productDiscription.placeholder = @"请输入作品描述，80字以内";
+    }
 }
 
 -(void)initData{

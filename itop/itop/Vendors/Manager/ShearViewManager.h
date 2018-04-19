@@ -19,13 +19,11 @@ typedef void (^ShearSuccessBlock)(NSInteger tag);
 
 + (instancetype)sharedShearViewManager;
 
-
 - (void)setupShearView;
 
 - (void)addShearViewToView:(UIView*)view
                  shearType:(UMS_SHARE_TYPE)shear_type
                 completion:(SelectShearItemBlock)completion;
-
 
 //分享网页
 - (void)shareWebPageToPlatformType:(UMSocialPlatformType)platformType parameter:(ShearInfo *)parameter;
@@ -34,7 +32,7 @@ typedef void (^ShearSuccessBlock)(NSInteger tag);
 - (void)shareImageURLToPlatformType:(UMSocialPlatformType)platformType
                           parameter:(ShearInfo *)parameter;
 
-
 //分享Info
 -(ShearInfo *)shearInfoWithProduct:(H5List *)h5;
+
 @end

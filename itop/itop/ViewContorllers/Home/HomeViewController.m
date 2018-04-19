@@ -26,6 +26,13 @@
 
 #define NAVBAR_CHANGE_POINT 50
 
+#define NAVBAR_HIDDEN_YES kDevice_Is_iPhoneX ? -44 : -20
+#define NAVBAR_HIDDEN_NO kDevice_Is_iPhoneX ? -88 : -64
+
+#define NAVBAR_HIDDEN_YES_SETUPSTART kDevice_Is_iPhoneX ? 44 : 20
+#define NAVBAR_HIDDEN_NO_SETUPSTART kDevice_Is_iPhoneX ? 88 : 64
+
+
 static NSString *const HomeCellIdentifier = @"Home";
 static NSString *const H5ListCellIdentifier = @"H5List";
 static NSString *const DesignerListCellIdentifier = @"DesignerList";
@@ -186,7 +193,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
         Home *home = [[Home alloc]init];
-        home.itemKey =Type_H5;
+        home.itemKey = Type_H5;
         home.itemArray = itemArray;
         home.itemHeader = @"推荐H5";
         if (_isFirst) {
@@ -331,8 +338,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(-64);
-        make.top.mas_equalTo(self.view);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -93 : -64);
+        make.top.mas_equalTo(kDevice_Is_iPhoneX ? -88 : -64);
     }];
     
     [self steupCollectionView];
@@ -577,14 +584,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 - (void)setNavBar{
     
-    UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
+    UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, kDevice_Is_iPhoneX ? -44:-20, ScreenWidth, kDevice_Is_iPhoneX ?88:64)];
     [self.navigationController.navigationBar addSubview:navBgView];
     self.navBgView = navBgView;
     
     _layer = [CAGradientLayer layer];
     navBgView.backgroundColor = [UIColor clearColor];
     
-    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
+    _searchBtn = [[UIButton alloc] initWithFrame:CGRectMake(0,kDevice_Is_iPhoneX ? 20+27: 27, 200 * KadapterW, 30)];
     _searchBtn.centerX = self.view.centerX;
     
     UIColor *color = [UIColor whiteColor];
@@ -605,7 +612,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     readerButton.frame = CGRectMake(20, 0, 25 , 25 );
     self.loctionBtn.centerY = _searchBtn.centerY;
 
-    self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
+    self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), kDevice_Is_iPhoneX ? 20+40:40, 35 , 16 )];
     self.loctionLable.font = [UIFont systemFontOfSize:9];
 //    self.loctionLable .text = self.loctionString;
     [navBgView addSubview: self.loctionLable];
@@ -616,10 +623,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     self.messageBtn.centerY = _searchBtn.centerY;
     [self.messageBtn addTarget:self action:@selector(messageList) forControlEvents:UIControlEventTouchDown];
     
-    JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.messageBtn alignment:JSBadgeViewAlignmentTopRight];
-    badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
-    badgeView.badgeText = @"12";
-    badgeView.size = CGSizeMake(10, 10);
+//    JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.messageBtn alignment:JSBadgeViewAlignmentTopRight];
+//    badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
+//    badgeView.badgeText = @"12";
+//    badgeView.size = CGSizeMake(10, 10);
     [navBgView addSubview:self.messageBtn];
     [self.loctionBtn setImage:[UIImage imageNamed:@"icon_location"] forState:UIControlStateNormal];
     [self.messageBtn setImage:[UIImage imageNamed:@"icon_remind"] forState:UIControlStateNormal];
@@ -649,31 +656,56 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
+    NSLog(@"%ld",(long)self.navigationController.isNavigationBarHidden);
+    
     CGFloat offsetY = scrollView.contentOffset.y ;
+    CGFloat compareOffsetY;
+//    =  self.navigationController.isNavigationBarHidden ?
+//    (float)-NAVBAR_HIDDEN_YES : (float)-NAVBAR_HIDDEN_NO;
+    CGFloat compareOffsetStart =  self.navigationController.isNavigationBarHidden ?
+        (float)-NAVBAR_HIDDEN_YES : (float)-NAVBAR_HIDDEN_NO;
     NSLog(@"%lf",offsetY);
-    if (offsetY > NAVBAR_CHANGE_POINT) {
-        CGFloat alpha = MIN(1, 1 - ((NAVBAR_CHANGE_POINT + 64 - offsetY) / 64));
+    
+//    if (self.navigationController.isNavigationBarHidden ) {
+//
+//        compareOffsetY = offsetY +44;
+//        NSLog(@"是");
+//    } else {
+//
+//        compareOffsetY = offsetY +88;
+//        NSLog(@"否");
+//    }
+    
+    if (offsetY > (float)NAVBAR_CHANGE_POINT) {
+        CGFloat alpha  = MIN(1, 1 - ((float)NAVBAR_CHANGE_POINT + (float)NAVIGATION_HIGHT - offsetY) / (float)NAVIGATION_HIGHT);
 #pragma mark HaveHiddenAnimation
-        //begin
-        
         [self haveHiddenAnimationWithAlpha:alpha navigationBarHidden:NO offsetY:offsetY];
         
-    } else if(offsetY < 0){
+    } else if(offsetY < compareOffsetStart){
 #pragma mark HaveHiddenAnimation
         
         [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:YES offsetY:offsetY];
         
-    }  else {
+    } else {
 #pragma mark HaveHiddenAnimation
         
         [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:offsetY];
     }
 }
 
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView{
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    //有nav时一开始的偏移量为-64，所以这里加上了64，如果是自定义nav则没有这种情况
+//    stopPosition = ;
+    NSLog(@"滑动停止:%f",scrollView.contentOffset.y);
+}
+
 -(void)haveHiddenAnimationWithAlpha:(CGFloat)alpha navigationBarHidden:(BOOL)animation offsetY:(NSInteger)offsetY{
-    
-    [self.navigationController setNavigationBarHidden:animation animated:NO];
-    if (offsetY<NAVBAR_CHANGE_POINT) { //icon为黑色
+
+    self.navBgView.hidden = animation;
+//    [self.navigationController setNavigationBarHidden:animation animated:NO];
+    if (offsetY < (float)NAVBAR_CHANGE_POINT) { //icon为黑色
         
         [self.loctionBtn setImage:[UIImage imageNamed:@"home_icon_locationblack"] forState:UIControlStateNormal];
         [self.messageBtn setImage:[UIImage imageNamed:@"home_icon_remindblack"] forState:UIControlStateNormal];
@@ -775,7 +807,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     return YES;
 }
-
 
 
 @end

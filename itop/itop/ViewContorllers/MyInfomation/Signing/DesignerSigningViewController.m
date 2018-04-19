@@ -10,9 +10,6 @@
 #import "DesignerSigningStore.h"
 //#import <FileProvider/FileProvider.h>
 
-
-//#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
-
 @interface DesignerSigningViewController ()<UIDocumentPickerDelegate,UIDocumentMenuDelegate>
 
 //设计师信息页
@@ -41,7 +38,6 @@
 @property (strong, nonatomic) H5List *select_h5;
 @property (strong, nonatomic) UIImageView *h5_cover;
 @property (strong, nonatomic) CAShapeLayer *currentH5ShapeLayer;
-
 @property (strong, nonatomic) UIDocumentPickerViewController *documentPicker;
 
 @end
@@ -190,7 +186,6 @@
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
         return;
     }
-
     
 //    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
 //    [UserManager shareUserManager].verificationSuccess = ^(id obj){
@@ -233,7 +228,7 @@
         return;
     }
     
-    self.view  = [_views lastObject];
+    self.view  = _views[1] ;
 }
 
 - (IBAction)agreedProtcol:(UIButton *)sender {
@@ -341,7 +336,7 @@
 
 -(void)back{
     
-    if (self.view == [_views lastObject]) {
+    if (self.view == _views[1] ) {
         
         self.view  = [_views firstObject];
     }else {
@@ -364,10 +359,30 @@
 }
 
 - (IBAction)submit:(UIButton *)sender {
-    
+
+    if (!_agreedbutton.selected) {
+        
+        [self showToastWithMessage:@"必须同意i-Top协议才能入驻申请"];
+        return;
+    }
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
+    if (_select_h5 == nil && [Global stringIsNullWithString:_productLinkTF.text]) {
+        
+        [self showToastWithMessage:@"请至少选择一个作品或者作品链接"];
+        
+    } else {
+        if (_select_h5 != nil) {
+            
+            [parameters setObject:_select_h5.url forKey:@"Url"];
+        }
+        
+        if ([Global stringIsNullWithString:_productLinkTF.text]) {
+            
+            [parameters setObject:_productLinkTF.text forKey:@"Attachment"];
+        }
+    }
+
     NSString *field ;
     for (SpecialityTag *sTag in self.tagArray) {
         if (sTag.selecteTag ==YES) {
@@ -386,7 +401,7 @@
     [parameters setObject:_mobiliTF.text forKey:@"Phone"];
     [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
     [parameters setObject:field forKey:@"Field"];
-    [parameters setObject:@"http://192.168.7.100:8029/Lib/images/main/Designer1.jpg" forKey:@"Url"];
+    
     
     [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeDesigner];
     [UserManager shareUserManager].signingSuccess =  ^(id obj){

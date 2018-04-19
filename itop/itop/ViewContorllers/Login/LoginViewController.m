@@ -162,7 +162,7 @@
         [[UserManager shareUserManager]wechatLoginWithCallBackCode:response.code];
         [UserManager shareUserManager].loginSuccess = ^ (id obj){
             
-            if ([obj isKindOfClass:[NSString class]]) {
+            if ([obj isKindOfClass:[NSString class]] && [obj rangeOfString:@"WeChat"].location != NSNotFound) {
                 
                 NSString *cacheKey = [NSString stringWithFormat:@"%@",obj];
                 [[Global sharedSingleton]

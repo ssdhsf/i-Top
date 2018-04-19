@@ -156,7 +156,7 @@
 //    CGFloat radius = 30;// 圆半径
 //    CGFloat allFloat= (pow(radius, 2)-pow((radius-standOutHeight), 2));// standOutHeight 突出高度 12
 //    CGFloat ww = sqrtf(allFloat);
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,ScreenWidth , tabBarHeight )];// ScreenW设备的宽
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0,ScreenWidth , kDevice_Is_iPhoneX ? 83 : 49 )];// ScreenW设备的宽
     imageView.backgroundColor = [UIColor whiteColor];
 //    CGSize size = imageView.frame.size;
 //    CAShapeLayer *layer = [CAShapeLayer layer];

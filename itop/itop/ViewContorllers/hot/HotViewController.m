@@ -14,6 +14,8 @@
 #import "HotDetailsViewController.h"
 //#import "MapLocationManager.h"
 
+#define EFFECTIVE_HIGHT ScreenHeigh - NAVIGATION_HIGHT-TABBAR_HIGHT-65
+
 @interface HotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong)SegmentTapView *segment;
@@ -30,6 +32,7 @@
 //@property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *searchBtn;
 //@property (nonatomic, strong) UILabel *loctionLable;
+//@property (nonatomic, assign) CGFloat effectiveHight;
 
 //@property (nonatomic, assign) BOOL isSelectProvince;
 //@property (nonatomic, strong) City *selectProvince;
@@ -54,6 +57,7 @@
     
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:NO];
+    [self hiddenNavigationController:NO];
     [self setRightCustomBarItem:@"hot_icon_search" action:@selector(hotSearch)];
     [self setLeftCustomBarItem:@"" action:nil];
 
@@ -106,10 +110,11 @@
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
-    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 65, ScreenWidth, ScreenHeigh-129)];;
+
+    _scroll = [[UIScrollView alloc]initWithFrame: CGRectMake(0,65, ScreenWidth, EFFECTIVE_HIGHT)];
     [self.view addSubview:_scroll];
     _scroll.delegate = self;
-    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, ScreenHeigh-129);
+    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, 0);
     _scroll.pagingEnabled = YES;
     _scroll.showsHorizontalScrollIndicator = NO;
     int index = _scroll.contentOffset.x/ViewWidth;
@@ -124,7 +129,7 @@
             
             if (!_recommendedVc) {
                 _recommendedVc = [[RecommendedViewController alloc]initWithNibName:@"RecommendedViewController" bundle:nil];
-                _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _recommendedVc.itmeType = itmeTitle;
                 _recommendedVc.getArticleListType = GetArticleListTypeHot;
                 _recommendedVc.pushControl = ^ (H5List *h5){
@@ -134,12 +139,11 @@
                 };
             }
             [_scroll addSubview:_recommendedVc.view];
-            
             break;
         case 1:
             if (!_h5Vc) {
                 _h5Vc = [[HotH5ItmeViewController alloc]initWithNibName:@"HotH5ItmeViewController" bundle:nil];
-                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _h5Vc.getArticleListType = GetArticleListTypeHot;
                 _h5Vc.pushH5DetailControl = ^ (H5List *h5){
@@ -156,7 +160,7 @@
         case 2:
             if (!_informationVc) {
                 _informationVc = [[RecommendedViewController alloc]init];
-                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeHot;
                 _informationVc.pushControl = ^ (H5List *h5){
@@ -169,7 +173,7 @@
         case 3:
             if (!_videoVc) {
                 _videoVc = [[HotH5ItmeViewController alloc]initWithNibName:@"HotH5ItmeViewController" bundle:nil];
-                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeHot;
                 
@@ -184,7 +188,7 @@
         case 4:
             if (!_localVc) {
                 _localVc = [[RecommendedViewController alloc]init];
-                _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _localVc.itmeType = itmeTitle;
                 _localVc.getArticleListType = GetArticleListTypeHot;
                 _localVc.pushControl = ^ (H5List *h5){

@@ -160,7 +160,7 @@
 + (void)rootVCTabBarControllerShowVC:(NSString *)vcName{
     AppDelegate * appDelegate = [[self class] appDelegate];
     UIViewController * vc = [[self class] viewControllerWithName:vcName];
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     [nav pushViewController:vc animated:YES];
     vc = nil;
@@ -215,7 +215,7 @@
 + (void)pushVC:(UIViewController *)vc{
   
     AppDelegate * appDelegate = [[self class] appDelegate];
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     [nav pushViewController:vc animated:YES];
 }
@@ -223,6 +223,8 @@
 +(CGFloat)getTabBarHeight{
     // 获取tabBarHeight
     UITabBarController *tabBarController =[[UITabBarController alloc]init];
+    
+    NSLog(@"%f",CGRectGetHeight(tabBarController.tabBar.bounds));
     return CGRectGetHeight(tabBarController.tabBar.bounds);
 }
 //-(void)hiddenNavigationController:(BOOL)animated{
@@ -260,7 +262,7 @@
     
     DesignerInfoViewController *vc = [[DesignerInfoViewController alloc]init];
     vc.desginer_id = designer_id;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -269,7 +271,7 @@
     DesignerListViewController *vc = [[DesignerListViewController alloc]init];
     vc.designerListType = type;
     vc.searchKey = searchKey;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -279,7 +281,7 @@
     vc.showView_type = type;
     vc.signingState = signingState;
     vc.signingType = signingType;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -289,7 +291,7 @@
     LeaveViewController *vc = [[LeaveViewController alloc]init];
     vc.currentProduct = product;
     vc.getLeaveListType = leaveType;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -297,7 +299,7 @@
     
     SetupProductViewController *vc = [[SetupProductViewController alloc]init];
     vc.product = product;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -305,7 +307,7 @@
     
     ProtocolViewController *vc = [[ProtocolViewController alloc]init];
     vc.protocolType = protocolType;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -313,7 +315,7 @@
     
     TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
     vc.template_id = template_ld;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 //    [self.navigationController pushViewController:vc animated:YES];
 }
@@ -322,7 +324,7 @@
     
     CustomerServiceViewController *vc = [[CustomerServiceViewController alloc] init];
     vc.titel = type;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -330,7 +332,7 @@
     
     QrCodeViewController *vc = [[QrCodeViewController alloc] init];
     vc.qrCode = link;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -353,7 +355,7 @@
     
     OptimizeTitleViewController *vc = [[OptimizeTitleViewController alloc]init];
     vc.product_h5 = product;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -371,7 +373,7 @@
     RecommendedViewController *vc = [[RecommendedViewController alloc]init];
     vc.getArticleListType = getArticleListType;
     vc.searchKey = searchKey;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -382,7 +384,7 @@
     if (isHome) {
         return vc;
     } else {
-        vc.hidesBottomBarWhenPushed =  !isHome;
+        vc.hidesBottomBarWhenPushed =  YES;
         [UIManager showViewController:vc Animated:YES];
     }
     

@@ -13,6 +13,7 @@
 #import "MyHotH5ItmeViewController.h"
 #import "MyHotDetailViewController.h"
 
+#define EFFECTIVE_HIGHT ScreenHeigh-NAVIGATION_HIGHT-40
 @interface MyhotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong)SegmentTapView *segment;
@@ -88,10 +89,10 @@
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
-    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, ScreenWidth, ScreenHeigh-40)];;
+    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, ScreenWidth, EFFECTIVE_HIGHT)];;
     [self.view addSubview:_scroll];
     _scroll.delegate = self;
-    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, ScreenHeigh-64);
+    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, 0);
     _scroll.pagingEnabled = YES;
     _scroll.showsHorizontalScrollIndicator = NO;
     _scroll.contentOffset = CGPointMake(ScreenWidth*_itmeIndex, 0);
@@ -106,7 +107,7 @@
             if (!_h5Vc || _isSubmitBackOff) {
                
                 _h5Vc = [[MyHotH5ItmeViewController alloc]initWithNibName:@"MyHotH5ItmeViewController" bundle:nil];
-                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
+                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _h5Vc.getArticleListType = GetArticleListTypeMyHot;
                 _h5Vc.pushMyHotH5Control = ^ (H5List *h5){
@@ -118,10 +119,6 @@
                         hotDetailsVc.checkStatusType = [h5.check_status integerValue];
                         hotDetailsVc.hidesBottomBarWhenPushed = YES;
                         [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
-//                    } else {
-//                        
-//                        [weakSelf showToastWithMessage:@"审核中"];
-//                    }
                 };
             }
             [_scroll addSubview:_h5Vc.view];
@@ -130,7 +127,7 @@
         case 1:
             if (!_informationVc || _isSubmitBackOff) {
                 _informationVc = [[RecommendedViewController alloc]init];
-                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
+                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeMyHot;
                 _informationVc.pushControl = ^ (H5List *h5){
@@ -142,10 +139,6 @@
                         hotDetailsVc.checkStatusType = [h5.check_status integerValue];
                         hotDetailsVc.hidesBottomBarWhenPushed = YES;
                         [weakSelf.navigationController pushViewController:hotDetailsVc animated:YES];
-//                    } else {
-//                        
-//                        [weakSelf showToastWithMessage:@"审核中"];
-//                    }
                 };
             }
             [_scroll addSubview:_informationVc.view];
@@ -153,7 +146,7 @@
         case 2:
             if (!_videoVc || _isSubmitBackOff) {
                 _videoVc = [[MyHotH5ItmeViewController alloc]initWithNibName:@"MyHotH5ItmeViewController" bundle:nil];
-                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-108);
+                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeMyHot;
                 _videoVc.pushMyHotH5Control = ^ (H5List *h5){

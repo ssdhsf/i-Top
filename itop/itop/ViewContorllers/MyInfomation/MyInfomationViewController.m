@@ -173,18 +173,18 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         
         [UIManager productViewControllerWithType:GetProductListTypeMyProduct];
     }
-//    else if ([info.myInfoTitle isEqualToString:@"分享"]){
-//        
-//        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
-//            ShearInfo *sherInfo = [[ShearInfo alloc]init];
-//            sherInfo.shear_title = @"itop";
-//            sherInfo.shear_discrimination = @"H5内容制作";
-//            sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
-//            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html";
-//            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
-//        } ];
-//
-//    }
+    else if ([info.myInfoTitle isEqualToString:@"分享"]){
+        
+        [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
+            ShearInfo *sherInfo = [[ShearInfo alloc]init];
+            sherInfo.shear_title = @"itop";
+            sherInfo.shear_discrimination = @"H5内容制作";
+            sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
+            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html";
+            [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
+        } ];
+
+    }
     else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
         
         [[UserManager shareUserManager]signingState];

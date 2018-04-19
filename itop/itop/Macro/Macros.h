@@ -8,8 +8,8 @@
 
 #import "ApiMacros.h"
 
-#ifndef Macros_h
-#define Macros_h
+//#ifndef Macros_h
+//#define Macros_h
 
 // 缓存最后登录帐户信息
 #define UD_KEY_LAST_LOGIN_USERINFOMATION      @"UserInfomation"   // 登陆返回信息
@@ -124,7 +124,10 @@
 #define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
 #define TIPSMESSEGEADD(__CONTENT) [NSString stringWithFormat:@"请添加%@",__CONTENT]
 
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
-//#define  WeakSelf() __weak typeof(self) weakSelf = self;
+#define NAVIGATION_HIGHT (kDevice_Is_iPhoneX ? 88 : 64)
+#define TABBAR_HIGHT (kDevice_Is_iPhoneX ? 83 : 49)
+//#define GENRRAL_EFFECTIVE_HIGHT ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT
 
-#endif /* Macros_h */
+

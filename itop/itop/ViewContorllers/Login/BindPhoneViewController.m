@@ -9,6 +9,7 @@
 #import "BindPhoneViewController.h"
 
 @interface BindPhoneViewController ()<UITextFieldDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *verificationCodeButton;
 @property (weak, nonatomic) IBOutlet UIButton *resetFnishButton;
 @property (weak, nonatomic) IBOutlet UITextField *accountTF;

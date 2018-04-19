@@ -60,6 +60,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (nonatomic, strong)HotDetails *hotDetail;
 @property (nonatomic, strong)HotDetailDataSource *hotDetailDataSource;
 @property (nonatomic, strong)NSString *parent_id;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
 
 @end
 
@@ -76,6 +77,18 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
     [IQKeyboardManager sharedManager].enable = NO;
+    
+    if (_webVc != nil) {
+        [self initWebView];
+    }
+}
+
+-(void)initWebView{
+    
+    _webVc = [[WebViewController alloc]init];
+    _webVc.h5Url = _hotDetail.article.url;
+    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
+    [_h5HeaderView addSubview:_webVc.view];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -88,6 +101,8 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     if (!ok) {
         NSLog(@"%s setCategoryError=%@", __PRETTY_FUNCTION__, setCategoryError);
     }
+    
+//    [_webVc.webView stopLoading];
 }
 
 -(void)initData{
@@ -106,7 +121,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         } else {
             [self steupTableView];
             [self loadingHeardView];
-
         }
     };
 }
@@ -150,16 +164,38 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.right.top.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(_checkStatusType == CheckStatusTypeOK || CheckStatusTypeUnPass ? -51 : 0);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -85 : -51);
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    CGFloat half = (float)ScreenWidth/2;
     if (_checkStatusType == CheckStatusTypeUnPass) {
         
         [_shelvesButton setImage:[UIImage imageNamed:@"zuo_icon_delete"] forState:UIControlStateNormal];
         [_shelvesButton setTitle:@"删除" forState:UIControlStateNormal];
         _shelvesButton.tag = 2;
     }
+    [self.editButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(0);
+        make.width.mas_equalTo(half);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+        make.height.mas_equalTo(50);
+        
+    }];
+    [self.shelvesButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.mas_equalTo(0);
+        make.width.mas_equalTo(half);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+        make.height.mas_equalTo(50);
+        
+    }];
+
+    [self.lineView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(self.view);
+        make.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(0.5f);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -84 : -50);
+    }];
     [self setupkeyBoardDidShowView];
 }
 
@@ -203,10 +239,12 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.title = _hotDetail.article.title;
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
-    _webVc = [[WebViewController alloc]init];
-    _webVc.h5Url = _hotDetail.article.url;
-    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
-    [_h5HeaderView addSubview:_webVc.view];
+    
+    [self initWebView];
+//    _webVc = [[WebViewController alloc]init];
+//    _webVc.h5Url = _hotDetail.article.url;
+//    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
+//    [_h5HeaderView addSubview:_webVc.view];
     
     NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
@@ -456,7 +494,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 - (IBAction)soldOut:(UIButton *)sender {
    
-    
     if (sender.tag == 1) {
         
         [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@0];
@@ -474,9 +511,5 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     };
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end
