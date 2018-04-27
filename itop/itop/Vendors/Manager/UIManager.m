@@ -22,8 +22,10 @@
 #import "OptimizeTitleViewController.h"
 #import "LoadingViewController.h"
 #import "RecommendedViewController.h"
-//#import "PopularizeManagementViewController.h"
+#import "CustomRequirementsViewController.h"
 #import "PopularizeItmeTableViewController.h"
+#import "CustomRequirementsDetailViewController.h"
+#import "DirectionalDemandReleaseViewController.h"
 
 @implementation UIManager
 
@@ -215,7 +217,7 @@
 + (void)pushVC:(UIViewController *)vc{
   
     AppDelegate * appDelegate = [[self class] appDelegate];
-    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     [nav pushViewController:vc animated:YES];
 }
@@ -391,6 +393,20 @@
     return nil;
 }
 
++(void)customRequirementsViewController{
+    
+    CustomRequirementsViewController *vc = [[CustomRequirementsViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
++(void)customRequirementsDetailViewControllerWithCustomId:(NSNumber *)custom_id{
+    
+    CustomRequirementsDetailViewController *vc = [[CustomRequirementsDetailViewController alloc]init];
+    vc.custom_id = custom_id;
+    [UIManager pushVC:vc];
+}
+
 + (UINavigationController *)getNavigationController{
     
     AppDelegate * appDelegate = [[self class] appDelegate];
@@ -398,8 +414,19 @@
     return nav;
 }
 
-
-
-
++(void)customRequirementsReleaseViewControllerWithIsEdit:(BOOL)isEdit
+                                              demandType:(DemandType)demandType
+                                               demand_id:(NSNumber *)demand_id{
+    
+    DirectionalDemandReleaseViewController *biddingVc = [[DirectionalDemandReleaseViewController alloc]init];
+    biddingVc.isEdit = isEdit ;
+    biddingVc.demandType = demandType;
+    if (isEdit) {
+        
+        biddingVc.demand_id = demand_id ;
+        
+    }
+    [UIManager pushVC:biddingVc];
+}
 
 @end

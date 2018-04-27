@@ -71,6 +71,11 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         make.bottom.mas_equalTo(-20);
     }];
     [self steupCollectionView];
+    
+    [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger  index){
+        
+        NSLog(@"分享成功");
+    };
 }
 
 -(void)initData{
@@ -166,8 +171,8 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     if ([info.myInfoTitle isEqualToString:@"意见反馈"]){
         
+//        [UIManager showVC:@"DirectionalDemandReleaseViewController"];
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
-        
     }
     else if ([info.myInfoTitle isEqualToString:@"作品"]){
         

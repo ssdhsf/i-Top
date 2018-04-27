@@ -19,7 +19,6 @@
         store = [[ThemeCustomStore alloc]init];
     });
     return store;
-
 }
 
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu{

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 static NSString *const Type_Home = @"Home";
+static NSString *const Type_Custrom = @"Custrom";
 static NSString *const Type_H5 = @"H5";
 static NSString *const Type_Designer = @"Designer";
 static NSString *const Type_SearchHot = @"SearchHot";

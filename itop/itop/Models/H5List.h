@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSString <Optional>*comment_count;
 @property (nonatomic, strong) NSString <Optional>*cover_img;
 @property (nonatomic, strong) NSString <Optional>*head_img;
-@property (nonatomic, strong) NSString <Optional>*id;
+@property (nonatomic, strong) NSNumber <Optional>*id;
 @property (nonatomic, strong) NSString <Optional>*nickname;
 @property (nonatomic, strong) NSString <Optional>*praise_count;
 @property (nonatomic, strong) NSString <Optional>*title;

@@ -308,7 +308,7 @@
     
     if (arr.count > 1) {
         
-        for (NSString *subIndustryp in self.cityArray ) {
+        for (NSString *subIndustryp in self.industrySubArray ) {
             
             if ([subIndustryp isEqualToString:arr[1]]) {
                 
@@ -540,7 +540,6 @@
         return;
     }
 
-//    
 //    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
 //    [UserManager shareUserManager].verificationSuccess = ^(id obj){
 //        

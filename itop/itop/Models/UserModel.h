@@ -17,6 +17,7 @@
 @property (nonatomic, strong) OtherInfo <OtherInfo ,Optional>*other_info;
 @property (nonatomic, strong) NSString <Optional>*name;
 @property (nonatomic, strong) NSString <Optional>*login_count;
+@property (nonatomic, strong) NSString <Optional>*token;
 @property (nonatomic, strong) NSString <Optional>*last_login_datetime;
 @property (nonatomic, strong) NSArray <Optional>*channelList;
 @property (nonatomic, strong) UserInfomation <UserInfomation,Optional>*user_info;

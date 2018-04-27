@@ -105,9 +105,9 @@
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 //背景图
-#define PlaceholderImage [UIImage imageNamed:@"home_icon_portrait_default"]
-#define H5PlaceholderImage [UIImage imageNamed:@"img_default"]
-#define ArticlePlaceholderImage [UIImage imageNamed:@"hotimg_bg_default"]
+#define PlaceholderImage [UIImage imageNamed:@"home_icon_portrait_default"] //设计师
+#define H5PlaceholderImage [UIImage imageNamed:@"img_default"] //H5
+#define ArticlePlaceholderImage [UIImage imageNamed:@"hotimg_bg_default"] //热点
 
 #define FOCUSSTATETITLE_NOFOCUS @"关 注"
 #define FOCUSSTATETITLE_FOCUS @"已关注"

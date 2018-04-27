@@ -22,7 +22,6 @@ _errorFailure(__id_obj); }
 
 #define  HIDDEN_GET_DATA [MBProgressHUD hideHUDForView:TOP_VIEW animated:NO];
 
-
 @implementation UserManager
 
 + (instancetype)shareUserManager{
@@ -1647,6 +1646,162 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)customRequirementsListWithUserId:(NSNumber *)user_id
+                               PageIndex:(NSInteger )pageIndex
+                               PageCount:(NSInteger )pageCount{
+    
+    NSString *api = @"/api/demand/getpagelist";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageCount) forKey:@"PageCount"];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    
+    if (user_id != nil) {
+       
+        [parameters setObject:user_id forKey:@"User_id"];
+    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
 
+- (void)getUserCustomRequirementsListWithUserId:(NSNumber *)user_id
+                                    demandType:(DemandType)demand_type
+                                      PageIndex:(NSInteger )pageIndex
+                                      PageCount:(NSInteger )pageCount{
+    
+    NSString *api = @"/api/demand/getuserlist";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageCount) forKey:@"PageCount"];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(demand_type) forKey:@"Demand_type"];
+    
+    if (user_id != nil) {
+        
+        [parameters setObject:user_id forKey:@"User_id"];
+    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)customRequirementsDetailWithDetailId:(NSNumber *)detail_id{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/demand/get";
+    NSDictionary *parameters = @{@"id":detail_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+                HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            //            NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+                HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)customRequirementsParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata{
+    
+    SHOW_GET_DATA
+    
+    NSString *api  = [NSString string];
+    if (isUpdata) {
+        api = @"/api/demand/update";
+    }else {
+        api = @"/api/demand/add";
+    }
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  operation:(NSString * )operationType{
+    
+    SHOW_GET_DATA
+    NSString *api = [NSString string];
+    
+    if ([operationType isEqualToString:@"删除"]) {
+        api = @"/api/demand/delete";
+    }
+    
+    if ([operationType isEqualToString:@"下架"]) {
+        api = @"/api/demand/off";
+    }
+    
+    if ([operationType isEqualToString:@"验收完成"]) {
+        api = @"/api/demand/sucess";
+    }
+    NSDictionary *parameters = @{@"id":demant_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
 
 @end

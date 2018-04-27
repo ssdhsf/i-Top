@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomRequirementsStateDetailViewController">
+            <connections>
+                <outlet property="stateButton" destination="nPC-4l-RLq" id="QTJ-eb-ay5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPC-4l-RLq">
+                    <rect key="frame" x="147.5" y="51" width="80" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="m41-Ob-1v6"/>
+                        <constraint firstAttribute="width" constant="80" id="tsn-Mx-fyR"/>
+                    </constraints>
+                    <state key="normal" title=" 审核中" image="icon_pro">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TbM-Mc-VA1">
+                    <rect key="frame" x="0.0" y="153" width="375" height="1"/>
+                    <color key="backgroundColor" red="0.96078431372549022" green="0.96862745098039216" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="9Gh-Q2-eWf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="TbM-Mc-VA1" secondAttribute="trailing" id="1lq-96-aac"/>
+                <constraint firstItem="nPC-4l-RLq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6IA-RW-ayL"/>
+                <constraint firstItem="nPC-4l-RLq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="51" id="KBU-8u-pw7"/>
+                <constraint firstItem="TbM-Mc-VA1" firstAttribute="top" secondItem="nPC-4l-RLq" secondAttribute="bottom" constant="80" id="Ljq-i8-yHv"/>
+                <constraint firstItem="TbM-Mc-VA1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rYx-8o-VMT"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="54.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_pro" width="20" height="20"/>
+    </resources>
+</document>

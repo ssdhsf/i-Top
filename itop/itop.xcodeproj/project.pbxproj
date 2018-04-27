@@ -153,6 +153,8 @@
 		77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77484AD52024B3AA00BAC567 /* WebViewController.m */; };
 		77484AD82024B3AA00BAC567 /* WebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77484AD62024B3AA00BAC567 /* WebViewController.xib */; };
 		77484AE0202556BC00BAC567 /* DesignerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77484ADF202556BC00BAC567 /* DesignerInfo.m */; };
+		77492C082091D05D00E9960E /* CustomRequirementsStateDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77492C062091D05D00E9960E /* CustomRequirementsStateDetailViewController.m */; };
+		77492C092091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77492C072091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib */; };
 		774B87E5204D7ADD00F602E3 /* ChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B87E3204D7ADD00F602E3 /* ChangePasswordViewController.m */; };
 		774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B87E4204D7ADD00F602E3 /* ChangePasswordViewController.xib */; };
 		774B87EA204E43AC00F602E3 /* AboutItopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B87E8204E43AC00F602E3 /* AboutItopViewController.m */; };
@@ -164,6 +166,14 @@
 		774B8812204FC2BA00F602E3 /* ShearViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B8810204FC2BA00F602E3 /* ShearViewController.m */; };
 		774B8813204FC2BA00F602E3 /* ShearViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 774B8811204FC2BA00F602E3 /* ShearViewController.xib */; };
 		774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 774B8815204FC2F100F602E3 /* ShearViewManager.m */; };
+		7753C315208F3421009FF82C /* CustomRequirementsStateListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7753C313208F3421009FF82C /* CustomRequirementsStateListController.m */; };
+		7753C316208F3421009FF82C /* CustomRequirementsStateListController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7753C314208F3421009FF82C /* CustomRequirementsStateListController.xib */; };
+		7753C31A208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7753C318208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m */; };
+		7753C31B208F36ED009FF82C /* CustomRequirementsStateListTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7753C319208F36ED009FF82C /* CustomRequirementsStateListTableViewController.xib */; };
+		7753C31F208F3724009FF82C /* CustomRequirementsStateListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7753C31D208F3724009FF82C /* CustomRequirementsStateListCell.m */; };
+		7753C320208F3724009FF82C /* CustomRequirementsStateListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7753C31E208F3724009FF82C /* CustomRequirementsStateListCell.xib */; };
+		7753C323208F53F9009FF82C /* CustomRequirementsStateListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7753C322208F53F9009FF82C /* CustomRequirementsStateListDataSource.m */; };
+		7753C326208F5DBC009FF82C /* CustomRequirementsList.m in Sources */ = {isa = PBXBuildFile; fileRef = 7753C325208F5DBC009FF82C /* CustomRequirementsList.m */; };
 		775909A22016350300F9D8EA /* PXChartBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 775909982016350300F9D8EA /* PXChartBackgroundView.m */; };
 		775909A32016350300F9D8EA /* PXLineChartConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 7759099B2016350300F9D8EA /* PXLineChartConst.m */; };
 		775909A42016350300F9D8EA /* PXLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7759099D2016350300F9D8EA /* PXLineChartView.m */; };
@@ -270,6 +280,21 @@
 		77848AEF202EE35500C0CCD2 /* ProductView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AEE202EE35500C0CCD2 /* ProductView.m */; };
 		77848AF2202EE3C300C0CCD2 /* UserProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AF1202EE3C300C0CCD2 /* UserProduct.m */; };
 		77848AF5202EE43E00C0CCD2 /* ProductTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AF4202EE43E00C0CCD2 /* ProductTag.m */; };
+		77907B0F208A081E005FDE9D /* Enterprise.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B0E208A081E005FDE9D /* Enterprise.m */; };
+		77907B12208A0831005FDE9D /* Demand.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B11208A0831005FDE9D /* Demand.m */; };
+		77907B16208B425D005FDE9D /* DirectionalDemandReleaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B14208B425D005FDE9D /* DirectionalDemandReleaseViewController.m */; };
+		77907B17208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77907B15208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib */; };
+		77907B1B208B4287005FDE9D /* DirectionalDemandReleaseViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B19208B4287005FDE9D /* DirectionalDemandReleaseViewCell.m */; };
+		77907B1C208B4287005FDE9D /* DirectionalDemandReleaseViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77907B1A208B4287005FDE9D /* DirectionalDemandReleaseViewCell.xib */; };
+		77907B1F208C468B005FDE9D /* DemandEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B1E208C468B005FDE9D /* DemandEdit.m */; };
+		77907B22208C4745005FDE9D /* DirectionalDemandReleaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B21208C4745005FDE9D /* DirectionalDemandReleaseStore.m */; };
+		77907B25208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B24208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.m */; };
+		77907B29208D7513005FDE9D /* CustomRequirementsDesginListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B27208D7513005FDE9D /* CustomRequirementsDesginListViewController.m */; };
+		77907B2A208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77907B28208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib */; };
+		77907B2E208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B2C208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m */; };
+		77907B2F208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77907B2D208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.xib */; };
+		77907B32208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B31208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m */; };
+		77907B35208D7F3B005FDE9D /* CustomRequirementsDegsinList.m in Sources */ = {isa = PBXBuildFile; fileRef = 77907B34208D7F3B005FDE9D /* CustomRequirementsDegsinList.m */; };
 		7792B716201ACB3800587399 /* HomeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792B714201ACB3800587399 /* HomeCollectionViewCell.m */; };
 		7792B717201ACB3800587399 /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7792B715201ACB3800587399 /* HomeCollectionViewCell.xib */; };
 		7792B71A201ACED800587399 /* HomeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792B719201ACED800587399 /* HomeDataSource.m */; };
@@ -325,6 +350,21 @@
 		77BB21562075CC08000CADC9 /* YYGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB21552075CC08000CADC9 /* YYGestureRecognizer.m */; };
 		77BB215920772152000CADC9 /* KKSequenceImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BB215820772152000CADC9 /* KKSequenceImageView.m */; };
 		77BB21612077681A000CADC9 /* loadingGif.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 77BB21602077681A000CADC9 /* loadingGif.bundle */; };
+		77BE88AA208885B300C72617 /* CustomRequirements.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88A9208885B300C72617 /* CustomRequirements.m */; };
+		77BE88AD208887B400C72617 /* CustomRequirementsStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88AC208887B400C72617 /* CustomRequirementsStore.m */; };
+		77BE88B2208889B000C72617 /* CustomRequirementsStoreCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88B0208889B000C72617 /* CustomRequirementsStoreCell.m */; };
+		77BE88B3208889B000C72617 /* CustomRequirementsStoreCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BE88B1208889B000C72617 /* CustomRequirementsStoreCell.xib */; };
+		77BE88B720889E1400C72617 /* CustomRequirementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88B520889E1400C72617 /* CustomRequirementsViewController.m */; };
+		77BE88B820889E1400C72617 /* CustomRequirementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BE88B620889E1400C72617 /* CustomRequirementsViewController.xib */; };
+		77BE88BB20889ED800C72617 /* CustomRequirementsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88BA20889ED800C72617 /* CustomRequirementsDataSource.m */; };
+		77BE88BF2088AE7D00C72617 /* CustomRequirementsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88BD2088AE7D00C72617 /* CustomRequirementsDetailViewController.m */; };
+		77BE88C02088AE7D00C72617 /* CustomRequirementsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BE88BE2088AE7D00C72617 /* CustomRequirementsDetailViewController.xib */; };
+		77BE88C420897EAE00C72617 /* CustomRequirementsDetailTabelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88C220897EAE00C72617 /* CustomRequirementsDetailTabelViewController.m */; };
+		77BE88C520897EAE00C72617 /* CustomRequirementsDetailTabelViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BE88C320897EAE00C72617 /* CustomRequirementsDetailTabelViewController.xib */; };
+		77BE88C920897FB900C72617 /* CustomRequirementsDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88C720897FB900C72617 /* CustomRequirementsDetailCell.m */; };
+		77BE88CA20897FB900C72617 /* CustomRequirementsDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77BE88C820897FB900C72617 /* CustomRequirementsDetailCell.xib */; };
+		77BE88CD2089867500C72617 /* CustomRequirementsDetailDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88CC2089867500C72617 /* CustomRequirementsDetailDataSource.m */; };
+		77BE88D02089960200C72617 /* KylinScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77BE88CF2089960200C72617 /* KylinScrollView.m */; };
 		77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */; };
 		77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */; };
 		77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C07F7B204C2BF400D77DBD /* SecurityViewController.m */; };
@@ -370,6 +410,7 @@
 		77E00A6820171910004BBD49 /* StatisticalDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E00A6720171910004BBD49 /* StatisticalDataModel.m */; };
 		77E00A6A20174F40004BBD49 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77E00A6920174F40004BBD49 /* CFNetwork.framework */; };
 		77E00A6D2018269A004BBD49 /* CarouselScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E00A6C2018269A004BBD49 /* CarouselScrollView.m */; };
+		77E6569320907B85002772A5 /* CustomRequirementsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E6569220907B85002772A5 /* CustomRequirementsDetail.m */; };
 		77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A84920118E0300E253CC /* ThemeCustomViewController.m */; };
 		77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E8A84A20118E0300E253CC /* ThemeCustomViewController.xib */; };
 		77E8A850201197EF00E253CC /* ThemeCustomDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E8A84F201197EF00E253CC /* ThemeCustomDataSource.m */; };
@@ -404,6 +445,8 @@
 		77E8A8B12015BEEC00E253CC /* 气泡.png in Resources */ = {isa = PBXBuildFile; fileRef = 77E8A8AC2015BEEC00E253CC /* 气泡.png */; };
 		77E9815420785827007CDFED /* StatisticalDataSegmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77E9815220785827007CDFED /* StatisticalDataSegmentViewController.m */; };
 		77E9815520785827007CDFED /* StatisticalDataSegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E9815320785827007CDFED /* StatisticalDataSegmentViewController.xib */; };
+		77EF13032092FC19000964A7 /* BiddingProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF13012092FC19000964A7 /* BiddingProductListViewController.m */; };
+		77EF13042092FC19000964A7 /* BiddingProductListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */; };
 		77F0789F20464A79004C0596 /* MarketingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F0789D20464A79004C0596 /* MarketingViewController.m */; };
 		77F078A020464A79004C0596 /* MarketingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F0789E20464A79004C0596 /* MarketingViewController.xib */; };
 		77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078A22046A287004C0596 /* MarketingTableViewCell.m */; };
@@ -411,6 +454,8 @@
 		77F078A82046A4CB004C0596 /* MarketingDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078A72046A4CB004C0596 /* MarketingDataSource.m */; };
 		77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078AA2046A61F004C0596 /* MarketingStore.m */; };
 		77F078AE2046A7CE004C0596 /* Marketing.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078AD2046A7CE004C0596 /* Marketing.m */; };
+		77F4FF14208DD6300024ED42 /* DemandReleaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F4FF12208DD6300024ED42 /* DemandReleaseViewController.m */; };
+		77F4FF15208DD6300024ED42 /* DemandReleaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F4FF13208DD6300024ED42 /* DemandReleaseViewController.xib */; };
 		93EE521CC76739AB8BAEF72A /* libPods-itop.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F4F896C20E3CF680A8B738B /* libPods-itop.a */; };
 /* End PBXBuildFile section */
 
@@ -694,6 +739,9 @@
 		77484AD62024B3AA00BAC567 /* WebViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WebViewController.xib; sourceTree = "<group>"; };
 		77484ADE202556BC00BAC567 /* DesignerInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerInfo.h; sourceTree = "<group>"; };
 		77484ADF202556BC00BAC567 /* DesignerInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerInfo.m; sourceTree = "<group>"; };
+		77492C052091D05D00E9960E /* CustomRequirementsStateDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStateDetailViewController.h; sourceTree = "<group>"; };
+		77492C062091D05D00E9960E /* CustomRequirementsStateDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStateDetailViewController.m; sourceTree = "<group>"; };
+		77492C072091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsStateDetailViewController.xib; sourceTree = "<group>"; };
 		774B87E2204D7ADD00F602E3 /* ChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePasswordViewController.h; sourceTree = "<group>"; };
 		774B87E3204D7ADD00F602E3 /* ChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePasswordViewController.m; sourceTree = "<group>"; };
 		774B87E4204D7ADD00F602E3 /* ChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePasswordViewController.xib; sourceTree = "<group>"; };
@@ -711,6 +759,19 @@
 		774B8811204FC2BA00F602E3 /* ShearViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShearViewController.xib; sourceTree = "<group>"; };
 		774B8814204FC2F100F602E3 /* ShearViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearViewManager.h; sourceTree = "<group>"; };
 		774B8815204FC2F100F602E3 /* ShearViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearViewManager.m; sourceTree = "<group>"; };
+		7753C312208F3421009FF82C /* CustomRequirementsStateListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStateListController.h; sourceTree = "<group>"; };
+		7753C313208F3421009FF82C /* CustomRequirementsStateListController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStateListController.m; sourceTree = "<group>"; };
+		7753C314208F3421009FF82C /* CustomRequirementsStateListController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsStateListController.xib; sourceTree = "<group>"; };
+		7753C317208F36ED009FF82C /* CustomRequirementsStateListTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStateListTableViewController.h; sourceTree = "<group>"; };
+		7753C318208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStateListTableViewController.m; sourceTree = "<group>"; };
+		7753C319208F36ED009FF82C /* CustomRequirementsStateListTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsStateListTableViewController.xib; sourceTree = "<group>"; };
+		7753C31C208F3724009FF82C /* CustomRequirementsStateListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStateListCell.h; sourceTree = "<group>"; };
+		7753C31D208F3724009FF82C /* CustomRequirementsStateListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStateListCell.m; sourceTree = "<group>"; };
+		7753C31E208F3724009FF82C /* CustomRequirementsStateListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsStateListCell.xib; sourceTree = "<group>"; };
+		7753C321208F53F9009FF82C /* CustomRequirementsStateListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStateListDataSource.h; sourceTree = "<group>"; };
+		7753C322208F53F9009FF82C /* CustomRequirementsStateListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStateListDataSource.m; sourceTree = "<group>"; };
+		7753C324208F5DBC009FF82C /* CustomRequirementsList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsList.h; sourceTree = "<group>"; };
+		7753C325208F5DBC009FF82C /* CustomRequirementsList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsList.m; sourceTree = "<group>"; };
 		775909962016350300F9D8EA /* PointItemProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PointItemProtocol.h; sourceTree = "<group>"; };
 		775909972016350300F9D8EA /* PXChartBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXChartBackgroundView.h; sourceTree = "<group>"; };
 		775909982016350300F9D8EA /* PXChartBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXChartBackgroundView.m; sourceTree = "<group>"; };
@@ -902,6 +963,32 @@
 		77848AF1202EE3C300C0CCD2 /* UserProduct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserProduct.m; sourceTree = "<group>"; };
 		77848AF3202EE43E00C0CCD2 /* ProductTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductTag.h; sourceTree = "<group>"; };
 		77848AF4202EE43E00C0CCD2 /* ProductTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductTag.m; sourceTree = "<group>"; };
+		77907B0D208A081E005FDE9D /* Enterprise.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Enterprise.h; sourceTree = "<group>"; };
+		77907B0E208A081E005FDE9D /* Enterprise.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Enterprise.m; sourceTree = "<group>"; };
+		77907B10208A0831005FDE9D /* Demand.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Demand.h; sourceTree = "<group>"; };
+		77907B11208A0831005FDE9D /* Demand.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Demand.m; sourceTree = "<group>"; };
+		77907B13208B425D005FDE9D /* DirectionalDemandReleaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionalDemandReleaseViewController.h; sourceTree = "<group>"; };
+		77907B14208B425D005FDE9D /* DirectionalDemandReleaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionalDemandReleaseViewController.m; sourceTree = "<group>"; };
+		77907B15208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionalDemandReleaseViewController.xib; sourceTree = "<group>"; };
+		77907B18208B4287005FDE9D /* DirectionalDemandReleaseViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionalDemandReleaseViewCell.h; sourceTree = "<group>"; };
+		77907B19208B4287005FDE9D /* DirectionalDemandReleaseViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionalDemandReleaseViewCell.m; sourceTree = "<group>"; };
+		77907B1A208B4287005FDE9D /* DirectionalDemandReleaseViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DirectionalDemandReleaseViewCell.xib; sourceTree = "<group>"; };
+		77907B1D208C468B005FDE9D /* DemandEdit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandEdit.h; sourceTree = "<group>"; };
+		77907B1E208C468B005FDE9D /* DemandEdit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandEdit.m; sourceTree = "<group>"; };
+		77907B20208C4745005FDE9D /* DirectionalDemandReleaseStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionalDemandReleaseStore.h; sourceTree = "<group>"; };
+		77907B21208C4745005FDE9D /* DirectionalDemandReleaseStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionalDemandReleaseStore.m; sourceTree = "<group>"; };
+		77907B23208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DirectionalDemandReleaseDataSource.h; sourceTree = "<group>"; };
+		77907B24208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DirectionalDemandReleaseDataSource.m; sourceTree = "<group>"; };
+		77907B26208D7513005FDE9D /* CustomRequirementsDesginListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDesginListViewController.h; sourceTree = "<group>"; };
+		77907B27208D7513005FDE9D /* CustomRequirementsDesginListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDesginListViewController.m; sourceTree = "<group>"; };
+		77907B28208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsDesginListViewController.xib; sourceTree = "<group>"; };
+		77907B2B208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDesginListTableViewCell.h; sourceTree = "<group>"; };
+		77907B2C208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDesginListTableViewCell.m; sourceTree = "<group>"; };
+		77907B2D208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsDesginListTableViewCell.xib; sourceTree = "<group>"; };
+		77907B30208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDesginListDataSource.h; sourceTree = "<group>"; };
+		77907B31208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDesginListDataSource.m; sourceTree = "<group>"; };
+		77907B33208D7F3B005FDE9D /* CustomRequirementsDegsinList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDegsinList.h; sourceTree = "<group>"; };
+		77907B34208D7F3B005FDE9D /* CustomRequirementsDegsinList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDegsinList.m; sourceTree = "<group>"; };
 		7792B713201ACB3800587399 /* HomeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeCollectionViewCell.h; sourceTree = "<group>"; };
 		7792B714201ACB3800587399 /* HomeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeCollectionViewCell.m; sourceTree = "<group>"; };
 		7792B715201ACB3800587399 /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -998,6 +1085,31 @@
 		77BB215720772152000CADC9 /* KKSequenceImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKSequenceImageView.h; sourceTree = "<group>"; };
 		77BB215820772152000CADC9 /* KKSequenceImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKSequenceImageView.m; sourceTree = "<group>"; };
 		77BB21602077681A000CADC9 /* loadingGif.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = loadingGif.bundle; sourceTree = "<group>"; };
+		77BE88A8208885B300C72617 /* CustomRequirements.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirements.h; sourceTree = "<group>"; };
+		77BE88A9208885B300C72617 /* CustomRequirements.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirements.m; sourceTree = "<group>"; };
+		77BE88AB208887B400C72617 /* CustomRequirementsStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStore.h; sourceTree = "<group>"; };
+		77BE88AC208887B400C72617 /* CustomRequirementsStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStore.m; sourceTree = "<group>"; };
+		77BE88AF208889B000C72617 /* CustomRequirementsStoreCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsStoreCell.h; sourceTree = "<group>"; };
+		77BE88B0208889B000C72617 /* CustomRequirementsStoreCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsStoreCell.m; sourceTree = "<group>"; };
+		77BE88B1208889B000C72617 /* CustomRequirementsStoreCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsStoreCell.xib; sourceTree = "<group>"; };
+		77BE88B420889E1400C72617 /* CustomRequirementsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsViewController.h; sourceTree = "<group>"; };
+		77BE88B520889E1400C72617 /* CustomRequirementsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsViewController.m; sourceTree = "<group>"; };
+		77BE88B620889E1400C72617 /* CustomRequirementsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsViewController.xib; sourceTree = "<group>"; };
+		77BE88B920889ED800C72617 /* CustomRequirementsDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDataSource.h; sourceTree = "<group>"; };
+		77BE88BA20889ED800C72617 /* CustomRequirementsDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDataSource.m; sourceTree = "<group>"; };
+		77BE88BC2088AE7D00C72617 /* CustomRequirementsDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDetailViewController.h; sourceTree = "<group>"; };
+		77BE88BD2088AE7D00C72617 /* CustomRequirementsDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDetailViewController.m; sourceTree = "<group>"; };
+		77BE88BE2088AE7D00C72617 /* CustomRequirementsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsDetailViewController.xib; sourceTree = "<group>"; };
+		77BE88C120897EAE00C72617 /* CustomRequirementsDetailTabelViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDetailTabelViewController.h; sourceTree = "<group>"; };
+		77BE88C220897EAE00C72617 /* CustomRequirementsDetailTabelViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDetailTabelViewController.m; sourceTree = "<group>"; };
+		77BE88C320897EAE00C72617 /* CustomRequirementsDetailTabelViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsDetailTabelViewController.xib; sourceTree = "<group>"; };
+		77BE88C620897FB900C72617 /* CustomRequirementsDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDetailCell.h; sourceTree = "<group>"; };
+		77BE88C720897FB900C72617 /* CustomRequirementsDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDetailCell.m; sourceTree = "<group>"; };
+		77BE88C820897FB900C72617 /* CustomRequirementsDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsDetailCell.xib; sourceTree = "<group>"; };
+		77BE88CB2089867500C72617 /* CustomRequirementsDetailDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDetailDataSource.h; sourceTree = "<group>"; };
+		77BE88CC2089867500C72617 /* CustomRequirementsDetailDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDetailDataSource.m; sourceTree = "<group>"; };
+		77BE88CE2089960100C72617 /* KylinScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KylinScrollView.h; sourceTree = "<group>"; };
+		77BE88CF2089960200C72617 /* KylinScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KylinScrollView.m; sourceTree = "<group>"; };
 		77C07F74204AD85200D77DBD /* CustomerServiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerServiceViewController.h; sourceTree = "<group>"; };
 		77C07F75204AD85200D77DBD /* CustomerServiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerServiceViewController.m; sourceTree = "<group>"; };
 		77C07F76204AD85200D77DBD /* CustomerServiceViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerServiceViewController.xib; sourceTree = "<group>"; };
@@ -1074,6 +1186,8 @@
 		77E00A6920174F40004BBD49 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		77E00A6B2018269A004BBD49 /* CarouselScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarouselScrollView.h; sourceTree = "<group>"; };
 		77E00A6C2018269A004BBD49 /* CarouselScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarouselScrollView.m; sourceTree = "<group>"; };
+		77E6569120907B85002772A5 /* CustomRequirementsDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsDetail.h; sourceTree = "<group>"; };
+		77E6569220907B85002772A5 /* CustomRequirementsDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsDetail.m; sourceTree = "<group>"; };
 		77E8A84820118E0300E253CC /* ThemeCustomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeCustomViewController.h; sourceTree = "<group>"; };
 		77E8A84920118E0300E253CC /* ThemeCustomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeCustomViewController.m; sourceTree = "<group>"; };
 		77E8A84A20118E0300E253CC /* ThemeCustomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ThemeCustomViewController.xib; sourceTree = "<group>"; };
@@ -1140,6 +1254,9 @@
 		77E9815120785827007CDFED /* StatisticalDataSegmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticalDataSegmentViewController.h; sourceTree = "<group>"; };
 		77E9815220785827007CDFED /* StatisticalDataSegmentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatisticalDataSegmentViewController.m; sourceTree = "<group>"; };
 		77E9815320785827007CDFED /* StatisticalDataSegmentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatisticalDataSegmentViewController.xib; sourceTree = "<group>"; };
+		77EF13002092FC19000964A7 /* BiddingProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProductListViewController.h; sourceTree = "<group>"; };
+		77EF13012092FC19000964A7 /* BiddingProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProductListViewController.m; sourceTree = "<group>"; };
+		77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiddingProductListViewController.xib; sourceTree = "<group>"; };
 		77F0789C20464A79004C0596 /* MarketingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketingViewController.h; sourceTree = "<group>"; };
 		77F0789D20464A79004C0596 /* MarketingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingViewController.m; sourceTree = "<group>"; };
 		77F0789E20464A79004C0596 /* MarketingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketingViewController.xib; sourceTree = "<group>"; };
@@ -1152,6 +1269,9 @@
 		77F078AA2046A61F004C0596 /* MarketingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingStore.m; sourceTree = "<group>"; };
 		77F078AC2046A7CE004C0596 /* Marketing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Marketing.h; sourceTree = "<group>"; };
 		77F078AD2046A7CE004C0596 /* Marketing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Marketing.m; sourceTree = "<group>"; };
+		77F4FF11208DD6300024ED42 /* DemandReleaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemandReleaseViewController.h; sourceTree = "<group>"; };
+		77F4FF12208DD6300024ED42 /* DemandReleaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemandReleaseViewController.m; sourceTree = "<group>"; };
+		77F4FF13208DD6300024ED42 /* DemandReleaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DemandReleaseViewController.xib; sourceTree = "<group>"; };
 		E1AEEB97ED121FD0F4B437DD /* Pods-itop.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.debug.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1483,6 +1603,28 @@
 			path = TabBarContoller;
 			sourceTree = "<group>";
 		};
+		7753C311208F3404009FF82C /* CustomRequirementsStateList */ = {
+			isa = PBXGroup;
+			children = (
+				7753C312208F3421009FF82C /* CustomRequirementsStateListController.h */,
+				7753C313208F3421009FF82C /* CustomRequirementsStateListController.m */,
+				7753C314208F3421009FF82C /* CustomRequirementsStateListController.xib */,
+				7753C317208F36ED009FF82C /* CustomRequirementsStateListTableViewController.h */,
+				7753C318208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m */,
+				7753C319208F36ED009FF82C /* CustomRequirementsStateListTableViewController.xib */,
+				7753C31C208F3724009FF82C /* CustomRequirementsStateListCell.h */,
+				7753C31D208F3724009FF82C /* CustomRequirementsStateListCell.m */,
+				7753C31E208F3724009FF82C /* CustomRequirementsStateListCell.xib */,
+				77492C052091D05D00E9960E /* CustomRequirementsStateDetailViewController.h */,
+				77492C062091D05D00E9960E /* CustomRequirementsStateDetailViewController.m */,
+				77492C072091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib */,
+				77EF13002092FC19000964A7 /* BiddingProductListViewController.h */,
+				77EF13012092FC19000964A7 /* BiddingProductListViewController.m */,
+				77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */,
+			);
+			path = CustomRequirementsStateList;
+			sourceTree = "<group>";
+		};
 		775909952016350300F9D8EA /* LineChart */ = {
 			isa = PBXGroup;
 			children = (
@@ -1761,6 +1903,20 @@
 				7733E3072079E9B20081B05E /* MarketingSigningState.m */,
 				77A51496207DDD34003206B5 /* PopularizeAllCount.h */,
 				77A51497207DDD34003206B5 /* PopularizeAllCount.m */,
+				77BE88A8208885B300C72617 /* CustomRequirements.h */,
+				77BE88A9208885B300C72617 /* CustomRequirements.m */,
+				77907B33208D7F3B005FDE9D /* CustomRequirementsDegsinList.h */,
+				77907B34208D7F3B005FDE9D /* CustomRequirementsDegsinList.m */,
+				77907B0D208A081E005FDE9D /* Enterprise.h */,
+				77907B0E208A081E005FDE9D /* Enterprise.m */,
+				77907B10208A0831005FDE9D /* Demand.h */,
+				77907B11208A0831005FDE9D /* Demand.m */,
+				77907B1D208C468B005FDE9D /* DemandEdit.h */,
+				77907B1E208C468B005FDE9D /* DemandEdit.m */,
+				7753C324208F5DBC009FF82C /* CustomRequirementsList.h */,
+				7753C325208F5DBC009FF82C /* CustomRequirementsList.m */,
+				77E6569120907B85002772A5 /* CustomRequirementsDetail.h */,
+				77E6569220907B85002772A5 /* CustomRequirementsDetail.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1816,6 +1972,10 @@
 				7717E999206B7B330025DC73 /* DirectMessagesStore.m */,
 				77BB213820707AF8000CADC9 /* ProvinceStore.h */,
 				77BB213920707AF8000CADC9 /* ProvinceStore.m */,
+				77BE88AB208887B400C72617 /* CustomRequirementsStore.h */,
+				77BE88AC208887B400C72617 /* CustomRequirementsStore.m */,
+				77907B20208C4745005FDE9D /* DirectionalDemandReleaseStore.h */,
+				77907B21208C4745005FDE9D /* DirectionalDemandReleaseStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -1841,6 +2001,7 @@
 		777AF1B1200D9851009729AD /* ViewContorllers */ = {
 			isa = PBXGroup;
 			children = (
+				77BE88AE2088894A00C72617 /* CustomRequirements */,
 				770D771B206245E7007601A8 /* Pay */,
 				77484ACD202403B700BAC567 /* TabBarContoller */,
 				7792B72A201F2AE800587399 /* Public */,
@@ -1894,6 +2055,8 @@
 				77BB215820772152000CADC9 /* KKSequenceImageView.m */,
 				7733E309207B040A0081B05E /* LCRegExpTool.h */,
 				7733E30A207B040A0081B05E /* LCRegExpTool.m */,
+				77BE88CE2089960100C72617 /* KylinScrollView.h */,
+				77BE88CF2089960200C72617 /* KylinScrollView.m */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -2115,6 +2278,44 @@
 			path = WeChatManager;
 			sourceTree = "<group>";
 		};
+		77BE88AE2088894A00C72617 /* CustomRequirements */ = {
+			isa = PBXGroup;
+			children = (
+				7753C311208F3404009FF82C /* CustomRequirementsStateList */,
+				77BE88AF208889B000C72617 /* CustomRequirementsStoreCell.h */,
+				77BE88B0208889B000C72617 /* CustomRequirementsStoreCell.m */,
+				77BE88B1208889B000C72617 /* CustomRequirementsStoreCell.xib */,
+				77BE88B420889E1400C72617 /* CustomRequirementsViewController.h */,
+				77BE88B520889E1400C72617 /* CustomRequirementsViewController.m */,
+				77BE88B620889E1400C72617 /* CustomRequirementsViewController.xib */,
+				77BE88BC2088AE7D00C72617 /* CustomRequirementsDetailViewController.h */,
+				77BE88BD2088AE7D00C72617 /* CustomRequirementsDetailViewController.m */,
+				77BE88BE2088AE7D00C72617 /* CustomRequirementsDetailViewController.xib */,
+				77BE88C120897EAE00C72617 /* CustomRequirementsDetailTabelViewController.h */,
+				77BE88C220897EAE00C72617 /* CustomRequirementsDetailTabelViewController.m */,
+				77BE88C320897EAE00C72617 /* CustomRequirementsDetailTabelViewController.xib */,
+				77BE88C620897FB900C72617 /* CustomRequirementsDetailCell.h */,
+				77BE88C720897FB900C72617 /* CustomRequirementsDetailCell.m */,
+				77BE88C820897FB900C72617 /* CustomRequirementsDetailCell.xib */,
+				77907B26208D7513005FDE9D /* CustomRequirementsDesginListViewController.h */,
+				77907B27208D7513005FDE9D /* CustomRequirementsDesginListViewController.m */,
+				77907B28208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib */,
+				77907B2B208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.h */,
+				77907B2C208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m */,
+				77907B2D208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.xib */,
+				77F4FF11208DD6300024ED42 /* DemandReleaseViewController.h */,
+				77F4FF12208DD6300024ED42 /* DemandReleaseViewController.m */,
+				77F4FF13208DD6300024ED42 /* DemandReleaseViewController.xib */,
+				77907B13208B425D005FDE9D /* DirectionalDemandReleaseViewController.h */,
+				77907B14208B425D005FDE9D /* DirectionalDemandReleaseViewController.m */,
+				77907B15208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib */,
+				77907B18208B4287005FDE9D /* DirectionalDemandReleaseViewCell.h */,
+				77907B19208B4287005FDE9D /* DirectionalDemandReleaseViewCell.m */,
+				77907B1A208B4287005FDE9D /* DirectionalDemandReleaseViewCell.xib */,
+			);
+			path = CustomRequirements;
+			sourceTree = "<group>";
+		};
 		77C07F79204C2BC300D77DBD /* Setup */ = {
 			isa = PBXGroup;
 			children = (
@@ -2198,6 +2399,16 @@
 				77BB2125206D35D4000CADC9 /* SearchListDataSource.m */,
 				77BB213B20707B22000CADC9 /* ProvinceDataSource.h */,
 				77BB213C20707B22000CADC9 /* ProvinceDataSource.m */,
+				77BE88B920889ED800C72617 /* CustomRequirementsDataSource.h */,
+				77BE88BA20889ED800C72617 /* CustomRequirementsDataSource.m */,
+				77BE88CB2089867500C72617 /* CustomRequirementsDetailDataSource.h */,
+				77BE88CC2089867500C72617 /* CustomRequirementsDetailDataSource.m */,
+				77907B23208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.h */,
+				77907B24208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.m */,
+				77907B30208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.h */,
+				77907B31208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m */,
+				7753C321208F53F9009FF82C /* CustomRequirementsStateListDataSource.h */,
+				7753C322208F53F9009FF82C /* CustomRequirementsStateListDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2401,7 +2612,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				77BE88C02088AE7D00C72617 /* CustomRequirementsDetailViewController.xib in Resources */,
 				77B86FF32028621E0096FB28 /* LeaveTableViewCell.xib in Resources */,
+				77BE88B820889E1400C72617 /* CustomRequirementsViewController.xib in Resources */,
 				774B87EB204E43AC00F602E3 /* AboutItopViewController.xib in Resources */,
 				77723AE12043BBB2006294E8 /* mss_browseLoading@2x.png in Resources */,
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
@@ -2418,6 +2631,8 @@
 				77C07F96204D573300D77DBD /* BindPhoneViewController.xib in Resources */,
 				772F95982055661200F432D2 /* SetupPushViewController.xib in Resources */,
 				77369CD3200F52AF0092AEAC /* HotViewController.xib in Resources */,
+				77907B17208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib in Resources */,
+				7753C320208F3724009FF82C /* CustomRequirementsStateListCell.xib in Resources */,
 				77723ABE2043BB42006294E8 /* fanhui.png in Resources */,
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
 				7777E5592029F026008FA348 /* LeaveDetailViewController.xib in Resources */,
@@ -2431,12 +2646,14 @@
 				77723AB32043BB42006294E8 /* 1.png in Resources */,
 				77723AB72043BB42006294E8 /* AssetsPickerChecked@2x.png in Resources */,
 				77723AB62043BB42006294E8 /* addImage.png in Resources */,
+				77EF13042092FC19000964A7 /* BiddingProductListViewController.xib in Resources */,
 				77F078A020464A79004C0596 /* MarketingViewController.xib in Resources */,
 				772F95A220567E1500F432D2 /* QrCodeViewController.xib in Resources */,
 				77C07F7E204C2BF400D77DBD /* SecurityViewController.xib in Resources */,
 				777D517D200CC52700CB2A8A /* LaunchScreen.storyboard in Resources */,
 				77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */,
 				77369CCE200F52810092AEAC /* HomeViewController.xib in Resources */,
+				77492C092091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib in Resources */,
 				770D77662068F89D007601A8 /* PopularizeTableViewCell.xib in Resources */,
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
@@ -2449,6 +2666,7 @@
 				77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */,
 				774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */,
 				77E8A88A20136B9B00E253CC /* registeredViewController.xib in Resources */,
+				77907B2A208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib in Resources */,
 				7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */,
 				77484A992020BDB900BAC567 /* HotDetailsCell.xib in Resources */,
 				7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */,
@@ -2458,8 +2676,11 @@
 				7792B717201ACB3800587399 /* HomeCollectionViewCell.xib in Resources */,
 				777D517A200CC52700CB2A8A /* Assets.xcassets in Resources */,
 				77723AC22043BB42006294E8 /* OK.png in Resources */,
+				77F4FF15208DD6300024ED42 /* DemandReleaseViewController.xib in Resources */,
 				77723AB82043BB42006294E8 /* AssetsPickerChecked~iOS6@2x.png in Resources */,
+				77BE88C520897EAE00C72617 /* CustomRequirementsDetailTabelViewController.xib in Resources */,
 				77DA834A2019750400E7CB36 /* H5ListCollectionViewCell.xib in Resources */,
+				77BE88CA20897FB900C72617 /* CustomRequirementsDetailCell.xib in Resources */,
 				77BB212D206E8263000CADC9 /* Entitlements.plist in Resources */,
 				77369CDD200F536C0092AEAC /* MyWorksViewCotroller.xib in Resources */,
 				770D770A206210D9007601A8 /* EarningListViewController.xib in Resources */,
@@ -2471,11 +2692,14 @@
 				77723ABF2043BB42006294E8 /* ico@2x.png in Resources */,
 				77848AE3202D37EC00C0CCD2 /* MyFocusViewController.xib in Resources */,
 				770D773220629EAC007601A8 /* LoadingViewController.xib in Resources */,
+				77907B2F208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.xib in Resources */,
+				7753C31B208F36ED009FF82C /* CustomRequirementsStateListTableViewController.xib in Resources */,
 				77E8A8782011DCB000E253CC /* Info.plist in Resources */,
 				770D771720623732007601A8 /* EarningDetailTableViewCell.xib in Resources */,
 				77723AC12043BB42006294E8 /* No.png in Resources */,
 				77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */,
 				77E9815520785827007CDFED /* StatisticalDataSegmentViewController.xib in Resources */,
+				77907B1C208B4287005FDE9D /* DirectionalDemandReleaseViewCell.xib in Resources */,
 				770D76F720620706007601A8 /* TradingListViewController.xib in Resources */,
 				77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */,
 				770D774920649074007601A8 /* SearchTableViewCell.xib in Resources */,
@@ -2486,6 +2710,7 @@
 				77A51490207CA3C2003206B5 /* MyHotDetailViewController.xib in Resources */,
 				772F958020523BA800F432D2 /* SearchViewController.xib in Resources */,
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
+				7753C316208F3421009FF82C /* CustomRequirementsStateListController.xib in Resources */,
 				770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */,
 				77BB2123206D2C08000CADC9 /* SearchHotCollectionViewCell.xib in Resources */,
 				772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */,
@@ -2493,6 +2718,7 @@
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
 				770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */,
+				77BE88B3208889B000C72617 /* CustomRequirementsStoreCell.xib in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
 				77BB213720707AA4000CADC9 /* ProvinceTableViewCell.xib in Resources */,
@@ -2607,17 +2833,21 @@
 				77484A932020BD3300BAC567 /* HotDetailsViewController.m in Sources */,
 				7792B733201F3C7C00587399 /* DesignerInfoViewController.m in Sources */,
 				77DA8344201974C100E7CB36 /* H5ListViewController.m in Sources */,
+				77BE88D02089960200C72617 /* KylinScrollView.m in Sources */,
 				772F95A120567E1500F432D2 /* QrCodeViewController.m in Sources */,
 				7733E3052079E9920081B05E /* EnterpriseSigningState.m in Sources */,
 				777D5175200CC52700CB2A8A /* ViewController.m in Sources */,
 				77E8A8822011DCB000E253CC /* ViewController+MASAdditions.m in Sources */,
+				77492C082091D05D00E9960E /* CustomRequirementsStateDetailViewController.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
 				7717E9A3206B878D0025DC73 /* DirectMessagesViewController.m in Sources */,
 				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77723AE62043BBB2006294E8 /* MSSBrowseCollectionViewCell.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
 				770D776F20690F00007601A8 /* Popularize.m in Sources */,
+				77907B29208D7513005FDE9D /* CustomRequirementsDesginListViewController.m in Sources */,
 				77723AEE2043BBB2006294E8 /* UIView+MSSLayout.m in Sources */,
+				77F4FF14208DD6300024ED42 /* DemandReleaseViewController.m in Sources */,
 				77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */,
 				772F957F20523BA800F432D2 /* SearchViewController.m in Sources */,
 				77484AC32023200B00BAC567 /* UINavigationBar+Awesome.m in Sources */,
@@ -2632,6 +2862,7 @@
 				7733E3022079E96B0081B05E /* DesignerSigningState.m in Sources */,
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
+				77BE88AD208887B400C72617 /* CustomRequirementsStore.m in Sources */,
 				770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */,
 				777AF1BD200DA2E5009729AD /* InterfaceBase.m in Sources */,
 				77484AB72022BB9200BAC567 /* LoginMannager.m in Sources */,
@@ -2644,6 +2875,7 @@
 				770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */,
 				770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */,
 				77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */,
+				7753C326208F5DBC009FF82C /* CustomRequirementsList.m in Sources */,
 				77E8A8792011DCB000E253CC /* MASCompositeConstraint.m in Sources */,
 				77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */,
 				77484A7F2020478000BAC567 /* RecommendedTableViewCell.m in Sources */,
@@ -2654,6 +2886,7 @@
 				770D770D20622AF5007601A8 /* EarningList.m in Sources */,
 				7792B737201F404E00587399 /* DesignerInfoHeaderView.m in Sources */,
 				77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */,
+				7753C31A208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m in Sources */,
 				77723A8A2043B015006294E8 /* NSData+Base64.m in Sources */,
 				7777E5642029F3C4008FA348 /* LeaveDetailStore.m in Sources */,
 				777AF1DA200E3C15009729AD /* OSHelper.m in Sources */,
@@ -2668,6 +2901,7 @@
 				77DA83532019796B00E7CB36 /* H5ListStore.m in Sources */,
 				77CE7C85202B02DF0067D284 /* AlertView.m in Sources */,
 				77484ABD2022F8C600BAC567 /* TagList.m in Sources */,
+				77BE88AA208885B300C72617 /* CustomRequirements.m in Sources */,
 				77826B992019DBE500F53E28 /* MyInfomation.m in Sources */,
 				774B87EF204E821700F602E3 /* ProtocolViewController.m in Sources */,
 				77848AE6202EA07600C0CCD2 /* BaseViewController+ErrorMassager.m in Sources */,
@@ -2703,6 +2937,7 @@
 				77E8A87B2011DCB000E253CC /* MASConstraintMaker.m in Sources */,
 				77A51498207DDD34003206B5 /* PopularizeAllCount.m in Sources */,
 				77B86FE7202803080096FB28 /* TagView.m in Sources */,
+				77907B22208C4745005FDE9D /* DirectionalDemandReleaseStore.m in Sources */,
 				775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */,
 				77B86FED202861C00096FB28 /* LeaveViewController.m in Sources */,
 				77484A9F2021914300BAC567 /* HotDetails.m in Sources */,
@@ -2710,6 +2945,7 @@
 				77723AE32043BBB2006294E8 /* MSSBrowseActionSheet.m in Sources */,
 				77484A86202054D800BAC567 /* RecommendedDataSource.m in Sources */,
 				77E8A85820119C3200E253CC /* ThemeCustom.m in Sources */,
+				77907B32208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m in Sources */,
 				77C07F91204D3A9B00D77DBD /* SetupHomeDataSource.m in Sources */,
 				77484ABA2022C54100BAC567 /* UserArticle.m in Sources */,
 				77484A832020543500BAC567 /* Recommended.m in Sources */,
@@ -2721,6 +2957,7 @@
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
+				77BE88B2208889B000C72617 /* CustomRequirementsStoreCell.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
 				770D77602068F87C007601A8 /* PopularizeItmeTableViewController.m in Sources */,
 				77484AC720233DE300BAC567 /* JSBadgeView.m in Sources */,
@@ -2731,8 +2968,11 @@
 				777AF1DD200E427B009729AD /* KeychainItemWrapper.m in Sources */,
 				7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */,
 				7777E55420294413008FA348 /* Leave.m in Sources */,
+				77907B1F208C468B005FDE9D /* DemandEdit.m in Sources */,
 				77B2F47A2010AEE100EF4119 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */,
+				77BE88CD2089867500C72617 /* CustomRequirementsDetailDataSource.m in Sources */,
+				77BE88C420897EAE00C72617 /* CustomRequirementsDetailTabelViewController.m in Sources */,
 				77DA83502019793C00E7CB36 /* H5ListDataSource.m in Sources */,
 				77BB21562075CC08000CADC9 /* YYGestureRecognizer.m in Sources */,
 				772F959C2056206A00F432D2 /* SetupProductViewController.m in Sources */,
@@ -2761,8 +3001,10 @@
 				77E00A65201705CA004BBD49 /* SegmentTapView.m in Sources */,
 				7792B71D201ACF7900587399 /* HomeStore.m in Sources */,
 				77484A7A2020473E00BAC567 /* RecommendedViewController.m in Sources */,
+				77907B35208D7F3B005FDE9D /* CustomRequirementsDegsinList.m in Sources */,
 				77E8A8AF2015BEEC00E253CC /* SNChartLine.m in Sources */,
 				77B1A0F220440BAA00F922DD /* SigningStateViewController.m in Sources */,
+				77EF13032092FC19000964A7 /* BiddingProductListViewController.m in Sources */,
 				77484AA82021A1B100BAC567 /* HotDetailDataSource.m in Sources */,
 				77369CD7200F530F0092AEAC /* MyInfomationViewController.m in Sources */,
 				77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */,
@@ -2779,9 +3021,13 @@
 				77484AD2202403C600BAC567 /* MyTabBarController.m in Sources */,
 				7792B720201AF89700587399 /* Home.m in Sources */,
 				772F95AB20590C1600F432D2 /* CommentListTableViewCell.m in Sources */,
+				77907B12208A0831005FDE9D /* Demand.m in Sources */,
+				77BE88BB20889ED800C72617 /* CustomRequirementsDataSource.m in Sources */,
 				770D770520620BE1007601A8 /* TradingList.m in Sources */,
 				770D76F620620706007601A8 /* TradingListViewController.m in Sources */,
 				7777E55D2029F17F008FA348 /* LeaveDateilCell.m in Sources */,
+				77907B1B208B4287005FDE9D /* DirectionalDemandReleaseViewCell.m in Sources */,
+				77BE88B720889E1400C72617 /* CustomRequirementsViewController.m in Sources */,
 				77E8A87A2011DCB000E253CC /* MASConstraint.m in Sources */,
 				77369CE6200F987F0092AEAC /* AppDelegate+WeChat.m in Sources */,
 				77723A402033E1AD006294E8 /* YZTagButton.m in Sources */,
@@ -2794,6 +3040,7 @@
 				77723AE82043BBB2006294E8 /* MSSBrowseLocalViewController.m in Sources */,
 				77484AA52021966400BAC567 /* HotComments.m in Sources */,
 				77F0789F20464A79004C0596 /* MarketingViewController.m in Sources */,
+				77907B2E208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m in Sources */,
 				7717E994206B74B80025DC73 /* UserMessege.m in Sources */,
 				77E8A8AE2015BEEC00E253CC /* SNChartBar.m in Sources */,
 				77484AAE2021F26A00BAC567 /* HomeBanner.m in Sources */,
@@ -2805,6 +3052,7 @@
 				772F95B6205A48FB00F432D2 /* MyhotViewController.m in Sources */,
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
+				7753C323208F53F9009FF82C /* CustomRequirementsStateListDataSource.m in Sources */,
 				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,
 				770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */,
 				77E00A6D2018269A004BBD49 /* CarouselScrollView.m in Sources */,
@@ -2814,7 +3062,9 @@
 				777AF1D1200DFD10009729AD /* ThemeManager.m in Sources */,
 				77E8A85B20119CA200E253CC /* ThemeCustomStore.m in Sources */,
 				7782DDC0205F5D54004C2108 /* Statistical.m in Sources */,
+				7753C315208F3421009FF82C /* CustomRequirementsStateListController.m in Sources */,
 				77E8A8A220158EAD00E253CC /* StatisticalData.m in Sources */,
+				77BE88C920897FB900C72617 /* CustomRequirementsDetailCell.m in Sources */,
 				77826B9C2019DC7A00F53E28 /* MyInfomationDataSource.m in Sources */,
 				77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */,
 				7792B71A201ACED800587399 /* HomeDataSource.m in Sources */,
@@ -2823,6 +3073,7 @@
 				77484AD3202403C600BAC567 /* MyTabBar.m in Sources */,
 				77CE7C79202AEB570067D284 /* InfomationDataSource.m in Sources */,
 				77723AE92043BBB2006294E8 /* MSSBrowseModel.m in Sources */,
+				7753C31F208F3724009FF82C /* CustomRequirementsStateListCell.m in Sources */,
 				772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */,
 				7777E56A202AE058008FA348 /* HomeSectionHeaderView.m in Sources */,
 				77DA833620187EEB00E7CB36 /* DesignerListViewCollectionViewCell.m in Sources */,
@@ -2830,6 +3081,7 @@
 				77E8A850201197EF00E253CC /* ThemeCustomDataSource.m in Sources */,
 				77848AE9202EE1A300C0CCD2 /* ProductDetail.m in Sources */,
 				77B86FFC20287A010096FB28 /* LMJDropdownMenu.m in Sources */,
+				77907B25208CD13D005FDE9D /* DirectionalDemandReleaseDataSource.m in Sources */,
 				770D773C20636193007601A8 /* HotBusinessCircleController.m in Sources */,
 				77723AC42043BB42006294E8 /* ZYQAssetPickerController.m in Sources */,
 				77848AF2202EE3C300C0CCD2 /* UserProduct.m in Sources */,
@@ -2840,6 +3092,7 @@
 				77484A892020551100BAC567 /* RecommendedStore.m in Sources */,
 				7792B728201C7BC100587399 /* HomeModel.m in Sources */,
 				77A51494207DA5E8003206B5 /* CommentPopularizeViewController.m in Sources */,
+				77907B0F208A081E005FDE9D /* Enterprise.m in Sources */,
 				77BB213D20707B22000CADC9 /* ProvinceDataSource.m in Sources */,
 				777D516F200CC52700CB2A8A /* main.m in Sources */,
 				77723AF42043C869006294E8 /* UIView+PYExtension.m in Sources */,
@@ -2850,17 +3103,20 @@
 				775909A32016350300F9D8EA /* PXLineChartConst.m in Sources */,
 				77723AE52043BBB2006294E8 /* MSSBrowseBaseViewController.m in Sources */,
 				77BB21532074A789000CADC9 /* UIButton+See.m in Sources */,
+				77907B16208B425D005FDE9D /* DirectionalDemandReleaseViewController.m in Sources */,
 				77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */,
 				77369CB0200F05BC0092AEAC /* UIViewController+BarItem.m in Sources */,
 				77BB2129206E34BB000CADC9 /* MapLocationManager.m in Sources */,
 				770D7709206210D9007601A8 /* EarningListViewController.m in Sources */,
 				77484AA2202192E200BAC567 /* Article.m in Sources */,
+				77E6569320907B85002772A5 /* CustomRequirementsDetail.m in Sources */,
 				77369CDC200F536C0092AEAC /* MyWorksViewCotroller.m in Sources */,
 				77E8A8812011DCB000E253CC /* View+MASAdditions.m in Sources */,
 				772F95892054C23C00F432D2 /* MessageTableViewCell.m in Sources */,
 				77E8A8542011997800E253CC /* ThemeCustomViewCollectionViewCell.m in Sources */,
 				77A436A3204533DD00620F58 /* OtherInfo.m in Sources */,
 				77369CCD200F52810092AEAC /* HomeViewController.m in Sources */,
+				77BE88BF2088AE7D00C72617 /* CustomRequirementsDetailViewController.m in Sources */,
 				77E8A88520123A1600E253CC /* UIColor+CAGradientLayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

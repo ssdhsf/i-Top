@@ -21,6 +21,15 @@ typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
     StatisticalItmeTypePop , //推广管理
 };
 
+typedef NS_ENUM(NSInteger, EditType) { //首页Tag类型
+    EditTypeNoel = 0, //不可编辑
+    EditTypeTextFied = 1,//文本编辑
+    EditTypeTextView,//文本编辑
+    EditTypeSelectImage,//选择图片
+    EditTypeSelectItem, //选择项
+    EditTypeSelectTime //选择时间
+};
+
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
 typedef void (^CommentPopularizeBackOffBolck)(id parameter); //返回上一级回掉
 typedef void (^UpdateHotBackOffBolck)(id parameter); //返回上一级回掉
@@ -32,6 +41,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
 typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
 
+typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交返回
 
 @class H5List;
 
@@ -49,6 +59,7 @@ typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
 @property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
 @property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
+@property (copy, nonatomic)CustomRequirementsBackOffBolck customRequirementsBackOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
@@ -245,6 +256,21 @@ typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
  */
 -(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome;
 
+/**
+ *  定制需求列表
+ */
++(void)customRequirementsViewController;
 
+/**
+ *  定制需求详情
+ */
++(void)customRequirementsDetailViewControllerWithCustomId:(NSNumber *)custom_id;
+
+/**
+ *  定制需求列表
+ */
++(void)customRequirementsReleaseViewControllerWithIsEdit:(BOOL)isEdit
+                                              demandType:(DemandType)demandType
+                                               demand_id:(NSNumber *)demand_id;
 
 @end

@@ -37,7 +37,6 @@ typedef void (^FGGTagScrolledBlock)(NSInteger indexPath);
  */
 -(instancetype)initWithFrame:(CGRect)frame placeHolderImage:(UIImage *)placeHolderImage imageURLs:(NSArray *)URLArray imageDidSelectedBlock:(FGGImageClickBlock) didSelectedImageAtIndex;
 
-
 -(void)initTimer;
 -(void)stopTimer;
 
@@ -45,6 +44,7 @@ typedef void (^FGGTagScrolledBlock)(NSInteger indexPath);
 -(void)createAutoCarouselScrollView;
 -(void)createdesignerScrollView;
 -(void)createTagScrollView;
+-(void)createCustromScrollView;
 
 
 @end

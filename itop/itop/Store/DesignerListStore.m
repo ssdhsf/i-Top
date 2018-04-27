@@ -50,4 +50,19 @@
     return sectionArray;
 }
 
+
+- (NSMutableArray *)configurationCustomRequirementsDegsinListWithRequstData:(NSArray *)desgin{
+    
+        NSMutableArray *sectionArray = [NSMutableArray array];
+    
+    for (NSDictionary *dic in desgin) {
+        
+        CustomRequirementsDegsinList *designer = [[CustomRequirementsDegsinList alloc]initWithDictionary:dic error:nil];
+        [sectionArray addObject:designer];
+        
+    }
+    
+    return sectionArray;
+}
+
 @end

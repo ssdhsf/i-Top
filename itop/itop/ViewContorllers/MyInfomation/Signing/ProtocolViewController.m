@@ -14,6 +14,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *protocolLabel;
 @property (strong, nonatomic) IBOutlet UILabel *designerProtocolLabel;
 @property (strong, nonatomic) IBOutlet UILabel *marktProtocolLabel;
+@property (strong, nonatomic) IBOutlet UILabel *customRequireLabel;
 
 @end
 
@@ -21,7 +22,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -34,19 +34,20 @@
 
 -(void)initNavigationBarItems{
     
-    self.title = @"入驻协议";
+    if (_protocolType == ProtocolTypeCustomRequirements) {
+         self.title = @"定制协议";
+    } else{
+        
+         self.title = @"入驻协议";
+    }
 }
 
 -(void)initData{
     
     [super initData];
-    
-    _protocolType = ProtocolTypeDesginer;
-    
     NSArray *boldTextArray = [NSArray array];
     NSString *protocol = [NSString string];
     _protocolTextView.editable = NO;
-    
     switch (_protocolType) {
             case ProtocolTypeDesginer:
             boldTextArray = @[@"i-Top设计师协议",
@@ -92,6 +93,22 @@
                               @"(九) 其他"];
             protocol = _marktProtocolLabel.text;
             break;
+        case ProtocolTypeCustomRequirements:
+            boldTextArray = @[@"i-Top平台定制需求发布与处理规则",
+                              @"第一条",
+                              @"第二条",
+                              @"第三条",
+                              @"第四条",
+                              @"第五条",
+                              @"第六条",
+                              @"第七条",
+                              @"第八条",
+                              @"第九条",
+                              @"第十条",
+                              @"第十一条"];
+            protocol = _customRequireLabel.text;
+            break;
+
         default:
             break;
     }

@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString <Optional>*designerName;
 @property (nonatomic, strong) NSString <Optional>*designerProfessional;
 
-@property (nonatomic, strong) NSString <Optional>*id;
+@property (nonatomic, strong) NSNumber <Optional>*id;
 @property (nonatomic, strong) NSString <Optional>*head_img;
 @property (nonatomic, strong) NSString <Optional>*nickname;
 @property (nonatomic, strong) NSString <Optional>*level;

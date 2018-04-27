@@ -89,6 +89,19 @@
 -(void)initView{
     
     [super initView];
+    [self.companyButoon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(0);
+        make.width.mas_equalTo(ScreenWidth/2);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+        make.height.mas_equalTo(45);
+    }];
+    [self.pricebutton mas_makeConstraints:^(MASConstraintMaker *make) {
+        
+        make.right.mas_equalTo(0);
+        make.width.mas_equalTo(ScreenWidth/2);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+        make.height.mas_equalTo(45);
+    }];
 }
 
 -(void)createScrollView{
@@ -114,7 +127,8 @@
     
     _webVc = [[WebViewController alloc]init];
     _webVc.h5Url = _productDetail.product.url;
-    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh-109);
+    CGFloat webVcHigth = ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT +4;
+    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, webVcHigth);
     [_scroll addSubview:_webVc.view];
 }
 

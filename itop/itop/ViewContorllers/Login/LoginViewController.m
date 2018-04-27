@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIButton *seeIcon;
-@property (weak, nonatomic) IBOutlet UIButton *backIcon;
+//@property (weak, nonatomic) IBOutlet UIButton *backIcon;
 
 @end
 
@@ -30,8 +30,7 @@
 
 -(void)initView{
     
-    
-    _backIcon.hidden = _isLogin;
+//    _backIcon.hidden = _isLogin;
     
     [_loginButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginButton)];
     _loginButton.layer.cornerRadius = _loginButton.frame.size.height/2;
@@ -50,11 +49,29 @@
     _passwordTF.text = [[Global sharedSingleton]getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD];
 }
 
+-(void)initNavigationBarItems{
+    
+    [super initNavigationBarItems];
+    [self setLeftCustomBarItem :@"zuo_icon_close" action:@selector(back)];
+    self.title = @"登录";
+}
+
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    [self hiddenNavigationController:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self hiddenNavigationController:_isLogin];
+    [self hiddenNavigafindHairlineImageView:YES];
+    self.navigationController.navigationBar.translucent = NO;
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
+- (void)viewSafeAreaInsetsDidChange{
+    [super viewSafeAreaInsetsDidChange];
+    if (@available(iOS 11, *)) {
+//        [self setAdditionalSafeAreaInsets:self.view.safeAreaInsets];
+        
+    }
+//    [self defaultUIWithSafeAreaInsets:self.view.safeAreaInsets];
 }
 
 //登录
@@ -198,9 +215,9 @@
     //    [UIAlertView showWithTitle:strTitle message:strMsg sure:nil];
 }
 
-- (IBAction)back:(UIButton *)sender {
+-(void)back{
     
-    [self back];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

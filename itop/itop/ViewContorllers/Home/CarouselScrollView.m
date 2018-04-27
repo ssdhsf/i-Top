@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "HomeCollectionViewCell.h"
 #import "TagView.h"
+#import "CustomRequirementsStoreCell.h"
 
 /**
  *  滚动时间间隔 可以自己修改
@@ -207,8 +208,8 @@ static double kFGGScrollInterval = 5.0f;
         //添加点击图片的手势
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapDesignImage:)];
 //        tap.numberOfTapsRequired = i;
-        [imv addGestureRecognizer:tap];
-        imv.tag = i;
+        [self addGestureRecognizer:tap];
+        self.tag = i;
         
         UILabel *NameLabel = [[UILabel alloc]initWithFrame:CGRectMake(i*(self.frame.size.width/3)+20, CGRectGetMaxY(imv.frame)+18,  80,16)];
         NameLabel.textAlignment = NSTextAlignmentCenter;
@@ -309,6 +310,39 @@ static double kFGGScrollInterval = 5.0f;
     }
 }
 
+-(void)createCustromScrollView{
+    
+    if(_scroll){
+        
+        for(UIView *sub in _scroll.subviews)
+            [sub removeFromSuperview];
+        [_scroll removeFromSuperview];
+        _scroll=nil;
+    }
+    
+    NSLog(@"%f", self.bounds.size.height);
+    _scroll=[[UIScrollView alloc]initWithFrame:self.bounds];
+    [self addSubview:_scroll];
+    _scroll.delegate = self;
+    NSInteger page= _imageURLArray.count;
+    _scroll.contentSize = CGSizeMake(page*ScreenWidth, self.bounds.size.height);
+    _scroll.pagingEnabled = YES;
+    _scroll.showsHorizontalScrollIndicator = NO;
+    for(int i = 0;i < _imageURLArray.count;i++){
+        
+        CustomRequirements *custom = _imageURLArray[i];
+        CustomRequirementsStoreCell *cell =  [[[NSBundle mainBundle] loadNibNamed:@"CustomRequirementsStoreCell" owner:nil options:nil] lastObject];
+        cell.frame = CGRectMake(i*ScreenWidth, 0, ScreenWidth, self.height);
+        cell.buttonTag = i;
+        [_scroll addSubview:cell];
+        [cell setItmeOfModel:custom];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapCustrom:)];
+        //        tap.numberOfTapsRequired = i;
+        [self addGestureRecognizer:tap];
+        self.tag = i;
+    }
+}
+
 /**
  *  自动循环滚动
  */
@@ -375,6 +409,14 @@ static double kFGGScrollInterval = 5.0f;
     }
 }
 
+-(void)tapCustrom:(UITapGestureRecognizer *)tap{
+    
+    if(self.didSelectedImageAtIndex){
+        UIView *view = tap.view;
+        self.didSelectedImageAtIndex(view.tag);
+    }
+}
+
 /**图片数组的setter方法*/
 -(void)setImageURLArray:(NSArray *)imageURLArray{
     
@@ -388,14 +430,17 @@ static double kFGGScrollInterval = 5.0f;
 
 #pragma mark - UIScrollView
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    
-    NSInteger index = _scroll.contentOffset.x/self.bounds.size.width;
-    if(index == _imageURLArray.count-1)
-        index = 0;
-    if(self.imageDidScrolledBlock)
-        self.imageDidScrolledBlock(index);
-    _pageControl.currentPage = index;
-    _scroll.contentOffset = CGPointMake(self.bounds.size.width*index, 0);
+   
+    if (self.tag == 0) {
+        
+        NSInteger index = _scroll.contentOffset.x/self.bounds.size.width;
+        if(index == _imageURLArray.count-1)
+            index = 0;
+        if(self.imageDidScrolledBlock)
+            self.imageDidScrolledBlock(index);
+        _pageControl.currentPage = index;
+        _scroll.contentOffset = CGPointMake(self.bounds.size.width*index, 0);
+    }
     
     if (self.tag == 0) {
             [self initTimer];

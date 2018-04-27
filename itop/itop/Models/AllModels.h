@@ -50,5 +50,13 @@
 #import "SigningState.h"
 #import "PopularizeAllCount.h"
 #import "City.h"
+#import "CustomRequirements.h"
+#import "CustomRequirementsDetail.h"
+#import "Demand.h"
+#import "Enterprise.h"
+#import "DemandEdit.h"
+#import "CustomRequirementsDegsinList.h"
+#import "CustomRequirementsList.h"
+
 
 #endif /* AllModels_h */

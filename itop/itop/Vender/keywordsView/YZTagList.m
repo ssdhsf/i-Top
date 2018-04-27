@@ -150,12 +150,10 @@ CGFloat const imageViewWH = 20;
     }
 }
 
-
-// 添加标签
-- (void)addSearchListTag:(NSArray *)tagList action:(SEL)action
-{
+// 添加搜索标签
+- (void)addSearchListTag:(NSArray *)tagArray action:(SEL)action{
     
-    for (NSString *tag in tagList) {
+    for (NSString *tag in tagArray) {
         
         Class tagClass = _tagClass?_tagClass : [YZTagButton class];
         
@@ -169,6 +167,28 @@ CGFloat const imageViewWH = 20;
         [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
         [tagButton setBackgroundColor:_tagBackgroundColor];
         [self generalSetupWithButton:tagButton action:action tag:tag];
+    }
+}
+
+- (void)addOperationDemandListTag:(NSArray *)tagArray action:(SEL)action{
+
+    for (NSString *tag in tagArray) {
+        
+        Class tagClass = _tagClass?_tagClass : [YZTagButton class];
+        
+        // 创建标签按钮
+        YZTagButton *tagButton = [tagClass buttonWithType:UIButtonTypeCustom];
+        if (_tagClass == nil) {
+            tagButton.margin = _tagButtonMargin;
+        }
+        
+        tagButton.layer.cornerRadius = 0;
+        [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
+        [tagButton setBackgroundColor:_tagBackgroundColor];
+        
+        [self generalSetupWithButton:tagButton action:action tag:tag];
+        [tagButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(tagButton) atIndex:0];
+        [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 
@@ -222,6 +242,13 @@ CGFloat const imageViewWH = 20;
 - (void)searchListTag:(UIButton *)button{
     if (_searchListTagBlock ) {
         _searchListTagBlock(button.currentTitle);
+    }
+}
+
+// 点击标签  状态操作
+- (void)operationDemandListTagTag:(UIButton *)button{
+    if (_operationDemandListTagBlock ) {
+        _operationDemandListTagBlock(button.currentTitle);
     }
 }
 
@@ -358,7 +385,6 @@ CGFloat const imageViewWH = 20;
             self.frame = frame;
         }];
     }
-
 }
 
 // 更新标签
@@ -403,8 +429,7 @@ CGFloat const imageViewWH = 20;
     if (preI >= 0) {
         preButton = self.tagButtons[preI];
     }
-    
-    
+ 
     // 获取当前按钮
     YZTagButton *tagButton = self.tagButtons[i];
     // 判断是否设置标签的尺寸
@@ -416,8 +441,6 @@ CGFloat const imageViewWH = 20;
         // 计算标签按钮frame（regular）
         [self setupTagButtonRegularFrame:tagButton];
     }
-    
-    
 }
 
 // 计算标签按钮frame（按规律排布）
@@ -471,7 +494,6 @@ CGFloat const imageViewWH = 20;
     
     tagButton.frame = CGRectMake(btnX, btnY, btnW+btnH/2, btnH);
     tagButton.layer.cornerRadius = _tagCornerRadius;
-    
 }
 
 @end

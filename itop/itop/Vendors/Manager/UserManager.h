@@ -154,6 +154,30 @@ typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
     OrderStatusTypeNotPass //审核不通过
 };
 
+typedef NS_ENUM(NSInteger, DemandType) { //首页Tag类型
+    DemandTypeDirectional = 0, //定向需求
+    DemandTypeBidding = 1,//竞标需求
+};
+
+typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
+    CustomRequirementsTypeUnAccept = 0, //待接单
+    CustomRequirementsTypeAccept = 1, //已接单
+    CustomRequirementsTypeRefuse , //已拒绝
+    CustomRequirementsTypeBid , //竞标中
+    CustomRequirementsTypeBidSucess, //竞标成功
+    CustomRequirementsTypeBidFail , //竞标失败
+    CustomRequirementsTypeBidCancel, //竞标取消
+    CustomRequirementsTypeSucess, //验收完成
+    CustomRequirementsTypeFail, //合作失败
+    CustomRequirementsTypeCompletion, //已完成
+    CustomRequirementsTypePending, //审核中
+    CustomRequirementsTypeNotPass, //审核不通过
+    CustomRequirementsTypeCanceled, //合作取消
+    CustomRequirementsTypeOut, //下架
+    CustomRequirementsTypeIntervention, //平台介入
+
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -245,6 +269,9 @@ typedef void (^MapLocationManagerFailure)(id obj);//定位
 
 typedef void (^CityListSuccess)(id obj);
 typedef void (^CityListFailure)(id obj);
+
+typedef void (^CustomRequirementsSuccess)(id obj);
+typedef void (^CustomRequirementsFailure)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
@@ -392,6 +419,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取定位————————————————————————*/
 @property (nonatomic, copy) MapLocationManagerSuccess mapLocationManagerSuccess;
 @property (nonatomic, copy) MapLocationManagerFailure mapLocationManagerFailure;
+
+/*----------------定制需求————————————————————————*/
+@property (nonatomic, copy) CustomRequirementsSuccess customRequirementsSuccess;
+@property (nonatomic, copy) CustomRequirementsFailure customRequirementsFailure;
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger timers;
@@ -894,14 +925,60 @@ typedef void (^ErrorFailure)(id obj);
  */
 -(void)userMessageListWithId:(NSString *)user_id;
 
-
 /**
  *  发送记录
  *
  *  @param user_id 发送对象用户id
  *  @param content 发送消息
  */
-
 -(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content;
+
+/*
+ *  获取定制案例分页
+ *
+ *  @param user_id 用户id
+ */
+- (void)customRequirementsListWithUserId:(NSNumber *)user_id
+                               PageIndex:(NSInteger )pageIndex
+                               PageCount:(NSInteger )pageCount;
+/*
+ *  获取定制管理分页
+ *
+ *  @param user_id 用户id
+ */
+- (void)getUserCustomRequirementsListWithUserId:(NSNumber *)user_id
+                                     demandType:(DemandType)demand_type
+                                      PageIndex:(NSInteger )pageIndex
+                                      PageCount:(NSInteger )pageCount;
+
+/**
+ *  获取定制案例详情
+ *
+ *  @param detail_id 用户id
+ */
+- (void)customRequirementsDetailWithDetailId:(NSNumber *)detail_id;
+
+/**
+ *  提交定制管理
+ *
+ *  @param parameters 提交定制管理参数
+ *  @param isUpdata   是否更新
+ */
+- (void)customRequirementsParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata;
+
+/**
+ *  删除定制管理
+ *
+ *  @param demant_id 定制id
+ */
+- (void)deleteCustomRequirementsWithId:(NSNumber *)demant_id;
+
+/**
+ *  下架定制管理
+ *
+ *  @param demant_id 定制id
+ *  @param operationType 操作类型
+ */
+- (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  operation:(NSString * )operationType;
 
 @end

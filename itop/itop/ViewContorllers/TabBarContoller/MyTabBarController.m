@@ -39,27 +39,4 @@
     self.tabBar.tintColor =  XBlueColor;
 }
 
-#pragma mark - MyTabBarDelegate
-//-(void)addButtonClick:(MyTabBar *)tabBar{
-//    
-//    
-//    [[ApplicationStore shearApplicationStore] configurationMenuWithMenu:[[UserManager shareUserManager]crrentUserInfomation].menu40];
-//  if ([[UserManager shareUserManager].crrentUserInfomation.user_type integerValue]== 1) {
-//    MCSigninController *vc = [[MCSigninController alloc]initWithNibName:@"MCSigninController" bundle:nil];
-////    vc.hidesBottomBarWhenPushed = NO;
-//    vc.title = @"签到";
-//    
-//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-//    [self presentViewController:nvc animated:YES completion:^{
-//      
-//    }];
-//  }else{
-//      UIViewController *vc = [UIManager viewControllerWithName:@"SignInReportViewController"];
-//      [UIManager showViewController:vc Animated:YES];
-//  }
-//  
-//  
-//    
-//}
-
 @end

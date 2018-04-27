@@ -27,6 +27,13 @@ typedef NS_ENUM(NSInteger, SignPickViewType) { //入驻Type
     SignPickViewTypeProvince , //选择城市
 };
 
+//typedef NS_ENUM(NSInteger, DemandReleasePickViewType) { //入驻Type
+//    SignPickViewTypeIndustry = 0, //选择所属行业
+//    SignPickViewTypeCompnySize = 1, //选择企业规模
+//    SignPickViewTypeProvince , //选择城市
+//};
+
+
 
 typedef void(^AlertResult)(NSInteger index , PickViewType pickViewType);
 

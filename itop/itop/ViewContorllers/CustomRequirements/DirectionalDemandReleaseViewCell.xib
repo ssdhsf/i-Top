@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="KGk-i7-Jjw" customClass="DirectionalDemandReleaseViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="参考案例" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rby-uy-8pS">
+                        <rect key="frame" x="20" y="10" width="66" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="66" id="Y9a-CV-Ts4"/>
+                            <constraint firstAttribute="height" constant="21" id="bK4-Zq-Vui"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请选择" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="afA-KR-yUd">
+                        <rect key="frame" x="101" y="10" width="203" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="9jE-wz-Hj9"/>
+                        </constraints>
+                        <nil key="textColor"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <textInputTraits key="textInputTraits"/>
+                    </textField>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tq7-2W-hyO">
+                        <rect key="frame" x="89" y="41" width="215" height="0.5"/>
+                        <color key="backgroundColor" red="0.85490196078431369" green="0.87058823529411766" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ErS-PH-hpK"/>
+                        </constraints>
+                    </view>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="j9v-xE-cjZ">
+                        <rect key="frame" x="89" y="10" width="215" height="39"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                    <button opaque="NO" contentMode="scaleAspectFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GMH-2v-Sah">
+                        <rect key="frame" x="101" y="10" width="80" height="39"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <state key="normal" image="ruzhu_icon_add"/>
+                        <connections>
+                            <action selector="selectImageButton:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="VAk-7x-GQH"/>
+                        </connections>
+                    </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purse_icon_more" translatesAutoresizingMaskIntoConstraints="NO" id="jle-uw-lCq">
+                        <rect key="frame" x="284" y="17" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="25" id="5ep-QV-1Jk"/>
+                            <constraint firstAttribute="width" constant="25" id="USL-KU-dGZ"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="j9v-xE-cjZ" firstAttribute="leading" secondItem="Rby-uy-8pS" secondAttribute="trailing" constant="3" id="5n6-sN-lZo"/>
+                    <constraint firstItem="j9v-xE-cjZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="71h-gG-GgC"/>
+                    <constraint firstItem="afA-KR-yUd" firstAttribute="leading" secondItem="Rby-uy-8pS" secondAttribute="trailing" constant="15" id="7Ly-Sz-RWh"/>
+                    <constraint firstAttribute="trailing" secondItem="j9v-xE-cjZ" secondAttribute="trailing" constant="16" id="9SI-Jd-lrP"/>
+                    <constraint firstItem="afA-KR-yUd" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="K83-P1-tod"/>
+                    <constraint firstItem="Tq7-2W-hyO" firstAttribute="top" secondItem="afA-KR-yUd" secondAttribute="bottom" constant="10" id="Qt9-ii-eHt"/>
+                    <constraint firstItem="Tq7-2W-hyO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="89" id="SJn-3U-YPd"/>
+                    <constraint firstAttribute="trailing" secondItem="jle-uw-lCq" secondAttribute="trailing" constant="11" id="bc1-Oy-7ER"/>
+                    <constraint firstItem="Rby-uy-8pS" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="dZK-YK-LTQ"/>
+                    <constraint firstAttribute="trailing" secondItem="afA-KR-yUd" secondAttribute="trailing" constant="16" id="mjh-w2-U8Y"/>
+                    <constraint firstItem="Rby-uy-8pS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="rz7-3u-wHN"/>
+                    <constraint firstAttribute="trailing" secondItem="Tq7-2W-hyO" secondAttribute="trailing" constant="16" id="usN-6e-CLH"/>
+                    <constraint firstAttribute="bottom" secondItem="j9v-xE-cjZ" secondAttribute="bottom" constant="10.5" id="wSq-Yd-V30"/>
+                </constraints>
+            </tableViewCellContentView>
+            <constraints>
+                <constraint firstItem="jle-uw-lCq" firstAttribute="centerY" secondItem="KGk-i7-Jjw" secondAttribute="centerY" id="VIm-No-Ymb"/>
+            </constraints>
+            <connections>
+                <outlet property="contentTF" destination="afA-KR-yUd" id="02C-Iv-C6n"/>
+                <outlet property="contentTV" destination="j9v-xE-cjZ" id="QtS-di-p31"/>
+                <outlet property="lineView" destination="Tq7-2W-hyO" id="fH3-i0-yAo"/>
+                <outlet property="purseIconImage" destination="jle-uw-lCq" id="NgN-EY-dxO"/>
+                <outlet property="selectImageButton" destination="GMH-2v-Sah" id="Weo-CP-RWl"/>
+                <outlet property="titleLabel" destination="Rby-uy-8pS" id="KXB-KU-rXU"/>
+            </connections>
+            <point key="canvasLocation" x="-21" y="114"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="purse_icon_more" width="25" height="25"/>
+        <image name="ruzhu_icon_add" width="35" height="35"/>
+    </resources>
+</document>

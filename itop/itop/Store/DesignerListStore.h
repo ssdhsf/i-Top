@@ -15,4 +15,7 @@
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
 
 
+- (NSMutableArray *)configurationCustomRequirementsDegsinListWithRequstData:(NSArray *)desgin;
+
+
 @end

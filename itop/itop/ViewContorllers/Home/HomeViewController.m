@@ -23,6 +23,7 @@
 #import "DesignerInfoViewController.h"
 #import "TemplateDetaulViewController.h"
 #import "MapLocationManager.h"
+#import "CustomRequirementsStore.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
@@ -45,6 +46,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong)CarouselScrollView *designerbannerView;
 @property (nonatomic, strong)CarouselScrollView *tagbannerView;
 @property (nonatomic, strong)HomeDataSource *homeDataSource;
+@property (nonatomic, strong)CarouselScrollView *custrombannerView;
 
 @property (nonatomic, strong) UIView *navBgView;
 @property (nonatomic, strong) UIButton *loctionBtn;
@@ -176,14 +178,28 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         }else{
             [self.dataArray replaceObjectAtIndex:0 withObject:home];
         }
+        [self loadingCustomRequirementsList];
+    };
+}
+
+-(void)loadingCustomRequirementsList{
+    
+    [[UserManager shareUserManager]customRequirementsListWithUserId:nil PageIndex:1 PageCount:3];
+    [UserManager shareUserManager].customRequirementsSuccess = ^ (NSArray *arr){
+        
+        NSArray* itemArray =[[CustomRequirementsStore shearCustomRequirementsStore] configurationCustomRequirementsWithRequsData:arr];
+        Home *home = [[Home alloc]init];
+        home.itemKey = Type_Custrom;
+        home.itemArray = itemArray;
+        home.itemHeader = @"定制需求";
+        if (_isFirst) {
+            [self.dataArray addObject: home];
+        }else{
+            [self.dataArray replaceObjectAtIndex:1 withObject:home];
+        }
+        //        [self.dataArray addObject: home];
         [self loadingRecommendedH5List];
     };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
-    };
-
 }
 
 -(void)loadingRecommendedH5List{
@@ -199,17 +215,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:1 withObject:home];
+            [self.dataArray replaceObjectAtIndex:2 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingDesignerList];
     };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
-    };
-
 }
 
 -(void)loadingDesignerList{
@@ -225,15 +235,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:2 withObject:home];
+            [self.dataArray replaceObjectAtIndex:3 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingScenarioH5List];
-    };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
     };
 }
 
@@ -249,15 +254,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:3 withObject:home];
+            [self.dataArray replaceObjectAtIndex:4 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingOnePageH5List];
-    };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
     };
 }
 
@@ -274,15 +274,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:4 withObject:home];
+            [self.dataArray replaceObjectAtIndex:5 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingVideoH5List];
-    };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
     };
 }
 
@@ -299,7 +294,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:5 withObject:home];
+            [self.dataArray replaceObjectAtIndex:6 withObject:home];
         }
         
         _isFirst = NO;
@@ -313,11 +308,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         self.collectionView.scrollEnabled = YES;
 
         [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];
-    };
-    
-    [UserManager shareUserManager].errorFailure = ^(id obj){
-        
-        [self collectionEndRefreshing];
     };
 }
 
@@ -338,7 +328,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self.collectionView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(0);
         make.right.mas_equalTo(0);
-        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -93 : -64);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -83 : -49);
         make.top.mas_equalTo(kDevice_Is_iPhoneX ? -88 : -64);
     }];
     
@@ -370,7 +360,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             _tagbannerView.tagDidScrolledBlock = ^(NSInteger indx){
 
                 [[Global sharedSingleton]showToastInTop:weakSelf.view withMessage:[NSString stringWithFormat:@"选择了第%ldtag",(long)indx]];
-                 Home *home = weakSelf.dataArray[0];
+                 Home *home = weakSelf.dataArray[indexPath.section];
                  TagList*tag = home.itemArray[indx];
                  [weakSelf loadinH5ListWithH5Type:GetH5ListTypeTag index:[tag.tag_type integerValue] title:tag.name];
                  NSLog(@"%ld",(long)indx);
@@ -380,7 +370,31 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             [_tagbannerView createTagScrollView];
             [newCell addSubview:_tagbannerView];
             
-        } else if (indexPath.section == 1) {
+        } else if (indexPath.section == 1){
+            
+            UICollectionViewCell *newCell = cell;
+            
+            for (UIView *view in newCell.subviews) {
+                
+                if ([view isKindOfClass: [CarouselScrollView class]]) {
+                    
+                    [view removeFromSuperview];
+                }
+            }
+            _custrombannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
+                
+                Home *home = self.dataArray[indexPath.section];
+                CustomRequirements *custom = home.itemArray[selectedIndex];
+                 [UIManager customRequirementsDetailViewControllerWithCustomId:custom.id];
+//                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
+                //                NSLog(@"你选择第%ld张图片",selectedIndex);
+                
+            }];
+            _custrombannerView.tag = 1;
+            [_custrombannerView createCustromScrollView];
+            [newCell addSubview:_custrombannerView];
+            
+        }else if (indexPath.section == 2) {
 
             UICollectionViewCell *newCell = cell;
             
@@ -393,16 +407,16 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             }
             _h5bannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
                 
-                Home *home = self.dataArray[1];
+                Home *home = self.dataArray[indexPath.section];
                 H5List *list = home.itemArray[selectedIndex];
                 [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
 //                NSLog(@"你选择第%ld张图片",selectedIndex);
 
             }];
-            _h5bannerView.tag = 1;
+            _h5bannerView.tag = 2;
             [_h5bannerView createTopScrollView];
             [newCell addSubview:_h5bannerView];
-        } else if (indexPath.section == 2){
+        } else if (indexPath.section == 3){
             
             UICollectionViewCell *newCell = cell;
             for (UIView *view in newCell.subviews) {
@@ -414,19 +428,18 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             }
             _designerbannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
                 
-                Home *home = self.dataArray[2];
+                Home *home = self.dataArray[indexPath.section];
                 DesignerList *designer = home.itemArray[selectedIndex];
                 [UIManager designerDetailWithDesignerId:designer.id];
             }];
             [_designerbannerView createdesignerScrollView];
             [newCell addSubview:_designerbannerView];
-            _designerbannerView.tag = 2;
+            _designerbannerView.tag = 3;
             
-        } else  if (indexPath.section > 2) {
+        } else  if (indexPath.section > 3) {
           
             [cell setItmeOfModel:item];
         }
-        
     };
     
     CollectionViewCellHeaderConfigureBlock cellHeaderConfigureCellBlock = ^(UICollectionReusableView *headerView, NSIndexPath *indexPath){
@@ -448,8 +461,12 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             [infView initSubViewsWithSection:indexPath.section];
             infView.sectionHeader = ^(NSInteger section){
                 
-                if (section == 2) {
+                if (section == 1) {
 
+                    [UIManager customRequirementsViewController];
+                    
+                }else if (section == 3) {
+                    
                     [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:nil];
                     
                 }else {
@@ -521,9 +538,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         return CGSizeMake(ScreenWidth, (ScreenWidth/3-102+19+5+9+5+replenish)*2);
     }else if (indexPath.section == 1) {
         
-       
+        return CGSizeMake(ScreenWidth, 133);
+    }else if (indexPath.section == 2) {
+        
         return CGSizeMake(ScreenWidth, (ScreenWidth/3-33)*1.7+32+5+5+7+9-17);
-    }else if (indexPath.section == 2){
+    }else if (indexPath.section == 3){
         
 //        CGFloat workLabelHeight = 0;
 //        for (DesignerInfo *designer in home.itemArray) {
@@ -656,25 +675,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
-    NSLog(@"%ld",(long)self.navigationController.isNavigationBarHidden);
-    
     CGFloat offsetY = scrollView.contentOffset.y ;
     CGFloat compareOffsetY;
-//    =  self.navigationController.isNavigationBarHidden ?
-//    (float)-NAVBAR_HIDDEN_YES : (float)-NAVBAR_HIDDEN_NO;
     CGFloat compareOffsetStart =  self.navigationController.isNavigationBarHidden ?
         (float)-NAVBAR_HIDDEN_YES : (float)-NAVBAR_HIDDEN_NO;
     NSLog(@"%lf",offsetY);
-    
-//    if (self.navigationController.isNavigationBarHidden ) {
-//
-//        compareOffsetY = offsetY +44;
-//        NSLog(@"是");
-//    } else {
-//
-//        compareOffsetY = offsetY +88;
-//        NSLog(@"否");
-//    }
     
     if (offsetY > (float)NAVBAR_CHANGE_POINT) {
         CGFloat alpha  = MIN(1, 1 - ((float)NAVBAR_CHANGE_POINT + (float)NAVIGATION_HIGHT - offsetY) / (float)NAVIGATION_HIGHT);

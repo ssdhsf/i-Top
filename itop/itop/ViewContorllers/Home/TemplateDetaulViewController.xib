@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -35,12 +35,10 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOi-7v-Jsj">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JOi-7v-Jsj">
                     <rect key="frame" x="0.0" y="622" width="187.5" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="1" green="0.6470588235294118" blue="0.92549019607843142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="45" id="G95-pF-WQs"/>
-                    </constraints>
                     <state key="normal" title="企业会员使用">
                         <color key="titleColor" red="0.96078431369999995" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -48,8 +46,9 @@
                         <action selector="company:" destination="-1" eventType="touchUpInside" id="8mk-Dy-gWA"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jif-hH-cgK">
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jif-hH-cgK">
                     <rect key="frame" x="187.5" y="622" width="187.5" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.70196078431372544" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="¥20购买">
                         <color key="titleColor" red="0.96078431369999995" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -60,16 +59,6 @@
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-            <constraints>
-                <constraint firstItem="Jif-hH-cgK" firstAttribute="leading" secondItem="JOi-7v-Jsj" secondAttribute="trailing" id="5St-zY-1Hc"/>
-                <constraint firstAttribute="bottom" secondItem="JOi-7v-Jsj" secondAttribute="bottom" id="ATX-cc-nqO"/>
-                <constraint firstItem="Jif-hH-cgK" firstAttribute="leading" secondItem="JOi-7v-Jsj" secondAttribute="trailing" id="Ibn-1J-7IY"/>
-                <constraint firstAttribute="bottom" secondItem="Jif-hH-cgK" secondAttribute="bottom" id="TKP-L0-Yd9"/>
-                <constraint firstItem="Jif-hH-cgK" firstAttribute="height" secondItem="JOi-7v-Jsj" secondAttribute="height" id="Wvo-zv-cqT"/>
-                <constraint firstItem="Jif-hH-cgK" firstAttribute="width" secondItem="JOi-7v-Jsj" secondAttribute="width" id="vZd-zf-pEd"/>
-                <constraint firstItem="JOi-7v-Jsj" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xZ8-M5-gMI"/>
-                <constraint firstAttribute="trailing" secondItem="Jif-hH-cgK" secondAttribute="trailing" id="zlx-0Y-fEf"/>
-            </constraints>
             <point key="canvasLocation" x="34.5" y="89.5"/>
         </view>
         <view contentMode="scaleToFill" id="I14-qS-Ogi">
