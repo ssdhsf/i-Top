@@ -26,4 +26,6 @@
 
 -(NSArray *)showPageTitleWithState:(CustomRequirementsType)state demandType:(DemandType)demandType;//详情页显示项
 
+-(NSArray *)configurationCustomRequirementsCommentsWithRequsData:(NSArray *)arr;
+
 @end

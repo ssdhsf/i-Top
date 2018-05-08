@@ -21,8 +21,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @property (nonatomic, strong) NSArray *titleArray;
 @property (strong, nonatomic) UIView *editorBgView;
 @property (strong, nonatomic) IBOutlet UIView *editorView;
-@property (nonatomic, strong) NSString *link;
-
 
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) H5List *h5;
@@ -86,7 +84,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         [self steupEditorBuuton];
     }
     
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeProduct];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
         
     };
@@ -276,11 +274,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     UIPasteboard *paste = [UIPasteboard generalPasteboard];
     paste.string = linkUrl;
-    
-    if ([paste.string isEqualToString:_link]) {
-        
-        [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
-    }
+    [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
 }
 
 -(void)steupEditorBuuton{
@@ -295,7 +289,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         page = page +1;
     }
     scroll.contentSize = CGSizeMake(page*ScreenWidth, 251-50);
-    
     scroll.pagingEnabled=YES;
     scroll.showsHorizontalScrollIndicator = NO;
     self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 251);
@@ -403,10 +396,11 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     __weak typeof(self) weakSelf = self;
     //添加滚动动画
     [UIView animateWithDuration:0.3 animations:^{
-        
+       
+        CGFloat editViewHeight = kDevice_Is_iPhoneX ? 286 : 251;
         self.editorBgView.hidden = !animation;
         if (animation) {
-             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-251, ScreenWidth, 251);
+             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-editViewHeight, ScreenWidth, editViewHeight);
         }else {
              weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
         }

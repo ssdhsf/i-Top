@@ -10,4 +10,6 @@
 
 @interface BiddingProductListViewController : BaseTableViewController
 
+@property (strong, nonatomic)NSNumber *demant_id;
+
 @end

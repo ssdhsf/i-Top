@@ -152,22 +152,24 @@ static NSString *const SearchLocationCellIdentifier = @"SearchLocation";
                                                    message:view
                                                    sureBtn:@"确定"
                                                  cancleBtn:@"取消"
-                                              pickViewType:button.tag];
-    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
-        
-        
-        if (picViewType == PickViewTypeProvince) {
-            
-            [_provinceButton setTitle:[NSString stringWithFormat:@"%@,%@",weakSelf.province.address,weakSelf.city.address] forState:UIControlStateNormal];
-        } else {
-            
-            [_spaceButton setTitle:weakSelf.selectScope forState:UIControlStateNormal];
-            NSInteger index = [[SearchLocationStore shearaSearchLocationStore]scopeArrayWithObj:_selectScope];
-            NSString *scope = [[[SearchLocationStore shearaSearchLocationStore]scopeValueArray] objectAtIndex:index];
-
-            [self setSearchRegionTagScopeWithScope:[scope doubleValue]];
-        }
-    };
+                                              pickViewType:button.tag
+                                                superArray:nil
+                                                  subArray:nil];
+//    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
+//
+//
+//        if (picViewType == PickViewTypeProvince) {
+//
+//            [_provinceButton setTitle:[NSString stringWithFormat:@"%@,%@",weakSelf.province.address,weakSelf.city.address] forState:UIControlStateNormal];
+//        } else {
+//
+//            [_spaceButton setTitle:weakSelf.selectScope forState:UIControlStateNormal];
+//            NSInteger index = [[SearchLocationStore shearaSearchLocationStore]scopeArrayWithObj:_selectScope];
+//            NSString *scope = [[[SearchLocationStore shearaSearchLocationStore]scopeValueArray] objectAtIndex:index];
+//
+//            [self setSearchRegionTagScopeWithScope:[scope doubleValue]];
+//        }
+//    };
     
     [alertView showXLAlertView];
 }

@@ -93,7 +93,7 @@
         case 0:
             if (!_directionalStateListVc) {
                 
-                _directionalStateListVc = [[CustomRequirementsStateListTableViewController alloc]initWithNibName:@"CustomRequirementsStateListTableViewController" bundle:nil];
+                _directionalStateListVc = [[CustomRequirementsStateListTableViewController alloc]init];
                 _directionalStateListVc.demandType = DemandTypeDirectional;
                 _directionalStateListVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, _scroll.height);
             }

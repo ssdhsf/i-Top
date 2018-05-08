@@ -13,9 +13,12 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    [_cooperationButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_cooperationButton)];
+    _cooperationButton.layer.cornerRadius = 3;
+    _cooperationButton.layer.masksToBounds = YES;
+    
     self.headImage.layer.cornerRadius = self.headImage.width / 2;
-     self.headImage.layer.masksToBounds = YES;
-    // Initialization code
+    self.headImage.layer.masksToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -30,9 +33,11 @@
     if ([degsin.success_bid isEqualToNumber:@1]) {
         
         _isBid.hidden = NO;
+        _cooperationButton.hidden = YES;
     } else {
         
         _isBid.hidden = YES;
+        _cooperationButton.hidden = NO;
     }
     self.nameLabel.text = degsin.nickname;
     [self.headImage sd_setImageWithURL:[NSURL URLWithString:degsin.head_img] placeholderImage:H5PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {

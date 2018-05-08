@@ -26,6 +26,10 @@
 #import "PopularizeItmeTableViewController.h"
 #import "CustomRequirementsDetailViewController.h"
 #import "DirectionalDemandReleaseViewController.h"
+#import "SubmitDisputesViewController.h"
+#import "DisputesViewController.h"
+#import "CommentPopularizeViewController.h"
+#import "EditCaseViewController.h"
 
 @implementation UIManager
 
@@ -427,6 +431,41 @@
         
     }
     [UIManager pushVC:biddingVc];
+}
+
++(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id{
+    
+    SubmitDisputesViewController *submitDisputesVc = [[SubmitDisputesViewController alloc]init];
+    submitDisputesVc.demant_id = custom_id;
+    [UIManager pushVC:submitDisputesVc];
+}
+
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id{
+    
+    DisputesViewController *submitDisputesVc = [[DisputesViewController alloc]init];
+    submitDisputesVc.demant_id = custom_id;
+    [UIManager pushVC:submitDisputesVc];
+}
+
++(void)commentPopularizeViewControllerWithCustomId:(NSNumber *)custom_id
+                                       commentType:(CommentType)commentType{
+    
+    CommentPopularizeViewController *vc = [[CommentPopularizeViewController alloc]init];
+    if (commentType == CommentTypePopularize) {
+        vc.popularize_id = custom_id;
+    } else {
+        vc.demand_id = custom_id;
+    }
+    vc.commentType = commentType;
+    [UIManager pushVC:vc];
+}
+
++(void)editCaseViewControllerIsEdit:(BOOL)isEdite editCase:(EditCase *)editCase{
+    
+    EditCaseViewController *vc = [[EditCaseViewController alloc]init];
+    vc.isEdit = isEdite;
+    vc.editCase = editCase;
+    [UIManager pushVC:vc];
 }
 
 @end

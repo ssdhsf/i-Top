@@ -32,10 +32,6 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 @property (weak, nonatomic) IBOutlet UIButton *protocolButton;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
-@property (nonatomic, strong)UIDatePicker *datePicker;
-@property (nonatomic, strong)NSDate *selectDate;
-
-@property (nonatomic, strong)UIPickerView *pickView;
 @property (nonatomic, strong)NSArray *provinceArray; // 省份
 @property (nonatomic, strong)NSArray *cityArray;//城市
 
@@ -44,6 +40,9 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 
 @property (nonatomic, strong)Province *province; //选择省份
 @property (nonatomic, strong)Province *city; //选择的城市
+
+@property (nonatomic, strong)TagList *superTag; //选择行业 父级
+@property (nonatomic, strong)TagList *subTag; //选择行业 子级
 
 @property (nonatomic, strong)NSString *industry; //选择的行业／父级
 @property (nonatomic, strong)NSString *subIndustry; //选择的行业／子级
@@ -55,6 +54,9 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 @property (nonatomic, strong)H5List *selectH5;//选择的作品
 @property (nonatomic, strong)DemandEdit *selectDemandEdit; // 当前选项
 @property (strong, nonatomic)CustomRequirementsDetail *customRequirementsDetail; //编辑详情
+
+@property (nonatomic, strong)AlertView *alertView; //弹窗
+@property (nonatomic, assign)NSInteger selectRow; //选择类型
 
 @end
 
@@ -95,7 +97,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self steupTableView];
     [self setupTableFoodView];
-    [self setupTimeView];
+//    [self setupTimeView];
     [self setupTabelFoodView];
     
     if (_demandType == DemandTypeBidding) {
@@ -145,7 +147,8 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
             
             if (!isDesginer) {
                 
-                self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail desginerList:nil desginerProductList:nil province:_province city:_city isEdit:YES];
+                self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail  isEdit:YES];
+                [self setupSelectItme];
                 [self steupTableView];
             }
         }
@@ -170,9 +173,9 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
                     _selectH5 = h5;
                 }
             }
-            self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail desginerList:self.desginList desginerProductList:self.desginProduct province:_province city:_city isEdit:YES];
+            self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail isEdit:YES];
+            [self setupSelectItme];
             [self steupTableView];
-
         }
     };
 }
@@ -185,9 +188,24 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     Province *province = _provinceArray[0];
     _cityArray = province.cityArray;
     
-    _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
-    NSString *industryKey = _industryArray[0];
-    _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
+    if ([[CompanySigningStore shearCompanySigningStore]superTagList].count == 0) {
+        
+        [[UserManager shareUserManager]hometagListWithType:TagTypeTrade];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionIndustryWithRequstIndustryArray:arr];
+            _industryArray = [[CompanySigningStore shearCompanySigningStore]superTagList];
+            TagList *tag = _industryArray[0];
+            _industrySubArray = tag.subTagArray;
+
+            [self setupindustry];
+        };
+    } else {
+        _industryArray = [[CompanySigningStore shearCompanySigningStore]superTagList];
+        TagList *tag = _industryArray[0];
+        _industrySubArray = tag.subTagArray;
+        [self setupindustry];
+    }
 
     if (_isEdit) {
         [[UserManager shareUserManager]customRequirementsDetailWithDetailId:_demand_id];
@@ -198,32 +216,77 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
             
             if (_customRequirementsDetail.demand.province) { //编辑需要提取省份
               
-                for (Province *province in _provinceArray) {
-                    
-                    if ([province.code isEqualToString:_customRequirementsDetail.demand.province]) {
-                        
-                        _province = province;
-                    }
-                }
+                _province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:_customRequirementsDetail.demand.province];
             }
             if (_customRequirementsDetail.demand.city) { //编辑需要提取城市
                 
-                for (Province *city in _cityArray) {
-                    
-                    if ([city.code isEqualToString:_customRequirementsDetail.demand.city]) {
-                        
-                        _city = city;
-                    }
-                }
+                _city = [[CompanySigningStore shearCompanySigningStore] cityWithCityCode:_customRequirementsDetail.demand.city provinceCode:_customRequirementsDetail.demand.province];
             }
+            
+            if (![Global stringIsNullWithString:_customRequirementsDetail.demand.trade]) {
+                NSString *segmentationString;
+                if ([_customRequirementsDetail.demand.trade rangeOfString:@","].location != NSNotFound) {
+                    segmentationString = @",";//C端提交的格式  也是最终的格式
+                } else if ([_customRequirementsDetail.demand.trade rangeOfString:@"-"].location != NSNotFound){
+                    segmentationString = @"-";  //B端提交的格式
+                }else if ([_customRequirementsDetail.demand.trade rangeOfString:@"、"].location != NSNotFound){
+                    segmentationString = @"、"; //A端提交的格式
+                } else{
+                    
+                }
+                NSArray *tagArr = [_customRequirementsDetail.demand.trade componentsSeparatedByString:segmentationString];//行业
+                _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+                _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:[NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+            }
+            
              [self refreshDesginListData];
         };
     } else{
         
-        self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail desginerList:nil desginerProductList:nil province:_province city:_city isEdit:NO];
+        self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail isEdit:NO];
          [self refreshDesginListData];
     }
-//    self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail];
+}
+
+-(void)setupindustry{
+    
+    _industryArray = [[CompanySigningStore shearCompanySigningStore]superTagList];
+    TagList *tag = _industryArray[0];
+    _industrySubArray = tag.subTagArray;
+}
+
+-(void)setupSelectItme{ //替换部分内容 id->title/name
+    
+    for (DemandEdit *info in self.dataArray) {
+        
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"地域优先"]) {
+            info.content = [NSString stringWithFormat:@"%@,%@",_province.address, _city.address];
+        }
+        
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"行业"]) {
+            info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name, _subTag.name];
+        }
+        
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"设计师"]) {
+            
+            for (DesignerList *desgin in self.desginList) {
+                
+                if (desgin.id == _desgin.id) {
+                    info.content = desgin.nickname;
+                }
+            }
+        }
+        
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"参考案例"]) {
+            
+            for (H5List *h5 in self.desginProduct) {
+                
+                if (h5.id == _selectH5.id) {
+                    info.content = h5.title;
+                }
+            }
+        }
+    }
 }
 
 - (void)steupTableView{
@@ -238,20 +301,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
                 
                 NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
                 _selectDemandEdit  = [self.directionalDemandReleaseDataSource itemAtIndexPath:indexPath];
-                if ([sender isKindOfClass:[UIButton class]]) {
-                    
-//                    UIButton *button = (UIButton *)sender;
-//                    if ([button.imageView.image isEqual:[UIImage imageNamed:@"ruzhu_icon_add"]]) {
-                        [[SubmitFileManager sheardSubmitFileManager]popupsSelectPhotoTipsView];
-//                    } else {
-//
-//                        [[SubmitFileManager sheardSubmitFileManager]browsePicturesWithPictureArray:nil];
-//                    }
-
-                } else {
-                  
-                    _selectDemandEdit.content = [NSString stringWithFormat:@"%@",(NSString *)sender];
-                }
+                _selectDemandEdit.content = [NSString stringWithFormat:@"%@",(NSString *)sender];
             };
         }
     };
@@ -263,21 +313,6 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     
     self.tableView.dataSource = self.directionalDemandReleaseDataSource;
     [self.tableView registerNib:[[UIManager sharedUIManager]nibWithNibName:@"DirectionalDemandReleaseViewCell"] forCellReuseIdentifier:DirectionalDemandReleaseCellIdentifier];
-}
-
--(void)setupTimeView{
-    
-    _datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
-    _datePicker.datePickerMode = UIDatePickerModeDate;
-    
-    _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
-    _selectDate = _datePicker.date;
-    [_datePicker addTarget:self action:@selector(dateChange:) forControlEvents:UIControlEventValueChanged];
-}
-
-- (void)dateChange:(UIDatePicker *)datePicker{
-   
-    _selectDate = datePicker.date;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -298,6 +333,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
    
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    _selectRow = indexPath.row;
     _selectDemandEdit = [self.directionalDemandReleaseDataSource itemAtIndexPath:indexPath];
     if (_selectDemandEdit.editType == EditTypeSelectItem || _selectDemandEdit.editType == EditTypeSelectTime) {
         
@@ -326,292 +362,108 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     }
 }
 
--(void)showAlertViewWithItem:(DemandEdit*)demandEdit {
+-(void)showAlertViewWithItem:(DemandEdit*)info {
 
-    UIView *view = [[UIView alloc] init];
-    NSString *string ;
-    
-    if (demandEdit.editType == EditTypeSelectItem) {  //选择自定义项
-        
-        [self initPickViewWith:demandEdit];
-        view.frame = self.pickView.frame;
-        [view addSubview:self.pickView];
-        
-    } else {//选择时间
-        view.frame = self.datePicker.frame;
-        [view addSubview:self.datePicker];
+    NSString *string   = [NSString stringWithFormat:@"请选择%@",info.title];
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (info.pickViewType) {
+            
+        case PickViewTypeProvince:
+            
+            superArray = _provinceArray;
+            subArray = _cityArray;
+            break;
+        case PickViewTypeIndustry:
+            
+            superArray = _industryArray;
+            subArray = _industrySubArray;
+            break;
+        case PickViewTypeDesginer:
+            superArray = _desginList;
+            break;
+            
+        case PickViewTypeProduct:
+            superArray = _desginProduct;
+            break;
+        default:
+            break;
     }
-    string  = [NSString stringWithFormat:@"请选择%@",demandEdit.title];
-    AlertView *alertView = [[AlertView alloc]initWithTitle:string
-                                                   message:view
-                                                   sureBtn:@"确定"
-                                                 cancleBtn:@"取消"
-                                              pickViewType:0];
-    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
     
-        if ([_selectDemandEdit.title isEqualToString:INDUSTRY]) {
-            
-            _selectDemandEdit.content = [NSString stringWithFormat:@"%@,%@",_industry,_subIndustry];
-        }
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            
-            _selectDemandEdit.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
-        }
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                         message:nil
+                                         sureBtn:@"确定"
+                                       cancleBtn:@"取消"
+                                    pickViewType:info.pickViewType
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
         
-        if ([_selectDemandEdit.title isEqualToString:@"截稿时间"]) {
-            
-            _selectDemandEdit.content = [[Global sharedSingleton]stringFromDate:_selectDate pattern:TIME_PATTERN_day];
-        }
-        
-        if ([_selectDemandEdit.title isEqualToString:DESGINER]) {
-            
-           
-            DemandEdit *demand = self.dataArray[0];
-            if (![demand.content isEqualToString:_desgin.nickname]) {
-                
-                DemandEdit *demand1 = self.dataArray[1];
-                demand1.content = nil;
-                _selectDemandEdit.content = _desgin.nickname;
-                [self refreshDesginProductDataWithDesginID:_desgin.id isFirst:NO];
-            }
-        }
-        [self.tableView reloadData];
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
     };
-    
-    [alertView showXLAlertView];
-}
-
--(void)initPickViewWith:(DemandEdit *)demandEdit{
-    
-    self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
-    self.pickView.backgroundColor = [UIColor whiteColor];
-    self.pickView.delegate = self;
-    self.pickView.dataSource = self;
-    self.pickView.showsSelectionIndicator = YES;
-    [self.pickView reloadAllComponents];
-    if (![Global stringIsNullWithString:demandEdit.content] ) {
-    
-        if ([demandEdit.title isEqualToString:DESGINER]) {
-            NSInteger  index;
-            for (DesignerList *design in self.desginList) {
-                
-                if ([design.nickname isEqualToString:demandEdit.content]) {
-                    index = [self.desginList indexOfObject:design];
-                    [self.pickView selectRow:index inComponent:0 animated:NO];
-                    return;
-                }
-            }
-           
-        } else if ([demandEdit.title isEqualToString:CASE]) {
-            
-        }else if ([demandEdit.title isEqualToString:INDUSTRY]) {
-            
-            [self industrypPositioningWithIndex:demandEdit.content];
-            
-        } else if ([demandEdit.title isEqualToString:REGIONAL]) {
-             [self positioningwithindex:demandEdit.content];
-        }
-    }
-}
-
-#pragma mark 选择数据时将有数据的itme赋给已选择的temp
--(void)positioningwithindex:(NSString *)info{
-    
-    NSArray *arr = [info componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (Province *province in self.provinceArray ) {
+    if (info.pickViewType == PickViewTypeEdit) { //赋予原来的值
         
-        if ([province.address isEqualToString:arr[0]]) {
-            
-            index = [self.provinceArray indexOfObject:province];
-            self.cityArray = province.cityArray;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (Province *province in self.cityArray ) {
-            
-            if ([province.address isEqualToString:arr[1]]) {
-                
-                inde2 = [self.cityArray indexOfObject:province];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
--(void)industrypPositioningWithIndex:(NSString *)info{
-    
-    NSArray *arr = [info componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (NSString *industryp in self.industryArray ) {
-        
-        if ([industryp isEqualToString:arr[0]]) {
-            
-            index = [self.industryArray indexOfObject:industryp];
-            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (NSString *subIndustryp in self.industrySubArray ) {
-            
-            if ([subIndustryp isEqualToString:arr[1]]) {
-                
-                inde2 = [self.industrySubArray indexOfObject:subIndustryp];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
-#pragma mark 数据源 Method numberOfComponentsInPickerView
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    
-    if ([_selectDemandEdit.title isEqualToString:REGIONAL] || [_selectDemandEdit.title isEqualToString:INDUSTRY]) {
-       
-        return 2;
+        [_alertView setupInputNameTFWithPlaceholder:info.title content:info.content];
     } else {
         
-        return 1;
+        [_alertView setupPickViewWithContent:info.content];
     }
+    [_alertView showXLAlertView];
 }
 
--(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
     
-    UILabel *lbl = (UILabel *)view;
+    Infomation *info = self.dataArray[_selectRow];
     
-    if (lbl == nil) {
-        
-        lbl = [[UILabel alloc]init];
-        //在这里设置字体相关属性
-        lbl.adjustsFontSizeToFitWidth = YES;
-        lbl.font = [UIFont systemFontOfSize:15];
-        lbl.textColor = [UIColor blackColor];
-        [lbl setTextAlignment:NSTextAlignmentCenter];
-        [lbl setBackgroundColor:[UIColor clearColor]];
+    switch (info.pickViewType) {
+
+        case PickViewTypeProvince:
+            
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
+            
+            info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
+            break;
+        case PickViewTypeIndustry:
+            _superTag = (TagList *)selectSuperItme;
+            _subTag = (TagList *)selectSubItme;
+            info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name];
+            break;
+          
+        case PickViewTypeDate:
+
+            _selectDemandEdit.content = [[Global sharedSingleton]stringFromDate:(NSDate *)selectSuperItme pattern:TIME_PATTERN_day];
+            break;
+        case PickViewTypeDesginer:
+            _desgin = (DesignerList *)selectSuperItme;
+            [self selectDesginer];
+            break;
+            
+        case PickViewTypeProduct:
+            
+            _selectH5 = (H5List*)selectSuperItme;
+            _selectDemandEdit.content = _selectH5.title;
+            break;
+            
+        default:
+            break;
     }
-    //重新加载lbl的文字内容
-    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    return lbl;
+    [self.tableView reloadData];
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+-(void)selectDesginer{
     
-    if (component==0){ //省
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]){
-            
-            return self.provinceArray.count;
-            
-        } else if ([_selectDemandEdit.title isEqualToString:INDUSTRY]){
-            return self.industryArray.count;
-        } else if ([_selectDemandEdit.title isEqualToString:DESGINER]){
-            return self.desginList.count;
-        } else {
-             return self.desginProduct.count;
-        }
-    }else{
-        //市
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            
-            return _cityArray.count;
-            
-        } else if([_selectDemandEdit.title isEqualToString:INDUSTRY]) {
-            
-            return _industrySubArray.count;
-        }
-    }
-     return nil;
-}
-
-#pragma mark delegate 显示信息的方法
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-    if (component==0){
+    DemandEdit *demand = self.dataArray[0];
+    if (![demand.content isEqualToString:_desgin.nickname]) {
         
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            
-            Province *province = self.provinceArray[row];
-            _province = province;
-            return province.address;
-            
-        } else if ([_selectDemandEdit.title isEqualToString:INDUSTRY]){
-            
-            _industry = self.industryArray[row];
-            return self.industryArray[row];
-        } else if ([_selectDemandEdit.title isEqualToString:DESGINER]){
-            
-            DesignerList *desgin = self.desginList[row];
-//            _selectDemandEdit.content = desgin.nickname;
-            _desgin = desgin;
-            return desgin.nickname;
-        } else {
-            
-            H5List *h5 = self.desginProduct[row];
-            _selectDemandEdit.content = h5.title;
-            _selectH5 = h5;
-            return h5.title;
-        }
-        //选择的省份
-        
-    }else{
-        
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            
-            Province *city = self.cityArray[row];
-            _city = city;
-            return city.address;//省份对应的市区
-            
-        } else if ([_selectDemandEdit.title isEqualToString:INDUSTRY]) {
-            
-            _subIndustry = self.industrySubArray[row];
-            return self.industrySubArray[row];
-        }
-    }
-    return nil;
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
-    if (component==0){
-        
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            _province = self.provinceArray[row];
-            self.cityArray =_province.cityArray;
-            [self.pickView reloadComponent:1];
-            
-        } else if ([_selectDemandEdit.title isEqualToString:INDUSTRY]){
-            
-            _industry = self.industryArray[row];
-            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][_industry];
-            [self.pickView reloadComponent:1];
-            
-        } else if([_selectDemandEdit.title isEqualToString:DESGINER]){
-            
-            DesignerList *desgin = self.desginList[row];
-            _desgin = desgin;
-        } else {
-            
-            H5List *h5 = self.desginProduct[row];
-            _selectH5 = h5;
-            _selectDemandEdit.content = h5.title;
-        }
-    }else{
-        
-        if ([_selectDemandEdit.title isEqualToString:REGIONAL]) {
-            
-            _city = self.cityArray[row];
-        } else {
-            
-            _subIndustry = self.industrySubArray[row];
-        }
+        DemandEdit *demand1 = self.dataArray[1];
+        demand1.content = nil;
+        _selectDemandEdit.content = _desgin.nickname;
+        [self refreshDesginProductDataWithDesginID:_desgin.id isFirst:NO];
     }
 }
 
@@ -664,6 +516,10 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
         }else if([edit.title isEqualToString:DESGINER]) {
             
             [parameters setObject:_desgin.id forKey:edit.sendKey];
+        }else if([edit.title isEqualToString:INDUSTRY]) {
+            
+            [parameters setObject:[NSString stringWithFormat:@"%@,%@",_superTag.id,_subTag.id] forKey:edit.sendKey];
+            
         }else if([edit.title isEqualToString:CASE]) {
             
             [parameters setObject:_selectH5.id forKey:edit.sendKey];
@@ -731,7 +587,13 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 #pragma Mark-提交获取图片url的协议方法
 -(void)compressionAndTransferPicturesWithArray:(NSArray *)array{
     
-    _selectDemandEdit.inamge = [array lastObject];
+    for (DemandEdit *edit in self.dataArray) {
+        
+        if ([edit.title isEqualToString:@"参考图片"]) {
+            edit.inamge = [array lastObject];
+        }
+    }
+//    _selectDemandEdit.inamge = [array lastObject];
     [self.tableView reloadData];
 }
 

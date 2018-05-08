@@ -343,8 +343,10 @@ _errorFailure(__id_obj); }
         case UserTypeMarketing:
             api = @"/api/usermarketing/updateinfo";
             break;
-        case UserTypeDefault:
         case UserTypeDesigner:
+            api = @"/api/userdesigner/updateinfo";
+            break;
+        case UserTypeDefault:
             api = @"/api/user/updateinfo";
             break;
         default:
@@ -1518,16 +1520,45 @@ _errorFailure(__id_obj); }
                               effect:(NSNumber *)effect
                              service:(NSNumber *)service
                            sincerity:(NSNumber *)sincerity
-                             content:(NSString *)content{
-    
-    
+                             content:(NSString *)content
+                         commentType:(CommentType)commentType{
     SHOW_GET_DATA
-    NSString *api = @"/api/order/score";
-    NSDictionary *parameters = @{@"order_id" : order_id,
-                                 @"effect" : effect,
-                                 @"service" : service,
-                                 @"sincerity" : sincerity,
-                                 @"content" : content};
+    NSString *api = [NSString string];
+    NSDictionary *parameters = [NSDictionary dictionary];
+    
+    switch (commentType) {
+        case CommentTypePopularize:
+            api = @"/api/order/score";
+            parameters = @{@"order_id" : order_id,
+                           @"effect" : effect,
+                           @"service" : service,
+                           @"sincerity" : sincerity,
+                           @"content" : content};
+
+            break;
+        case CommentTypeDemandEnterpriseToDesginer: //企业评价设计师接口
+            api = @"/api/demand/enterprisescore";
+            parameters = @{@"demand_id" : order_id,
+                           @"quality" : effect,
+                           @"time" : service,
+                           @"profession" : sincerity,
+                           @"content" : content};
+        
+            break;
+        case CommentTypeDemandDesginerToEnterprise: //设计师评价企业接口
+    
+            api = @"/api/demand/designerscore";
+            parameters = @{@"demand_id" : order_id,
+                           @"specific" : effect,
+                           @"change" : service,
+                           @"attitude" : sincerity,
+                           @"content" : content};
+      
+            break;
+            
+        default:
+            break;
+    }
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         HIDDEN_GET_DATA
@@ -1546,7 +1577,6 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 }
-
 
 - (void)updataProductWithParameters:(NSDictionary *)parameters{
   
@@ -1683,8 +1713,15 @@ _errorFailure(__id_obj); }
                                     demandType:(DemandType)demand_type
                                       PageIndex:(NSInteger )pageIndex
                                       PageCount:(NSInteger )pageCount{
-    
-    NSString *api = @"/api/demand/getuserlist";
+   
+    NSString *api = [NSString string];
+    if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner) {
+
+        api = @"/api/demand/getdesignerpagelist";//设计师用户
+    } else {
+
+        api = @"/api/demand/getuserlist"; //企业用户接口
+    }
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
@@ -1795,6 +1832,241 @@ _errorFailure(__id_obj); }
         } else {
             
             _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)biddingProductListWithId:(NSNumber *)demant_id{
+  
+    NSString *api = @"/api/demand/filelist";
+    NSDictionary *parameters = @{@"id":demant_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//            NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)demandDesginerCommentListWithId:(NSNumber *)demant_id{
+    
+    NSString *api  = [NSString string];
+    api = @"/api/demand/getdesignerscorepagelist";
+    NSDictionary *parameters = @{@"id":demant_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _customRequirementsCommentsDisginSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)demandentErpriseCommentListWithId:(NSNumber *)demant_id{
+    
+    NSString *api  = [NSString string];
+    api = @"/api/demand/getenterprisescorepagelist";
+    NSDictionary *parameters = @{@"id":demant_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _customRequirementsCommentsCompanySuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)demandDemanddisputeListWithId:(NSNumber *)demant_id
+                            pageIndex:(NSInteger )pageIndex
+                            pageCount:(NSInteger )pageCount{
+    
+    NSString *api  = [NSString string];
+    api = @"/api/demanddispute/getpagelist";
+    NSDictionary *parameters = @{@"Demand_id":demant_id,@"PageIndex" : @(pageIndex) , @"PageCount" : @(pageCount)};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)addDemandDemanddisputeWithParameters:(NSDictionary *)parameters{
+   
+    SHOW_GET_DATA
+    NSString *api  = [NSString string];
+    api = @"/api/demanddispute/add";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+//           NSArray *arr = object[@"rows"];
+            _customRequirementsSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)myCaseListWithPageIndex:(NSInteger )pageIndex
+                      PageCount:(NSInteger )pageCount{
+    
+    //    SHOW_GET_DATA
+    NSString *api = @"/api/demandcase/getuserlist";
+    NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
+    [parameters setObject:@(pageCount) forKey:@"PageCount"];
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        //        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            NSArray *arr = object[@"rows"];
+            _myCaseListSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        //        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)deleteMyCaseWithCaseId:(NSNumber *)case_id{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/demandcase/delete";;
+   
+    NSDictionary *parameters = @{@"id" : case_id,};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _deledeProductSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)editCaseWithParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata{
+    
+    SHOW_GET_DATA
+    NSString *api  = [NSString string];
+    if (isUpdata) {
+        api = @"/api/demandcase/update";
+    }else {
+        api = @"/api/demandcase/add";
+    }
+
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _myCaseListSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)caseDetailWithCaseId:(NSNumber *)case_id{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/demandcase/get";
+    NSDictionary *parameters = @{@"id" : case_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _myCaseListSuccess(object);
         }
         
     } failure:^(NSError *error) {

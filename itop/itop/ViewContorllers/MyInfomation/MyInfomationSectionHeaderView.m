@@ -87,7 +87,13 @@
             make.height.mas_equalTo(21);
             make.top.mas_equalTo(163);
         }];
-        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].user_info.nickname;
+        if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
+            
+            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].other_info.short_name;
+        } else {
+            
+            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].user_info.nickname;
+        }
         if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {//修改个人信息的缓存
             
             NSString *headView = [[UserManager shareUserManager]crrentInfomationModel].user_info.head_img;
@@ -95,8 +101,15 @@
                 
                 [info setImage:info.imageView.image forState:UIControlStateNormal];
             }];
-            userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].user_info.nickname;
             
+            if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
+                
+                 userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].other_info.short_name;
+            } else {
+                
+                userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].user_info.nickname;
+            }
+ 
         }else if ([[UserManager shareUserManager]crrentUserInfomation] != nil) { //未修改个人信息用登录返回的个人信息
             
             NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;

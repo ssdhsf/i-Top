@@ -99,7 +99,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeProduct];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
 
     };
@@ -476,7 +476,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     shear.shear_webLink = _hotDetail.article.url;
     [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
         
-        [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
+        [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearTypeArray[tag] integerValue] parameter:shear];
     } ];
     
     [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger  index){

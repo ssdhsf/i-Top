@@ -57,6 +57,11 @@
 #import "DemandEdit.h"
 #import "CustomRequirementsDegsinList.h"
 #import "CustomRequirementsList.h"
-
+#import "BiddingProduct.h"
+#import "CustomRequirementsComments.h"
+#import "Disputes.h"
+#import "ChannelList.h"
+#import "EditCase.h"
+#import "CaseDetail.h"
 
 #endif /* AllModels_h */

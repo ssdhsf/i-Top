@@ -123,7 +123,7 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
 
 -(void)operationStateWithOperation:(NSString *)operationState customRequirementsId:(NSNumber *)customRequirements_id{
     
-    if ([operationState isEqualToString:@"编辑"]) {
+    if ([operationState isEqualToString:@"编辑"] || [operationState isEqualToString:@"重新发布"]) {
         
         [UIManager customRequirementsReleaseViewControllerWithIsEdit:YES demandType:_demandType demand_id:customRequirements_id];
     }
@@ -134,12 +134,11 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
           
             [self refreshData];
         };
-        
     }
-    if ([operationState isEqualToString:@"重新发布"]) {
-        
-        
-    }
+//    if ([operationState isEqualToString:@"重新发布"]) {
+//
+//
+//    }
     if ([operationState isEqualToString:@"托管赏金"]) {
         
         
@@ -147,12 +146,29 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     
     if ([operationState isEqualToString:@"平台介入"]) {
         
-        
+        [[UserManager shareUserManager]demandDemanddisputeListWithId:customRequirements_id pageIndex:1 pageCount:10];
+        [UserManager shareUserManager].customRequirementsSuccess = ^(NSArray *arr){
+            
+            if (arr.count == 0) {
+
+                [UIManager submitDisputesViewControllerWithCustomId:customRequirements_id];
+                
+            } else {
+                
+                [UIManager disputesViewControllerWithCustomId:customRequirements_id];
+            }
+        };
     }
     
     if ([operationState isEqualToString:@"评价"]) {
         
+        CommentType commentType = [[UserManager shareUserManager] crrentUserType] == UserTypeDesigner ? CommentTypeDemandDesginerToEnterprise : CommentTypeDemandEnterpriseToDesginer;
+         [UIManager commentPopularizeViewControllerWithCustomId:customRequirements_id commentType:commentType];
         
+        [UIManager sharedUIManager].commentPopularizeBackOffBolck = ^ (id obj){
+            
+            [self refreshData];
+        };
     }
 }
 

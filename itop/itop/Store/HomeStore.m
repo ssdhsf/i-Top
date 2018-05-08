@@ -97,7 +97,7 @@
 - (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType{
     
     NSMutableArray  *useArray = [NSMutableArray array];
-    NSString *idStr ;
+    NSNumber *idStr ;
     for (TagList *tag in menu) {
         
 //        TagList *tag = [[TagList alloc]initWithDictionary:dic error:nil];
@@ -110,7 +110,7 @@
     for (TagList *tag  in menu) {
         
 //        TagList *tag = [[TagList alloc]initWithDictionary:dic error:nil];
-        if ([tag.parent_id isEqualToString:idStr]) {
+        if ([tag.parent_id isEqualToNumber:idStr]) {
             [useArray addObject: tag];
         }
     }

@@ -159,6 +159,12 @@ typedef NS_ENUM(NSInteger, DemandType) { //首页Tag类型
     DemandTypeBidding = 1,//竞标需求
 };
 
+typedef NS_ENUM(NSInteger, CommentType) { //评价类型
+    CommentTypePopularize = 0, //推广评价
+    CommentTypeDemandDesginerToEnterprise = 1, //定制需求设计师评价企业
+    CommentTypeDemandEnterpriseToDesginer  //定制需求企业评价设计师
+};
+
 typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
     CustomRequirementsTypeUnAccept = 0, //待接单
     CustomRequirementsTypeAccept = 1, //已接单
@@ -173,10 +179,11 @@ typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
     CustomRequirementsTypePending, //审核中
     CustomRequirementsTypeNotPass, //审核不通过
     CustomRequirementsTypeCanceled, //合作取消
-    CustomRequirementsTypeOut, //下架
+    CustomRequirementsTypeOut, //已下架
     CustomRequirementsTypeIntervention, //平台介入
 
 };
+
 
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
@@ -237,6 +244,8 @@ typedef void (^HomeBannerSuccess)(id obj);
 typedef void (^HomeBannerFailure)(id obj);
 typedef void (^MyProductListSuccess)(id obj);
 typedef void (^MyProductListFailure)(id obj);
+typedef void (^MyCaseListSuccess)(id obj);
+typedef void (^MyCaseListFailure)(id obj);
 typedef void (^LeaveProductSuccess)(id obj);
 typedef void (^LeaveProductFailure)(id obj);
 typedef void (^SubmitFileSuccess)(id obj);
@@ -272,11 +281,14 @@ typedef void (^CityListFailure)(id obj);
 
 typedef void (^CustomRequirementsSuccess)(id obj);
 typedef void (^CustomRequirementsFailure)(id obj);
+typedef void (^CustomRequirementsCommentsDisginSuccess)(id obj);
+typedef void (^CustomRequirementsCommentsCompanySuccess)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
 @class InfomationModel;
+
 @interface UserManager : NSObject
 /*----------------全局错误信息————————————————————————*/
 @property (nonatomic, copy) ErrorFailure  errorFailure;
@@ -375,6 +387,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------我的作品————————————————————————*/
 @property (nonatomic, copy) MyProductListSuccess myProductListSuccess;
 @property (nonatomic, copy) MyProductListFailure myProductListFailure;
+/*----------------我的案例————————————————————————*/
+@property (nonatomic, copy) MyCaseListSuccess myCaseListSuccess;
+@property (nonatomic, copy) MyCaseListFailure myCaseListFailure;
 
 /*----------------作品留资————————————————————————*/
 @property (nonatomic, copy) LeaveProductSuccess leaveProductSuccess;
@@ -423,6 +438,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------定制需求————————————————————————*/
 @property (nonatomic, copy) CustomRequirementsSuccess customRequirementsSuccess;
 @property (nonatomic, copy) CustomRequirementsFailure customRequirementsFailure;
+@property (nonatomic, copy) CustomRequirementsCommentsDisginSuccess customRequirementsCommentsDisginSuccess;
+@property (nonatomic, copy) CustomRequirementsCommentsCompanySuccess customRequirementsCommentsCompanySuccess;
+
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger timers;
@@ -904,7 +922,8 @@ typedef void (^ErrorFailure)(id obj);
                               effect:(NSNumber *)effect
                              service:(NSNumber *)service
                            sincerity:(NSNumber *)sincerity
-                             content:(NSString *)content;
+                             content:(NSString *)content
+                         commentType:(CommentType)commentType;
 /**
  *   更新作品
  *
@@ -980,5 +999,69 @@ typedef void (^ErrorFailure)(id obj);
  *  @param operationType 操作类型
  */
 - (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  operation:(NSString * )operationType;
+
+/**
+ *  查询上传文件列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)biddingProductListWithId:(NSNumber *)demant_id;
+
+/**
+ *  定制订单(获取设计师评价分页)
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandDesginerCommentListWithId:(NSNumber *)demant_id;
+
+/**
+ *  定制订单(获取企业评价分页)
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandentErpriseCommentListWithId:(NSNumber *)demant_id;
+
+
+/**
+ *  获取定制订单纠纷列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandDemanddisputeListWithId:(NSNumber *)demant_id
+                            pageIndex:(NSInteger )pageIndex
+                            pageCount:(NSInteger )pageCount;
+
+/**
+ *  添加纠纷
+ *
+ *  @param parameters 纠纷参数 问题／图片证明／备注／demandId／UserId
+ */
+- (void)addDemandDemanddisputeWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  我的案例
+ *
+ */
+- (void)myCaseListWithPageIndex:(NSInteger )pageIndex
+                      PageCount:(NSInteger )pageCount;
+
+/**
+ *  删除案例
+ *
+ */
+-(void)deleteMyCaseWithCaseId:(NSNumber *)case_id;
+
+/**
+ *  添加案例
+ *
+ *  isUpdate 更新／添加
+ */
+-(void)editCaseWithParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata;
+
+/**
+ *  案例详情
+ *
+ */
+-(void)caseDetailWithCaseId:(NSNumber *)case_id;
 
 @end

@@ -43,7 +43,14 @@ static NSString *const CustomRequirementsDesginListCellIdentifier = @"CustomRequ
     self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, -35, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self steupTableView];
+    if (self.dataArray.count == 0) {
+    
+        self.originY = 30;
+        [self setHasData:NO];
+        
+    } else {
+        [self steupTableView];
+    }
 }
 
 - (void)steupTableView{

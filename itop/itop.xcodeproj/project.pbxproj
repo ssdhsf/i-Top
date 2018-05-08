@@ -93,6 +93,13 @@
 		772F95C5205B60D300F432D2 /* ReleaseHotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95C3205B60D300F432D2 /* ReleaseHotViewController.m */; };
 		772F95C6205B60D300F432D2 /* ReleaseHotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */; };
 		772F95C9205C061000F432D2 /* ShearInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95C8205C061000F432D2 /* ShearInfo.m */; };
+		772FCDAB20995BBE00B833E2 /* CustomRequirementsComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FCDAA20995BBE00B833E2 /* CustomRequirementsComments.m */; };
+		772FCDAF2099691900B833E2 /* CustomRequirementsCommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FCDAD2099691900B833E2 /* CustomRequirementsCommentsViewController.m */; };
+		772FCDB02099691900B833E2 /* CustomRequirementsCommentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772FCDAE2099691900B833E2 /* CustomRequirementsCommentsViewController.xib */; };
+		772FCDB42099CBD600B833E2 /* DisputesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FCDB22099CBD600B833E2 /* DisputesViewController.m */; };
+		772FCDB52099CBD600B833E2 /* DisputesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772FCDB32099CBD600B833E2 /* DisputesViewController.xib */; };
+		772FCDB92099CCC400B833E2 /* DisputesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 772FCDB72099CCC400B833E2 /* DisputesTableViewCell.m */; };
+		772FCDBA2099CCC400B833E2 /* DisputesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 772FCDB82099CCC400B833E2 /* DisputesTableViewCell.xib */; };
 		7733E2FF2079E3090081B05E /* SigningState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7733E2FE2079E3090081B05E /* SigningState.m */; };
 		7733E3022079E96B0081B05E /* DesignerSigningState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7733E3012079E96B0081B05E /* DesignerSigningState.m */; };
 		7733E3052079E9920081B05E /* EnterpriseSigningState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7733E3042079E9920081B05E /* EnterpriseSigningState.m */; };
@@ -184,6 +191,15 @@
 		775E31CA202018D3002107DD /* HotDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 775E31C9202018D3002107DD /* HotDataSource.m */; };
 		775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775E31CC202020EA002107DD /* HotH5ItmeViewController.m */; };
 		775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775E31CD202020EA002107DD /* HotH5ItmeViewController.xib */; };
+		776C871120A03D790045A934 /* MycaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C870F20A03D790045A934 /* MycaseViewController.m */; };
+		776C871220A03D790045A934 /* MycaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776C871020A03D790045A934 /* MycaseViewController.xib */; };
+		776C871620A04BEC0045A934 /* EditCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C871420A04BEC0045A934 /* EditCaseViewController.m */; };
+		776C871720A04BEC0045A934 /* EditCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776C871520A04BEC0045A934 /* EditCaseViewController.xib */; };
+		776C871A20A0562B0045A934 /* EditCase.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C871920A0562B0045A934 /* EditCase.m */; };
+		776C871D20A056C10045A934 /* EditCaseStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C871C20A056C10045A934 /* EditCaseStore.m */; };
+		776C872020A14D450045A934 /* CaseDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C871F20A14D450045A934 /* CaseDetail.m */; };
+		776C872320A14D980045A934 /* CaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872220A14D980045A934 /* CaseInfo.m */; };
+		776C872620A14DB30045A934 /* CaseDesignerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872520A14DB30045A934 /* CaseDesignerInfo.m */; };
 		77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A37203179A5006294E8 /* DesignerSigningViewController.m */; };
 		77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A38203179A5006294E8 /* DesignerSigningViewController.xib */; };
 		77723A402033E1AD006294E8 /* YZTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3D2033E1AD006294E8 /* YZTagButton.m */; };
@@ -305,6 +321,17 @@
 		7792B733201F3C7C00587399 /* DesignerInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792B731201F3C7C00587399 /* DesignerInfoViewController.m */; };
 		7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7792B732201F3C7C00587399 /* DesignerInfoViewController.xib */; };
 		7792B737201F404E00587399 /* DesignerInfoHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7792B736201F404E00587399 /* DesignerInfoHeaderView.m */; };
+		779E3685209A9FD8006BFB53 /* Disputes.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E3684209A9FD8006BFB53 /* Disputes.m */; };
+		779E3688209AA001006BFB53 /* DisputesStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E3687209AA001006BFB53 /* DisputesStore.m */; };
+		779E368B209AA025006BFB53 /* DisputesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E368A209AA025006BFB53 /* DisputesDataSource.m */; };
+		779E368F209AA86D006BFB53 /* SubmitDisputesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E368D209AA86D006BFB53 /* SubmitDisputesViewController.m */; };
+		779E3690209AA86D006BFB53 /* SubmitDisputesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E368E209AA86D006BFB53 /* SubmitDisputesViewController.xib */; };
+		779E3693209C5FF6006BFB53 /* ChannelList.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E3692209C5FF6006BFB53 /* ChannelList.m */; };
+		779E3697209C6609006BFB53 /* EditChannelListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E3695209C6609006BFB53 /* EditChannelListViewController.m */; };
+		779E3698209C6609006BFB53 /* EditChannelListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E3696209C6609006BFB53 /* EditChannelListViewController.xib */; };
+		779E369C209C6630006BFB53 /* EditChannelListTCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E369A209C6630006BFB53 /* EditChannelListTCell.m */; };
+		779E369D209C6630006BFB53 /* EditChannelListTCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 779E369B209C6630006BFB53 /* EditChannelListTCell.xib */; };
+		779E36A0209C6912006BFB53 /* EditChannelListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 779E369F209C6912006BFB53 /* EditChannelListDataSource.m */; };
 		77A436A3204533DD00620F58 /* OtherInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A436A2204533DD00620F58 /* OtherInfo.m */; };
 		77A436A72045394900620F58 /* SigningTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77A436A52045394900620F58 /* SigningTypeViewController.m */; };
 		77A436A82045394900620F58 /* SigningTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77A436A62045394900620F58 /* SigningTypeViewController.xib */; };
@@ -447,6 +474,11 @@
 		77E9815520785827007CDFED /* StatisticalDataSegmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77E9815320785827007CDFED /* StatisticalDataSegmentViewController.xib */; };
 		77EF13032092FC19000964A7 /* BiddingProductListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF13012092FC19000964A7 /* BiddingProductListViewController.m */; };
 		77EF13042092FC19000964A7 /* BiddingProductListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */; };
+		77EF13082092FDC5000964A7 /* BiddingProductListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF13062092FDC5000964A7 /* BiddingProductListCell.m */; };
+		77EF13092092FDC5000964A7 /* BiddingProductListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77EF13072092FDC5000964A7 /* BiddingProductListCell.xib */; };
+		77EF130C20930299000964A7 /* BiddingProductListStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF130B20930299000964A7 /* BiddingProductListStore.m */; };
+		77EF130F209302B7000964A7 /* BiddingProductListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF130E209302B7000964A7 /* BiddingProductListDataSource.m */; };
+		77EF13122093033A000964A7 /* BiddingProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = 77EF13112093033A000964A7 /* BiddingProduct.m */; };
 		77F0789F20464A79004C0596 /* MarketingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F0789D20464A79004C0596 /* MarketingViewController.m */; };
 		77F078A020464A79004C0596 /* MarketingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77F0789E20464A79004C0596 /* MarketingViewController.xib */; };
 		77F078A42046A287004C0596 /* MarketingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F078A22046A287004C0596 /* MarketingTableViewCell.m */; };
@@ -630,6 +662,17 @@
 		772F95C4205B60D300F432D2 /* ReleaseHotViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReleaseHotViewController.xib; sourceTree = "<group>"; };
 		772F95C7205C061000F432D2 /* ShearInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShearInfo.h; sourceTree = "<group>"; };
 		772F95C8205C061000F432D2 /* ShearInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShearInfo.m; sourceTree = "<group>"; };
+		772FCDA920995BBE00B833E2 /* CustomRequirementsComments.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsComments.h; sourceTree = "<group>"; };
+		772FCDAA20995BBE00B833E2 /* CustomRequirementsComments.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsComments.m; sourceTree = "<group>"; };
+		772FCDAC2099691900B833E2 /* CustomRequirementsCommentsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomRequirementsCommentsViewController.h; sourceTree = "<group>"; };
+		772FCDAD2099691900B833E2 /* CustomRequirementsCommentsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomRequirementsCommentsViewController.m; sourceTree = "<group>"; };
+		772FCDAE2099691900B833E2 /* CustomRequirementsCommentsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomRequirementsCommentsViewController.xib; sourceTree = "<group>"; };
+		772FCDB12099CBD600B833E2 /* DisputesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisputesViewController.h; sourceTree = "<group>"; };
+		772FCDB22099CBD600B833E2 /* DisputesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisputesViewController.m; sourceTree = "<group>"; };
+		772FCDB32099CBD600B833E2 /* DisputesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisputesViewController.xib; sourceTree = "<group>"; };
+		772FCDB62099CCC400B833E2 /* DisputesTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisputesTableViewCell.h; sourceTree = "<group>"; };
+		772FCDB72099CCC400B833E2 /* DisputesTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisputesTableViewCell.m; sourceTree = "<group>"; };
+		772FCDB82099CCC400B833E2 /* DisputesTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DisputesTableViewCell.xib; sourceTree = "<group>"; };
 		7733E2FB2079CA2B0081B05E /* FileProvider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FileProvider.framework; path = System/Library/Frameworks/FileProvider.framework; sourceTree = SDKROOT; };
 		7733E2FD2079E3090081B05E /* SigningState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningState.h; sourceTree = "<group>"; };
 		7733E2FE2079E3090081B05E /* SigningState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SigningState.m; sourceTree = "<group>"; };
@@ -792,6 +835,22 @@
 		775E31CB202020EA002107DD /* HotH5ItmeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotH5ItmeViewController.h; sourceTree = "<group>"; };
 		775E31CC202020EA002107DD /* HotH5ItmeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotH5ItmeViewController.m; sourceTree = "<group>"; };
 		775E31CD202020EA002107DD /* HotH5ItmeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotH5ItmeViewController.xib; sourceTree = "<group>"; };
+		776C870E20A03D790045A934 /* MycaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MycaseViewController.h; sourceTree = "<group>"; };
+		776C870F20A03D790045A934 /* MycaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MycaseViewController.m; sourceTree = "<group>"; };
+		776C871020A03D790045A934 /* MycaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MycaseViewController.xib; sourceTree = "<group>"; };
+		776C871320A04BEC0045A934 /* EditCaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCaseViewController.h; sourceTree = "<group>"; };
+		776C871420A04BEC0045A934 /* EditCaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCaseViewController.m; sourceTree = "<group>"; };
+		776C871520A04BEC0045A934 /* EditCaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditCaseViewController.xib; sourceTree = "<group>"; };
+		776C871820A0562B0045A934 /* EditCase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCase.h; sourceTree = "<group>"; };
+		776C871920A0562B0045A934 /* EditCase.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCase.m; sourceTree = "<group>"; };
+		776C871B20A056C10045A934 /* EditCaseStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditCaseStore.h; sourceTree = "<group>"; };
+		776C871C20A056C10045A934 /* EditCaseStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditCaseStore.m; sourceTree = "<group>"; };
+		776C871E20A14D450045A934 /* CaseDetail.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaseDetail.h; sourceTree = "<group>"; };
+		776C871F20A14D450045A934 /* CaseDetail.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseDetail.m; sourceTree = "<group>"; };
+		776C872120A14D980045A934 /* CaseInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaseInfo.h; sourceTree = "<group>"; };
+		776C872220A14D980045A934 /* CaseInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseInfo.m; sourceTree = "<group>"; };
+		776C872420A14DB30045A934 /* CaseDesignerInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaseDesignerInfo.h; sourceTree = "<group>"; };
+		776C872520A14DB30045A934 /* CaseDesignerInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseDesignerInfo.m; sourceTree = "<group>"; };
 		77723A36203179A5006294E8 /* DesignerSigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerSigningViewController.h; sourceTree = "<group>"; };
 		77723A37203179A5006294E8 /* DesignerSigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerSigningViewController.m; sourceTree = "<group>"; };
 		77723A38203179A5006294E8 /* DesignerSigningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DesignerSigningViewController.xib; sourceTree = "<group>"; };
@@ -1007,6 +1066,25 @@
 		7792B732201F3C7C00587399 /* DesignerInfoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DesignerInfoViewController.xib; sourceTree = "<group>"; };
 		7792B735201F404E00587399 /* DesignerInfoHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerInfoHeaderView.h; sourceTree = "<group>"; };
 		7792B736201F404E00587399 /* DesignerInfoHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerInfoHeaderView.m; sourceTree = "<group>"; };
+		779E3683209A9FD8006BFB53 /* Disputes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Disputes.h; sourceTree = "<group>"; };
+		779E3684209A9FD8006BFB53 /* Disputes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Disputes.m; sourceTree = "<group>"; };
+		779E3686209AA001006BFB53 /* DisputesStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisputesStore.h; sourceTree = "<group>"; };
+		779E3687209AA001006BFB53 /* DisputesStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisputesStore.m; sourceTree = "<group>"; };
+		779E3689209AA025006BFB53 /* DisputesDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DisputesDataSource.h; sourceTree = "<group>"; };
+		779E368A209AA025006BFB53 /* DisputesDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DisputesDataSource.m; sourceTree = "<group>"; };
+		779E368C209AA86D006BFB53 /* SubmitDisputesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SubmitDisputesViewController.h; sourceTree = "<group>"; };
+		779E368D209AA86D006BFB53 /* SubmitDisputesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SubmitDisputesViewController.m; sourceTree = "<group>"; };
+		779E368E209AA86D006BFB53 /* SubmitDisputesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubmitDisputesViewController.xib; sourceTree = "<group>"; };
+		779E3691209C5FF6006BFB53 /* ChannelList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChannelList.h; sourceTree = "<group>"; };
+		779E3692209C5FF6006BFB53 /* ChannelList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChannelList.m; sourceTree = "<group>"; };
+		779E3694209C6609006BFB53 /* EditChannelListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditChannelListViewController.h; sourceTree = "<group>"; };
+		779E3695209C6609006BFB53 /* EditChannelListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditChannelListViewController.m; sourceTree = "<group>"; };
+		779E3696209C6609006BFB53 /* EditChannelListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditChannelListViewController.xib; sourceTree = "<group>"; };
+		779E3699209C6630006BFB53 /* EditChannelListTCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditChannelListTCell.h; sourceTree = "<group>"; };
+		779E369A209C6630006BFB53 /* EditChannelListTCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditChannelListTCell.m; sourceTree = "<group>"; };
+		779E369B209C6630006BFB53 /* EditChannelListTCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditChannelListTCell.xib; sourceTree = "<group>"; };
+		779E369E209C6912006BFB53 /* EditChannelListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EditChannelListDataSource.h; sourceTree = "<group>"; };
+		779E369F209C6912006BFB53 /* EditChannelListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditChannelListDataSource.m; sourceTree = "<group>"; };
 		77A436A1204533DD00620F58 /* OtherInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherInfo.h; sourceTree = "<group>"; };
 		77A436A2204533DD00620F58 /* OtherInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherInfo.m; sourceTree = "<group>"; };
 		77A436A42045394900620F58 /* SigningTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SigningTypeViewController.h; sourceTree = "<group>"; };
@@ -1257,6 +1335,15 @@
 		77EF13002092FC19000964A7 /* BiddingProductListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProductListViewController.h; sourceTree = "<group>"; };
 		77EF13012092FC19000964A7 /* BiddingProductListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProductListViewController.m; sourceTree = "<group>"; };
 		77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiddingProductListViewController.xib; sourceTree = "<group>"; };
+		77EF13052092FDC5000964A7 /* BiddingProductListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProductListCell.h; sourceTree = "<group>"; };
+		77EF13062092FDC5000964A7 /* BiddingProductListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProductListCell.m; sourceTree = "<group>"; };
+		77EF13072092FDC5000964A7 /* BiddingProductListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BiddingProductListCell.xib; sourceTree = "<group>"; };
+		77EF130A20930299000964A7 /* BiddingProductListStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProductListStore.h; sourceTree = "<group>"; };
+		77EF130B20930299000964A7 /* BiddingProductListStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProductListStore.m; sourceTree = "<group>"; };
+		77EF130D209302B7000964A7 /* BiddingProductListDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProductListDataSource.h; sourceTree = "<group>"; };
+		77EF130E209302B7000964A7 /* BiddingProductListDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProductListDataSource.m; sourceTree = "<group>"; };
+		77EF13102093033A000964A7 /* BiddingProduct.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BiddingProduct.h; sourceTree = "<group>"; };
+		77EF13112093033A000964A7 /* BiddingProduct.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BiddingProduct.m; sourceTree = "<group>"; };
 		77F0789C20464A79004C0596 /* MarketingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarketingViewController.h; sourceTree = "<group>"; };
 		77F0789D20464A79004C0596 /* MarketingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarketingViewController.m; sourceTree = "<group>"; };
 		77F0789E20464A79004C0596 /* MarketingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MarketingViewController.xib; sourceTree = "<group>"; };
@@ -1465,6 +1552,7 @@
 		77369CC8200F512F0092AEAC /* MyInfomation */ = {
 			isa = PBXGroup;
 			children = (
+				776C870D20A03D5A0045A934 /* MyCase */,
 				770D77572068F3B3007601A8 /* Popularize */,
 				770D76ED2061FB13007601A8 /* Wallet */,
 				77C07F79204C2BC300D77DBD /* Setup */,
@@ -1485,6 +1573,12 @@
 				77CE7C74202AE78E0067D284 /* InfomationTableViewCell.xib */,
 				77CE7C83202B02DF0067D284 /* AlertView.h */,
 				77CE7C84202B02DF0067D284 /* AlertView.m */,
+				779E3694209C6609006BFB53 /* EditChannelListViewController.h */,
+				779E3695209C6609006BFB53 /* EditChannelListViewController.m */,
+				779E3696209C6609006BFB53 /* EditChannelListViewController.xib */,
+				779E3699209C6630006BFB53 /* EditChannelListTCell.h */,
+				779E369A209C6630006BFB53 /* EditChannelListTCell.m */,
+				779E369B209C6630006BFB53 /* EditChannelListTCell.xib */,
 				77848ADF202D37EC00C0CCD2 /* MyFocusViewController.h */,
 				77848AE0202D37EC00C0CCD2 /* MyFocusViewController.m */,
 				77848AE1202D37EC00C0CCD2 /* MyFocusViewController.xib */,
@@ -1621,6 +1715,21 @@
 				77EF13002092FC19000964A7 /* BiddingProductListViewController.h */,
 				77EF13012092FC19000964A7 /* BiddingProductListViewController.m */,
 				77EF13022092FC19000964A7 /* BiddingProductListViewController.xib */,
+				77EF13052092FDC5000964A7 /* BiddingProductListCell.h */,
+				77EF13062092FDC5000964A7 /* BiddingProductListCell.m */,
+				77EF13072092FDC5000964A7 /* BiddingProductListCell.xib */,
+				772FCDAC2099691900B833E2 /* CustomRequirementsCommentsViewController.h */,
+				772FCDAD2099691900B833E2 /* CustomRequirementsCommentsViewController.m */,
+				772FCDAE2099691900B833E2 /* CustomRequirementsCommentsViewController.xib */,
+				772FCDB12099CBD600B833E2 /* DisputesViewController.h */,
+				772FCDB22099CBD600B833E2 /* DisputesViewController.m */,
+				772FCDB32099CBD600B833E2 /* DisputesViewController.xib */,
+				772FCDB62099CCC400B833E2 /* DisputesTableViewCell.h */,
+				772FCDB72099CCC400B833E2 /* DisputesTableViewCell.m */,
+				772FCDB82099CCC400B833E2 /* DisputesTableViewCell.xib */,
+				779E368C209AA86D006BFB53 /* SubmitDisputesViewController.h */,
+				779E368D209AA86D006BFB53 /* SubmitDisputesViewController.m */,
+				779E368E209AA86D006BFB53 /* SubmitDisputesViewController.xib */,
 			);
 			path = CustomRequirementsStateList;
 			sourceTree = "<group>";
@@ -1642,6 +1751,19 @@
 				775909A12016350300F9D8EA /* PXYview.m */,
 			);
 			path = LineChart;
+			sourceTree = "<group>";
+		};
+		776C870D20A03D5A0045A934 /* MyCase */ = {
+			isa = PBXGroup;
+			children = (
+				776C870E20A03D790045A934 /* MycaseViewController.h */,
+				776C870F20A03D790045A934 /* MycaseViewController.m */,
+				776C871020A03D790045A934 /* MycaseViewController.xib */,
+				776C871320A04BEC0045A934 /* EditCaseViewController.h */,
+				776C871420A04BEC0045A934 /* EditCaseViewController.m */,
+				776C871520A04BEC0045A934 /* EditCaseViewController.xib */,
+			);
+			path = MyCase;
 			sourceTree = "<group>";
 		};
 		77723A3020308A77006294E8 /* Signing */ = {
@@ -1917,6 +2039,22 @@
 				7753C325208F5DBC009FF82C /* CustomRequirementsList.m */,
 				77E6569120907B85002772A5 /* CustomRequirementsDetail.h */,
 				77E6569220907B85002772A5 /* CustomRequirementsDetail.m */,
+				77EF13102093033A000964A7 /* BiddingProduct.h */,
+				77EF13112093033A000964A7 /* BiddingProduct.m */,
+				772FCDA920995BBE00B833E2 /* CustomRequirementsComments.h */,
+				772FCDAA20995BBE00B833E2 /* CustomRequirementsComments.m */,
+				779E3683209A9FD8006BFB53 /* Disputes.h */,
+				779E3684209A9FD8006BFB53 /* Disputes.m */,
+				779E3691209C5FF6006BFB53 /* ChannelList.h */,
+				779E3692209C5FF6006BFB53 /* ChannelList.m */,
+				776C871820A0562B0045A934 /* EditCase.h */,
+				776C871920A0562B0045A934 /* EditCase.m */,
+				776C871E20A14D450045A934 /* CaseDetail.h */,
+				776C871F20A14D450045A934 /* CaseDetail.m */,
+				776C872120A14D980045A934 /* CaseInfo.h */,
+				776C872220A14D980045A934 /* CaseInfo.m */,
+				776C872420A14DB30045A934 /* CaseDesignerInfo.h */,
+				776C872520A14DB30045A934 /* CaseDesignerInfo.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -1976,6 +2114,12 @@
 				77BE88AC208887B400C72617 /* CustomRequirementsStore.m */,
 				77907B20208C4745005FDE9D /* DirectionalDemandReleaseStore.h */,
 				77907B21208C4745005FDE9D /* DirectionalDemandReleaseStore.m */,
+				77EF130A20930299000964A7 /* BiddingProductListStore.h */,
+				77EF130B20930299000964A7 /* BiddingProductListStore.m */,
+				779E3686209AA001006BFB53 /* DisputesStore.h */,
+				779E3687209AA001006BFB53 /* DisputesStore.m */,
+				776C871B20A056C10045A934 /* EditCaseStore.h */,
+				776C871C20A056C10045A934 /* EditCaseStore.m */,
 			);
 			path = Store;
 			sourceTree = "<group>";
@@ -2409,6 +2553,12 @@
 				77907B31208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m */,
 				7753C321208F53F9009FF82C /* CustomRequirementsStateListDataSource.h */,
 				7753C322208F53F9009FF82C /* CustomRequirementsStateListDataSource.m */,
+				77EF130D209302B7000964A7 /* BiddingProductListDataSource.h */,
+				77EF130E209302B7000964A7 /* BiddingProductListDataSource.m */,
+				779E3689209AA025006BFB53 /* DisputesDataSource.h */,
+				779E368A209AA025006BFB53 /* DisputesDataSource.m */,
+				779E369E209C6912006BFB53 /* EditChannelListDataSource.h */,
+				779E369F209C6912006BFB53 /* EditChannelListDataSource.m */,
 			);
 			path = DataSource;
 			sourceTree = "<group>";
@@ -2618,6 +2768,7 @@
 				774B87EB204E43AC00F602E3 /* AboutItopViewController.xib in Resources */,
 				77723AE12043BBB2006294E8 /* mss_browseLoading@2x.png in Resources */,
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
+				779E3698209C6609006BFB53 /* EditChannelListViewController.xib in Resources */,
 				77723ABA2043BB42006294E8 /* AssetsPickerVideo@2x.png in Resources */,
 				77B86FEE202861C00096FB28 /* LeaveViewController.xib in Resources */,
 				77369CD8200F530F0092AEAC /* MyInfomationViewController.xib in Resources */,
@@ -2655,18 +2806,22 @@
 				77369CCE200F52810092AEAC /* HomeViewController.xib in Resources */,
 				77492C092091D05D00E9960E /* CustomRequirementsStateDetailViewController.xib in Resources */,
 				770D77662068F89D007601A8 /* PopularizeTableViewCell.xib in Resources */,
+				772FCDB02099691900B833E2 /* CustomRequirementsCommentsViewController.xib in Resources */,
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
 				77E8A8552011997800E253CC /* ThemeCustomViewCollectionViewCell.xib in Resources */,
 				770D772020624663007601A8 /* BuyVipPayViewController.xib in Resources */,
 				774B880E204FC2AE00F602E3 /* ShearView.xib in Resources */,
 				77B86FE9202803140096FB28 /* TagView.xib in Resources */,
+				772FCDBA2099CCC400B833E2 /* DisputesTableViewCell.xib in Resources */,
 				77E8A8B12015BEEC00E253CC /* 气泡.png in Resources */,
 				77723AE22043BBB2006294E8 /* mss_browseLoading@3x.png in Resources */,
 				77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */,
 				774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */,
 				77E8A88A20136B9B00E253CC /* registeredViewController.xib in Resources */,
+				772FCDB52099CBD600B833E2 /* DisputesViewController.xib in Resources */,
 				77907B2A208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib in Resources */,
+				779E3690209AA86D006BFB53 /* SubmitDisputesViewController.xib in Resources */,
 				7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */,
 				77484A992020BDB900BAC567 /* HotDetailsCell.xib in Resources */,
 				7792B734201F3C7C00587399 /* DesignerInfoViewController.xib in Resources */,
@@ -2689,6 +2844,8 @@
 				770D77252062595A007601A8 /* BuyTemplateViewController.xib in Resources */,
 				77E8A88F20137F2900E253CC /* ResetPasswordViewController.xib in Resources */,
 				77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */,
+				776C871220A03D790045A934 /* MycaseViewController.xib in Resources */,
+				77EF13092092FDC5000964A7 /* BiddingProductListCell.xib in Resources */,
 				77723ABF2043BB42006294E8 /* ico@2x.png in Resources */,
 				77848AE3202D37EC00C0CCD2 /* MyFocusViewController.xib in Resources */,
 				770D773220629EAC007601A8 /* LoadingViewController.xib in Resources */,
@@ -2704,6 +2861,7 @@
 				77E8A84C20118E0300E253CC /* ThemeCustomViewController.xib in Resources */,
 				770D774920649074007601A8 /* SearchTableViewCell.xib in Resources */,
 				7777E55E2029F17F008FA348 /* LeaveDateilCell.xib in Resources */,
+				779E369D209C6630006BFB53 /* EditChannelListTCell.xib in Resources */,
 				772F95AC20590C1600F432D2 /* CommentListTableViewCell.xib in Resources */,
 				77C07F78204AD85200D77DBD /* CustomerServiceViewController.xib in Resources */,
 				772F95A72058C76700F432D2 /* CommentListViewController.xib in Resources */,
@@ -2718,6 +2876,7 @@
 				77C07F86204D391F00D77DBD /* SetupHomeViewController.xib in Resources */,
 				77723ABC2043BB42006294E8 /* delete-circular.png in Resources */,
 				770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */,
+				776C871720A04BEC0045A934 /* EditCaseViewController.xib in Resources */,
 				77BE88B3208889B000C72617 /* CustomRequirementsStoreCell.xib in Resources */,
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
@@ -2841,6 +3000,7 @@
 				77492C082091D05D00E9960E /* CustomRequirementsStateDetailViewController.m in Sources */,
 				7777E5672029F3E3008FA348 /* LeaveDetailDataSource.m in Sources */,
 				7717E9A3206B878D0025DC73 /* DirectMessagesViewController.m in Sources */,
+				776C872020A14D450045A934 /* CaseDetail.m in Sources */,
 				77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */,
 				77723AE62043BBB2006294E8 /* MSSBrowseCollectionViewCell.m in Sources */,
 				77484AB1202210B700BAC567 /* MyWorksDataSource.m in Sources */,
@@ -2850,8 +3010,10 @@
 				77F4FF14208DD6300024ED42 /* DemandReleaseViewController.m in Sources */,
 				77484AD72024B3AA00BAC567 /* WebViewController.m in Sources */,
 				772F957F20523BA800F432D2 /* SearchViewController.m in Sources */,
+				772FCDB92099CCC400B833E2 /* DisputesTableViewCell.m in Sources */,
 				77484AC32023200B00BAC567 /* UINavigationBar+Awesome.m in Sources */,
 				77723AEC2043BBB2006294E8 /* MSSBrowseZoomScrollView.m in Sources */,
+				779E3685209A9FD8006BFB53 /* Disputes.m in Sources */,
 				77E8A893201580D100E253CC /* StatisticalDataViewController.m in Sources */,
 				77C07F81204CF00A00D77DBD /* DesignerSigningStore.m in Sources */,
 				77CE7C8B202B14290067D284 /* Province.m in Sources */,
@@ -2860,6 +3022,7 @@
 				77723B0E2043CC77006294E8 /* CDRTranslucentSideBar.m in Sources */,
 				77BB213620707AA4000CADC9 /* ProvinceTableViewCell.m in Sources */,
 				7733E3022079E96B0081B05E /* DesignerSigningState.m in Sources */,
+				779E36A0209C6912006BFB53 /* EditChannelListDataSource.m in Sources */,
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
 				77BE88AD208887B400C72617 /* CustomRequirementsStore.m in Sources */,
@@ -2868,13 +3031,17 @@
 				77484AB72022BB9200BAC567 /* LoginMannager.m in Sources */,
 				77BB215920772152000CADC9 /* KKSequenceImageView.m in Sources */,
 				7777E5612029F369008FA348 /* LeaveDetail.m in Sources */,
+				776C872620A14DB30045A934 /* CaseDesignerInfo.m in Sources */,
 				7733E2FF2079E3090081B05E /* SigningState.m in Sources */,
+				772FCDAF2099691900B833E2 /* CustomRequirementsCommentsViewController.m in Sources */,
+				77EF13122093033A000964A7 /* BiddingProduct.m in Sources */,
 				77369CD2200F52AF0092AEAC /* HotViewController.m in Sources */,
 				77723A44203EF219006294E8 /* SpecialityTag.m in Sources */,
 				77F078AE2046A7CE004C0596 /* Marketing.m in Sources */,
 				770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */,
 				770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */,
 				77E8A89C20158D6E00E253CC /* StatisticalDataStore.m in Sources */,
+				776C872320A14D980045A934 /* CaseInfo.m in Sources */,
 				7753C326208F5DBC009FF82C /* CustomRequirementsList.m in Sources */,
 				77E8A8792011DCB000E253CC /* MASCompositeConstraint.m in Sources */,
 				77826B9F2019DCA700F53E28 /* MyInfomationStore.m in Sources */,
@@ -2888,8 +3055,10 @@
 				77F078AB2046A61F004C0596 /* MarketingStore.m in Sources */,
 				7753C31A208F36ED009FF82C /* CustomRequirementsStateListTableViewController.m in Sources */,
 				77723A8A2043B015006294E8 /* NSData+Base64.m in Sources */,
+				772FCDAB20995BBE00B833E2 /* CustomRequirementsComments.m in Sources */,
 				7777E5642029F3C4008FA348 /* LeaveDetailStore.m in Sources */,
 				777AF1DA200E3C15009729AD /* OSHelper.m in Sources */,
+				776C871620A04BEC0045A934 /* EditCaseViewController.m in Sources */,
 				77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */,
 				7792B723201C245900587399 /* HomeHeaderView.m in Sources */,
 				770D7711206236D2007601A8 /* EarningDetailViewController.m in Sources */,
@@ -2915,6 +3084,7 @@
 				77E8A8802011DCB000E253CC /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				77B2F47320109CC600EF4119 /* WXApiRequestHandler.m in Sources */,
 				77369CC5200F38E30092AEAC /* ApplicationCollectionViewDataSource.m in Sources */,
+				779E368B209AA025006BFB53 /* DisputesDataSource.m in Sources */,
 				777AF1C6200DFA7A009729AD /* UIManager.m in Sources */,
 				77723B102043CC77006294E8 /* MSSCollectionViewCell.m in Sources */,
 				77E8A87C2011DCB000E253CC /* MASLayoutConstraint.m in Sources */,
@@ -2938,11 +3108,13 @@
 				77A51498207DDD34003206B5 /* PopularizeAllCount.m in Sources */,
 				77B86FE7202803080096FB28 /* TagView.m in Sources */,
 				77907B22208C4745005FDE9D /* DirectionalDemandReleaseStore.m in Sources */,
+				779E3693209C5FF6006BFB53 /* ChannelList.m in Sources */,
 				775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */,
 				77B86FED202861C00096FB28 /* LeaveViewController.m in Sources */,
 				77484A9F2021914300BAC567 /* HotDetails.m in Sources */,
 				772F95B220590DC400F432D2 /* CommentListDataSource.m in Sources */,
 				77723AE32043BBB2006294E8 /* MSSBrowseActionSheet.m in Sources */,
+				779E368F209AA86D006BFB53 /* SubmitDisputesViewController.m in Sources */,
 				77484A86202054D800BAC567 /* RecommendedDataSource.m in Sources */,
 				77E8A85820119C3200E253CC /* ThemeCustom.m in Sources */,
 				77907B32208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m in Sources */,
@@ -2956,7 +3128,10 @@
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
 				7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */,
+				779E369C209C6630006BFB53 /* EditChannelListTCell.m in Sources */,
+				776C871D20A056C10045A934 /* EditCaseStore.m in Sources */,
 				77E8A84B20118E0300E253CC /* ThemeCustomViewController.m in Sources */,
+				77EF130F209302B7000964A7 /* BiddingProductListDataSource.m in Sources */,
 				77BE88B2208889B000C72617 /* CustomRequirementsStoreCell.m in Sources */,
 				777D5172200CC52700CB2A8A /* AppDelegate.m in Sources */,
 				770D77602068F87C007601A8 /* PopularizeItmeTableViewController.m in Sources */,
@@ -2967,6 +3142,7 @@
 				77723B0F2043CC77006294E8 /* MessagePhotoView.m in Sources */,
 				777AF1DD200E427B009729AD /* KeychainItemWrapper.m in Sources */,
 				7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */,
+				77EF130C20930299000964A7 /* BiddingProductListStore.m in Sources */,
 				7777E55420294413008FA348 /* Leave.m in Sources */,
 				77907B1F208C468B005FDE9D /* DemandEdit.m in Sources */,
 				77B2F47A2010AEE100EF4119 /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
@@ -2977,10 +3153,12 @@
 				77BB21562075CC08000CADC9 /* YYGestureRecognizer.m in Sources */,
 				772F959C2056206A00F432D2 /* SetupProductViewController.m in Sources */,
 				7717E991206B71530025DC73 /* DirectMessages.m in Sources */,
+				779E3688209AA001006BFB53 /* DisputesStore.m in Sources */,
 				775E31C620201822002107DD /* HotTableViewCell.m in Sources */,
 				77C07F77204AD85200D77DBD /* CustomerServiceViewController.m in Sources */,
 				77484A982020BDB900BAC567 /* HotDetailsCell.m in Sources */,
 				77BB2126206D35D4000CADC9 /* SearchListDataSource.m in Sources */,
+				772FCDB42099CBD600B833E2 /* DisputesViewController.m in Sources */,
 				77E8A87D2011DCB000E253CC /* MASViewAttribute.m in Sources */,
 				770D776C20690139007601A8 /* PopularizeStore.m in Sources */,
 				7717E997206B7B020025DC73 /* DirectMessagesDataSource.m in Sources */,
@@ -3043,6 +3221,7 @@
 				77907B2E208D753A005FDE9D /* CustomRequirementsDesginListTableViewCell.m in Sources */,
 				7717E994206B74B80025DC73 /* UserMessege.m in Sources */,
 				77E8A8AE2015BEEC00E253CC /* SNChartBar.m in Sources */,
+				776C871120A03D790045A934 /* MycaseViewController.m in Sources */,
 				77484AAE2021F26A00BAC567 /* HomeBanner.m in Sources */,
 				77C07F8E204D3A7300D77DBD /* SetupHomeStore.m in Sources */,
 				77369CB9200F227B0092AEAC /* ApplicationTableViewDataSource.m in Sources */,
@@ -3052,6 +3231,7 @@
 				772F95B6205A48FB00F432D2 /* MyhotViewController.m in Sources */,
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
+				77EF13082092FDC5000964A7 /* BiddingProductListCell.m in Sources */,
 				7753C323208F53F9009FF82C /* CustomRequirementsStateListDataSource.m in Sources */,
 				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,
 				770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */,
@@ -3075,6 +3255,7 @@
 				77723AE92043BBB2006294E8 /* MSSBrowseModel.m in Sources */,
 				7753C31F208F3724009FF82C /* CustomRequirementsStateListCell.m in Sources */,
 				772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */,
+				779E3697209C6609006BFB53 /* EditChannelListViewController.m in Sources */,
 				7777E56A202AE058008FA348 /* HomeSectionHeaderView.m in Sources */,
 				77DA833620187EEB00E7CB36 /* DesignerListViewCollectionViewCell.m in Sources */,
 				774B8812204FC2BA00F602E3 /* ShearViewController.m in Sources */,
@@ -3102,6 +3283,7 @@
 				77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */,
 				775909A32016350300F9D8EA /* PXLineChartConst.m in Sources */,
 				77723AE52043BBB2006294E8 /* MSSBrowseBaseViewController.m in Sources */,
+				776C871A20A0562B0045A934 /* EditCase.m in Sources */,
 				77BB21532074A789000CADC9 /* UIButton+See.m in Sources */,
 				77907B16208B425D005FDE9D /* DirectionalDemandReleaseViewController.m in Sources */,
 				77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */,

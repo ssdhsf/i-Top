@@ -62,6 +62,18 @@
     return array;
 }
 
+-(NSArray *)configurationCustomRequirementsCommentsWithRequsData:(NSArray *)arr{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    
+    for (NSDictionary *dic in arr) {
+        
+        CustomRequirementsComments *custom = [[CustomRequirementsComments alloc]initWithDictionary:dic error:nil];
+        [array addObject:custom];
+    }
+    return array;
+}
+
 -(Infomation *)setupCustomRequirementsWithCustomRequirementsDetailTitle:(NSString *)title
                                                                 content:(NSString *)content{
     
@@ -111,24 +123,50 @@
 }
 
 -(NSArray *)operationArrayWithState:(CustomRequirementsType)state{
-    
-    NSArray *array = @[@[@"编辑",@"下架",@"托管赏金",@"删除"],
-                       @[@"托管赏金",@"平台介入",@"验收完成"],
-                       @[@"删除"],
-                       @[@"编辑",@"托管赏金"],
-                       @[@"作品上传",@"平台介入",@"取消合作"],
-                       @[@"重新发布",@"删除"],
-                       @[@"删除"],
-                       @[@"评价"],
-                       @[@"评价"],
-                       @[@"删除"],
-                       @[@"编辑",@"删除"],
-                       @[@"评价"],
-                       @[@"删除"],
-                       @[@"走你"],
-                       @[@"你们干一架"]
-                       ];
-    return array[state];
+   
+    if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner) {
+       
+        NSArray *array = @[@[@"接单",@"拒绝"], //待接单
+                           @[@"作品上传",@"平台介入"],//已接单
+                           @[@"删除"], //已拒绝
+                           @[@"取消竞标"],//竞标中
+                           @[@"作品上传",@"平台介入"],//竞标成功
+                           @[@"删除"],//竞标失败
+                           @[@"删除"],//竞标取消
+                           @[@"评价"],//验收完成
+                           @[@"删除"],//合作失败
+                           @[@"删除"],//已完成
+                           @[@"编辑",@"删除"],//审核中
+                           @[@"评价"],//审核不通过
+                           @[@"删除"],//合作取消
+                           @[@"编辑",@"上架",@"删除"],//已下架
+                           @[@"平台介入",@"取消合作"]//平台介入
+                           ];
+        
+        return array[state];
+
+    } else {
+        
+        NSArray *array = @[@[@"编辑",@"下架",@"托管赏金",@"删除"], //待接单
+                           @[@"托管赏金",@"平台介入",@"验收完成"],//已接单
+                           @[@"删除"], //已拒绝
+                           @[@"编辑",@"托管赏金"],//竞标中
+                           @[@"托管赏金",@"平台介入",@"验收完成"],//竞标成功
+                           @[@"重新发布",@"删除"],//竞标失败
+                           @[@"删除"],//竞标取消
+                           @[@"评价"],//验收完成
+                           @[@"删除"],//合作失败
+                           @[@"删除"],//已完成
+                           @[@"编辑",@"删除"],//审核中
+                           @[@"编辑",@"重新发布",@"删除"],//审核不通过
+                           @[@"删除"],//合作取消
+                           @[@"编辑",@"上架",@"删除"],//已下架
+                           @[@"平台介入",@"取消合作"]//平台介入
+                           ];
+        
+        return array[state];
+
+    }
     
 }
 
@@ -145,7 +183,7 @@
                        @"合作失败",
                        @"已完成",
                        @"审核中",
-                       @"验收完成",
+                       @"审核不通过",
                        @"合作取消",
                        @"下架",
                        @"平台介入"];
@@ -161,17 +199,16 @@
 
 -(NSArray *)showPageTitleWithState:(CustomRequirementsType)state demandType:(DemandType)demandType{
     
-    NSArray *array ;
+    NSString *title =  [[UserManager shareUserManager] crrentUserType] ? @"客户评价" : @"设计师评价";
+    NSArray *array = [NSArray array];
     switch (state) {
             
-        case CustomRequirementsTypeUnAccept:
+        case CustomRequirementsTypeUnAccept: //待接单
         case CustomRequirementsTypePending://审核中
         case CustomRequirementsTypeOut://下架
         case CustomRequirementsTypeNotPass://不通过
-        case CustomRequirementsTypeCanceled://合作取消
         case CustomRequirementsTypeRefuse://已拒绝
-        case CustomRequirementsTypeIntervention://平台介入
-        case CustomRequirementsTypeBidFail://合作失败
+        case CustomRequirementsTypeBidCancel: //竞标取消
             
             array = @[@"订单"];
             break;
@@ -181,7 +218,7 @@
             array = @[@"订单",@"作品"];
             break;
             
-        case CustomRequirementsTypeBid://竞标成功
+        case CustomRequirementsTypeBid://竞标中
             
             array = @[@"订单",@"投标"];
             break;
@@ -193,23 +230,31 @@
         case CustomRequirementsTypeSucess://验收完成
             
             if (demandType == DemandTypeDirectional) {
-                array = @[@"订单",@"作品",@"设计师评价",@"我的评价"];
+                array = @[@"订单",@"作品"];
             } else {
                 
-                array = @[@"订单",@"投标",@"作品",@"设计师评价",@"我的评价"];
+                array = @[@"订单",@"投标",@"作品"];
             }
-            
             break;
             
         case CustomRequirementsTypeCompletion://已完成
             
             if (demandType == DemandTypeDirectional) {
-                array = @[@"订单",@"作品",@"设计师评价",@"我的评价"];
+                array = @[@"订单",@"作品",title,@"我的评价"];
+            } else {
+                array = @[@"订单",@"投标",@"作品",title,@"我的评价"];
+            }
+            break;
+        case CustomRequirementsTypeIntervention://平台介入
+        case CustomRequirementsTypeCanceled://合作取消
+        case CustomRequirementsTypeBidFail://合作失败
+            
+            if (demandType == DemandTypeDirectional) {
+                array = @[@"订单",@"作品"];
             } else {
                 
-                array = @[@"订单",@"投标",@"作品",@"设计师评价",@"我的评价"];
+                array = @[@"订单",@"投标",@"作品"];
             }
-            
             break;
             
         default:

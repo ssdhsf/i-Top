@@ -11,5 +11,7 @@
 @interface CommentPopularizeViewController : BaseViewController
 
 @property (nonatomic, strong)NSNumber *popularize_id;
+@property (nonatomic, strong)NSNumber *demand_id;
+@property (nonatomic, assign)CommentType commentType;
 
 @end

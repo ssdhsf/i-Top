@@ -35,14 +35,15 @@
 @property (strong, nonatomic) UIImageView *h5_cover;
 @property (strong, nonatomic) H5List *select_h5;
 
-@property (nonatomic, strong) UIPickerView *pickView;
 @property (nonatomic, strong) NSArray *provinceArray; // 省份
 @property (nonatomic, strong) NSArray *cityArray;//城市
 @property (nonatomic, strong) Province *province; //选择省份
 @property (nonatomic, strong) Province *city; //选择的城市
-@property (assign, nonatomic) SignPickViewType signPickViewType;
 @property (weak, nonatomic) IBOutlet UIButton *h5SelectProvinceButton;
 @property (weak, nonatomic) IBOutlet UIButton *infoSelectProvinceButton;
+
+@property (nonatomic, strong)AlertView *alertView; //弹窗
+@property (assign, nonatomic) NSInteger selectButtonTag;
 
 @end
 
@@ -103,7 +104,6 @@
 }
 
 -(void)initNavigationBarItems{
-    
     self.title = @"发布热点";
 }
 
@@ -113,7 +113,6 @@
     _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
     Province *province = _provinceArray[0];
     _cityArray = province.cityArray;
-
 }
 
 -(void)initSegment{
@@ -186,162 +185,69 @@
 }
 
 - (IBAction)selectItem:(UIButton *)sender {
-    
+   
+    _selectButtonTag = sender.tag;
     [self showAlertViewWithItem:sender];
 }
 
 -(void)showAlertViewWithItem:(UIButton*)button{
     
-    _signPickViewType = button.tag;
-    UIView *view = [[UIView alloc] init];
-    [self initPickViewWith:button.tag];
-    view.frame = self.pickView.frame;
-    [view addSubview:self.pickView];
-
-    AlertView *alertView = [[AlertView alloc]initWithTitle:@"请选择地区"
-                                                   message:view
-                                                   sureBtn:@"确定"
-                                                 cancleBtn:@"取消"
-                                              pickViewType:button.tag];
-    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
-        
-        
-        if (_itmeIndex == 0) {
+    NSString *string = [NSString stringWithFormat:@"请选择%@",button.titleLabel.text];
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (button.tag) {
             
-            [_h5SelectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
-        } else {
+        case PickViewTypeProvince:
             
-            [_infoSelectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
-        }
+            superArray = _provinceArray;
+            subArray = _cityArray;
+            break;
+        default:
+            break;
+    }
+    
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                         message:nil
+                                         sureBtn:@"确定"
+                                       cancleBtn:@"取消"
+                                    pickViewType:button.tag
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
+        
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
     };
     
-//    alertView.alertCancel = ^ (NSInteger index ,PickViewType picViewType){
-//    
-//        
-//        
-//    };
-    [alertView showXLAlertView];
-}
-
--(void)initPickViewWith:(SignPickViewType)pickViewType{
-    
-    self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
-    self.pickView.backgroundColor = [UIColor whiteColor];
-    self.pickView.delegate = self;
-    self.pickView.dataSource = self;
-    self.pickView.showsSelectionIndicator = YES;
-    [self.pickView reloadAllComponents];
-    
-    if (_itmeIndex == 0) {
-        
-        [self positioningwithindex:_h5SelectProvinceButton.titleLabel.text];
- 
-    } else {
-        
-       [self positioningwithindex:_infoSelectProvinceButton.titleLabel.text];
+    if ([button.titleLabel.text  rangeOfString:@"请选择"].location  == NSNotFound) {
+        [_alertView setupPickViewWithContent:button.titleLabel.text];
     }
+    [_alertView showXLAlertView];
 }
 
-
-#pragma mark 数据源 Method numberOfComponentsInPickerView
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
     
-    return 2;
-}
-
--(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    
-    UILabel *lbl = (UILabel *)view;
-    
-    if (lbl == nil) {
-        
-        lbl = [[UILabel alloc]init];
-        //在这里设置字体相关属性
-        lbl.adjustsFontSizeToFitWidth = YES;
-        lbl.font = [UIFont systemFontOfSize:15];
-        lbl.textColor = [UIColor blackColor];
-        [lbl setTextAlignment:NSTextAlignmentCenter];
-        [lbl setBackgroundColor:[UIColor clearColor]];
-    }
-    //重新加载lbl的文字内容
-    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    return lbl;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    
-    if (component==0){ //省
-        
-        return self.provinceArray.count;
-    }else{
-        //市
-        return _cityArray.count;
-    }
-}
-
-#pragma mark delegate 显示信息的方法
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-    if (component==0){
-        
-        
-        Province *province = self.provinceArray[row];
-        _province = province;
-        return province.address;
-        
-    }else{
-        Province *city = self.cityArray[row];
-        _city = city;
-        return city.address;//省份对应的市区
-    }
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
-    if (component==0){
-        
-        _province = self.provinceArray[row];
-        self.cityArray =_province.cityArray;
-        [self.pickView reloadComponent:1];
-        
-    }else{
-        
-        _city = self.cityArray[row];
-    }
-}
-
-
-#pragma mark 选择数据时将有数据的itme赋给已选择的temp
--(void)positioningwithindex:(NSString *)info{
-    
-    NSArray *arr = [info componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (Province *province in self.provinceArray ) {
-        
-        if ([province.address isEqualToString:arr[0]]) {
+    switch (_selectButtonTag) {
+        case PickViewTypeProvince:
             
-            index = [self.provinceArray indexOfObject:province];
-            self.cityArray = province.cityArray;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (Province *province in self.cityArray ) {
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
             
-            if ([province.address isEqualToString:arr[1]]) {
-                
-                inde2 = [self.cityArray indexOfObject:province];
+            if (_itemDetailType == H5ItemDetailType) {
+                [_h5SelectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
+
+            } else {
+                [_infoSelectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
             }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
+            break;
+            
+        default:
+            break;
     }
 }
-
-
 
 #pragma mark -------- select Index
 -(void)selectedIndex:(NSInteger)index{
@@ -549,7 +455,6 @@
                 
                 [self updateAlertOperation];
             };
-
         }
     }
 }

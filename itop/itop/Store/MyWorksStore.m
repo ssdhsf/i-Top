@@ -111,6 +111,19 @@
     return dic;
 }
 
-
+- (NSDictionary *)editMycaseConfigurationMenu{
+    
+   NSDictionary * configurationDic = @{@"添加":@"case_icon_add",
+                         @"编辑":@"zuo_icon_edit",
+                         @"预览":@"zuo_icon_preview",
+                         @"分享":@"zuo_icon_share",
+                         @"复制链接":@"zuo_icon_link",
+                         @"二维码":@"zuo_icon_code",
+                         @"删除":@"zuo_icon_delete"};
+    NSArray*titleArray = @[@"添加",@"编辑",@"预览",@"分享",@"复制链接",@"二维码",@"删除"];
+    NSDictionary * dic = @{@"config":configurationDic,@"title": titleArray};
+    
+    return dic;
+}
 
 @end

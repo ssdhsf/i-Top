@@ -115,10 +115,13 @@
 
 - (IBAction)selectImageButton:(UIButton *)sender {
     
-    if (_selectImageBlock) {
-        
-        self.selectImageBlock(sender, self);
-    }
+    [[SubmitFileManager sheardSubmitFileManager]popupsSelectPhotoTipsView];
+//    [self.contentTF resignFirstResponder];
+//    [self.contentTV resignFirstResponder];
+//    if (_selectImageBlock) {
+//        
+//        self.selectImageBlock(sender, self);
+//    }
 }
 
 -(void)textViewDidEndEditing:(UITextView *)textView{

@@ -11,13 +11,15 @@
 #import "DirectMessagesDataSource.h"
 #import "DirectMessagesTableViewCell.h"
 
+
+#define BOTTOM  kDevice_Is_iPhoneX ? 75 : 40
+
 @interface DirectMessagesViewController ()<UITextViewDelegate,UITextFieldDelegate>
 
 @property(strong, nonatomic)DirectMessagesDataSource *directMessagesDataSource;
 @property (strong, nonatomic) UITextView *messageTV;
 //@property (strong, nonatomic) UIView *commentTVBgView;
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
-
 
 @end
 
@@ -119,7 +121,8 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
 
 -(void)setupkeyBoardDidShowView{
     
-    _messageTV = [[UITextView alloc]initWithFrame:CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-100, 30)];
+    CGFloat buttom = kDevice_Is_iPhoneX ? 75 : 40;
+    _messageTV = [[UITextView alloc]initWithFrame:CGRectMake(20, ScreenHeigh-buttom-NAVIGATION_HIGHT, ScreenWidth-100, 30)];
     _messageTV.placeholder = @"回复";
     [self.view addSubview:_messageTV];
     [self.view addSubview:_sendButton];

@@ -15,11 +15,12 @@ typedef void (^ShearSuccessBlock)(NSInteger tag);
 
 @property (nonatomic, copy)SelectShearItemBlock selectShearItme;
 @property (nonatomic, copy)ShearSuccessBlock shearSuccessBlock;
-@property (nonatomic, strong,readonly)NSArray *shearType;
+@property (nonatomic, strong,readonly)NSArray *shearTypeArray;
+@property (nonatomic, assign)ShearType shearType;
 
 + (instancetype)sharedShearViewManager;
 
-- (void)setupShearView;
+-(void)setupShearViewWithshearType:(ShearType)shearType;
 
 - (void)addShearViewToView:(UIView*)view
                  shearType:(UMS_SHARE_TYPE)shear_type

@@ -21,10 +21,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nPC-4l-RLq">
-                    <rect key="frame" x="147.5" y="51" width="80" height="22"/>
+                    <rect key="frame" x="142.5" y="51" width="90" height="22"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="22" id="m41-Ob-1v6"/>
-                        <constraint firstAttribute="width" constant="80" id="tsn-Mx-fyR"/>
+                        <constraint firstAttribute="width" constant="90" id="tsn-Mx-fyR"/>
                     </constraints>
                     <state key="normal" title=" 审核中" image="icon_pro">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

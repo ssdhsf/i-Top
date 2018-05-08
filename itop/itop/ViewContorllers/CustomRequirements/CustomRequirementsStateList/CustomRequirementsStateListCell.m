@@ -26,13 +26,30 @@
     
     self.titleLabel.text = demandList.title;
     
-    self.statelabel.text = [[CustomRequirementsStore shearCustomRequirementsStore]showStateWithState:[demandList.demand_status integerValue]];
+    if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner && demantType == DemandTypeBidding) {
+       
+        self.statelabel.text = [[CustomRequirementsStore shearCustomRequirementsStore]showStateWithState:[demandList.designer_status integerValue]];
+    } else {
+        
+         self.statelabel.text = [[CustomRequirementsStore shearCustomRequirementsStore]showStateWithState:[demandList.demand_status integerValue]];
+    }
+   
 
     NSString *date = [[Global sharedSingleton] timeFormatTotimeStringFormatWithtime:demandList.create_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
-    self.detailLabel.text = [NSString stringWithFormat:@"%@  预算 ¥%@  截稿时间 %@",demandList.enterprise_nickname ,demandList.price, date];
+    NSString *nickName = demandList.enterprise_nickname ? demandList.enterprise_nickname : @"姓名";
+    NSString *price = demandList.price ? demandList.price : @"-";
+    self.detailLabel.text = [NSString stringWithFormat:@"%@  预算 ¥%@  截稿时间 %@",nickName ,price, date];
     if (_tagList == nil) {
     
-        [self addkeywordsViewWithkeywords:[demandList.demand_status integerValue] demantType:demantType] ;
+        CustomRequirementsType customRequirementsType ;
+        
+        if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner && demantType == DemandTypeBidding) {
+            
+            [self addkeywordsViewWithkeywords:[demandList.designer_status integerValue] demantType:demantType] ;
+
+        } else {
+            [self addkeywordsViewWithkeywords:[demandList.demand_status integerValue] demantType:demantType] ;
+        }
     }
 }
 

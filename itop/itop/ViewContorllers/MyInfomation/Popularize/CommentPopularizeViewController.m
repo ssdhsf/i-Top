@@ -19,6 +19,13 @@
 @property (assign, nonatomic) NSInteger service;
 @property (assign, nonatomic) NSInteger sincerity;
 
+@property (weak, nonatomic) IBOutlet UILabel *baseTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seviceTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *ultimateTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *noteTitleLabel;
+
+
+
 @end
 
 @implementation CommentPopularizeViewController
@@ -38,7 +45,22 @@
 
 -(void)initNavigationBarItems{
     
-    self.title = @"推广评价";
+    switch (_commentType) {
+            
+        case CommentTypePopularize:
+            
+            self.title = @"推广评价";
+            break;
+            
+        case CommentTypeDemandDesginerToEnterprise:
+        case CommentTypeDemandEnterpriseToDesginer:
+
+            self.title = @"定制合作评价";
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void)initData{
@@ -47,6 +69,61 @@
     _effectButtons = [NSMutableArray array];
     _serviceButtons = [NSMutableArray array];
     _sincerityButtons = [NSMutableArray array];
+    [self setTitleText];
+}
+
+-(NSArray *)commentTypePopularizeTitle{
+    
+    NSArray *title = @[@"推广效果",@"服务态度",@"诚信度",@"备注"];
+    
+    return title;
+}
+
+-(NSArray *)commentTypeDemandDesginerToEnterpriseTitle{
+    
+    NSArray *title = @[@"需求明确",@"改动需求率",@"态度",@"备注"];
+    
+    return title;
+}
+
+-(NSArray *)commentTypeDemandEnterpriseToDesginerTitle{
+    
+    NSArray *title = @[@"产品质量",@"完成失效",@"专业度",@"备注"];
+    return title;
+}
+
+-(void)setTitleText{
+    
+    switch (_commentType) {
+       
+        case CommentTypePopularize:
+            
+            self.baseTitleLabel.text = [self commentTypePopularizeTitle][0];
+            self.seviceTitleLabel.text = [self commentTypePopularizeTitle][1];
+            self.ultimateTitleLabel.text = [self commentTypePopularizeTitle][2];
+            self.noteTitleLabel.text = [self commentTypePopularizeTitle][3];
+            break;
+            
+        case CommentTypeDemandDesginerToEnterprise:
+            
+            self.baseTitleLabel.text = [self commentTypeDemandDesginerToEnterpriseTitle][0];
+            self.seviceTitleLabel.text = [self commentTypeDemandDesginerToEnterpriseTitle][1];
+            self.ultimateTitleLabel.text = [self commentTypeDemandDesginerToEnterpriseTitle][2];
+            self.noteTitleLabel.text = [self commentTypeDemandDesginerToEnterpriseTitle][3];
+
+            break;
+            
+        case CommentTypeDemandEnterpriseToDesginer:
+            
+            self.baseTitleLabel.text = [self commentTypeDemandEnterpriseToDesginerTitle][0];
+            self.seviceTitleLabel.text = [self commentTypeDemandEnterpriseToDesginerTitle][1];
+            self.ultimateTitleLabel.text = [self commentTypeDemandEnterpriseToDesginerTitle][2];
+            self.noteTitleLabel.text = [self commentTypeDemandEnterpriseToDesginerTitle][3];
+            break;
+
+        default:
+            break;
+    }
 }
 
 -(void)initView{
@@ -57,7 +134,6 @@
     _submitButton.layer.cornerRadius = _submitButton.height/2;
     
     [self addGradeStarViewButtons];
-
 }
 
 -(void)addGradeStarViewButtons{
@@ -110,17 +186,17 @@
             
             if ( i < 5) {
                 
-                star.frame = CGRectMake(98 + i*30, 20, 20, 20);
+                star.frame = CGRectMake(108 + i*30, 20, 20, 20);
                 [_effectButtons addObject:star];
                 
             } else if (i > 4 && i < 10){
                 
-                star.frame = CGRectMake(98 + (i-5)*30, 61, 20, 20);
+                star.frame = CGRectMake(108 + (i-5)*30, 61, 20, 20);
                 [_serviceButtons addObject:star];
                 
             } else{
                 
-                star.frame = CGRectMake(98 + (i-10)*30, 102, 20, 20);
+                star.frame = CGRectMake(108 + (i-10)*30, 102, 20, 20);
                 [_sincerityButtons addObject:star];
             }
             star.tag = i;
@@ -176,14 +252,17 @@
         return;
     }
     
-    [[UserManager shareUserManager]commentPopularizeWithOrderId:_popularize_id effect:@(_effect) service:@(_service) sincerity:@(_sincerity) content:_commentTV.text];
+    NSNumber *cus_id = _commentType == CommentTypePopularize ? _popularize_id : _demand_id;
+    [[UserManager shareUserManager]commentPopularizeWithOrderId:cus_id effect:@(_effect) service:@(_service) sincerity:@(_sincerity) content:_commentTV.text commentType:_commentType];
     
     [UserManager shareUserManager].popularizeSuccess = ^ (id obj){
         
         [self back];
-        [UIManager sharedUIManager].commentPopularizeBackOffBolck(nil);
+        
+        if ([UIManager sharedUIManager].commentPopularizeBackOffBolck) {
+            [UIManager sharedUIManager].commentPopularizeBackOffBolck(nil);
+        }
     };
-    
 }
 
 

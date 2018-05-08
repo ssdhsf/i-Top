@@ -12,7 +12,7 @@
 ///各个栏目之间的距离
 #define XLSpace 10.0
 
-@interface AlertView()
+@interface AlertView()<UIPickerViewDelegate, UIPickerViewDataSource>
 //弹窗
 @property (nonatomic,retain) UIView *alertView;
 //title
@@ -33,7 +33,13 @@
 @implementation AlertView
 
 
-- (instancetype)initWithTitle:(NSString *)title message:(UIView *)messageView sureBtn:(NSString *)sureTitle cancleBtn:(NSString *)cancleTitle pickViewType:(PickViewType)pickViewType{
+- (instancetype)initWithTitle:(NSString *)title
+                      message:(UIView *)messageView
+                      sureBtn:(NSString *)sureTitle
+                    cancleBtn:(NSString *)cancleTitle
+                 pickViewType:(PickViewType)pickViewType
+                   superArray:(NSArray *)superArray
+                     subArray:(NSArray *)subArray{
     if (self == [super init]) {
         
         self.frame = [UIScreen mainScreen].bounds;
@@ -58,14 +64,20 @@
             self.titleLbl.frame = CGRectMake((AlertW-titleW)/2, 2*XLSpace, titleW, titleH);
             
         }
-        if (messageView) {
+        
+        self.pickViewType = pickViewType;
+        self.superArray = superArray;
+        self.subArray = subArray;
+        if (pickViewType == PickViewTypeEdit) {
+               
+            [self initInputNameTF];
+        } else if(pickViewType == PickViewTypeDate){
             
-//            self.msgLbl = [self GetAdaptiveLable:CGRectMake(XLSpace, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, AlertW-2*XLSpace, 20) AndText:message andIsTitle:NO];
-//            self.msgLbl.textAlignment = NSTextAlignmentCenter;
+            [self initDateView];
             
-            messageView.frame = CGRectMake(0, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, messageView.width, messageView.height);
-            self.msgLbl = [[UIView alloc]initWithFrame:messageView.frame];
-            [self.alertView addSubview:messageView];
+        } else {
+            
+            [self initPickView];
         }
         
         self.lineView = [[UIView alloc] init];
@@ -170,6 +182,7 @@
         self.alertView.frame = CGRectMake(0, 0, AlertW, alertHeight);
         self.alertView.layer.position = self.center;
         self.pickViewType = pickViewType;
+        
         [self addSubview:self.alertView];
     }
     
@@ -198,13 +211,47 @@
 - (void)buttonEvent:(UIButton *)sender
 {
     if (sender.tag == 2) {
-        if (self.resultIndex) {
-            self.resultIndex(sender.tag, _pickViewType);
-        }
-    } else{
-        
-        if (self.alertCancel) {
-            self.alertCancel(sender.tag, _pickViewType);
+        if (self.selectResult) {
+            
+            switch (_pickViewType) {
+                case PickViewTypeAge:
+                case PickViewTypeSex:
+                case PickViewTypeCompnySize:
+                  
+                    self.selectResult(_tempSelectItme,nil) ;
+                    break;
+                    
+                case PickViewTypeEdit:
+                    
+                    self.selectResult(_inputNameTF.text,nil) ;
+                    break;
+                    
+                case PickViewTypeProvince:
+                
+                    self.selectResult(_province,_city) ;
+                    break;
+                    
+                case PickViewTypeIndustry:
+                  
+                    self.selectResult(_superTag,_subTag) ;
+                    break;
+                case PickViewTypeField:
+                    
+                    self.selectResult(_superTag,nil) ;
+                    break;
+                case PickViewTypeDate:
+                    
+                    self.selectResult(_selectDate,nil) ;
+                    break;
+                case PickViewTypeDesginer:
+                    
+                    self.selectResult(_designer,nil) ;
+                    break;
+                case PickViewTypeProduct:
+                    
+                    self.selectResult(_h5,nil) ;
+                    break;
+            }
         }
     }
     [self removeFromSuperview];
@@ -244,5 +291,365 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
+
+-(void)initPickView{
+    
+    if (_pickViewType == PickViewTypeSex) {
+        
+        self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 60)];
+        
+    } else {
+        self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
+    }
+    [self.alertView addSubview:self.pickView];
+    self.pickView.backgroundColor = [UIColor whiteColor];
+    self.pickView.delegate = self;
+    self.pickView.dataSource = self;
+    self.pickView.showsSelectionIndicator = YES;
+    [self.pickView reloadAllComponents];
+    self.pickView.frame = CGRectMake(0, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, self.pickView.width, self.pickView.height);
+    self.msgLbl = [[UIView alloc]initWithFrame:self.pickView.frame];
+}
+
+-(void)initDateView{
+    
+    _datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
+    _datePicker.datePickerMode = UIDatePickerModeDate;
+    
+    _datePicker.locale = [NSLocale localeWithLocaleIdentifier:@"zh_CN"];
+    _selectDate = _datePicker.date;
+    [_datePicker addTarget:self action:@selector(dateChange:) forControlEvents:UIControlEventValueChanged];
+    [self.alertView addSubview:_datePicker];
+    self.datePicker.frame = CGRectMake(0, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, self.datePicker.width, self.datePicker.height);
+    self.msgLbl = [[UIView alloc]initWithFrame:self.datePicker.frame];
+}
+
+- (void)dateChange:(UIDatePicker *)datePicker{
+    
+    _selectDate = datePicker.date;
+}
+
+-(void)initInputNameTF{
+    
+    self.inputNameTF = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, ScreenWidth-160, 30)];
+    [_inputNameTF becomeFirstResponder];
+    _inputNameTF.textAlignment = UITextAlignmentCenter;
+    _inputNameTF.font = [UIFont systemFontOfSize:15];
+    [self.alertView addSubview:_inputNameTF];
+    self.inputNameTF.frame = CGRectMake(20, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, self.inputNameTF.width, self.inputNameTF.height);
+    self.msgLbl = [[UIView alloc]initWithFrame:self.inputNameTF.frame];
+}
+
+#pragma mark 重新加载数据时将有数据的itme赋给输入框
+-(void)setupInputNameTFWithPlaceholder:(NSString *)placeholder content:(NSString *)content{
+    
+    if ([Global stringIsNullWithString:content]) {
+        self.inputNameTF.placeholder = [NSString stringWithFormat:@"请输入%@",placeholder];
+    }  else {
+        self.inputNameTF.text = content;
+    }
+}
+
+#pragma mark 重新加载数据时将有数据的itme赋给已选择的temp
+-(void)setupPickViewWithContent:(NSString *)content{
+
+    NSInteger index ;
+    if (![Global stringIsNullWithString:content]) {
+        
+        switch (_pickViewType) {
+            case PickViewTypeAge:
+            case PickViewTypeSex:
+            case PickViewTypeCompnySize:
+           
+                index = [self.superArray indexOfObject: [content stringByReplacingOccurrencesOfString:@" " withString:@""]];//我们提交的数据后台不知道为什么加空格 所以要去掉
+                [self.pickView selectRow:index inComponent:0 animated:NO];
+                break;
+            case PickViewTypeProvince:
+                
+                [self positioningProvinceWithindex:content];
+                break;
+                
+            case PickViewTypeIndustry:
+
+                [self positioningIndustryWithindex:content];
+                break;
+             case PickViewTypeField:
+                
+                [self positioningFieldWithindex:content];
+                break;
+            case PickViewTypeDesginer:
+                
+                [self positioningDesginerWithContent:content];
+                break;
+            case PickViewTypeProduct:
+                
+                [self positioningProductWithContent:content];
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+#pragma mark 选择数据时将有数据的城市赋给已选择的temp
+-(void)positioningProvinceWithindex:(NSString *)content{
+    
+    NSArray *arr = [content componentsSeparatedByString:@","];
+    NSInteger index = 0 ;
+    NSInteger inde2 = 0 ;
+    for (Province *province in self.superArray ) {
+        
+        if ([province.address isEqualToString:arr[0]]) {
+            
+            index = [self.superArray indexOfObject:province];
+            _subArray = province.cityArray;
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+    
+    if (arr.count > 1) {
+        
+        for (Province *province in self.subArray ) {
+            
+            if ([province.address isEqualToString:arr[1]]) {
+                
+                inde2 = [self.subArray indexOfObject:province];
+            }
+        }
+        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
+    }
+}
+
+#pragma mark 选择数据时将有数据的行业赋给已选择的temp
+-(void)positioningIndustryWithindex:(NSString *)content{
+    
+    NSArray *arr = [content componentsSeparatedByString:@","];
+    NSInteger index = 0 ;
+    NSInteger inde2 = 0 ;
+    for (TagList *industry in _superArray ) {
+        
+        if ([industry.name isEqualToString:arr[0]]) {
+            
+            index = [_superArray indexOfObject:industry];
+            self.subArray = industry.subTagArray;
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+    
+    if (arr.count > 1) {
+        
+        for (TagList *industry in self.subArray ) {
+            
+            if ([industry.name isEqualToString:arr[1]]) {
+                
+                inde2 = [self.subArray indexOfObject:industry];
+            }
+        }
+        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
+    }
+}
+
+#pragma mark 选择数据时将有数据的擅长领域赋给已选择的temp
+-(void)positioningFieldWithindex:(NSString *)content{
+    NSInteger index = 0 ;
+
+    for (TagList *industry in _superArray ) {
+        
+        if ([industry.name isEqualToString:content]) {
+            
+            index = [_superArray indexOfObject:industry];
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+}
+
+#pragma mark 选择数据时将有数据的设计师赋给已选择的temp
+-(void)positioningDesginerWithContent:(NSString *)content{
+    NSInteger index = 0 ;
+    
+    for (DesignerList *desginer in _superArray ) {
+        
+        if ([desginer.nickname isEqualToString:content]) {
+            
+            index = [_superArray indexOfObject:desginer];
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+}
+
+#pragma mark 选择数据时将有数据的设计师作品H5赋给已选择的temp
+-(void)positioningProductWithContent:(NSString *)content{
+    NSInteger index = 0 ;
+    
+    for (H5List *h5 in _superArray ) {
+        
+        if ([h5.title isEqualToString:content]) {
+            
+            index = [_superArray indexOfObject:h5];
+        }
+    }
+    [self.pickView selectRow:index inComponent:0 animated:NO];
+}
+
+#pragma mark 数据源 Method numberOfComponentsInPickerView
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
+    
+    return _pickViewType == PickViewTypeProvince || _pickViewType == PickViewTypeIndustry ? 2 : 1;
+}
+
+-(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
+
+    UILabel *lbl = (UILabel *)view;
+
+    if (lbl == nil) {
+
+        lbl = [[UILabel alloc]init];
+        //在这里设置字体相关属性
+        lbl.adjustsFontSizeToFitWidth = YES;
+        lbl.font = [UIFont systemFontOfSize:15];
+        lbl.textColor = [UIColor blackColor];
+        [lbl setTextAlignment:NSTextAlignmentCenter];
+        [lbl setBackgroundColor:[UIColor clearColor]];
+    }
+    //重新加载lbl的文字内容
+    if ([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [NSString class]]) {
+        lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+        
+    } else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [Province class]]){
+        
+        Province *province = [self pickerView:pickerView titleForRow:row forComponent:component];
+        lbl.text = province.address;
+    }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [TagList class]]){
+        
+        TagList *tag = [self pickerView:pickerView titleForRow:row forComponent:component];
+        lbl.text = tag.name;
+    }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [DesignerList class]]){
+        
+        DesignerList *designer = [self pickerView:pickerView titleForRow:row forComponent:component];
+        lbl.text = designer.nickname;
+    }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [H5List class]]){
+        
+        H5List *h5 = [self pickerView:pickerView titleForRow:row forComponent:component];
+        lbl.text = h5.title;
+    }
+    
+    return lbl;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
+
+    if (component==0){
+        
+        return self.superArray.count;
+        
+    }else{
+        
+        return _subArray.count;
+    }
+    return 0;
+}
+
+#pragma mark delegate 显示信息的方法
+-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
+    
+    if (component==0){
+    
+        switch (_pickViewType) {
+            case PickViewTypeAge:
+            case PickViewTypeSex:
+            case PickViewTypeCompnySize:
+            
+                _tempSelectItme = _superArray[row];
+                
+                break;
+            case PickViewTypeProvince:
+               _province = self.superArray[row];
+                break;
+            case PickViewTypeIndustry:
+                
+               _superTag = self.superArray[row];
+                break;
+            case PickViewTypeField:
+                
+               _superTag = self.superArray[row];
+                break;
+            case PickViewTypeDesginer:
+                
+                _designer = self.superArray[row];
+                break;
+            case PickViewTypeProduct:
+                
+                _h5 = self.superArray[row];
+                break;
+                
+        }
+        
+        return self.superArray[row];
+        
+    }else{
+        
+        if (_pickViewType == PickViewTypeProvince) {
+            
+            _city = self.subArray[row];
+        } else {
+            
+            _subTag = self.subArray[row];
+        }
+        
+        return self.subArray[row];
+    }
+    return nil;
+}
+
+-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
+
+    if (component==0){
+        switch (_pickViewType) {
+            case PickViewTypeAge:
+            case PickViewTypeSex:
+            case PickViewTypeCompnySize:
+  
+                _tempSelectItme = _superArray[row];
+                break;
+                
+            case PickViewTypeProvince:
+                _province = self.superArray[row];
+                self.subArray =_province.cityArray;
+                [self.pickView reloadComponent:1];
+                break;
+                
+            case PickViewTypeIndustry:
+
+                _superTag = self.superArray[row];
+                _subArray = _superTag.subTagArray;;
+                [self.pickView reloadComponent:1];
+                break;
+                
+            case PickViewTypeField:
+                _superTag = self.superArray[row];
+                break;
+                
+            case PickViewTypeDesginer:
+                
+                _designer = self.superArray[row];
+                break;
+            case PickViewTypeProduct:
+                
+                _h5 = self.superArray[row];
+                break;
+        }
+    }else{
+        
+        if (_pickViewType == PickViewTypeProvince) {
+
+            _city = self.subArray[row];
+        } else {
+
+            _subTag = self.subArray[row];
+
+        }
+    }
+}
+
 
 @end

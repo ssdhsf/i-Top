@@ -18,6 +18,6 @@
 @interface CustomRequirementsDesginListViewController : BaseTableViewController
 
 @property(nonatomic,weak)id<CustomRequirementsDesginListViewControllerDelegate> delegate;
-@property(strong,nonatomic)NSArray *array;
+//@property(strong,nonatomic)NSArray *array;
 
 @end

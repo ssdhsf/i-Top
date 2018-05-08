@@ -21,13 +21,18 @@ typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
     StatisticalItmeTypePop , //推广管理
 };
 
-typedef NS_ENUM(NSInteger, EditType) { //首页Tag类型
+typedef NS_ENUM(NSInteger, EditType) { //
     EditTypeNoel = 0, //不可编辑
     EditTypeTextFied = 1,//文本编辑
     EditTypeTextView,//文本编辑
     EditTypeSelectImage,//选择图片
     EditTypeSelectItem, //选择项
     EditTypeSelectTime //选择时间
+};
+
+typedef NS_ENUM(NSInteger, ShearType) { //首页Tag类型
+    ShearTypeProduct = 0, //不可编辑
+    ShearTypeMyhome = 1,//文本编辑
 };
 
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
@@ -43,7 +48,10 @@ typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
 
 typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交返回
 
+typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
+
 @class H5List;
+@class EditCase;
 
 @interface UIManager : NSObject
 
@@ -60,6 +68,7 @@ typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交
 @property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
 @property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
 @property (copy, nonatomic)CustomRequirementsBackOffBolck customRequirementsBackOffBolck;
+@property (copy, nonatomic)EditCaseBackOffBolck editCaseBackOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
@@ -272,5 +281,29 @@ typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交
 +(void)customRequirementsReleaseViewControllerWithIsEdit:(BOOL)isEdit
                                               demandType:(DemandType)demandType
                                                demand_id:(NSNumber *)demand_id;
+/**
+ *  添加平台介入（纠纷）
+ */
++(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id;
+
+/**
+ *  平台介入List（纠纷）
+ */
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id;
+
+/**
+ *  评论
+ *  custom_id   需要评论id
+ *  commentType 评论类型
+ */
++(void)commentPopularizeViewControllerWithCustomId:(NSNumber *)custom_id
+                                       commentType:(CommentType)commentType;
+
+/**
+ *  添加／编辑案例
+ *  isEdite 是否编辑
+ *  editCase 编辑的模型
+ */
++(void)editCaseViewControllerIsEdit:(BOOL)isEdite editCase:(EditCase *)editCase;
 
 @end

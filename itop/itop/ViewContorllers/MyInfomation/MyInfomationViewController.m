@@ -53,7 +53,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     [super viewDidAppear:animated];
     
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeMyhome];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
         
     };

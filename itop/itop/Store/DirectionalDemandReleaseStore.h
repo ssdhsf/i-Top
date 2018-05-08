@@ -13,10 +13,9 @@
 + (instancetype)shearDirectionalDemandReleaseStore;
 - (NSMutableArray *)configurationDirectionalDemandReleaseEditWithDemandType:(DemandType )demandType
                                                    customRequirementsDetail:(CustomRequirementsDetail *)customRequirementsDetail
-                                                               desginerList:(NSArray *)desginerList
-                                                        desginerProductList:(NSArray *)desginerProductList
-                                                                   province:(Province *)province
-                                                                       city:(Province *)city
-                                                                     isEdit:(BOOL)isEdit;
+                                                        isEdit:(BOOL)isEdit;
+
+- (NSMutableArray *)configurationCaseWitiCaseDetail:(CaseDetail *)caseDetail
+                                             isEdit:(BOOL)isEdit;
 
 @end

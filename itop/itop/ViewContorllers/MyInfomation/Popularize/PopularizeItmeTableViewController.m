@@ -171,10 +171,11 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
             
             if ([selectButton.titleLabel.text  isEqualToString:@"评价"]) {
                 
-                CommentPopularizeViewController *vc = [[CommentPopularizeViewController alloc]init];
-                vc.popularize_id = pop.id;
-                
-                [UIManager pushVC:vc];
+                [UIManager commentPopularizeViewControllerWithCustomId:pop.id commentType:CommentTypePopularize];
+//                CommentPopularizeViewController *vc = [[CommentPopularizeViewController alloc]init];
+//                vc.popularize_id = pop.id;
+//
+//                [UIManager pushVC:vc];
                 [UIManager sharedUIManager].commentPopularizeBackOffBolck = ^ (id obj){
                     
                      [WeakSrelf refreshData];

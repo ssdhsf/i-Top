@@ -18,6 +18,7 @@
 -(void)setItmeOfModel:(Infomation *)info row:(NSInteger)row{
     
     if (info.isEdit && row == 0) {
+        self.iconImage.hidden = !info.isEdit;
         self.contentLabel.hidden = !info.isEdit;
         self.editorImage.hidden = info.isEdit;
         
@@ -29,7 +30,7 @@
         self.iconImage.layer.cornerRadius = self.iconImage.height/2;
     }
     else{
-        self.iconImage.hidden = !info.isEdit;
+        self.iconImage.hidden = info.isEdit;
         self.editorImage.hidden = !info.isEdit;
         self.contentLabel.text = info.content;
     }

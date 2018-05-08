@@ -16,6 +16,7 @@
 @property (nonatomic, strong)NSString <Optional>*contact_phone;
 @property (nonatomic, strong)NSString <Optional>*create_datetime;
 @property (nonatomic, strong)NSString <Optional>*demand_status;
+@property (nonatomic, strong)NSString <Optional>*designer_status;//设计师竞标判断
 @property (nonatomic, strong)NSString <Optional>*demand_type;
 @property (nonatomic, strong)NSString <Optional>*descrip;
 @property (nonatomic, strong)NSString <Optional>*designer_count;

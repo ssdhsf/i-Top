@@ -52,11 +52,12 @@
         self.showImg.frame = CGRectMake(60, self.originY, ScreenWidth-120, (ScreenWidth-120)*1.07f);
         
         self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 90)];
-        NSString *tipString = @"木有数据";
+        NSString *tipString = @"没有有数据";
         if(self.showViewType ==1)
         {
             tipString = @"暂无数据";
-        }if(self.showViewType ==2)
+        }
+        if(self.showViewType ==2)
         {
             tipString = @"当前没有记录,请点击右上角按钮进行创建";
         }

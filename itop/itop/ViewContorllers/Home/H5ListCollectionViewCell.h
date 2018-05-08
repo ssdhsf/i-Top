@@ -18,4 +18,7 @@
 - (void)setItmeOfModel:(H5List*)h5Model;
 - (void)setH5LietItmeOfModel:(H5List*)h5Model;//热点H5
 - (void)setMyWorkLietItmeOfModel:(H5List*)h5Model;//我的作品H5
+
+- (void)setMyCaseListItmeOfModel:(EditCase*)editCase;//我的案例
+
 @end

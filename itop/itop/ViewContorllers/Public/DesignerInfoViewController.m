@@ -232,7 +232,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         make.width.mas_equalTo(25);
         make.height.mas_equalTo(25);
     }];
-    [_backButton setImage:[UIImage imageNamed:@"nav_icon_back"] forState:UIControlStateNormal];
+    [_backButton setImage:[UIImage imageNamed:@"home_icon_backwhite"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     NSLog(@"%f",ScreenWidth *0.285);
 /*-------------------*/

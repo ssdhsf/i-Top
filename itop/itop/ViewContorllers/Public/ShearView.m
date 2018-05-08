@@ -15,34 +15,50 @@
     self = [super initWithFrame:frame];
     if (self) {
        
-        [self setupShearItem];
+//        [self setupShearItemWithshearTepy:<#(ShearType)#>];
     }
     
     return self;
 }
 
 
--(NSDictionary*)shearItemArray{
+-(NSDictionary*)shearItemArrayWithshearTepy:(ShearType)shearType{
     
-    NSDictionary *shearItem = @{ @"朋友圈":@"share_icon_friendcircle",
-                                 @"微信好友":@"share_icon_wxfriend",
-                                 @"QQ空间":@"share_icon_qqzone",
-                                 @"QQ好友":@"share_icon_qqfriend",
-                                 @"新浪微博":@"share_icon_xinlan",
-                                 @"复制链接":@"share_icon_link",
-                                 @"二维码":@"share_icon_code" };
+    NSDictionary *shearItem = [NSDictionary dictionary];
+    if (shearType == ShearTypeMyhome) {
+        
+        shearItem = @{ @"朋友圈":@"share_icon_friendcircle",
+                       @"微信好友":@"share_icon_wxfriend",
+                       @"QQ好友":@"share_icon_qqfriend",
+                       @"新浪微博":@"share_icon_xinlan"};
+    } else {
+        shearItem = @{ @"朋友圈":@"share_icon_friendcircle",
+                       @"微信好友":@"share_icon_wxfriend",
+                       @"QQ空间":@"share_icon_qqzone",
+                       @"QQ好友":@"share_icon_qqfriend",
+                       @"新浪微博":@"share_icon_xinlan",
+                       @"复制链接":@"share_icon_link",
+                       @"二维码":@"share_icon_code" };
+    }
+   
     return shearItem;
 }
 
--(NSArray*)shearItemTitleArray{
+-(NSArray*)shearItemTitleArrayWithshearTepy:(ShearType)shearType{
     
-    NSArray *shearItem = @[@"朋友圈",@"微信好友",@"QQ空间",@"QQ好友",@"新浪微博",@"复制链接",@"二维码"];
+    NSArray *shearItem= [NSArray array];
+    if (shearType == ShearTypeMyhome) {
+        
+        shearItem = @[@"朋友圈",@"微信好友",@"QQ好友",@"新浪微博"];
+    } else {
+        shearItem = @[@"朋友圈",@"微信好友",@"QQ空间",@"QQ好友",@"新浪微博",@"复制链接",@"二维码"];
+    }
     return shearItem;
 }
 
--(void)setupShearItem{
+-(void)setupShearItemWithshearTepy:(ShearType)shearType{
     
-    for (int i = 0; i < [self shearItemTitleArray].count; i++) {
+    for (int i = 0; i < [self shearItemTitleArrayWithshearTepy:shearType].count; i++) {
         
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
         UILabel *label = [[UILabel alloc]init];
@@ -65,8 +81,8 @@
         //        // button图片的偏移量
         //        button.imageEdgeInsets = UIEdgeInsetsMake(0, button.titleLabel.frame.size.width/2,button.titleLabel.frame.size.height+5, -button.titleLabel.frame.size.width/2);
         
-        NSString *string = [self shearItemTitleArray][i];
-        [button setImage:[UIImage imageNamed:[self shearItemArray][string]] forState:UIControlStateNormal];
+        NSString *string = [self shearItemTitleArrayWithshearTepy:shearType][i];
+        [button setImage:[UIImage imageNamed:[self shearItemArrayWithshearTepy:shearType][string]] forState:UIControlStateNormal];
         label.text = string;
         label.font = [UIFont systemFontOfSize:12];
         label.textAlignment = NSTextAlignmentCenter;
@@ -82,6 +98,10 @@
     _selectShearItme(sender.tag);
 }
 
+- (IBAction)cancel:(UIButton *)sender {
+    
+    self.cancelBlock(nil);
+}
 
 
 

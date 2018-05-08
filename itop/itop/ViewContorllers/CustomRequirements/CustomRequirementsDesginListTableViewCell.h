@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *disputesLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *isBid;
+@property (weak, nonatomic) IBOutlet UIButton *cooperationButton;
 
 -(void)setItmeOfModel:(CustomRequirementsDegsinList *)degsin;
 
