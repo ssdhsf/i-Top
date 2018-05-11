@@ -40,11 +40,10 @@ typedef void (^FGGTagScrolledBlock)(NSInteger indexPath);
 -(void)initTimer;
 -(void)stopTimer;
 
--(void)createTopScrollView;
--(void)createAutoCarouselScrollView;
--(void)createdesignerScrollView;
--(void)createTagScrollView;
--(void)createCustromScrollView;
-
+-(void)createTopScrollViewWithType:(H5ProductType)h5ProductType; //首页作品
+-(void)createAutoCarouselScrollView; //自动轮播图
+-(void)createdesignerScrollView; //首页设计师
+-(void)createTagScrollView; //首页标签
+-(void)createCustromScrollView; //首页定制需求
 
 @end

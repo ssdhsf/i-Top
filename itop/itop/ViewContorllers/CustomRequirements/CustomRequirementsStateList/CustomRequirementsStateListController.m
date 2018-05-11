@@ -42,7 +42,7 @@
 -(void)initNavigationBarItems{
     
     self.title = @"定制管理";
-    [self setRightCustomBarItem:@"ruzhu_icon_add" action:@selector(DirectionalDemandRelease)];
+    [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(DirectionalDemandRelease)];
 }
 
 -(void)initData{

@@ -31,7 +31,7 @@
     
     self.titleLabel.text = popularize.product_name;
     
-    if ([[UserManager shareUserManager]crrentUserType] == 2) {
+    if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
         
         switch ([popularize.order_status integerValue]) {
             case OrderStatusTypeReady:
@@ -56,12 +56,13 @@
             case OrderStatusTypeSucess:
                 self.stateLabel.text = @"已完成";
                 [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+                 [self.refusedButton setTitle:@"删除" forState:UIControlStateNormal];
                 self.orderButton.hidden = NO;
                 self.refusedButton.hidden = YES;
                 break;
             case OrderStatusTypeFail:
                 self.stateLabel.text = @"失败";
-                [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
                 self.orderButton.hidden = NO;
                 self.refusedButton.hidden = YES;
                 break;
@@ -125,7 +126,7 @@
                 break;
             case OrderStatusTypeFail:
                 self.stateLabel.text = @"失败";
-                [self.orderButton setTitle:@"评价" forState:UIControlStateNormal];
+                [self.orderButton setTitle:@"删除" forState:UIControlStateNormal];
                 self.refusedButton.hidden = YES;
                 break;
             case OrderStatusTypeScore:

@@ -410,7 +410,7 @@
         [parameters setObject:_province.code forKey:@"Province"];
         [parameters setObject:_city.code forKey:@"City"];
         [parameters setObject:certificatesType forKey:@"Certificates_type"];
-        [parameters setObject:_city.address forKey:@"City"];
+//        [parameters setObject:_city.address forKey:@"City"];
         [parameters setObject:fileUrl forKey:@"Certificates_url"];
         [parameters setObject:_nameTF.text forKey:@"Name"];
         [parameters setObject:_mobiliTF.text forKey:@"Phone"];

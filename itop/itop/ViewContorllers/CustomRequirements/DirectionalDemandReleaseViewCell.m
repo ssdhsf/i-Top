@@ -66,7 +66,7 @@
             self.contentTF.hidden = YES;
             self.contentTV.hidden = YES;
             self.selectImageButton.hidden = NO;
-            _selectImageButton.frame = CGRectMake(101, 10, 80, 60);
+            _selectImageButton.frame = CGRectMake(101, 10, 80, self.height - 20);
             if (demandEdit.inamge == nil) {
                 
                 if(demandEdit.content != nil){

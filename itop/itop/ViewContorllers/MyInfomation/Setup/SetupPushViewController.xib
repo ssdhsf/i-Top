@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -56,12 +56,12 @@
                         <action selector="pushItem:" destination="-1" eventType="touchUpInside" id="9dE-uh-RZb"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="实时收到通知的信息，一条新增的私信／通知，就推送一个信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2h-j9-oqU">
-                    <rect key="frame" x="28" y="72" width="331" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="实时收到通知的信息，一条新增的私信／通知，就推送一个信息" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c2h-j9-oqU">
+                    <rect key="frame" x="28" y="72" width="331" height="37"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="kZb-3g-JDV"/>
+                        <constraint firstAttribute="height" constant="37" id="kZb-3g-JDV"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.78431372549019607" green="0.81568627450980391" blue="0.85882352941176465" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -104,13 +104,13 @@
                         <action selector="pushItem:" destination="-1" eventType="touchUpInside" id="ZxS-gw-3GR"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="只在中午12:00-13:00,晚上21:30-22:30两个时间段，收到推送消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYP-Li-mpv">
-                    <rect key="frame" x="28" y="186" width="331" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="只在中午12:00-13:00,晚上21:30-22:30两个时间段，收到推送消息" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYP-Li-mpv">
+                    <rect key="frame" x="28" y="186" width="331" height="37"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="k5o-X8-sCo"/>
-                        <constraint firstAttribute="height" constant="21" id="nCW-nF-JzJ"/>
+                        <constraint firstAttribute="height" constant="37" id="nCW-nF-JzJ"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <color key="textColor" red="0.7843137255" green="0.81568627449999997" blue="0.85882352939999995" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -140,7 +140,7 @@
                 <constraint firstItem="SYP-Li-mpv" firstAttribute="top" secondItem="4Xx-ua-gaJ" secondAttribute="bottom" constant="16" id="OCH-ag-Sqo"/>
                 <constraint firstAttribute="trailing" secondItem="c2h-j9-oqU" secondAttribute="trailing" constant="16" id="Qdj-qp-y5h"/>
                 <constraint firstItem="SYP-Li-mpv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="QoA-Ig-gdu"/>
-                <constraint firstItem="S5R-hx-KUN" firstAttribute="top" secondItem="c2h-j9-oqU" secondAttribute="bottom" constant="24" id="U2R-tH-90v"/>
+                <constraint firstItem="S5R-hx-KUN" firstAttribute="top" secondItem="c2h-j9-oqU" secondAttribute="bottom" constant="8" id="U2R-tH-90v"/>
                 <constraint firstItem="szm-t5-GN6" firstAttribute="leading" secondItem="e45-In-o1c" secondAttribute="trailing" constant="15" id="mPB-Nf-8GZ"/>
                 <constraint firstItem="LpA-wH-Ree" firstAttribute="leading" secondItem="EvB-Ww-mt2" secondAttribute="trailing" constant="3" id="nBx-86-zOa"/>
                 <constraint firstItem="c2h-j9-oqU" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="28" id="qWn-eg-oC2"/>

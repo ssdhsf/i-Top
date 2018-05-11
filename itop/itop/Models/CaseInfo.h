@@ -13,13 +13,13 @@
 
 @interface CaseInfo : JSONModel
 
-@property (strong ,nonatomic)NSString <Optional>*id;
+@property (strong ,nonatomic)NSNumber <Optional>*id;
 @property (strong ,nonatomic)NSString <Optional>*title;
 @property (strong ,nonatomic)NSString <Optional>*cover_img;
 @property (strong ,nonatomic)NSString <Optional>*descrip;
 @property (strong ,nonatomic)NSString <Optional>*url;
 @property (strong ,nonatomic)NSString <Optional>*case_url;
-@property (strong ,nonatomic)NSString <Optional>*user_id;
+@property (strong ,nonatomic)NSNumber <Optional>*user_id;
 @property (strong ,nonatomic)NSString <Optional>*customer_user_id;
 @property (strong ,nonatomic)NSString <Optional>*customer_name;
 @property (strong ,nonatomic)NSString <Optional>*price;
@@ -29,6 +29,7 @@
 @property (strong ,nonatomic)NSString <Optional>*create_datetime;
 @property (strong ,nonatomic)NSString <Optional>*update_datetime;
 @property (strong ,nonatomic)NSString <Optional>*commend_datetime;
+@property (strong ,nonatomic)NSString <Optional>*demand_count;
 
 -(instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err;
 

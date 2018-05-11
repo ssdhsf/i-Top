@@ -24,6 +24,7 @@
 #import "TemplateDetaulViewController.h"
 #import "MapLocationManager.h"
 #import "CustomRequirementsStore.h"
+#import "EditCaseStore.h"
 
 #define NAVBAR_CHANGE_POINT 50
 
@@ -41,12 +42,13 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @interface HomeViewController ()<UITabBarControllerDelegate>
 
 @property (nonatomic, strong)BMKLocationManager *locationManager;
-@property (nonatomic, strong)CarouselScrollView *bannerView;
-@property (nonatomic, strong)CarouselScrollView *h5bannerView;
-@property (nonatomic, strong)CarouselScrollView *designerbannerView;
-@property (nonatomic, strong)CarouselScrollView *tagbannerView;
+@property (nonatomic, strong)CarouselScrollView *bannerView;//轮播图
+@property (nonatomic, strong)CarouselScrollView *h5bannerView;　//推荐H5
+@property (nonatomic, strong)CarouselScrollView *designerbannerView;//设计师
+@property (nonatomic, strong)CarouselScrollView *tagbannerView;//tag
 @property (nonatomic, strong)HomeDataSource *homeDataSource;
-@property (nonatomic, strong)CarouselScrollView *custrombannerView;
+@property (nonatomic, strong)CarouselScrollView *custrombannerView;// 定制需求
+@property (nonatomic, strong)CarouselScrollView *casebannerView;//精品案例
 
 @property (nonatomic, strong) UIView *navBgView;
 @property (nonatomic, strong) UIButton *loctionBtn;
@@ -68,7 +70,13 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [UIManager appDelegate].tabBarController.delegate = self;
     [self registeredpushNotification];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshDesginerListData:) name:Notification_CHANGE_FOCUS_DESGINER object:nil];
 //    [WXApiManager sharedManager].delegate = self;
+}
+
+-(void)refreshDesginerListData:(NSNotificationCenter*)notifi{
+    
+    [self loadingDesignerListWithIsNotification:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -125,7 +133,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)initView{
     
     [super initView];
-//    [self initMapLocation];
     [self initCarouselScrollView];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self initCollectionView];
@@ -198,6 +205,25 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             [self.dataArray replaceObjectAtIndex:1 withObject:home];
         }
         //        [self.dataArray addObject: home];
+        [self loadingCaseList];
+    };
+}
+
+-(void)loadingCaseList{
+    
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:GetCaseTypeHome];
+    [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
+        
+        NSArray* itemArray = [[EditCaseStore shearEditCaseStore] configurationEditCaseStoreWithRequsData:arr];
+        Home *home = [[Home alloc]init];
+        home.itemKey = Type_Case;
+        home.itemArray = itemArray;
+        home.itemHeader = @"精品案例";
+        if (_isFirst) {
+            [self.dataArray addObject: home];
+        }else{
+            [self.dataArray replaceObjectAtIndex:2 withObject:home];
+        }
         [self loadingRecommendedH5List];
     };
 }
@@ -215,14 +241,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:2 withObject:home];
+            [self.dataArray replaceObjectAtIndex:3 withObject:home];
         }
 //        [self.dataArray addObject: home];
-        [self loadingDesignerList];
+        [self loadingDesignerListWithIsNotification:NO];
     };
 }
 
--(void)loadingDesignerList{
+-(void)loadingDesignerListWithIsNotification:(BOOL)isNotification{
     
     [[UserManager shareUserManager]designerlistWithPageIndex:1 PageCount:10 designerListType:DesignerListTypeHome searchKey:nil];
     [UserManager shareUserManager].designerlistSuccess = ^(NSArray * arr){
@@ -232,13 +258,19 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         home.itemKey =Type_Designer;
         home.itemArray = itemArray;
         home.itemHeader = @"推荐设计师";
-        if (_isFirst) {
+        if (_isFirst && !isNotification) {
             [self.dataArray addObject: home];
+            [self loadingScenarioH5List];
         }else{
-            [self.dataArray replaceObjectAtIndex:3 withObject:home];
+            [self.dataArray replaceObjectAtIndex:4 withObject:home];
+            [self steupCollectionView];
+            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:3]];
+
         }
-//        [self.dataArray addObject: home];
-        [self loadingScenarioH5List];
+//        if (!isNotification) {
+//
+//            [self loadingScenarioH5List];
+//        }
     };
 }
 
@@ -254,7 +286,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:4 withObject:home];
+            [self.dataArray replaceObjectAtIndex:5 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingOnePageH5List];
@@ -274,7 +306,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:5 withObject:home];
+            [self.dataArray replaceObjectAtIndex:6 withObject:home];
         }
 //        [self.dataArray addObject: home];
         [self loadingVideoH5List];
@@ -294,7 +326,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         if (_isFirst) {
             [self.dataArray addObject: home];
         }else{
-            [self.dataArray replaceObjectAtIndex:6 withObject:home];
+            [self.dataArray replaceObjectAtIndex:7 withObject:home];
         }
         
         _isFirst = NO;
@@ -366,7 +398,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                  NSLog(@"%ld",(long)indx);
 
             };
-            _tagbannerView.tag = 3;
+            _tagbannerView.tag = 0;
             [_tagbannerView createTagScrollView];
             [newCell addSubview:_tagbannerView];
             
@@ -394,7 +426,34 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             [_custrombannerView createCustromScrollView];
             [newCell addSubview:_custrombannerView];
             
-        }else if (indexPath.section == 2) {
+        } else if (indexPath.section == 2){
+            
+            UICollectionViewCell *newCell = cell;
+            
+            for (UIView *view in newCell.subviews) {
+                
+                if ([view isKindOfClass: [CarouselScrollView class]]) {
+                    
+                    [view removeFromSuperview];
+                }
+            }
+            _casebannerView = [[CarouselScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, newCell.height) placeHolderImage:nil imageURLs:(NSArray *)item imageDidSelectedBlock:^(NSInteger selectedIndex) {
+                
+                Home *home = self.dataArray[indexPath.section];
+                EditCase *editCase = home.itemArray[selectedIndex];
+                [UIManager pushTemplateDetailViewControllerWithTemplateId:editCase.id productType:H5ProductTypeCase];
+//                Home *home = self.dataArray[indexPath.section];
+//                CustomRequirements *custom = home.itemArray[selectedIndex];
+//                [UIManager customRequirementsDetailViewControllerWithCustomId:custom.id];
+                //                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
+                //                NSLog(@"你选择第%ld张图片",selectedIndex);
+                
+            }];
+            _casebannerView.tag = 2;
+            [_casebannerView createTopScrollViewWithType:H5ProductTypeCase];
+            [newCell addSubview:_casebannerView];
+            
+        }else if (indexPath.section == 3) {
 
             UICollectionViewCell *newCell = cell;
             
@@ -409,14 +468,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 
                 Home *home = self.dataArray[indexPath.section];
                 H5List *list = home.itemArray[selectedIndex];
-                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id];
+                [UIManager pushTemplateDetailViewControllerWithTemplateId:list.id productType:H5ProductTypeDefault];
 //                NSLog(@"你选择第%ld张图片",selectedIndex);
 
             }];
-            _h5bannerView.tag = 2;
-            [_h5bannerView createTopScrollView];
+            _h5bannerView.tag = 3;
+            [_h5bannerView createTopScrollViewWithType:H5ProductTypeDefault];
             [newCell addSubview:_h5bannerView];
-        } else if (indexPath.section == 3){
+        } else if (indexPath.section == 4){
             
             UICollectionViewCell *newCell = cell;
             for (UIView *view in newCell.subviews) {
@@ -434,15 +493,15 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             }];
             [_designerbannerView createdesignerScrollView];
             [newCell addSubview:_designerbannerView];
-            _designerbannerView.tag = 3;
+            _designerbannerView.tag = 4;
             
-        } else  if (indexPath.section > 3) {
+        } else  if (indexPath.section > 4) {
           
             [cell setItmeOfModel:item];
         }
     };
     
-    CollectionViewCellHeaderConfigureBlock cellHeaderConfigureCellBlock = ^(UICollectionReusableView *headerView, NSIndexPath *indexPath){
+    CollectionViewCellHeaderConfigureBlock cellHeaderConfigureCellBlock = ^(UICollectionReusableView *headerView, NSIndexPath *indexPath){  //透视图
         
         Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
         if (indexPath.section == 0) {
@@ -465,7 +524,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
                     [UIManager customRequirementsViewController];
                     
-                }else if (section == 3) {
+                }else if (section == 2) {
+                    
+                    [UIManager getCaseViewControllerWithGetCaseType:GetCaseTypeHome];
+                    
+                }else if (section == 4) {
                     
                     [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:nil];
                     
@@ -518,7 +581,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         Home *home = [_homeDataSource itemAtIndexPath:indexPath.section];
         H5List *h5 = home.itemArray[indexPath.row];
-        [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+           [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id productType:H5ProductTypeDefault];
     }
 
     NSLog(@"23");
@@ -539,10 +602,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     }else if (indexPath.section == 1) {
         
         return CGSizeMake(ScreenWidth, 133);
-    }else if (indexPath.section == 2) {
+    }else if (indexPath.section == 2 || indexPath.section == 3) {
         
         return CGSizeMake(ScreenWidth, (ScreenWidth/3-33)*1.7+32+5+5+7+9-17);
-    }else if (indexPath.section == 3){
+    }else if (indexPath.section == 4){
         
 //        CGFloat workLabelHeight = 0;
 //        for (DesignerInfo *designer in home.itemArray) {
@@ -737,16 +800,16 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         h5Vc.tagList = @[title];
     } else {
         switch (index) {
-            case 1:
+            case 3:
                 h5Vc.h5ProductType = H5ProductTypeDefault;
                 break;
-            case 3:
+            case 5:
                 h5Vc.h5ProductType = H5ProductTypeScenario;
                 break;
-            case 4:
+            case 6:
                 h5Vc.h5ProductType = H5ProductTypeSinglePage;
                 break;
-            case 5:
+            case 7:
                 h5Vc.h5ProductType = H5ProductTypeVideo;
                 break;
             default:

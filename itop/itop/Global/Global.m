@@ -430,5 +430,12 @@
     return borderLayer;
 }
 
+-(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
+    
+    UIPasteboard *paste = [UIPasteboard generalPasteboard];
+    paste.string = linkUrl;
+    [[Global sharedSingleton] showToastInTop:[[UIManager sharedUIManager]topViewController].view withMessage:@"复制成功"];
+}
+
 
 @end

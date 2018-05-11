@@ -27,7 +27,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
     
     Home *home = [self itemAtIndexPath:section];
-    if (section <= 3){
+    if (section <= 4){
         return 1;
     }
     return home.itemArray.count;
@@ -37,7 +37,7 @@
     
     UICollectionViewCell *cell = nil;
     Home *home = [self itemAtIndexPath:indexPath.section];
-    if (indexPath.section <= 3) {
+    if (indexPath.section <= 4) {
         
         cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"Cell" forIndexPath:indexPath];
 //        id item = home.itemArray[indexPath.row];

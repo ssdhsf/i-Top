@@ -170,8 +170,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];
     
     if ([info.myInfoTitle isEqualToString:@"意见反馈"]){
-        
-//        [UIManager showVC:@"DirectionalDemandReleaseViewController"];
+
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
     }
     else if ([info.myInfoTitle isEqualToString:@"作品"]){
@@ -218,6 +217,9 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     }else if ([info.myInfoTitle isEqualToString:@"留资"]){
         
         [UIManager leaveWithProduct:nil leaveType:GetLeaveListTypeMyLeave];
+    }else if ([info.myInfoTitle isEqualToString:@"我的案例"]){
+        
+        [UIManager getCaseViewControllerWithGetCaseType:GetCaseTypeMyCase];
     }
     
 //    else if ([info.myInfoTitle isEqualToString:@"推广管理"]){

@@ -210,6 +210,8 @@
 #pragma mark - 回调 -设置只有2  -- > 确定才回调
 - (void)buttonEvent:(UIButton *)sender
 {
+
+//    if ([self anySubViewScrolling:_pickView]) {
     if (sender.tag == 2) {
         if (self.selectResult) {
             
@@ -255,6 +257,8 @@
         }
     }
     [self removeFromSuperview];
+//}
+
 }
 
 -(UILabel *)GetAdaptiveLable:(CGRect)rect AndText:(NSString *)contentStr andIsTitle:(BOOL)isTitle
@@ -649,6 +653,31 @@
 
         }
     }
+}
+
+- (BOOL)anySubViewScrolling:(UIView *)view{
+    
+    if ([view isKindOfClass:[UIScrollView class]]) {
+        
+        UIScrollView *scrollView = (UIScrollView *)view;
+        
+        if (scrollView.dragging || scrollView.decelerating) {
+            
+            return NO;
+            
+        } else {
+            
+            return YES;
+        }
+    }
+    for (UIView *theSubView in view.subviews) {
+
+        if ([self anySubViewScrolling:theSubView]) {
+
+            return YES;
+        }
+    }
+    return NO;
 }
 
 

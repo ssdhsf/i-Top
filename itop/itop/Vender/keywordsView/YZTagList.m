@@ -192,6 +192,7 @@ CGFloat const imageViewWH = 20;
     }
 }
 
+
 -(void)generalSetupWithButton:(UIButton *)tagButton action:(SEL)action tag:(NSString *)tag{
     
     tagButton.layer.borderColor = _borderColor.CGColor;
@@ -249,6 +250,12 @@ CGFloat const imageViewWH = 20;
 - (void)operationDemandListTagTag:(UIButton *)button{
     if (_operationDemandListTagBlock ) {
         _operationDemandListTagBlock(button.currentTitle);
+    }
+}
+
+- (void)rechargeTag:(UIButton *)button{
+    if (_fieldTagBlock) {
+        _fieldTagBlock(button.currentTitle, button.selected);
     }
 }
 

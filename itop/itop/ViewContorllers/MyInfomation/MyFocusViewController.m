@@ -74,7 +74,7 @@
 
 -(void)initData{
     
-    self.dataArray = @[@"设计师",@"H5",@"资讯", @"视频"];
+    self.dataArray = @[@"关注的人",@"H5",@"资讯", @"视频"];
 }
 
 -(void)initSegment{

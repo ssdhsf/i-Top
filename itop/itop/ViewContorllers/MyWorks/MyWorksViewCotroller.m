@@ -231,7 +231,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"预览"]) {
-       [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
+          [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id productType:H5ProductTypeDefault];
     }
     
     if ([sender.titleLabel.text isEqualToString:@"留资"]) {
@@ -255,7 +255,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"复制链接"]) {
-        [self copyTheLinkWithLinkUrl:_h5.url];
+        [[Global sharedSingleton] copyTheLinkWithLinkUrl:_h5.url];
     }
     if ([sender.titleLabel.text isEqualToString:@"二维码"]) {
         [UIManager  qrCodeViewControllerWithCode:_h5.url];
@@ -270,12 +270,12 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
 }
 
--(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
-    
-    UIPasteboard *paste = [UIPasteboard generalPasteboard];
-    paste.string = linkUrl;
-    [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
-}
+//-(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
+//
+//    UIPasteboard *paste = [UIPasteboard generalPasteboard];
+//    paste.string = linkUrl;
+//    [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
+//}
 
 -(void)steupEditorBuuton{
     

@@ -223,7 +223,7 @@
     
     if ([operationState isEqualToString:@"编辑"] || [operationState isEqualToString:@"重新发布"]) {
         
-        [UIManager customRequirementsReleaseViewControllerWithIsEdit:YES demandType:_demandType demand_id:customRequirements_id];
+        [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnEdit demandType:_demandType demand_id:customRequirements_id desginerId:nil productId:nil];
     }
     if ([operationState isEqualToString:@"删除"] || [operationState isEqualToString:@"下架"] || [operationState isEqualToString:@"验收完成"]) {
         

@@ -97,7 +97,6 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self steupTableView];
     [self setupTableFoodView];
-//    [self setupTimeView];
     [self setupTabelFoodView];
     
     if (_demandType == DemandTypeBidding) {
@@ -134,11 +133,13 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
         self.desginList = [[DesignerListStore shearDesignerListStore] configurationMenuWithMenu:arr];
          [MBProgressHUD hideHUDForView:self.view animated:NO];
         
-        if (_isEdit) {
+        if (_demandAddType == DemandAddTypeOnEdit || _demandAddType == DemandAddTypeOnProduct) {
             BOOL isDesginer = NO;
+            NSNumber *userId = _demandAddType == DemandAddTypeOnEdit ?_customRequirementsDetail.demand.designer_user_id : _desginer_id;
             for (DesignerList *designer in self.desginList) {
                
-                if ([designer.id isEqualToNumber:_customRequirementsDetail.demand.designer_user_id]) {
+            
+                if ([designer.id isEqualToNumber:userId]) {
                     isDesginer = YES;
                     _desgin = designer;
                    [self refreshDesginProductDataWithDesginID:designer.id isFirst:YES];
@@ -164,18 +165,21 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
         self.desginProduct = [[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] ;
         [MBProgressHUD hideHUDForView:self.view animated:NO];
         
-        if (_isEdit && isFirst) {
+        if (isFirst) {
           
-            for (H5List *h5 in self.desginProduct) {
-                
-                if ([h5.id isEqualToNumber:_customRequirementsDetail.demand.demand_case_id]) {
+            if (_demandAddType == DemandAddTypeOnEdit || _demandAddType == DemandAddTypeOnProduct) {
+                NSNumber *caseId = _demandAddType == DemandAddTypeOnEdit ?_customRequirementsDetail.demand.demand_case_id : _desginer_product_id;
+                for (H5List *h5 in self.desginProduct) {
                     
-                    _selectH5 = h5;
+                    if ([h5.id isEqualToNumber:caseId]) {
+                        
+                        _selectH5 = h5;
+                    }
                 }
+                self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail isEdit:YES];
+                [self setupSelectItme];
+                [self steupTableView];
             }
-            self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail isEdit:YES];
-            [self setupSelectItme];
-            [self steupTableView];
         }
     };
 }
@@ -207,7 +211,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
         [self setupindustry];
     }
 
-    if (_isEdit) {
+    if (_demandAddType == DemandAddTypeOnEdit) {
         [[UserManager shareUserManager]customRequirementsDetailWithDetailId:_demand_id];
         [UserManager shareUserManager].customRequirementsSuccess = ^(NSDictionary *obj){
             
@@ -530,13 +534,13 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     }
     
     [parameters setObject:[NSNumber numberWithInteger:_demandType] forKey:@"Demand_type"];
-    if (_isEdit) {
+    if (_demandAddType == DemandAddTypeOnEdit) {
         [parameters setObject:_customRequirementsDetail.demand.id forKey:@"Id"];
     }
  
     if (_demandType == DemandTypeDirectional) {
     
-        [[UserManager shareUserManager] customRequirementsParameters:parameters isUpdate:_isEdit];
+        [[UserManager shareUserManager] customRequirementsParameters:parameters demandAddType:_demandAddType];
         [UserManager shareUserManager] .customRequirementsSuccess = ^(id obj){
             
             [self alertOperation];
@@ -550,7 +554,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
                     
                     NSString *fileUrl = [NSString stringWithFormat:@"%@",obj];
                     [parameters setObject:fileUrl forKey:@"Reference_img"];
-                    [[UserManager shareUserManager] customRequirementsParameters:parameters isUpdate:_isEdit];
+                    [[UserManager shareUserManager] customRequirementsParameters:parameters demandAddType:_demandAddType];
                     [UserManager shareUserManager] .customRequirementsSuccess = ^(id obj){
                         
                         [self alertOperation];
@@ -559,12 +563,12 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
                 
             } else {
                 
-                if (_isEdit && _customRequirementsDetail.demand.reference_img ) {
+                if (_demandAddType == DemandAddTypeOnEdit && _customRequirementsDetail.demand.reference_img ) {
                     
                       [parameters setObject:_customRequirementsDetail.demand.reference_img forKey:@"Reference_img"];
                     
                 }
-                [[UserManager shareUserManager] customRequirementsParameters:parameters isUpdate:_isEdit];
+                [[UserManager shareUserManager] customRequirementsParameters:parameters demandAddType:_demandAddType];
                 [UserManager shareUserManager] .customRequirementsSuccess = ^(id obj){
                     
                     [self alertOperation];
@@ -604,7 +608,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续发布" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        if (_isEdit) {
+        if (_demandAddType == DemandAddTypeOnEdit) {
             
             [self back];
         }

@@ -12,7 +12,9 @@ typedef NS_ENUM(NSInteger, ArticleType) { //文章类型
     ArticleTypeDefault = 0, //资讯
     ArticleTypeH5 = 1,//H5List
     ArticleTypeVideo,//H5视频
-    ArticleTypeOther//其他
+    ArticleTypeCommend,//推荐
+    ArticleTypeLocal//本地
+    
 };
 
 typedef NS_ENUM(NSInteger, GetArticleListType) { //获取文章入口
@@ -26,6 +28,7 @@ typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
     H5ProductTypeScenario = 1,//场景H5
     H5ProductTypeSinglePage,//单页
     H5ProductTypeVideo,//H5视频
+    H5ProductTypeCase,//案例
     H5ProductTypeNoel//无
 };
 
@@ -181,9 +184,34 @@ typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
     CustomRequirementsTypeCanceled, //合作取消
     CustomRequirementsTypeOut, //已下架
     CustomRequirementsTypeIntervention, //平台介入
-
 };
 
+typedef NS_ENUM(NSInteger, PayProductType) { //支付产品价格
+    PayProductType20 = 0, //20 
+    PayProductType50 = 1, //50
+    PayProductType100 , //100
+    PayProductType200 , //200
+    PayProductType500, //500
+    PayProductType800 , //800
+    PayProductType1000, //1000
+    PayProductType2000, //2000  元
+};
+
+typedef NS_ENUM(NSInteger, BiddingPayType) { //绑定支付宝类型
+    BiddingPayTypeWexinPay = 0, //微信支付
+    BiddingPayTypeAliPay = 1, //支付宝
+};
+
+typedef NS_ENUM(NSInteger, GetCaseType) { //获取案例类型
+    GetCaseTypeHome = 0, //首页案例
+    GetCaseTypeMyCase = 1, //我的案例
+};
+
+typedef NS_ENUM(NSInteger, DemandAddType) { //获取案例类型
+    DemandAddTypeOnNew = 0, //新增
+    DemandAddTypeOnEdit = 1, //编辑
+    DemandAddTypeOnProduct , //作品加载
+};
 
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
@@ -213,6 +241,8 @@ typedef void (^FocusOnUserSuccess)(id obj);
 typedef void (^FocusOnUserFailure)(id obj);
 typedef void (^CollectionOnHotSuccess)(id obj);
 typedef void (^CollectionOnHotFailure)(id obj);
+typedef void (^PraiseHotSuccess)(id obj);
+typedef void (^PraiseHotFailure)(id obj);
 
 typedef void (^DesignerlistSuccess)(id obj);
 typedef void (^DesignerlistFailure)(id obj);
@@ -284,6 +314,10 @@ typedef void (^CustomRequirementsFailure)(id obj);
 typedef void (^CustomRequirementsCommentsDisginSuccess)(id obj);
 typedef void (^CustomRequirementsCommentsCompanySuccess)(id obj);
 
+typedef void (^UploadProductSuccess)(id obj);
+typedef void (^UploadProductFailure)(id obj);
+
+
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
@@ -328,6 +362,11 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------收藏热点————————————————————————*/
 @property (nonatomic, copy) CollectionOnHotSuccess collectionOnHotSuccess;
 @property (nonatomic, copy) CollectionOnHotFailure collectionOnHotFailure;
+
+/*----------------收藏热点/文章————————————————————————*/
+@property (nonatomic, copy) PraiseHotSuccess praiseHotSuccess;
+@property (nonatomic, copy) PraiseHotFailure praiseHotFailure;
+
 /*----------------首页H5————————————————————————*/
 @property (nonatomic, copy) HomeH5ListSuccess homeH5ListSuccess;
 @property (nonatomic, copy) HomeH5ListFailure homeH5ListFailure;
@@ -441,6 +480,9 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) CustomRequirementsCommentsDisginSuccess customRequirementsCommentsDisginSuccess;
 @property (nonatomic, copy) CustomRequirementsCommentsCompanySuccess customRequirementsCommentsCompanySuccess;
 
+/*----------------作品上传————————————————————————*/
+@property (nonatomic, copy) UploadProductSuccess uploadProductSuccess;
+@property (nonatomic, copy) UploadProductFailure uploadProductFailure;
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger timers;
@@ -583,11 +625,18 @@ typedef void (^ErrorFailure)(id obj);
 /**
  *  收藏热点
  *
- *  @param hot_id 用户id
+ *  @param hot_id 文章／作品id
  *  @param collectionType 收藏／取消
  */
 - (void)collectionOnHotWithHotId:(NSString *)hot_id
                   CollectionType:(CollectionType)collectionType;
+
+/**
+ *  点赞热点／作品
+ *
+ *  @param hot_id 文章／作品id
+ */
+- (void)praiseOnHotWithHotId:(NSString *)hot_id;
 
 /**
  *  下架热点
@@ -721,7 +770,7 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param detail_id 详情 id
  */
-- (void)productDetailWithHotDetailId:(NSString *)detail_id;
+- (void)productDetailWithHotDetailId:(NSNumber *)detail_id;
 
 /**
  *  获取热点评论列表
@@ -983,7 +1032,7 @@ typedef void (^ErrorFailure)(id obj);
  *  @param parameters 提交定制管理参数
  *  @param isUpdata   是否更新
  */
-- (void)customRequirementsParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata;
+- (void)customRequirementsParameters:(NSDictionary *)parameters demandAddType:(DemandAddType)demandAddType;
 
 /**
  *  删除定制管理
@@ -1043,7 +1092,8 @@ typedef void (^ErrorFailure)(id obj);
  *
  */
 - (void)myCaseListWithPageIndex:(NSInteger )pageIndex
-                      PageCount:(NSInteger )pageCount;
+                      PageCount:(NSInteger )pageCount
+                    getCaseType:(GetCaseType)getCaseType;
 
 /**
  *  删除案例
@@ -1060,8 +1110,15 @@ typedef void (^ErrorFailure)(id obj);
 
 /**
  *  案例详情
- *
+ *  case_id  案例Id
  */
 -(void)caseDetailWithCaseId:(NSNumber *)case_id;
+
+
+/**
+ *  上传作品
+ *
+ */
+-(void)uploadfileWithParameters:(NSDictionary *)parameters;
 
 @end

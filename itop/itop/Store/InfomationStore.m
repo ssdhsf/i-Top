@@ -100,7 +100,7 @@
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所属行业" content:info.other_info.trade isEditor:YES sendKey:@"Trade" pickViewType:PickViewTypeIndustry]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age" pickViewType:PickViewTypeAge]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所在城市" content:[self provinceAppdingCity:info.user_info.province city:info.user_info.city] isEditor:YES sendKey:@"" pickViewType:PickViewTypeProvince]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"渠道资源" content:nil isEditor:YES sendKey:@"ChannelList" pickViewType:PickViewTypeChannel]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"渠道资源" content:nil isEditor:YES sendKey:@"ChannelListJson" pickViewType:PickViewTypeChannel]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"简介" content:nil isEditor:YES sendKey:@"Sex" pickViewType:PickViewTypeEdit]];
     return sectionArray;
 }

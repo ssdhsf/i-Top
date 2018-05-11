@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,7 +39,7 @@
                         <constraint firstAttribute="height" constant="25" id="r1H-r4-fBy"/>
                         <constraint firstAttribute="width" constant="25" id="rrT-Rh-mPX"/>
                     </constraints>
-                    <state key="normal" image="zuo_icon_close"/>
+                    <state key="normal" image="serch_icon_close"/>
                     <connections>
                         <action selector="cancel:" destination="-1" eventType="touchUpInside" id="vr4-pD-ZBr"/>
                     </connections>
@@ -70,6 +70,6 @@
         </view>
     </objects>
     <resources>
-        <image name="zuo_icon_close" width="25" height="25"/>
+        <image name="serch_icon_close" width="25" height="25"/>
     </resources>
 </document>

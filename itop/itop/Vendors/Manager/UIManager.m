@@ -30,6 +30,8 @@
 #import "DisputesViewController.h"
 #import "CommentPopularizeViewController.h"
 #import "EditCaseViewController.h"
+#import "UploadProductLinkViewController.h"
+#import "MycaseViewController.h"
 
 @implementation UIManager
 
@@ -242,16 +244,16 @@
 + (void)showViewController:(UIViewController *)vc Animated:(BOOL)animated{
     AppDelegate * appDelegate = [[self class] appDelegate];
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
-    //  vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed = YES;
     [nav pushViewController:vc animated:YES];
 }
-
 
 #pragma mark 返回登陆页
 - (void)LoginViewControllerWithLoginState:(BOOL)isLogin{
     
     LoginViewController *vc = [[LoginViewController alloc] init];
     vc.isLogin = isLogin;
+//    vc.hidesBottomBarWhenPushed = YES;
     if (isLogin) { //退出登录
     
         ThemeNavigationController* loginNavigation = [[ThemeNavigationController alloc] initWithRootViewController:vc];
@@ -264,7 +266,7 @@
     }
 }
 
-+ (void)designerDetailWithDesignerId:(NSString*)designer_id{
++ (void)designerDetailWithDesignerId:(NSNumber*)designer_id{
     
     DesignerInfoViewController *vc = [[DesignerInfoViewController alloc]init];
     vc.desginer_id = designer_id;
@@ -317,10 +319,11 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
-+(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSNumber *)template_ld productType:(H5ProductType)productType{
     
     TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
     vc.template_id = template_ld;
+    vc.productType = productType;
     vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 //    [self.navigationController pushViewController:vc animated:YES];
@@ -365,7 +368,7 @@
     [UIManager showViewController:vc Animated:YES];
 }
 
-+(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type{
++(void)hotDetailsViewControllerWithArticleId:(NSNumber *)article_id articleType:(ItemDetailType)article_type{
     
     HotDetailsViewController *vc = [[HotDetailsViewController alloc]init];
     vc.itemDetailType = article_type;
@@ -418,17 +421,24 @@
     return nav;
 }
 
-+(void)customRequirementsReleaseViewControllerWithIsEdit:(BOOL)isEdit
-                                              demandType:(DemandType)demandType
-                                               demand_id:(NSNumber *)demand_id{
++(void)customRequirementsReleaseViewControllerWithDemandAddType:(DemandAddType)demandAddType
+                                                     demandType:(DemandType)demandType
+                                                      demand_id:(NSNumber *)demand_id
+                                                     desginerId:(NSNumber *)desginer_id
+                                                      productId:(NSNumber *)product_id{
     
     DirectionalDemandReleaseViewController *biddingVc = [[DirectionalDemandReleaseViewController alloc]init];
-    biddingVc.isEdit = isEdit ;
+    biddingVc.demandAddType = demandAddType ;
     biddingVc.demandType = demandType;
-    if (isEdit) {
+    if (demandAddType == DemandAddTypeOnEdit) {
         
         biddingVc.demand_id = demand_id ;
+    }
+    
+    if (demandAddType == DemandAddTypeOnProduct) {
         
+        biddingVc.desginer_id = desginer_id ;
+        biddingVc.desginer_product_id = product_id ;
     }
     [UIManager pushVC:biddingVc];
 }
@@ -467,5 +477,23 @@
     vc.editCase = editCase;
     [UIManager pushVC:vc];
 }
+
++(void)uploadProductLinkViewControllerWithDemandId:(NSNumber *)demand_id
+                                            userId:(NSNumber *)user_id{
+    
+    UploadProductLinkViewController *vc = [[UploadProductLinkViewController alloc]init];
+    vc.demand_id = demand_id;
+    vc.user_id = user_id;
+    [UIManager pushVC:vc];
+}
+
++(void)getCaseViewControllerWithGetCaseType:(GetCaseType)getCaseType{
+    
+    
+    MycaseViewController *vc = [[MycaseViewController alloc]init];
+    vc.getCaseType = getCaseType;
+    [UIManager pushVC:vc];
+}
+
 
 @end

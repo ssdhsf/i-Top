@@ -36,8 +36,6 @@ static NSString *const CustomRequirementsDetailCellIdentifier = @"CustomRequirem
 
 -(void)initView{
     
-    NSLog(@"%f", self.view.height);
-    
     [super initView];
     [self initTableViewWithFrame:TableViewFrame(0, 0, ScreenWidth, ScreenHeigh)];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -45,9 +43,6 @@ static NSString *const CustomRequirementsDetailCellIdentifier = @"CustomRequirem
         make.top.bottom.left.mas_equalTo(self.view);
         make.width.mas_equalTo(ScreenWidth);
     }];
-    
-//    self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, -35, 0);
-//    self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self steupTableView];
 }
@@ -61,7 +56,6 @@ static NSString *const CustomRequirementsDetailCellIdentifier = @"CustomRequirem
         [cell setItmeOfModel:item];
     };
     self.customRequirementsDetailDataSource = [[CustomRequirementsDetailDataSource alloc]initWithItems:self.dataArray cellIdentifier:CustomRequirementsDetailCellIdentifier cellConfigureBlock:congfigureCell];
-    
     [self steupTableViewWithDataSource:self.customRequirementsDetailDataSource
                         cellIdentifier:CustomRequirementsDetailCellIdentifier
                                nibName:@"CustomRequirementsDetailCell"];
@@ -107,12 +101,6 @@ static NSString *const CustomRequirementsDetailCellIdentifier = @"CustomRequirem
     if ([self.delegate respondsToSelector:@selector(customRequirementsDetailViewControllerTableViewDidScroll:)]) {
         [self.delegate customRequirementsDetailViewControllerTableViewDidScroll:scrollView.contentOffset.y];
     }
-//    NSLog(@"12");
 }
-
-//-(void)scrollViewWillBeginDecelerating: (UIScrollView *)scrollView{
-//
-//    [scrollView setContentOffset:scrollView.contentOffset animated:NO];
-//}
 
 @end

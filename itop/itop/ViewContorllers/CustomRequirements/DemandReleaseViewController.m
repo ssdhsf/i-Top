@@ -37,7 +37,6 @@
     [super initView];
     [self initSegment];
     [self createScrollView];
-    
     [UIManager sharedUIManager].customRequirementsBackOffBolck = ^(id obj){
         
         [self back];
@@ -139,11 +138,6 @@
         
         [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
     }];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

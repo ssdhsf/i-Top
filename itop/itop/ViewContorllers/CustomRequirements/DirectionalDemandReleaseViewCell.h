@@ -25,4 +25,6 @@ typedef void (^SelectImageBlock)(id obj1, id obj2);
 
 -(void)setItmeOfModel:(DemandEdit *)demandEdit;
 
+-(void)showProductDedailItmeOfModel:(BiddingProduct *)biddingProduct;
+
 @end

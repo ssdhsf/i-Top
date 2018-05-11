@@ -7,6 +7,7 @@
 //
 
 #import "CustomRequirementsStoreCell.h"
+#import "CompanySigningStore.h"
 
 @implementation CustomRequirementsStoreCell
 
@@ -44,8 +45,9 @@
     self.titleLabel.text = customRequirements.title;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",customRequirements.price];
     self.personCountLabel.text = [NSString stringWithFormat:@"%@人投标",customRequirements.designer_count];
-    self.locationLabel.text = [NSString stringWithFormat:@"%@",customRequirements.city];
-
+    
+    Province *province = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:customRequirements.city provinceCode:customRequirements.province];
+    self.locationLabel.text = province.address;
 
     [self.requirementButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_requirementButton) atIndex:0];
     self.requirementButton.tag = _buttonTag;

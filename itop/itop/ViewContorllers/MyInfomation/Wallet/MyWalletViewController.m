@@ -7,6 +7,7 @@
 //
 
 #import "MyWalletViewController.h"
+#import "RechargeViewController.h"
 
 @interface MyWalletViewController ()
 
@@ -56,6 +57,10 @@
 
     _cashButton.layer.masksToBounds = YES;
     _cashButton.layer.cornerRadius = _cashButton.height/2;
+}
+
+- (IBAction)recharge:(UIButton *)sender {
+     [UIManager showVC:@"RechargeViewController"];
 }
 
 - (IBAction)tradingList:(UIButton *)sender {

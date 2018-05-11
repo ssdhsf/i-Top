@@ -50,7 +50,11 @@
 
     } else{
         
-        NSString *provinceString = [NSString stringWithFormat:@"%@,%@",customRequirementsDetail.demand.province,customRequirementsDetail.demand.city];
+        NSString *provinceString = [NSString string];
+        if (isEdit && ![Global stringIsNullWithString:customRequirementsDetail.demand.province]) {
+            
+            provinceString = [NSString stringWithFormat:@"%@,%@",customRequirementsDetail.demand.province,customRequirementsDetail.demand.city];
+        }
         [array addObject:[self setupDemandEditWithDemandEditTitle:@"活动名称" content:customRequirementsDetail.demand.title sendKey:@"Title" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
         [array addObject:[self setupDemandEditWithDemandEditTitle:@"预算" content:customRequirementsDetail.demand.price sendKey:@"Price" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
         [array addObject:[self setupDemandEditWithDemandEditTitle:@"行业" content:customRequirementsDetail.demand.trade sendKey:@"Trade" editType:EditTypeSelectItem pickViewType:PickViewTypeIndustry isMust:YES]];
@@ -93,6 +97,29 @@
       [array addObject:[self setupDemandEditWithDemandEditTitle:@"案例链接" content:caseDetail ? caseDetail.info.case_url : nil sendKey:@"Case_url" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
       [array addObject:[self setupDemandEditWithDemandEditTitle:@"网盘地址" content:caseDetail ? caseDetail.info.url : nil sendKey:@"Url" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
       [array addObject:[self setupDemandEditWithDemandEditTitle:@"案例介绍" content:caseDetail ? caseDetail.info.descrip : nil sendKey:@"Description" editType:EditTypeTextView pickViewType:PickViewTypeEdit isMust:YES]];
+    return array;
+}
+
+
+- (NSMutableArray *)configurationUploadProduct{
+    
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品名称" content: nil sendKey:@"Name" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品封面" content: nil sendKey:@"Cover_img" editType:EditTypeSelectImage pickViewType:PickViewTypeEdit isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品链接" content: nil sendKey:@"Case_url" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"网盘地址" content: nil sendKey:@"Url" editType:EditTypeTextFied pickViewType:PickViewTypeEdit isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品介绍" content: nil sendKey:@"Introduction" editType:EditTypeTextView pickViewType:PickViewTypeEdit isMust:YES]];
+    return array;
+}
+
+- (NSMutableArray *)configurationUploadProductDetailWithProductDetail:(BiddingProduct *)productDetail{
+
+    NSMutableArray *array = [NSMutableArray array];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品名称" content: productDetail.name sendKey:nil editType:EditTypeNoel pickViewType:PickViewTypeNone isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品封面" content: productDetail.cover_img sendKey:nil editType:EditTypeSelectImage pickViewType:PickViewTypeNone isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品链接" content: productDetail.case_url sendKey:nil editType:EditTypeNoel pickViewType:PickViewTypeNone isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"网盘地址" content: productDetail.url sendKey:nil editType:EditTypeNoel pickViewType:PickViewTypeNone isMust:YES]];
+    [array addObject:[self setupDemandEditWithDemandEditTitle:@"作品介绍" content: productDetail.introduction sendKey:nil editType:EditTypeNoel pickViewType:PickViewTypeNone isMust:YES]];
     return array;
 }
 

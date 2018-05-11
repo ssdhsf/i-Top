@@ -112,4 +112,7 @@
 #pragma mark 添加虚线边框
 -(CAShapeLayer *)buttonSublayerWithButton:(UIButton *)button;
 
+#pragma mark 复制链接
+-(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl;
+
 @end

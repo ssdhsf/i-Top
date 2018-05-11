@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RechargeViewController">
+            <connections>
+                <outlet property="moneyLabel" destination="dSQ-jd-sXD" id="vh8-Iw-lX5"/>
+                <outlet property="submitPayButton" destination="3ZD-Ag-RXS" id="8YR-4z-TL0"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4g4-Ik-zne">
+                    <rect key="frame" x="0.0" y="578" width="375" height="8"/>
+                    <color key="backgroundColor" red="0.96078431369999995" green="0.96862745100000003" blue="0.97647058819999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="8" id="SOm-NU-HH1"/>
+                    </constraints>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-Sh-h2D">
+                    <rect key="frame" x="20" y="617" width="52" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="Q1R-Pb-Ffj"/>
+                        <constraint firstAttribute="height" constant="21" id="fMr-6L-7kp"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSQ-jd-sXD">
+                    <rect key="frame" x="72" y="617" width="153" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="A3S-57-5ae"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <color key="textColor" red="0.92156862750000001" green="0.43137254899999999" blue="0.64705882349999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3ZD-Ag-RXS">
+                    <rect key="frame" x="245" y="612" width="110" height="30"/>
+                    <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.92549019610000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="110" id="GVW-NB-E7G"/>
+                        <constraint firstAttribute="height" constant="30" id="y3w-Bx-Iz4"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="确认支付">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="4g4-Ik-zne" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7BY-5g-qOm"/>
+                <constraint firstItem="cfd-Sh-h2D" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="8h5-dr-b1s"/>
+                <constraint firstItem="dSQ-jd-sXD" firstAttribute="leading" secondItem="cfd-Sh-h2D" secondAttribute="trailing" id="9e5-L9-DVm"/>
+                <constraint firstItem="3ZD-Ag-RXS" firstAttribute="top" secondItem="4g4-Ik-zne" secondAttribute="bottom" constant="26" id="Bv6-iF-i0J"/>
+                <constraint firstAttribute="bottom" secondItem="3ZD-Ag-RXS" secondAttribute="bottom" constant="25" id="GUV-fu-jNr"/>
+                <constraint firstAttribute="trailing" secondItem="3ZD-Ag-RXS" secondAttribute="trailing" constant="20" id="Vh2-sr-3H0"/>
+                <constraint firstItem="3ZD-Ag-RXS" firstAttribute="leading" secondItem="dSQ-jd-sXD" secondAttribute="trailing" constant="20" id="eX5-E0-Quz"/>
+                <constraint firstAttribute="trailing" secondItem="4g4-Ik-zne" secondAttribute="trailing" id="hzd-gQ-ou8"/>
+                <constraint firstItem="3ZD-Ag-RXS" firstAttribute="centerY" secondItem="dSQ-jd-sXD" secondAttribute="centerY" id="yKw-KA-cQ5"/>
+                <constraint firstItem="3ZD-Ag-RXS" firstAttribute="centerY" secondItem="cfd-Sh-h2D" secondAttribute="centerY" id="yzE-ao-ond"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

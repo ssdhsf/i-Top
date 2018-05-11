@@ -18,6 +18,7 @@
 @property (nonatomic, strong) NSString <Optional>*follow_total;
 @property (nonatomic, strong) NSString <Optional>*fans_total;
 @property (nonatomic, strong) NSNumber <Optional>*follow;
+@property (nonatomic, strong) NSNumber <Optional>*isfollow;
 @property (nonatomic, strong) NSNumber <Optional>*user_id;
 
 

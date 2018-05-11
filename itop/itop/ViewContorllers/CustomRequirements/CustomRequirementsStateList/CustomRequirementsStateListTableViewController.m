@@ -125,25 +125,24 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     
     if ([operationState isEqualToString:@"编辑"] || [operationState isEqualToString:@"重新发布"]) {
         
-        [UIManager customRequirementsReleaseViewControllerWithIsEdit:YES demandType:_demandType demand_id:customRequirements_id];
+        [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnEdit demandType:_demandType demand_id:customRequirements_id desginerId:nil productId:nil];
     }
     if ([operationState isEqualToString:@"删除"] || [operationState isEqualToString:@"下架"] || [operationState isEqualToString:@"验收完成"]) {
        
         [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements_id operation:operationState];
         [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
           
-            [self refreshData];
+            [self tableViewbeginRefreshing];
         };
     }
-//    if ([operationState isEqualToString:@"重新发布"]) {
-//
-//
-//    }
     if ([operationState isEqualToString:@"托管赏金"]) {
         
         
     }
-    
+    if ([operationState isEqualToString:@"作品上传"]) {
+        
+        [UIManager uploadProductLinkViewControllerWithDemandId:customRequirements_id userId:[[UserManager shareUserManager]crrentUserId]];
+    }
     if ([operationState isEqualToString:@"平台介入"]) {
         
         [[UserManager shareUserManager]demandDemanddisputeListWithId:customRequirements_id pageIndex:1 pageCount:10];

@@ -456,7 +456,30 @@ _errorFailure(__id_obj); }
         HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
+}
 
+- (void)praiseOnHotWithHotId:(NSString *)hot_id{
+
+    SHOW_GET_DATA
+    NSString *api = @"/api/article/praise";
+    NSDictionary *parameters = @{@"id" : hot_id};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            _praiseHotSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
 }
 
 - (void)soldOutMyHotWithHotId:(NSString *)hot_id
@@ -806,8 +829,16 @@ _errorFailure(__id_obj); }
         default:
             break;
     }
-    if (type == ArticleTypeDefault || type ==ArticleTypeVideo ||type == ArticleTypeH5) {
+    if (type == ArticleTypeDefault || type ==ArticleTypeVideo ||type == ArticleTypeH5) { //默认／H5/视频
         [parameters setObject:@(type) forKey:@"Article_type"];
+    }
+    
+    if (type == ArticleTypeCommend) { //推荐
+        [parameters setObject:@(1) forKey:@"Commend"];
+    }
+    
+    if (type == ArticleTypeLocal) { //本地
+        [parameters setObject:@(1) forKey:@"City_code"];
     }
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
@@ -857,7 +888,7 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)productDetailWithHotDetailId:(NSString *)detail_id{
+- (void)productDetailWithHotDetailId:(NSNumber *)detail_id{
     SHOW_GET_DATA
     NSString *api = @"/api/product/get";
     NSDictionary * parameters = @{@"id" : detail_id};
@@ -1776,12 +1807,12 @@ _errorFailure(__id_obj); }
     }];
 }
 
-- (void)customRequirementsParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata{
+- (void)customRequirementsParameters:(NSDictionary *)parameters demandAddType:(DemandAddType)demandAddType{
     
     SHOW_GET_DATA
     
     NSString *api  = [NSString string];
-    if (isUpdata) {
+    if (demandAddType == DemandAddTypeOnEdit) {
         api = @"/api/demand/update";
     }else {
         api = @"/api/demand/add";
@@ -1968,10 +1999,18 @@ _errorFailure(__id_obj); }
 }
 
 - (void)myCaseListWithPageIndex:(NSInteger )pageIndex
-                      PageCount:(NSInteger )pageCount{
+                      PageCount:(NSInteger )pageCount
+                    getCaseType:(GetCaseType)getCaseType{
     
     //    SHOW_GET_DATA
-    NSString *api = @"/api/demandcase/getuserlist";
+    NSString *api = [NSString string];
+    if (getCaseType == GetCaseTypeHome) {
+       
+        api = @"/api/demandcase/getpagelist";
+    }else {
+
+        api = @"/api/demandcase/getuserlist";
+    }
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
@@ -2075,5 +2114,30 @@ _errorFailure(__id_obj); }
         SHOW_ERROR_MESSAGER(error);
     }];
 }
+
+-(void)uploadfileWithParameters:(NSDictionary *)parameters{
+    
+    SHOW_GET_DATA
+    NSString *api  = @"/api/demand/uploadfile";
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            NSString *string = [NSString stringWithFormat:@"%@",object];
+            _uploadProductSuccess(string);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 
 @end

@@ -12,6 +12,7 @@
 #import "H5ListDataSource.h"
 #import "H5ListCollectionViewCell.h"
 #import "DirectMessagesViewController.h"
+#import "InfomationStore.h"
 
 #define HEADER_TEXTHIGHT 13
 #define HEADER_TEXTWIDTH 100
@@ -38,6 +39,11 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 @property (nonatomic, strong)H5ListDataSource *h5ListDataSource;
 @property (nonatomic, strong)DesignerInfo *designerInfo;
 @property (nonatomic, assign)FocusType focusType;
+
+@property (nonatomic, assign)BOOL isOperation;//是否操作关注
+
+@property (nonatomic, strong)UIImageView *provinceIcon;
+@property (nonatomic, strong)UILabel *province;
 
 @property (nonatomic, assign)NSInteger introductionLabelHeight; //简介高度
 
@@ -76,6 +82,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     
     [super initData];
     [self refreshData];
+    _isOperation = NO;
 }
 
 -(void)refreshData{
@@ -140,19 +147,15 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
     
-    //    NSArray *arr = self.dataArray[section];
-    //    CGFloat spaceX  = ((ScreenWidth-20)- arr.count*115)/2;
+
     return 0;
 }
-
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id productType:H5ProductTypeDefault];
 }
-
-
 
 -(void)addHeaderSubViews{
   
@@ -161,11 +164,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     
     [bgView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.right.top.mas_equalTo(0);
-        make.height.mas_equalTo(ScreenWidth *0.285);
+        make.height.mas_equalTo(108);
     }];
-    NSLog(@"%@",bgView);
 
-    //    bgView.backgroundColor = [UIColor redColor];
     [bgView.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(bgView)];
 /*-------------------*/
     
@@ -174,7 +175,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     
     [iconBgView mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.mas_equalTo(self.view);
-        make.top.mas_equalTo(ScreenWidth *0.285-(85/2)-10);
+        make.top.mas_equalTo(108-(85/2)-10);
         make.width.height.mas_equalTo(85);
 
     }];
@@ -182,38 +183,61 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     iconBgView.layer.masksToBounds = YES;
     iconBgView.layer.cornerRadius = 85/2;
 
-/*-------------------*/
+/*---------头像----------*/
 
     self.iconImage = [UIImageView new];
     [self.view addSubview:_iconImage];
     [self.iconImage mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.mas_equalTo(self.view);
-        make.top.mas_equalTo(ScreenWidth *0.285-(80/2)-10);
+        make.top.mas_equalTo(108-(80/2)-10);
         make.width.height.mas_equalTo(80);
     }];
     self.iconImage.layer.masksToBounds = YES;
     self.iconImage.layer.cornerRadius = 80/2;
-/*-------------------*/
+/*---------姓名----------*/
     
     self.nameLabel = [UILabel new];
+//    CGFloat nameHeight = [[Global sharedSingleton]widthForString:_designerInfo.nickname fontSize:12 andHeight:16];
     [self.view addSubview:_nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make){
-        make.centerX.mas_equalTo(self.view);
-        make.top.mas_equalTo(ScreenWidth *0.285-(80/2)+80+8);
-        make.width.mas_equalTo(100);
+        make.left.mas_equalTo(10);
+        make.top.mas_equalTo(108-(80/2)+80+8);
+        make.width.mas_equalTo(ScreenWidth/2 - 20);
         make.height.mas_equalTo(16);
     }];
     
     self.nameLabel.font = [UIFont systemFontOfSize:12];
-    self.nameLabel.textAlignment = NSTextAlignmentCenter;
-/*-------------------*/
+    self.nameLabel.textAlignment = NSTextAlignmentRight;
+    
+/*---------城市----------*/
+    
+    _provinceIcon = [UIImageView new];
+    [self.view addSubview:_provinceIcon];
+    [self.provinceIcon mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(ScreenWidth/2 + 10);
+        make.top.mas_equalTo(108-(80/2)+80+8);
+        make.width.mas_equalTo(15);
+        make.height.mas_equalTo(15);
+    }];
+    
+    _province = [UILabel new];
+    [self.view addSubview:_province];
+    [self.province mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(ScreenWidth/2 + 30);
+        make.top.mas_equalTo(108-(80/2)+80+8);
+        make.width.mas_equalTo(ScreenWidth - (ScreenWidth/2 + 45));
+        make.height.mas_equalTo(16);
+    }];
+    self.province.font = [UIFont systemFontOfSize:12];
+    self.province.textAlignment = NSTextAlignmentLeft;
+/*--------介绍-----------*/
     
     self.introductionLabel = [UILabel new];
     [self.view addSubview:_introductionLabel];
     _introductionLabelHeight =  [Global heightWithString:_designerInfo.field width:ScreenWidth-100 fontSize:9];
     [self.introductionLabel mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.mas_equalTo(self.view);
-        make.top.mas_equalTo(ScreenWidth *0.285-(80/2)+80+8+16+8);
+        make.top.mas_equalTo(108-(80/2)+80+8+16+8);
         make.left.mas_equalTo(50);
         make.right.mas_equalTo(-50);
         make.height.mas_equalTo(_introductionLabelHeight+5);
@@ -222,7 +246,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     self.introductionLabel.font = [UIFont systemFontOfSize:9];
     self.introductionLabel.textAlignment = NSTextAlignmentCenter;
     self.introductionLabel.numberOfLines = 0;
-/*-------------------*/
+/*---------返回----------*/
     
     _backButton = [UIButton new];
     [self.view addSubview:_backButton];
@@ -235,7 +259,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     [_backButton setImage:[UIImage imageNamed:@"home_icon_backwhite"] forState:UIControlStateNormal];
     [_backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchDown];
     NSLog(@"%f",ScreenWidth *0.285);
-/*-------------------*/
+/*---------作品数量----------*/
     _workNumberTitleLabel = [UILabel new];
     [self.view addSubview:_workNumberTitleLabel];
     [_workNumberTitleLabel mas_makeConstraints:^(MASConstraintMaker *make){
@@ -359,6 +383,8 @@ static NSString *const H5ListCellIdentifier = @"H5List";
     _fansLabel.text = _designerInfo.fans_total;
     _focusType = [_designerInfo.follow integerValue];
     [self setupFocusState];
+    self.provinceIcon.image = [UIImage imageNamed:@"hot_icon_location"];
+    self.province.text = @"广州市";
 }
 
 #pragma mark 改变热点FocusButton状态
@@ -378,10 +404,15 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 -(void)message{
     
-    DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
-    vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
-    vc.otherUser_name = _designerInfo.nickname;
-    [UIManager pushVC:vc];
+    UserModel *model = [[UserManager shareUserManager]crrentUserInfomation];
+    NSString *vison = [[InfomationStore shearInfomationStore]userVersionWithVersion:model.other_info.version];
+    if ([vison isEqualToString:@"蓝钻版"] || [vison isEqualToString:@"黑钻版"] ) {
+        
+        DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+        vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
+        vc.otherUser_name = _designerInfo.nickname;
+        [UIManager pushVC:vc];
+    }
 }
 
 -(void)focus{
@@ -399,7 +430,17 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         }
         
         [self setupFocusState];
+        _isOperation = YES;
     };
+}
+
+-(void)back{
+   
+    if (_isOperation) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:Notification_CHANGE_FOCUS_DESGINER object:nil userInfo:nil];
+    }
+    [super back];
 }
 
 //DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];

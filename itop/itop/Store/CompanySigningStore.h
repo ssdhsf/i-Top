@@ -13,7 +13,7 @@
 
 + (instancetype)shearCompanySigningStore;
 
--(NSDictionary *)industryArray;
+//-(NSDictionary *)industryArray;
 -(NSArray *)companySizeArray;
 -(NSArray *)provinceArray;
 

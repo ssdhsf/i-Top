@@ -200,6 +200,12 @@
 		776C872020A14D450045A934 /* CaseDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C871F20A14D450045A934 /* CaseDetail.m */; };
 		776C872320A14D980045A934 /* CaseInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872220A14D980045A934 /* CaseInfo.m */; };
 		776C872620A14DB30045A934 /* CaseDesignerInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872520A14DB30045A934 /* CaseDesignerInfo.m */; };
+		776C872A20A174600045A934 /* UploadProductLinkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872820A174600045A934 /* UploadProductLinkViewController.m */; };
+		776C872B20A174600045A934 /* UploadProductLinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776C872920A174600045A934 /* UploadProductLinkViewController.xib */; };
+		776C872F20A187F70045A934 /* UploadProductDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C872D20A187F70045A934 /* UploadProductDetailViewController.m */; };
+		776C873020A187F70045A934 /* UploadProductDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776C872E20A187F70045A934 /* UploadProductDetailViewController.xib */; };
+		776C873420A18EE60045A934 /* UploadProductDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 776C873220A18EE60045A934 /* UploadProductDetailCell.m */; };
+		776C873520A18EE60045A934 /* UploadProductDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 776C873320A18EE60045A934 /* UploadProductDetailCell.xib */; };
 		77723A39203179A5006294E8 /* DesignerSigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A37203179A5006294E8 /* DesignerSigningViewController.m */; };
 		77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A38203179A5006294E8 /* DesignerSigningViewController.xib */; };
 		77723A402033E1AD006294E8 /* YZTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3D2033E1AD006294E8 /* YZTagButton.m */; };
@@ -407,6 +413,10 @@
 		77C07F96204D573300D77DBD /* BindPhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C07F94204D573300D77DBD /* BindPhoneViewController.xib */; };
 		77C764C92026C21D00F88A03 /* TemplateDetaulViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77C764C72026C21D00F88A03 /* TemplateDetaulViewController.m */; };
 		77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77C764C82026C21D00F88A03 /* TemplateDetaulViewController.xib */; };
+		77CE5C9D20A29584004457D0 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE5C9B20A29584004457D0 /* RechargeViewController.m */; };
+		77CE5C9E20A29584004457D0 /* RechargeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CE5C9C20A29584004457D0 /* RechargeViewController.xib */; };
+		77CE5CA520A300D4004457D0 /* biddingPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE5CA320A300D4004457D0 /* biddingPayViewController.m */; };
+		77CE5CA620A300D4004457D0 /* biddingPayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CE5CA420A300D4004457D0 /* biddingPayViewController.xib */; };
 		77CE7C70202AE6EA0067D284 /* InfomationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE7C6E202AE6EA0067D284 /* InfomationViewController.m */; };
 		77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77CE7C6F202AE6EA0067D284 /* InfomationViewController.xib */; };
 		77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77CE7C73202AE78E0067D284 /* InfomationTableViewCell.m */; };
@@ -851,6 +861,15 @@
 		776C872220A14D980045A934 /* CaseInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseInfo.m; sourceTree = "<group>"; };
 		776C872420A14DB30045A934 /* CaseDesignerInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CaseDesignerInfo.h; sourceTree = "<group>"; };
 		776C872520A14DB30045A934 /* CaseDesignerInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CaseDesignerInfo.m; sourceTree = "<group>"; };
+		776C872720A174600045A934 /* UploadProductLinkViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadProductLinkViewController.h; sourceTree = "<group>"; };
+		776C872820A174600045A934 /* UploadProductLinkViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadProductLinkViewController.m; sourceTree = "<group>"; };
+		776C872920A174600045A934 /* UploadProductLinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadProductLinkViewController.xib; sourceTree = "<group>"; };
+		776C872C20A187F70045A934 /* UploadProductDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadProductDetailViewController.h; sourceTree = "<group>"; };
+		776C872D20A187F70045A934 /* UploadProductDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadProductDetailViewController.m; sourceTree = "<group>"; };
+		776C872E20A187F70045A934 /* UploadProductDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadProductDetailViewController.xib; sourceTree = "<group>"; };
+		776C873120A18EE60045A934 /* UploadProductDetailCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UploadProductDetailCell.h; sourceTree = "<group>"; };
+		776C873220A18EE60045A934 /* UploadProductDetailCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UploadProductDetailCell.m; sourceTree = "<group>"; };
+		776C873320A18EE60045A934 /* UploadProductDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UploadProductDetailCell.xib; sourceTree = "<group>"; };
 		77723A36203179A5006294E8 /* DesignerSigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignerSigningViewController.h; sourceTree = "<group>"; };
 		77723A37203179A5006294E8 /* DesignerSigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignerSigningViewController.m; sourceTree = "<group>"; };
 		77723A38203179A5006294E8 /* DesignerSigningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DesignerSigningViewController.xib; sourceTree = "<group>"; };
@@ -1212,6 +1231,12 @@
 		77C764C62026C21D00F88A03 /* TemplateDetaulViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateDetaulViewController.h; sourceTree = "<group>"; };
 		77C764C72026C21D00F88A03 /* TemplateDetaulViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateDetaulViewController.m; sourceTree = "<group>"; };
 		77C764C82026C21D00F88A03 /* TemplateDetaulViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TemplateDetaulViewController.xib; sourceTree = "<group>"; };
+		77CE5C9A20A29584004457D0 /* RechargeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
+		77CE5C9B20A29584004457D0 /* RechargeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
+		77CE5C9C20A29584004457D0 /* RechargeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RechargeViewController.xib; sourceTree = "<group>"; };
+		77CE5CA220A300D4004457D0 /* biddingPayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = biddingPayViewController.h; sourceTree = "<group>"; };
+		77CE5CA320A300D4004457D0 /* biddingPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = biddingPayViewController.m; sourceTree = "<group>"; };
+		77CE5CA420A300D4004457D0 /* biddingPayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = biddingPayViewController.xib; sourceTree = "<group>"; };
 		77CE7C6D202AE6EA0067D284 /* InfomationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationViewController.h; sourceTree = "<group>"; };
 		77CE7C6E202AE6EA0067D284 /* InfomationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationViewController.m; sourceTree = "<group>"; };
 		77CE7C6F202AE6EA0067D284 /* InfomationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InfomationViewController.xib; sourceTree = "<group>"; };
@@ -1448,6 +1473,12 @@
 				770D771320623732007601A8 /* EarningDetailTableViewCell.h */,
 				770D771420623732007601A8 /* EarningDetailTableViewCell.m */,
 				770D771520623732007601A8 /* EarningDetailTableViewCell.xib */,
+				77CE5C9A20A29584004457D0 /* RechargeViewController.h */,
+				77CE5C9B20A29584004457D0 /* RechargeViewController.m */,
+				77CE5C9C20A29584004457D0 /* RechargeViewController.xib */,
+				77CE5CA220A300D4004457D0 /* biddingPayViewController.h */,
+				77CE5CA320A300D4004457D0 /* biddingPayViewController.m */,
+				77CE5CA420A300D4004457D0 /* biddingPayViewController.xib */,
 			);
 			path = Wallet;
 			sourceTree = "<group>";
@@ -1762,6 +1793,15 @@
 				776C871320A04BEC0045A934 /* EditCaseViewController.h */,
 				776C871420A04BEC0045A934 /* EditCaseViewController.m */,
 				776C871520A04BEC0045A934 /* EditCaseViewController.xib */,
+				776C872720A174600045A934 /* UploadProductLinkViewController.h */,
+				776C872820A174600045A934 /* UploadProductLinkViewController.m */,
+				776C872920A174600045A934 /* UploadProductLinkViewController.xib */,
+				776C872C20A187F70045A934 /* UploadProductDetailViewController.h */,
+				776C872D20A187F70045A934 /* UploadProductDetailViewController.m */,
+				776C872E20A187F70045A934 /* UploadProductDetailViewController.xib */,
+				776C873120A18EE60045A934 /* UploadProductDetailCell.h */,
+				776C873220A18EE60045A934 /* UploadProductDetailCell.m */,
+				776C873320A18EE60045A934 /* UploadProductDetailCell.xib */,
 			);
 			path = MyCase;
 			sourceTree = "<group>";
@@ -2765,6 +2805,7 @@
 				77BE88C02088AE7D00C72617 /* CustomRequirementsDetailViewController.xib in Resources */,
 				77B86FF32028621E0096FB28 /* LeaveTableViewCell.xib in Resources */,
 				77BE88B820889E1400C72617 /* CustomRequirementsViewController.xib in Resources */,
+				776C873020A187F70045A934 /* UploadProductDetailViewController.xib in Resources */,
 				774B87EB204E43AC00F602E3 /* AboutItopViewController.xib in Resources */,
 				77723AE12043BBB2006294E8 /* mss_browseLoading@2x.png in Resources */,
 				77723AC02043BB42006294E8 /* icon@2x.png in Resources */,
@@ -2808,6 +2849,7 @@
 				770D77662068F89D007601A8 /* PopularizeTableViewCell.xib in Resources */,
 				772FCDB02099691900B833E2 /* CustomRequirementsCommentsViewController.xib in Resources */,
 				77CE7C76202AE78E0067D284 /* InfomationTableViewCell.xib in Resources */,
+				77CE5CA620A300D4004457D0 /* biddingPayViewController.xib in Resources */,
 				77DA833220187BD200E7CB36 /* DesignerListViewController.xib in Resources */,
 				77E8A8552011997800E253CC /* ThemeCustomViewCollectionViewCell.xib in Resources */,
 				770D772020624663007601A8 /* BuyVipPayViewController.xib in Resources */,
@@ -2818,8 +2860,10 @@
 				77723AE22043BBB2006294E8 /* mss_browseLoading@3x.png in Resources */,
 				77B1A0F320440BAA00F922DD /* SigningStateViewController.xib in Resources */,
 				774B87E6204D7ADD00F602E3 /* ChangePasswordViewController.xib in Resources */,
+				776C873520A18EE60045A934 /* UploadProductDetailCell.xib in Resources */,
 				77E8A88A20136B9B00E253CC /* registeredViewController.xib in Resources */,
 				772FCDB52099CBD600B833E2 /* DisputesViewController.xib in Resources */,
+				77CE5C9E20A29584004457D0 /* RechargeViewController.xib in Resources */,
 				77907B2A208D7513005FDE9D /* CustomRequirementsDesginListViewController.xib in Resources */,
 				779E3690209AA86D006BFB53 /* SubmitDisputesViewController.xib in Resources */,
 				7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */,
@@ -2881,6 +2925,7 @@
 				77DA833720187EEB00E7CB36 /* DesignerListViewCollectionViewCell.xib in Resources */,
 				770D76FC206207F4007601A8 /* TradingListTableViewCell.xib in Resources */,
 				77BB213720707AA4000CADC9 /* ProvinceTableViewCell.xib in Resources */,
+				776C872B20A174600045A934 /* UploadProductLinkViewController.xib in Resources */,
 				7717E9A2206B878D0025DC73 /* DirectMessagesTableViewCell.xib in Resources */,
 				777D5178200CC52700CB2A8A /* Main.storyboard in Resources */,
 				77723AB52043BB42006294E8 /* add_photo.png in Resources */,
@@ -3102,6 +3147,7 @@
 				775909A62016350300F9D8EA /* PXYview.m in Sources */,
 				77723AE72043BBB2006294E8 /* MSSBrowseLoadingImageView.m in Sources */,
 				77C07F85204D391F00D77DBD /* SetupHomeViewController.m in Sources */,
+				776C872A20A174600045A934 /* UploadProductLinkViewController.m in Sources */,
 				77DA833120187BD200E7CB36 /* DesignerListViewController.m in Sources */,
 				7733E30B207B040A0081B05E /* LCRegExpTool.m in Sources */,
 				77E8A87B2011DCB000E253CC /* MASConstraintMaker.m in Sources */,
@@ -3185,6 +3231,7 @@
 				77EF13032092FC19000964A7 /* BiddingProductListViewController.m in Sources */,
 				77484AA82021A1B100BAC567 /* HotDetailDataSource.m in Sources */,
 				77369CD7200F530F0092AEAC /* MyInfomationViewController.m in Sources */,
+				776C872F20A187F70045A934 /* UploadProductDetailViewController.m in Sources */,
 				77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */,
 				777AF1D4200E0B8C009729AD /* UserInfomation.m in Sources */,
 				772F95A62058C76700F432D2 /* CommentListViewController.m in Sources */,
@@ -3232,6 +3279,7 @@
 				77723AED2043BBB2006294E8 /* UIImage+MSSScale.m in Sources */,
 				774B880D204FC2AE00F602E3 /* ShearView.m in Sources */,
 				77EF13082092FDC5000964A7 /* BiddingProductListCell.m in Sources */,
+				77CE5CA520A300D4004457D0 /* biddingPayViewController.m in Sources */,
 				7753C323208F53F9009FF82C /* CustomRequirementsStateListDataSource.m in Sources */,
 				77C07F7D204C2BF400D77DBD /* SecurityViewController.m in Sources */,
 				770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */,
@@ -3242,9 +3290,11 @@
 				777AF1D1200DFD10009729AD /* ThemeManager.m in Sources */,
 				77E8A85B20119CA200E253CC /* ThemeCustomStore.m in Sources */,
 				7782DDC0205F5D54004C2108 /* Statistical.m in Sources */,
+				776C873420A18EE60045A934 /* UploadProductDetailCell.m in Sources */,
 				7753C315208F3421009FF82C /* CustomRequirementsStateListController.m in Sources */,
 				77E8A8A220158EAD00E253CC /* StatisticalData.m in Sources */,
 				77BE88C920897FB900C72617 /* CustomRequirementsDetailCell.m in Sources */,
+				77CE5C9D20A29584004457D0 /* RechargeViewController.m in Sources */,
 				77826B9C2019DC7A00F53E28 /* MyInfomationDataSource.m in Sources */,
 				77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */,
 				7792B71A201ACED800587399 /* HomeDataSource.m in Sources */,

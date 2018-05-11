@@ -34,6 +34,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @property (nonatomic, strong)CarouselScrollView *designerbannerView;
 @property (nonatomic, strong)SearchListDataSource *searchListDataSource;
 @property (nonatomic, assign)NSInteger searchListCount;
+@property (nonatomic, assign)BOOL isOperation;//是否操作关注
 
 @end
 
@@ -42,6 +43,12 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshDesginerListData:) name:Notification_CHANGE_FOCUS_DESGINER object:nil];
+
+//    [UIManager sharedUIManager].focusDesginerBackOffBolck = ^(id obj){
+//
+//        [self loadingDesignerList];
+//    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -79,6 +86,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [super initData];
     _searchListCount = 0;
+    _isOperation = NO;
 }
 
 -(void)setupSearchBar{
@@ -140,11 +148,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             home.itemHeader = @"H5";
             [self.dataArray addObject: home];
         }
-        [self loadingDesignerList];
+        [self loadingDesignerListWithIsNotification:NO];
     };
 }
 
--(void)loadingDesignerList{
+-(void)loadingDesignerListWithIsNotification:(BOOL)isNotification{
     
     [[UserManager shareUserManager]designerlistWithPageIndex:1 PageCount:3 designerListType:DesignerListTypeHome searchKey:_searchBar.text];
     [UserManager shareUserManager].designerlistSuccess = ^(NSArray * arr){
@@ -157,10 +165,26 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             home.itemKey =Type_Designer;
             home.itemArray = itemArray;
             home.itemHeader = @"设计师";
-            [self.dataArray addObject: home];
+            
+            if (isNotification) {
+                for (Home *tempHome in self.dataArray) {
+                    
+                    if ([tempHome.itemKey isEqualToString:Type_Designer]) {
+                        NSInteger index = [self.dataArray indexOfObject:tempHome];
+                        [self.dataArray replaceObjectAtIndex:index withObject:home];
+                        [self steupCollectionView];
+                        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:index]];
+                    }
+                }
+            } else {
+                [self.dataArray addObject: home];
+            }
         }
         
-        [self loadingHotList];
+        if (!isNotification) {
+            
+            [self loadingHotList];
+        }
     };
 }
 
@@ -196,9 +220,21 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     CollectionViewCellConfigureBlock congfigureBlock = ^(id cell , id item, NSIndexPath *indexPath){
 
         if ([cell isKindOfClass:[DesignerListViewCollectionViewCell class]]) {
-            [cell setItmeOfModel:item
-        DesignerListType:DesignerListTypeHome
+            DesignerListViewCollectionViewCell*designerCell = cell;
+            [designerCell setItmeOfModel:item DesignerListType:DesignerListTypeHome
                            index:indexPath.row];
+            
+            designerCell.focusUserBlock = ^(NSInteger index, DesignerListViewCollectionViewCell*designerListCell){
+                Home *home;
+                for (Home *tempHome in self.dataArray) {
+                    if ([tempHome.itemKey isEqualToString:Type_Designer]) {
+                        home = tempHome;
+                    }
+                }
+                DesignerList *designer = home.itemArray[index];
+                [self focusStateWithDesigner:designer cell:designerListCell];
+            };
+
         } else {
             [cell setItmeOfModel:item];
         }
@@ -241,7 +277,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         infView.backgroundColor = UIColor.whiteColor;
         
         [headerView addSubview:infView];
-        //        }
         
     };
     self.searchListDataSource = [[SearchListDataSource alloc]initWithItems:self.dataArray cellIdentifier:SearchHotIdentifier headerIdentifier:nil
@@ -274,10 +309,10 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     Home * home = [_searchListDataSource itemAtIndexPath:indexPath.section];
-    if ([home.itemArray[indexPath.row] isKindOfClass:[H5List class]]){
+    if ([home.itemKey isEqualToString:Type_H5]){
         H5List *h5 = home.itemArray[indexPath.row];
-        [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
-    } else if([home.itemArray[indexPath.row] isKindOfClass:[DesignerList class]]){
+           [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id productType:H5ProductTypeDefault];
+    } else if([home.itemKey isEqualToString:Type_Designer]){
         DesignerList *designer = home.itemArray[indexPath.row];
         [UIManager designerDetailWithDesignerId:designer.id];
     } else {
@@ -404,7 +439,11 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     NSDictionary *dic = (NSDictionary *)[[Global sharedSingleton]getUserDefaultsWithKey:SEARCH_LIST];
     NSString *currentDate = [self getNowTimeTimestamp];
     NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:dic];
-    [mutable setObject:currentDate forKey:_searchBar.text];
+    
+    if (![Global stringIsNullWithString:_searchBar.text]) {
+        [mutable setObject:currentDate forKey:_searchBar.text];
+    }
+    
     [[Global sharedSingleton]setUserDefaultsWithKey:SEARCH_LIST andValue:mutable];
     
     NSMutableArray *key = [NSMutableArray array];
@@ -457,11 +496,44 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+-(void)focusStateWithDesigner:(DesignerList*)designer cell:(DesignerListViewCollectionViewCell*)designerListCell{
+    
+    [[UserManager shareUserManager]focusOnUserWithUserId:[NSString stringWithFormat:@"%@",designer.id] focusType:[designer.isfollow  integerValue]];
+    [UserManager shareUserManager].focusOnUserSuccess = ^ (id obj ){
+        
+        _isOperation = YES;
+        if ([designer.isfollow integerValue] == 0) {
+            
+            designer.isfollow = @1;
+            [designerListCell setupFocusStateWithhFocus:YES];
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withMessage:FOCUSSTATETITLE_SUCCESSFOCUS];
+        } else {
+            
+            designer.isfollow = @0;
+            [designerListCell setupFocusStateWithhFocus:NO];
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withMessage:FOCUSSTATETITLE_CANCELFOCUS];
+        }
+    };
+}
+
+-(void)refreshDesginerListData:(NSNotificationCenter*)notifi{
+    
+    [self loadingDesignerListWithIsNotification:YES];
+}
 
 -(void)back{
     
     [self.searchBar resignFirstResponder];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_CHANGE_FOCUS_DESGINER object:nil];
+    
+    if (_isOperation) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:Notification_CHANGE_FOCUS_DESGINER object:nil userInfo:nil];
+    }
+    
     [super back];
 }
+
 
 @end

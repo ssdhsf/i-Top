@@ -10,4 +10,5 @@
 
 @interface MycaseViewController : BaseCollectionViewController
 
+@property (nonatomic, assign) GetCaseType getCaseType;
 @end

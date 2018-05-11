@@ -45,6 +45,7 @@
 #define JPUSH_Notification_PresentView       @"PresentView"
 #define JPUSH_Notification_ShowNotice        @"ShowNotice"
 
+#define Notification_CHANGE_FOCUS_DESGINER @"changeFocusDsginer"
 //颜色配置
 #define RGB(__R, __G, __B)\
     [UIColor colorWithRed:(__R) / 255.0f\

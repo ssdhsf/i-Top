@@ -13,7 +13,7 @@
 
 @interface CaseDesignerInfo : JSONModel
 
-@property (strong ,nonatomic)NSString <Optional>*user_id;
+@property (strong ,nonatomic)NSNumber <Optional>*user_id;
 @property (strong ,nonatomic)NSString <Optional>*head_img;
 @property (strong ,nonatomic)NSString <Optional>*nickname;
 @property (strong ,nonatomic)NSString <Optional>*age;

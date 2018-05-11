@@ -375,6 +375,11 @@
 #pragma mark -------- select Index
 -(void)selectedIndex:(NSInteger)index{
     
+    [_useLMJDropdownMenu hideDropDown];
+    [_industryLMJDropdownMenu hideDropDown];
+    [_technologyLMJDropdownMenu hideDropDown];
+    [_styleLMJDropdownMenu hideDropDown];
+
     _itmeIndex = index;
     [self setupSelectViewsTagTitleWithTag:index];
 }

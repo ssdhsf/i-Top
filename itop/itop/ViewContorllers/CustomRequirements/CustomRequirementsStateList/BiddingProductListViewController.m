@@ -11,6 +11,7 @@
 #import "BiddingProduct.h"
 #import "BiddingProductListStore.h"
 #import "BiddingProductListDataSource.h"
+#import "UploadProductDetailViewController.h"
 
 static NSString *const BiddingProductListCellIdentifier = @"BiddingProductListCell";
 
@@ -80,6 +81,15 @@ static NSString *const BiddingProductListCellIdentifier = @"BiddingProductListCe
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
  
     return 83;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    [super tableView:tableView didSelectRowAtIndexPath:indexPath];
+    BiddingProduct *productDetail = [self.biddingProductListDataSource itemAtIndexPath:indexPath];
+    UploadProductDetailViewController *vc = [[UploadProductDetailViewController  alloc]init];
+    vc.productDetail = productDetail;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {

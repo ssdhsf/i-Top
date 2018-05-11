@@ -160,7 +160,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id productType:H5ProductTypeDefault];
 //    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
 //    hotDetailsVc.hotDetail_id = h5.id;
 //    hotDetailsVc.itemDetailType = H5ItemDetailType;

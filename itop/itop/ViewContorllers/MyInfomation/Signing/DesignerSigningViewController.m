@@ -8,6 +8,7 @@
 
 #import "DesignerSigningViewController.h"
 #import "DesignerSigningStore.h"
+#import "CompanySigningStore.h"
 //#import <FileProvider/FileProvider.h>
 
 @interface DesignerSigningViewController ()<UIDocumentPickerDelegate,UIDocumentMenuDelegate>
@@ -23,6 +24,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *mobiliTF;
 @property (weak, nonatomic) IBOutlet UITextField *verificationCodeTF;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *selectProvinceButton;
+
+@property (nonatomic, strong)NSArray *provinceArray; // 省份
+@property (nonatomic, strong)NSArray *cityArray;//城市
+@property (nonatomic, strong)Province *province; //选择省份
+@property (nonatomic, strong)Province *city; //选择的城市
+@property (nonatomic, strong)AlertView *alertView; //弹窗
+@property (assign, nonatomic) NSInteger selectButtonTag; //选中的tag
 
 //上传作品页面
 @property (weak, nonatomic) IBOutlet UIButton *selectItopProductButton;
@@ -51,6 +60,7 @@
 
 -(void)initView{
     
+    [super initView];
     _views = [[NSBundle mainBundle] loadNibNamed:@"DesignerSigningViewController" owner:self options:nil];
     self.view = [_views firstObject];
     _tagArray = [NSMutableArray array];
@@ -65,6 +75,15 @@
     [self addkeywordsViewWithkeywords:_tagArray];
     [self setupViews];
 }
+
+-(void)initData{
+    
+    [super initData];
+    _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
+    Province *province = _provinceArray[0];
+    _cityArray = province.cityArray;
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -105,6 +124,65 @@
 -(void)initNavigationBarItems{
     
     self.title = @"入驻申请";
+}
+
+- (IBAction)selectItem:(UIButton *)sender {
+    
+    _selectButtonTag = sender.tag;
+    [self showAlertViewWithItem:sender];
+}
+
+
+-(void)showAlertViewWithItem:(UIButton*)button{
+    
+    NSString *string = [NSString stringWithFormat:@"请选择%@",button.titleLabel.text];
+    
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (button.tag) {
+    
+        case PickViewTypeProvince:
+            superArray = _provinceArray;
+            subArray = _cityArray;
+            break;
+        default:
+            break;
+    }
+    
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                         message:nil
+                                         sureBtn:@"确定"
+                                       cancleBtn:@"取消"
+                                    pickViewType:button.tag
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
+        
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
+    };
+    
+    if ([button.titleLabel.text  rangeOfString:@"请选择"].location  == NSNotFound) {
+        [_alertView setupPickViewWithContent:button.titleLabel.text];
+    }
+    [_alertView showXLAlertView];
+}
+
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
+    
+    switch (_selectButtonTag) {
+        case PickViewTypeProvince:
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
+            [_selectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void)addkeywordsViewWithkeywords:(NSArray *)keywords{
@@ -186,13 +264,6 @@
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
         return;
     }
-    
-//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
-//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
-//        
-//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-//        NSLog(@"%@",obj);
-//    };
 }
 
 - (IBAction)next:(UIButton *)sender {
@@ -211,6 +282,11 @@
     if ([Global stringIsNullWithString:_verificationCodeTF.text]) {
         
         [self showToastWithMessage:TIPSMESSEGE(@"验证码")];
+        return;
+    }
+    if (!_province) {
+        
+        [self showToastWithMessage:TIPSMESSEGESELECT(@"地区")];
         return;
     }
 
@@ -400,8 +476,9 @@
     [parameters setObject:_nameTF.text forKey:@"Name"];
     [parameters setObject:_mobiliTF.text forKey:@"Phone"];
     [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
+    [parameters setObject:_province.code forKey:@"Province"];
+    [parameters setObject:_city.code forKey:@"City"];
     [parameters setObject:field forKey:@"Field"];
-    
     
     [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeDesigner];
     [UserManager shareUserManager].signingSuccess =  ^(id obj){

@@ -18,6 +18,7 @@
 @property (strong ,nonatomic)NSString <Optional>*introduction;
 @property (strong ,nonatomic)NSString <Optional>*name;
 @property (strong ,nonatomic)NSString <Optional>*user_id;
+@property (strong ,nonatomic)NSString <Optional>*url;
 
 //"case_url" = "baidu.com";
 //"cover_img" = "http://192.168.7.100:8028/files/img/20180417/201804171557082382.jpg";

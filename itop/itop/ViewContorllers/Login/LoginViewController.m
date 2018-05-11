@@ -44,7 +44,6 @@
 -(void)initData{
     
     [WXApiManager sharedManager].delegate = self;
-    
     _accountTF.text = [[Global sharedSingleton]getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME];
     _passwordTF.text = [[Global sharedSingleton]getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD];
 }
@@ -162,11 +161,11 @@
     _passwordImage.image = tag == 2 ?  [UIImage imageNamed:@"icon_password_selected"] :[UIImage imageNamed:@"icon_password_normal"];
 }
 
--(void)hiddenNavigationController:(BOOL)animated{
-    
-    [self.navigationController.navigationBar setHidden:animated];
-    [self.navigationController.tabBarController.tabBar setHidden:animated];
-}
+//-(void)hiddenNavigationController:(BOOL)animated{
+//
+//    [self.navigationController.navigationBar setHidden:animated];
+//    [self.navigationController.tabBarController.tabBar setHidden:animated];
+//}
 
 //微信登陆回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {

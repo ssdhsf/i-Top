@@ -43,7 +43,6 @@ static NSString *const ThemeCustomCellIdentifier = @"ThemeCustom";
     }];
 
     [self steupCollectionView];
-
 }
 
 -(void)initData{

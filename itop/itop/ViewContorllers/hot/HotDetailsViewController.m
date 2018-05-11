@@ -22,7 +22,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *browseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *praiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIButton *focusButton;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImage;
@@ -33,8 +32,8 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (strong, nonatomic) UIView *commentTVBgView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *browseIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *praiseIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *commentIcon;
+@property (weak, nonatomic) IBOutlet UIButton *praiseButton;
 
 /*---------------h5headerview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *h5HeaderView;
@@ -43,11 +42,10 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *h5UserNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *h5ImageView;
 @property (weak, nonatomic) IBOutlet UILabel *h5BrowseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *h5PraiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5CommentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *h5BrowseIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *h5PraiseIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *h5CommentIcon;
+@property (weak, nonatomic) IBOutlet UIButton *h5PraiseButton;
 
 /*---------------publicview--------------------*/
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
@@ -59,6 +57,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (nonatomic, strong) NSString *parent_id;
 @property (nonatomic, assign) FocusType focusType;
 @property (nonatomic, assign) CollectionType collectionType;
+@property (nonatomic, assign)BOOL isOperation;//是否操作关注
 
 @end
 
@@ -82,7 +81,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
        [self initWebView];
     }
 }
-
 
 - (void)viewWillDisappear:(BOOL)animated{
     
@@ -108,6 +106,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)initData{
     
     [super initData];
+    _isOperation = NO;
     [[UserManager shareUserManager]hotDetailWithHotDetailId:_hotDetail_id PageIndex:0 PageCount:0];
     [UserManager shareUserManager].hotDetailSuccess = ^(NSDictionary *dic){
       
@@ -227,16 +226,14 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.browseIcon.frame = CGRectMake(CGRectGetMaxX(self.timeLabel.frame), 0, 14, 9);
     self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
     
-    self.praiseIcon.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, 0, 10, 9);
-    self.praiseLabel.frame = CGRectMake(CGRectGetMaxX(self.praiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
-    
-    self.commentIcon.frame = CGRectMake(CGRectGetMaxX(self.praiseLabel.frame)+10, 0, 10, 9);
+    self.praiseButton.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, 0, goodLabelTextWidth+20, 25);
+
+    self.commentIcon.frame = CGRectMake(CGRectGetMaxX(self.praiseButton.frame)+10, 0, 10, 9);
     self.commentLabel.frame = CGRectMake(CGRectGetMaxX(self.commentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
     
     self.browseIcon.centerY = self.timeLabel.centerY;
     self.browseLabel.centerY = self.browseIcon.centerY;
-    self.praiseIcon.centerY = self.browseIcon.centerY;
-    self.praiseLabel.centerY = self.browseIcon.centerY;
+    self.praiseButton.centerY = self.browseIcon.centerY;
     self.commentIcon.centerY = self.browseIcon.centerY;
     self.commentLabel.centerY = self.browseIcon.centerY;
     
@@ -290,14 +287,11 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.h5BrowseIcon.frame = CGRectMake(30, oringinY, 14, 9);
     self.h5BrowseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
     
-    self.h5PraiseIcon.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseLabel.frame)+10, 0, 10, 9);
-    self.h5PraiseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
-    
-    self.h5CommentIcon.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseLabel.frame)+10, 0, 10, 9);
+    self.h5PraiseButton.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseLabel.frame)+10, 0, goodLabelTextWidth+20, 25);
+    self.h5CommentIcon.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseButton.frame)+10, 0, 10, 9);
     self.h5CommentLabel.frame = CGRectMake(CGRectGetMaxX(self.h5CommentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
     self.h5BrowseLabel.centerY = self.h5BrowseIcon.centerY;
-    self.h5PraiseIcon.centerY = self.h5BrowseIcon.centerY;
-    self.h5PraiseLabel.centerY = self.h5BrowseIcon.centerY;
+    self.h5PraiseButton.centerY = self.h5BrowseIcon.centerY;
     self.h5CommentIcon.centerY = self.h5BrowseIcon.centerY;
     self.h5CommentLabel.centerY = self.h5BrowseIcon.centerY;
 
@@ -313,7 +307,14 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)setH5HeaderViewSubViewData{
     
     _h5BrowseLabel.text = _hotDetail.article.browse_count;
-    _h5PraiseLabel.text = _hotDetail.article.praise_count;
+    [_h5PraiseButton setTitle:_hotDetail.article.praise_count forState:UIControlStateNormal];
+    if (_hotDetail.user_article!= nil && [_hotDetail.user_article.praise isEqualToNumber:@1]) {
+        
+        [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+    } else{
+        
+         [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good_grey"] forState:UIControlStateNormal];
+    }
     _h5CommentLabel.text = _hotDetail.article.commend;
     _h5UserNameLabel.text = _hotDetail.author_nickname;
     [_h5ImageView sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
@@ -324,7 +325,16 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _titleLabel.text = _hotDetail.article.title;
     _timeLabel.text =[[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:_hotDetail.article.create_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     _browseLabel.text = _hotDetail.article.browse_count;
-    _praiseLabel.text = _hotDetail.article.praise_count;
+
+    [_praiseButton setTitle:_hotDetail.article.praise_count forState:UIControlStateNormal];
+    if (_hotDetail.user_article!= nil && [_hotDetail.user_article.praise isEqualToNumber:@1]) {
+        
+        [_praiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+    } else{
+        
+        [_praiseButton setImage:[UIImage imageNamed:@"icon_good_grey"] forState:UIControlStateNormal];
+    }
+
     _commentLabel.text = _hotDetail.article.comment_count;
 //    _contentLabel.text = _hotDetail.article.content;
     _userNameLabel.text = _hotDetail.author_nickname;
@@ -387,6 +397,27 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     } else {
         
         [self alertOperation];
+    }
+}
+
+- (IBAction)praise:(UIButton *)sender { //点赞
+    
+    if (_hotDetail.user_article== nil || [_hotDetail.user_article.praise isEqualToNumber:@0]){
+        
+        [[UserManager shareUserManager]praiseOnHotWithHotId:_hotDetail.article.id];
+        [UserManager shareUserManager].praiseHotSuccess = ^(id obj){
+            
+            if (sender.tag == H5ItemDetailType) {
+                
+                [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+            } else {
+                
+                [_praiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+            }
+        };
+    } else {
+        
+        [self showToastWithMessage:@"不能重复点赞"];
     }
 }
 
@@ -503,6 +534,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [[UserManager shareUserManager]focusOnUserWithUserId:_hotDetail.article.user_id focusType:_focusType];
     [UserManager shareUserManager].focusOnUserSuccess = ^ (id obj){
         
+        _isOperation = YES;
         _focusType = !_focusType;
         if (_focusType == FocusTypeFocus) {
             
@@ -594,6 +626,16 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _sendButton.hidden = !animation;
     _commentTVBgView.hidden = !animation;
 }
+
+-(void)back{
+    
+    if (_isOperation) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:Notification_CHANGE_FOCUS_DESGINER object:nil userInfo:nil];
+    }
+    [super back];
+}
+
 
 
 @end

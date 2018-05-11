@@ -180,9 +180,13 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         } else{
             
         }
-        NSArray *tagArr = [_info.other_info.trade componentsSeparatedByString:segmentationString];//行业
-        _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
-        _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:[NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+        
+        if (![Global stringIsNullWithString:segmentationString]) {
+            NSArray *tagArr = [_info.other_info.trade componentsSeparatedByString:segmentationString];//行业
+            _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+            _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:[NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+
+        }
         
         if ([[UserManager shareUserManager] crrentUserType] == UserTypeMarketing) {
             
@@ -593,14 +597,24 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         
         if ([info.title isEqualToString:@"渠道资源"] && _channelList.count != 0) {
             
-            NSMutableArray *channelModelArray = [NSMutableArray array];
+//            NSMutableArray *channelModelArray = [NSMutableArray array];
+            NSString *channelJsonStr = [NSString string];
             for (ChannelList *channel in _channelList) {
                 
-                NSDictionary *dic = @{@"name":channel.name,@"fans_count":channel.fans_count,@"index_url":channel.index_url};
-                [channelModelArray addObject:dic];
+                if ([Global stringIsNullWithString:channelJsonStr] ) {
+                    channelJsonStr = [NSString stringWithFormat:@"{name:%@,fans_count:%@,index_url:%@}",channel.name,channel.fans_count,channel.index_url];
+                } else {
+                    
+                    channelJsonStr =  [NSString stringWithFormat:@"%@,{name:%@,fans_count:%@,index_url:%@}",channelJsonStr,channel.name,channel.fans_count,channel.index_url];
+                }
+                
+//                NSDictionary *dic = @{@"name":channel.name,@"fans_count":channel.fans_count,@"index_url":channel.fans_count};
+//                [channelModelArray addObject:dic];
             }
-            
-            [otherInfoDic setObject:channelModelArray forKey:info.sendKey];
+            NSMutableString *targerStr = [[NSMutableString alloc] initWithString:channelJsonStr ];
+            [targerStr insertString:@"[" atIndex:0];
+            [targerStr insertString:@"]" atIndex:targerStr.length];
+            [otherInfoDic setObject:targerStr forKey:info.sendKey];
         }
         
         if ([info.title isEqualToString:@"所属行业"] && _superTag ) {
@@ -611,7 +625,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     return otherInfoDic;
 }
-
 
 -(NSMutableDictionary *)userInfo{
     

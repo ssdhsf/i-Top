@@ -21,6 +21,7 @@
 @property (strong ,nonatomic)NSNumber <Optional>*show;
 @property (strong ,nonatomic)NSString <Optional>*title;
 @property (strong ,nonatomic)NSString <Optional>*url;
+@property (strong ,nonatomic)NSString <Optional>*demand_count;
 
 //"check_status" = 0;
 //commend = 0;

@@ -11,7 +11,7 @@
 #import "CompanySigningStore.h"
 #import "MyhotViewController.h"
 
-@interface ReleaseHotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate,SubmitFileManagerDelegate,UIPickerViewDelegate,UIPickerViewDataSource>
+@interface ReleaseHotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate,SubmitFileManagerDelegate,UITextViewDelegate>
 
 @property (nonatomic, strong)SegmentTapView *segment;
 @property (nonatomic, assign)NSInteger itmeIndex;
@@ -153,7 +153,19 @@
     [_submitH5Button.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitH5Button)];
     _submitH5Button.layer.cornerRadius = _submitH5Button.height/2;
     _submitH5Button.layer.masksToBounds = YES;
+    _titleH5TV.delegate = self;
   
+}
+
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    
+    if (range.location > 20) {
+        
+        [self showToastWithMessage:@"输入的内容不能超过20个"];
+        textView.text = [textView.text substringWithRange:NSMakeRange(0, 19)];
+    }
+    
+    return YES;
 }
 
 -(void)setupInfoSubViews{
@@ -182,6 +194,7 @@
     [_submitInfoButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitInfoButton)];
     _submitInfoButton.layer.cornerRadius = _submitInfoButton.height/2;
     _submitInfoButton.layer.masksToBounds = YES;
+    _titleInfoTV.delegate = self;
 }
 
 - (IBAction)selectItem:(UIButton *)sender {
@@ -236,7 +249,7 @@
             _province = (Province *)selectSuperItme;
             _city = (Province *)selectSubItme;
             
-            if (_itemDetailType == H5ItemDetailType) {
+            if (_itmeIndex == H5ItemDetailType) {
                 [_h5SelectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
 
             } else {

@@ -16,6 +16,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 @interface DesignerListViewController ()
 
 @property (nonatomic, strong)DesignerListDataSource *designerListDataSource;
+@property (nonatomic, assign)BOOL isOperation;
 
 @end
 
@@ -23,6 +24,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshDesginerListData:) name:Notification_CHANGE_FOCUS_DESGINER object:nil];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -58,6 +61,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     
     [super initData];
     [self showRefresh];
+    _isOperation = NO;
 }
 
 -(void)refreshData{
@@ -88,14 +92,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         cell.focusUserBlock = ^(NSInteger index, DesignerListViewCollectionViewCell*designerListCell){
             
             DesignerList *designer = self.dataArray[index];
-            
-            if ([designer.follow integerValue] == 1 || _designerListType == DesignerListTypeFocus) { //当用户处于被关注的状态提示操作
-                
-                 [weakSelf alertOperationWithDesigner:designer cell:designerListCell index:index];
-            } else {
-                
                 [weakSelf focusStateWithDesigner:designer cell:designerListCell index:index];
-            }
         };
         
     };
@@ -143,24 +140,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     }
 }
 
-
--(void)alertOperationWithDesigner:(DesignerList*)designer
-                             cell:(DesignerListViewCollectionViewCell*)designerListCell
-                            index:(NSInteger )index{
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否取消关注该用户" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
-        
-        [self focusStateWithDesigner:designer cell:designerListCell index:index];
-//        [self back];
-    }];
-    [alertController addAction:cancelAction];
-    [alertController addAction:okAction];
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-}
-
 -(void)focusStateWithDesigner:(DesignerList*)designer cell:(DesignerListViewCollectionViewCell*)designerListCell index:(NSInteger )index{
     
     if (_designerListType == DesignerListTypeFocus) {
@@ -168,27 +147,46 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         [[UserManager shareUserManager]focusOnUserWithUserId:[NSString stringWithFormat:@"%@",designer.follow_user_id] focusType:FocusTypeFocus];
         [UserManager shareUserManager].focusOnUserSuccess = ^ (id obj ){
 
+            _isOperation = YES;
             [self.dataArray removeObjectAtIndex:index];
             [self.collectionView reloadData];
         };
         
     }else {
-        [[UserManager shareUserManager]focusOnUserWithUserId:[NSString stringWithFormat:@"%@",designer.id] focusType:[designer.follow integerValue]];
+        [[UserManager shareUserManager]focusOnUserWithUserId:[NSString stringWithFormat:@"%@",designer.id] focusType:[designer.isfollow integerValue]];
         [UserManager shareUserManager].focusOnUserSuccess = ^ (id obj ){
             
-            if ([designer.follow integerValue] == 0) {
+            _isOperation = YES;
+            if ([designer.isfollow integerValue] == 0) {
                 
-                designer.follow = @1;
+                designer.isfollow = @1;
                 [designerListCell setupFocusStateWithhFocus:YES];
                 [[Global sharedSingleton]showToastInCenter:self.view withMessage:FOCUSSTATETITLE_SUCCESSFOCUS];
             } else {
                 
-                designer.follow = @0;
+                designer.isfollow = @0;
                 [designerListCell setupFocusStateWithhFocus:NO];
                 [[Global sharedSingleton]showToastInCenter:self.view withMessage:FOCUSSTATETITLE_CANCELFOCUS];
             }
         };
     }
+}
+
+-(void)refreshDesginerListData:(NSNotificationCenter*)notifi{
+    
+    [self collectionBeginRefreshing];
+}
+
+-(void)back{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Notification_CHANGE_FOCUS_DESGINER object:nil];
+    
+    if (_isOperation) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:Notification_CHANGE_FOCUS_DESGINER object:nil userInfo:nil];
+    }
+   
+    [super back];
 }
 
 @end

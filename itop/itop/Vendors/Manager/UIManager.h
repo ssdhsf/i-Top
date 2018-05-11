@@ -45,10 +45,10 @@ typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一�
 typedef void (^SelectProductBolck)(id product); //选择作品回掉
 typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
 typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
-
 typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交返回
-
-typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
+typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交回掉
+typedef void (^UploadProductBackOffBolck)(id product); //定制需求提交回掉
+//typedef void (^FocusDesginerBackOffBolck)(id product); //定制需求提交回掉
 
 @class H5List;
 @class EditCase;
@@ -69,6 +69,8 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
 @property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
 @property (copy, nonatomic)CustomRequirementsBackOffBolck customRequirementsBackOffBolck;
 @property (copy, nonatomic)EditCaseBackOffBolck editCaseBackOffBolck;
+@property (copy, nonatomic)UploadProductBackOffBolck uploadProductBackOffBolck;
+//@property (copy, nonatomic)FocusDesginerBackOffBolck focusDesginerBackOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
@@ -165,7 +167,7 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
 *
 *  @param designer_id 设计师id
 */
-+ (void)designerDetailWithDesignerId:(NSString*)designer_id;
++ (void)designerDetailWithDesignerId:(NSNumber*)designer_id;
 
 /**
  *  设计师列表
@@ -211,7 +213,7 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
  *
  *  @param template_ld H5  id
  */
-+(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld;
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSNumber *)template_ld productType:(H5ProductType)productType;
 
 /**
  *  联系客服／意见反馈公用
@@ -250,7 +252,7 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
  *  @param article_id  文章id
  *  @param article_type  文章类型
  */
-+(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type;
++(void)hotDetailsViewControllerWithArticleId:(NSNumber *)article_id articleType:(ItemDetailType)article_type;
 
 /**
  *  搜索热点列表
@@ -276,11 +278,18 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
 +(void)customRequirementsDetailViewControllerWithCustomId:(NSNumber *)custom_id;
 
 /**
- *  定制需求列表
+ *  定制需求添加
+ *  @param demandAddType  添加定制需求类型 新增／编辑／作品入口
+ *  @param demandType     定制需求类型 定制／竞标
+ *  @param demand_id      重新编辑的 定制ID
+ *  @param desginer_id     作品入口 设计师id
+ *  @param product_id      作品入口 作品ID
  */
-+(void)customRequirementsReleaseViewControllerWithIsEdit:(BOOL)isEdit
-                                              demandType:(DemandType)demandType
-                                               demand_id:(NSNumber *)demand_id;
++(void)customRequirementsReleaseViewControllerWithDemandAddType:(DemandAddType)demandAddType
+                                                     demandType:(DemandType)demandType
+                                                      demand_id:(NSNumber *)demand_id
+                                                     desginerId:(NSNumber *)desginer_id
+                                                      productId:(NSNumber *)product_id;
 /**
  *  添加平台介入（纠纷）
  */
@@ -305,5 +314,18 @@ typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交返回
  *  editCase 编辑的模型
  */
 +(void)editCaseViewControllerIsEdit:(BOOL)isEdite editCase:(EditCase *)editCase;
+
+/**
+ *  上传作品
+ *  demand_id  定制id
+ *  user_id user_id
+ */
++(void)uploadProductLinkViewControllerWithDemandId:(NSNumber *)demand_id
+                                            userId:(NSNumber *)user_id;
+/**  案例List
+ *
+ *  getCaseType  首页获取／我的案例
+ */
++(void)getCaseViewControllerWithGetCaseType:(GetCaseType)getCaseType;
 
 @end

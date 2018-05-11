@@ -7,6 +7,7 @@
 //
 
 #import "CustomRequirementsStore.h"
+#import "CompanySigningStore.h"
 
 @implementation CustomRequirementsStore
 
@@ -57,7 +58,15 @@
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考网站" content:datail.demand.reference_url]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考图片" content:datail.demand.reference_img]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"行业" content:datail.demand.contact_name]];
-    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"地域要求" content:datail.demand.province]];
+    
+    Province *province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:datail.demand.province];
+    Province *city = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:datail.demand.city provinceCode:datail.demand.province];
+     NSString *string = [NSString string];
+    if (province) {
+         string = [NSString stringWithFormat:@"%@,%@",province.address,city.address];
+    }
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"地域要求" content:string]];
+
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"需求描述" content:datail.demand.descrip]];
     return array;
 }

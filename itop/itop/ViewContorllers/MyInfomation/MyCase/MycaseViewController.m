@@ -112,7 +112,7 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10];
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType];
     [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
         if (arr.count == 0) {
@@ -135,7 +135,7 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
     
     CollectionViewCellConfigureBlock congfigureBlock = ^(H5ListCollectionViewCell *cell , EditCase *item, NSIndexPath *indexPath){
         
-        [cell setMyCaseListItmeOfModel:item];
+         [cell setMyCaseListItmeOfModel:item getCaseType:_getCaseType];
     };
     
     CollectionViewCellHeaderConfigureBlock cellHeaderConfigureCellBlock = ^(UICollectionReusableView *headerView, NSIndexPath *indexPath){
@@ -196,7 +196,7 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"预览"]) {
-        [UIManager pushTemplateDetailViewControllerWithTemplateId:_editCase.id];
+           [UIManager pushTemplateDetailViewControllerWithTemplateId:_editCase.id productType:H5ProductTypeCase];
     }
     
     if ([sender.titleLabel.text isEqualToString:@"分享"]) {

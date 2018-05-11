@@ -53,7 +53,7 @@
     NSInteger timeLabelTextWidth = [[Global sharedSingleton]widthForString:time fontSize:11 andHeight:15];
 
      NSInteger oringinY = CGRectGetMaxY(self.contentView.frame)-28;
-    if (getArticleListType == GetArticleListTypeHot) {
+    if (getArticleListType == GetArticleListTypeHot || getArticleListType == GetArticleListTypeFocus) {
         
         NSInteger timeLabelOriginX = CGRectGetMaxX(self.contentView.frame)-20-timeLabelTextWidth-5;
         self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
