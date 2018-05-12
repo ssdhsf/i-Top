@@ -38,4 +38,7 @@
 -(CGFloat)getSpaceLabelHeightwithSpeace:(CGFloat)lineSpeace
                                withFont:(UIFont*)font
                               withWidth:(CGFloat)width ;
+
+-(NSMutableAttributedString*)setupAttributedString:(CGFloat)stringNumber color:(UIColor*)color string:(NSString *)string;
+
 @end

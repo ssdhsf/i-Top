@@ -82,7 +82,7 @@
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+//    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }
 
@@ -100,7 +100,7 @@
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+//    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }
 
@@ -115,7 +115,7 @@
     
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"关注" imageName:@"me_icon_watch" vcName:@"MyFocusViewController"]];
     [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"通知" imageName:@"me_icon_remind" vcName:@"MessageViewController"]];
-    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
+//    [array addObject:[self setupMyInfomationWithLeaveDetailTitle:@"评论" imageName:@"me_icon_comment" vcName:@"CommentListViewController"]];
     return array;
 }
 

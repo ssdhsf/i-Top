@@ -67,7 +67,7 @@ typedef void(^SelectResult)(id superResult,id subResult);
 @property (nonatomic, strong)TagList *subTag; //选择的行业子级
 
 @property (nonatomic, strong)DesignerList *designer; //选择的设计师
-@property (nonatomic, strong)H5List *h5; //选择设计师的作品
+@property (nonatomic, strong)EditCase *editCase; //选择设计师的作品
 
 @property (nonatomic, strong)NSString *tempSelectItme; // 输入的内容
 

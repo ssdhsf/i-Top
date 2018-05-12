@@ -13,6 +13,7 @@
 #import "CompanySigningStore.h"
 #import "DesignerListStore.h"
 #import "H5ListStore.h"
+#import "EditCaseStore.h"
 
 #define REGIONAL @"地域优先"
 #define INDUSTRY @"行业"
@@ -51,7 +52,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 @property (nonatomic, strong)DesignerList *desgin;
 
 @property (nonatomic, strong)NSArray *desginProduct; // 设计师作品
-@property (nonatomic, strong)H5List *selectH5;//选择的作品
+@property (nonatomic, strong)EditCase *selectCase;//选择的案例
 @property (nonatomic, strong)DemandEdit *selectDemandEdit; // 当前选项
 @property (strong, nonatomic)CustomRequirementsDetail *customRequirementsDetail; //编辑详情
 
@@ -159,21 +160,27 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
 -(void)refreshDesginProductDataWithDesginID:(NSNumber *)desgin_id isFirst:(BOOL)isFirst{
     
     [[Global sharedSingleton] createProgressHUDInView:self.view withMessage:@"加载中..."];
-    [[UserManager shareUserManager] designerProductListWithDesigner:desgin_id PageIndex:1 PageCount:10000];
-    [UserManager shareUserManager].designerProductListSuccess = ^(NSArray * obj){
+    
+    [[UserManager shareUserManager] myCaseListWithPageIndex:1 PageCount:10000 getCaseType:GetCaseTypeHome userId:desgin_id];
+    [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
-        self.desginProduct = [[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] ;
+        self.desginProduct = [[EditCaseStore shearEditCaseStore] configurationEditCaseStoreWithRequsData:arr];
+    
+//    [[UserManager shareUserManager] designerProductListWithDesigner:desgin_id PageIndex:1 PageCount:10000];
+//    [UserManager shareUserManager].designerProductListSuccess = ^(NSArray * obj){
+//
+//        self.desginProduct = [[H5ListStore shearH5ListStore]configurationMenuWithMenu:obj] ;
         [MBProgressHUD hideHUDForView:self.view animated:NO];
         
         if (isFirst) {
           
             if (_demandAddType == DemandAddTypeOnEdit || _demandAddType == DemandAddTypeOnProduct) {
                 NSNumber *caseId = _demandAddType == DemandAddTypeOnEdit ?_customRequirementsDetail.demand.demand_case_id : _desginer_product_id;
-                for (H5List *h5 in self.desginProduct) {
+                for (EditCase *editCase in self.desginProduct) {
                     
-                    if ([h5.id isEqualToNumber:caseId]) {
+                    if ([editCase.id isEqualToNumber:caseId]) {
                         
-                        _selectH5 = h5;
+                        _selectCase = editCase;
                     }
                 }
                 self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationDirectionalDemandReleaseEditWithDemandType:_demandType customRequirementsDetail:_customRequirementsDetail isEdit:YES];
@@ -283,10 +290,10 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
         
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"参考案例"]) {
             
-            for (H5List *h5 in self.desginProduct) {
+            for (EditCase *editCase in self.desginProduct) {
                 
-                if (h5.id == _selectH5.id) {
-                    info.content = h5.title;
+                if (editCase.id == _selectCase.id) {
+                    info.content = editCase.title;
                 }
             }
         }
@@ -449,8 +456,8 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
             
         case PickViewTypeProduct:
             
-            _selectH5 = (H5List*)selectSuperItme;
-            _selectDemandEdit.content = _selectH5.title;
+            _selectCase = (EditCase*)selectSuperItme;
+            _selectDemandEdit.content = _selectCase.title;
             break;
             
         default:
@@ -526,7 +533,7 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
             
         }else if([edit.title isEqualToString:CASE]) {
             
-            [parameters setObject:_selectH5.id forKey:edit.sendKey];
+            [parameters setObject:_selectCase.id forKey:edit.sendKey];
         }else if(![edit.title isEqualToString:PICTURE]){
             
             [parameters setObject:edit.content forKey:edit.sendKey];

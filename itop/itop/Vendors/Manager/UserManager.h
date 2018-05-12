@@ -205,6 +205,7 @@ typedef NS_ENUM(NSInteger, BiddingPayType) { //绑定支付宝类型
 typedef NS_ENUM(NSInteger, GetCaseType) { //获取案例类型
     GetCaseTypeHome = 0, //首页案例
     GetCaseTypeMyCase = 1, //我的案例
+    GetCaseTypeOtherCase , //其他人
 };
 
 typedef NS_ENUM(NSInteger, DemandAddType) { //获取案例类型
@@ -349,9 +350,12 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取个人信息————————————————————————*/
 @property (nonatomic, copy) UserInfoSuccess userInfoSuccess;
 @property (nonatomic, copy) UserInfoFailure userInfoFailure;
-/*----------------更新个人信息————————————————————————*/
+/*----------------更新个人信息第一个接口 基本信息————————————————————————*/
 @property (nonatomic, copy) UpdataInfoSuccess updataInfoSuccess;
 @property (nonatomic, copy) UpdataInfoFailure updataInfoFailure;
+/*----------------更新个人信息第二个接口 除一般用户的其他用户————————————————————————*/
+@property (nonatomic, copy) UpdataInfoSuccess updataUserInfoSuccess;
+@property (nonatomic, copy) UpdataInfoFailure updataUserInfoFailure;
 
 /*----------------重置密码————————————————————————*/
 @property (nonatomic, copy) ResetPasswordSuccess resetPasswordSuccess;
@@ -1088,12 +1092,14 @@ typedef void (^ErrorFailure)(id obj);
 - (void)addDemandDemanddisputeWithParameters:(NSDictionary *)parameters;
 
 /**
- *  我的案例
- *
+ *  案例列表
+ *  @param getCaseType 我的／其他人/首页
+ *  @param user_id 其他人
  */
 - (void)myCaseListWithPageIndex:(NSInteger )pageIndex
                       PageCount:(NSInteger )pageCount
-                    getCaseType:(GetCaseType)getCaseType;
+                    getCaseType:(GetCaseType)getCaseType
+                         userId:(NSNumber *)user_id;
 
 /**
  *  删除案例

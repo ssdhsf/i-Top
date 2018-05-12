@@ -112,7 +112,7 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType];
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType userId:nil];
     [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
         if (arr.count == 0) {
@@ -171,16 +171,14 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
     _editCase = [_myWorksDataSource itemAtIndexPath:indexPath];
-//    if (_showProductType == GetProductListTypeSelect) {
-//
-//        [self back];
-//        [UIManager sharedUIManager].selectProductBolck(_h5);
-//
-//    } else {
+    if (_getCaseType == GetCaseTypeHome) {
+
+          [UIManager pushTemplateDetailViewControllerWithTemplateId:_editCase.id productType:H5ProductTypeCase];
+    } else {
         _currentIndex = indexPath.row;
         [self editoeViewWithAnimation:YES];
         NSLog(@"23");
-//    }
+    }
 }
 
 - (void)editor:(UIButton *)sender {

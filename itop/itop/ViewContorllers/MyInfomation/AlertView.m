@@ -251,7 +251,7 @@
                     break;
                 case PickViewTypeProduct:
                     
-                    self.selectResult(_h5,nil) ;
+                    self.selectResult(_editCase,nil) ;
                     break;
             }
         }
@@ -533,8 +533,8 @@
         lbl.text = designer.nickname;
     }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [H5List class]]){
         
-        H5List *h5 = [self pickerView:pickerView titleForRow:row forComponent:component];
-        lbl.text = h5.title;
+        EditCase *editCase = [self pickerView:pickerView titleForRow:row forComponent:component];
+        lbl.text = editCase.title;
     }
     
     return lbl;
@@ -583,7 +583,7 @@
                 break;
             case PickViewTypeProduct:
                 
-                _h5 = self.superArray[row];
+                _editCase = self.superArray[row];
                 break;
                 
         }
@@ -639,7 +639,7 @@
                 break;
             case PickViewTypeProduct:
                 
-                _h5 = self.superArray[row];
+                _editCase = self.superArray[row];
                 break;
         }
     }else{

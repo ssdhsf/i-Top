@@ -58,7 +58,7 @@
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:NO];
     [self hiddenNavigationController:NO];
-    [self setRightCustomBarItem:@"hot_icon_search" action:@selector(hotSearch)];
+//    [self setRightCustomBarItem:@"hot_icon_search" action:@selector(hotSearch)];
     [self setLeftCustomBarItem:@"" action:nil];
 
 //    switch (_showProductType) {

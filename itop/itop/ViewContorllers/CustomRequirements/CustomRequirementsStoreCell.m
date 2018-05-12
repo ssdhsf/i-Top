@@ -44,6 +44,9 @@
     self.nameLabel.text = customRequirements.nickname;
     self.titleLabel.text = customRequirements.title;
     self.priceLabel.text = [NSString stringWithFormat:@"¥%@",customRequirements.price];
+    NSString *price = [NSString stringWithFormat:@"￥%@",customRequirements.price];
+    self.priceLabel.attributedText = [self.priceLabel.text setupAttributedString:9 color:UIColorFromRGB(0xeb6ea5) string:price] ;
+
     self.personCountLabel.text = [NSString stringWithFormat:@"%@人投标",customRequirements.designer_count];
     
     Province *province = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:customRequirements.city provinceCode:customRequirements.province];

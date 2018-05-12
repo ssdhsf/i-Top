@@ -94,6 +94,20 @@
 }
 
 
+-(NSString *)headerTitleWithSection:(NSInteger)section {
+    
+    NSArray *titleArray = @[@"标签",@"定制需求",@"精品案例",@"推荐H5",@"推荐设计师",@"场景H5",@"一页H5",@"视频H5"];
+    return titleArray[section];
+}
+
+
+- (NSString *)sectionTypeWithSection:(NSInteger)section{
+    
+    NSArray *titleArray = @[Type_Home,Type_Custrom,Type_Case,Type_H5,Type_Designer,Type_H5,Type_H5,Type_H5];
+    return titleArray[section];
+}
+
+
 - (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType{
     
     NSMutableArray  *useArray = [NSMutableArray array];

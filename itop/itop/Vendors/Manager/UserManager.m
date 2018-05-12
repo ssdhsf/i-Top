@@ -361,7 +361,13 @@ _errorFailure(__id_obj); }
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
             
         } else {
-            _updataInfoSuccess(object);
+            if (userType == UserTypeDefault) {
+                
+                _updataInfoSuccess(object);
+            } else {
+                
+                _updataUserInfoSuccess(object);
+            }
         }
         
     } failure:^(NSError *error) {
@@ -2000,20 +2006,25 @@ _errorFailure(__id_obj); }
 
 - (void)myCaseListWithPageIndex:(NSInteger )pageIndex
                       PageCount:(NSInteger )pageCount
-                    getCaseType:(GetCaseType)getCaseType{
+                    getCaseType:(GetCaseType)getCaseType
+                         userId:(NSNumber *)user_id{
     
     //    SHOW_GET_DATA
     NSString *api = [NSString string];
-    if (getCaseType == GetCaseTypeHome) {
+    if (getCaseType == GetCaseTypeHome || getCaseType == GetCaseTypeOtherCase) {
        
         api = @"/api/demandcase/getpagelist";
     }else {
 
         api = @"/api/demandcase/getuserlist";
     }
+    
     NSMutableDictionary * parameters = [NSMutableDictionary dictionary];
     [parameters setObject:@(pageIndex) forKey:@"PageIndex"];
     [parameters setObject:@(pageCount) forKey:@"PageCount"];
+    if (getCaseType == GetCaseTypeOtherCase) {
+        [parameters setObject:user_id forKey:@"User_id"];
+    }
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         //        HIDDEN_GET_DATA

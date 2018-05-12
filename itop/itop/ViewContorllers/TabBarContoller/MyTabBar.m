@@ -62,6 +62,8 @@
             ima.hidden  =  YES ;
         }
     }
+    
+//    self.barTintColor = [UIColor blackColor];
 //
 //    //设置“+”按钮的位置
 ////    NSLog(@"%f",self.centerX);

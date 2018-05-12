@@ -45,7 +45,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         case GetProductListTypeHome:
             
             [self hiddenNavigafindHairlineImageView:NO];
-            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
             [self setLeftCustomBarItem:@"" action:nil];
             break;
         case GetProductListTypeMyProduct:
@@ -57,7 +57,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         case GetProductListTypeSelect:
             
             [self hiddenNavigafindHairlineImageView:YES];
-            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
             break;
         default:
             break;

@@ -30,5 +30,9 @@ static NSString *const Type_Case = @"Case";
 - (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType; //设置标签模型
 - (NSMutableArray *)configurationTagNameWithTag:(NSString *)tag;//根据H5类型show标签title
 
--(NSMutableArray *)configurationAllTagWithMenu:(NSArray *)menu;//解析全部tag模型
+- (NSMutableArray *)configurationAllTagWithMenu:(NSArray *)menu;//解析全部tag模型
+
+- (NSString *)headerTitleWithSection:(NSInteger)section;
+- (NSString *)sectionTypeWithSection:(NSInteger)section;
+
 @end

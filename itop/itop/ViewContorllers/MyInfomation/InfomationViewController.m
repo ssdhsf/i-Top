@@ -473,7 +473,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             break;
         case UserTypeEnterprise:
             otherInfoDic = [self enterpriseOtherInfo];
-            [userInfoDic setObject:_info.name forKey:@"Name"];
+//            [userInfoDic setObject:_info.name forKey:@"Name"];
             break;
         case UserTypeMarketing:
             userInfoDic = [self userInfo];
@@ -493,7 +493,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
                 
                 if ([[UserManager shareUserManager] crrentUserType] != UserTypeDefault) {
                     [[UserManager shareUserManager]updataInfoWithKeyValue:otherInfoDic userType:[_info.user_type integerValue]];
-                    [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
+                    [UserManager shareUserManager].updataUserInfoSuccess = ^(id obj){
                         [self AlertOperation];
                     };
                 } else{
@@ -511,7 +511,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             if ([[UserManager shareUserManager] crrentUserType] != UserTypeDefault) {
                 
                 [[UserManager shareUserManager]updataInfoWithKeyValue:otherInfoDic userType:[_info.user_type integerValue]];
-                [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
+                [UserManager shareUserManager].updataUserInfoSuccess = ^(id obj){
                     [self AlertOperation];
                 };
             }else{
