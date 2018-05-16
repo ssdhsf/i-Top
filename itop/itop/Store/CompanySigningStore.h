@@ -30,7 +30,7 @@
 -(Province *)provinceWithProvinceCode:(NSString *)code;//获取某个省份
 -(Province *)cityWithCityCode:(NSString *)cityCode provinceCode:(NSString *)provinceCode;//获取某个城市
 
--(TagList *)superTagWithTagId:(NSNumber *)tag_id ;//获取某个行业
+-(TagList *)superTagWithTagId:(id )tag_id ;//获取某个行业
 
 -(TagList *)subTagWithTagId:(NSNumber *)tag_id superTagId:(NSNumber *)superTagId;//获取某个子行业
 

@@ -235,7 +235,7 @@
     }
     if ([operationState isEqualToString:@"托管赏金"]) {
         
-        
+        [UIManager hostingBountyViewControllerWithDemandId:customRequirements_id];
     }
     
     if ([operationState isEqualToString:@"平台介入"]) {

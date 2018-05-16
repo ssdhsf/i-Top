@@ -149,7 +149,7 @@ static CGFloat const HeaderH = 223;
     [rootScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.view);
         make.left.right.equalTo(self.view);
-        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -79 : 0);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -79 : -45);
     }];
     
      rootScrollview.bounces = NO;

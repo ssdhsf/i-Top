@@ -48,7 +48,7 @@
     NSMutableArray *sectionArray = [NSMutableArray array];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture] ];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"Nickname" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"性别" content:[self sexWithIndex:info.user_info.sex] isEditor:YES sendKey:@"Sex" pickViewType:PickViewTypeSex]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age" pickViewType:PickViewTypeAge]];
@@ -80,7 +80,7 @@
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userLevelWithLevel:info.other_info.level] isEditor:NO sendKey:@"nickname" pickViewType:PickViewTypeNone]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"Nickname" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"擅长领域" content:info.other_info.field isEditor:YES sendKey:@"Field" pickViewType:PickViewTypeField]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age" pickViewType:PickViewTypeAge]];
@@ -95,7 +95,7 @@
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"头像" content:info.user_info.head_img isEditor:YES sendKey:@"Head_img" pickViewType:PickViewTypePicture]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"用户类型" content:[self userTypeWithUserTypeId:info.user_type] isEditor:NO sendKey:@"" pickViewType:PickViewTypeNone]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"账号等级" content:[self userLevelWithLevel:info.other_info.level] isEditor:NO sendKey:@"nickname" pickViewType:PickViewTypeNone]];
-    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"nickname" pickViewType:PickViewTypeEdit]];
+    [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"昵称" content:info.user_info.nickname isEditor:YES sendKey:@"Nickname" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"姓名" content:info.name isEditor:YES sendKey:@"Name" pickViewType:PickViewTypeEdit]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"所属行业" content:info.other_info.trade isEditor:YES sendKey:@"Trade" pickViewType:PickViewTypeIndustry]];
     [sectionArray addObject:[self setupLeaveDetailWithLeaveDetailTitle:@"年龄" content:info.user_info.age isEditor:YES sendKey:@"Age" pickViewType:PickViewTypeAge]];

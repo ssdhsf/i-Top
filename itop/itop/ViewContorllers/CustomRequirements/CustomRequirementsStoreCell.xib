@@ -67,12 +67,9 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FG-Rd-eJQ">
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0FG-Rd-eJQ">
                         <rect key="frame" x="250" y="94" width="50" height="20"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="20" id="W0B-x4-Hui"/>
-                            <constraint firstAttribute="width" constant="50" id="d6N-eW-L92"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="投标">
                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -81,10 +78,8 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="4eb-ov-XTZ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Aeu-Dn-Znb"/>
-                    <constraint firstItem="0FG-Rd-eJQ" firstAttribute="centerY" secondItem="d7B-DW-VmQ" secondAttribute="centerY" id="Pb5-mf-Q9K"/>
                     <constraint firstItem="d7B-DW-VmQ" firstAttribute="top" secondItem="4eb-ov-XTZ" secondAttribute="bottom" constant="8" id="RlR-xj-ONo"/>
                     <constraint firstItem="4eb-ov-XTZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="20" id="SWk-cT-spj"/>
-                    <constraint firstAttribute="trailing" secondItem="0FG-Rd-eJQ" secondAttribute="trailing" constant="20" id="ffd-KH-MTR"/>
                     <constraint firstItem="d7B-DW-VmQ" firstAttribute="centerX" secondItem="4eb-ov-XTZ" secondAttribute="centerX" id="nBP-YJ-9oU"/>
                 </constraints>
             </tableViewCellContentView>

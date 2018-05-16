@@ -45,13 +45,16 @@ typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一�
 typedef void (^SelectProductBolck)(id product); //选择作品回掉
 typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
 typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
-typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交返回
-typedef void (^EditCaseBackOffBolck)(id product); //定制需求提交回掉
+typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交回掉
+typedef void (^CustomRequirementsRequestDataBackOffBolck)(id product); //定制需求提交回掉
+typedef void (^EditCaseBackOffBolck)(id product); //案例提交回掉
 typedef void (^UploadProductBackOffBolck)(id product); //定制需求提交回掉
+typedef void (^PayBackOffBolck)(id product); //支付回掉
 //typedef void (^FocusDesginerBackOffBolck)(id product); //定制需求提交回掉
 
 @class H5List;
 @class EditCase;
+@class ProductDetail;
 
 @interface UIManager : NSObject
 
@@ -68,8 +71,10 @@ typedef void (^UploadProductBackOffBolck)(id product); //定制需求提交回�
 @property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
 @property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
 @property (copy, nonatomic)CustomRequirementsBackOffBolck customRequirementsBackOffBolck;
+@property (copy, nonatomic)CustomRequirementsRequestDataBackOffBolck customRequirementsRequestDataBackOffBolck;
 @property (copy, nonatomic)EditCaseBackOffBolck editCaseBackOffBolck;
 @property (copy, nonatomic)UploadProductBackOffBolck uploadProductBackOffBolck;
+@property (copy, nonatomic)PayBackOffBolck payBackOffBolck;
 //@property (copy, nonatomic)FocusDesginerBackOffBolck focusDesginerBackOffBolck;
 
 + (AppDelegate *)appDelegate;
@@ -327,5 +332,33 @@ typedef void (^UploadProductBackOffBolck)(id product); //定制需求提交回�
  *  getCaseType  首页获取／我的案例
  */
 +(void)getCaseViewControllerWithGetCaseType:(GetCaseType)getCaseType;
+
+/**
+ *  托管赏金
+ *  demand_id  定制id
+ */
++(void)hostingBountyViewControllerWithDemandId:(NSNumber *)demand_id;
+
+/**
+ *  作品支付
+ *  productDetail  作品
+ */
++(void)payProductViewControllerWithProductDetail:(ProductDetail *)productDetail;
+
+/**
+ *  确认支付
+ *  demand_id  定制id
+ *  money  价格
+ *  payType 支付类型
+ */
++(void)paymentVerificationCodeViewControllerWithDemandId:(NSNumber *)demand_id
+                                                   money:(NSString *)money
+                                                 payType:(PayType)payType;
+/**
+ *  绑定手机号码
+ *  bindPhoneType  初次登陆绑定／修改
+ *  oldPhoneCode  需要修改的手机号码验证码
+ */
++(void)bindPhoneViewControllerWithBindPhoneType:(BindPhoneType )bindPhoneType oldPhoneCode:(NSString *)oldPhoneCode;
 
 @end

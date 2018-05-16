@@ -70,6 +70,7 @@
              if (location.rgcData) {
                  
                  self.location = [location.rgcData.city description];
+                 self.province = [location.rgcData.province description];
                  [UserManager shareUserManager].mapLocationManagerSuccess(self.location);
                  NSLog(@"rgc = %@",[location.rgcData.city description]);
              }

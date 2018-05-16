@@ -63,5 +63,6 @@
 #import "ChannelList.h"
 #import "EditCase.h"
 #import "CaseDetail.h"
+#import "Userwallet.h"
 
 #endif /* AllModels_h */

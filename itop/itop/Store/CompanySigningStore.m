@@ -23,17 +23,6 @@ static NSArray *_fieldList = nil;
     return store;
 }
 
-//-(NSDictionary *)industryArray{
-//    
-//    NSDictionary *array = @{@"商品交易":@[@"快消零售",@"电商",@"汽车",@"家居",@"家电",@"母婴",@"图书",@"电子数码",@"服装服饰",@"批发",@"外贸"],
-//                            @"生活服务":@[@"餐饮",@"旅游",@"住宿",@"租赁",@"娱乐",@"美容",@"摄影",@"法律",@"物流",@"婚庆",@"自媒体",@"装修",@"家政",@"其他"],
-//                            @"商务服务":@[@"广告",@"设计",@"咨询",@"传媒",@"金融",@"房地产",@"交通",@"运输",@"保险",@"其他"],
-//                            @"科技服务":@[@"互联网",@"软件",@"游戏",@"IT服务",@"通信",@"科学技术",@"其他"],
-//                              @"工农业":@[@"制造业",@"生产加工业",@"建筑业",@"农牧业"],
-//                            @"机构组织":@[@"教育培训",@"医疗卫生",@"政府机构",@"社会组织",@"公益组织",@"个人"]};
-//    return array;
-//}
-
 -(NSArray *)companySizeArray{
     
     NSArray *array = @[@"1-49人",@"50-99人",@"100-499人",@"500-9999人",@"1000-2000人",@"2000-5000人",@"5000-10000人",@"10000人以上",];
@@ -167,12 +156,12 @@ static NSArray *_fieldList = nil;
     return nil;
 }
 
--(TagList *)superTagWithTagId:(NSNumber *)tag_id {
+-(TagList *)superTagWithTagId:(id )tag_id {
     
     for (TagList *tagList in _superTagList) {
         
     
-        if ([tag_id isKindOfClass:[NSNumber class]] ? [tagList.id isEqualToNumber:tag_id] : [tagList.name isEqualToString:(NSString *)tag_id]) {
+        if ([tag_id isKindOfClass:[NSNumber class]] ? [tagList.id isEqualToNumber:(NSNumber *)tag_id] : [tagList.name isEqualToString:(NSString *)tag_id]) {
             
             return tagList;
         }

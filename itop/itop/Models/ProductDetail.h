@@ -21,8 +21,6 @@
 @property (nonatomic, strong) UserProduct <UserProduct,Optional>*user_product;
 
 
-
-
 //
 //{
 //    "designer_head_img" = "http://192.168.7.100:8028/files/img/20180210/201802101131118053.jpg";

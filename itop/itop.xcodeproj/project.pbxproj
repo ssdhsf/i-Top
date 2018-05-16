@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		770B48B320A6DEAB00CD51A2 /* HostingBountyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48B120A6DEAB00CD51A2 /* HostingBountyViewController.m */; };
+		770B48B420A6DEAB00CD51A2 /* HostingBountyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770B48B220A6DEAB00CD51A2 /* HostingBountyViewController.xib */; };
+		770B48B820A926AD00CD51A2 /* PaymentVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48B620A926AD00CD51A2 /* PaymentVerificationCodeViewController.m */; };
+		770B48B920A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770B48B720A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib */; };
+		770B48BC20A9606300CD51A2 /* Userwallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48BB20A9606300CD51A2 /* Userwallet.m */; };
+		770B48BE20A9953000CD51A2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770B48BD20A9953000CD51A2 /* StoreKit.framework */; };
 		770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D765A206114A3007601A8 /* NSString+AttributedString.m */; };
 		770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76EF2061FB3C007601A8 /* MyWalletViewController.m */; };
 		770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D76F02061FB3C007601A8 /* MyWalletViewController.xib */; };
@@ -292,6 +298,11 @@
 		7782DDC0205F5D54004C2108 /* Statistical.m in Sources */ = {isa = PBXBuildFile; fileRef = 7782DDBF205F5D54004C2108 /* Statistical.m */; };
 		7782DDC4205FF5DC004C2108 /* OptimizeTitleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7782DDC2205FF5DC004C2108 /* OptimizeTitleViewController.m */; };
 		7782DDC5205FF5DC004C2108 /* OptimizeTitleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7782DDC3205FF5DC004C2108 /* OptimizeTitleViewController.xib */; };
+		77841EDA20AA90B60099CA13 /* UserOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 77841ED920AA90B60099CA13 /* UserOperation.m */; };
+		77841EDE20AADFE70099CA13 /* ChangePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77841EDC20AADFE70099CA13 /* ChangePhoneViewController.m */; };
+		77841EDF20AADFE70099CA13 /* ChangePhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77841EDD20AADFE70099CA13 /* ChangePhoneViewController.xib */; };
+		77841EE320ABD7940099CA13 /* OpenDemandServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77841EE120ABD7940099CA13 /* OpenDemandServiceViewController.m */; };
+		77841EE420ABD7940099CA13 /* OpenDemandServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77841EE220ABD7940099CA13 /* OpenDemandServiceViewController.xib */; };
 		77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */; };
 		77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADD202C4F1A00C0CCD2 /* UserInfo.m */; };
 		77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AE0202D37EC00C0CCD2 /* MyFocusViewController.m */; };
@@ -534,6 +545,15 @@
 /* Begin PBXFileReference section */
 		3F4F896C20E3CF680A8B738B /* libPods-itop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-itop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A538600B333827AA61CE679 /* Pods-itop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.release.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.release.xcconfig"; sourceTree = "<group>"; };
+		770B48B020A6DEAB00CD51A2 /* HostingBountyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingBountyViewController.h; sourceTree = "<group>"; };
+		770B48B120A6DEAB00CD51A2 /* HostingBountyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostingBountyViewController.m; sourceTree = "<group>"; };
+		770B48B220A6DEAB00CD51A2 /* HostingBountyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HostingBountyViewController.xib; sourceTree = "<group>"; };
+		770B48B520A926AD00CD51A2 /* PaymentVerificationCodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PaymentVerificationCodeViewController.h; sourceTree = "<group>"; };
+		770B48B620A926AD00CD51A2 /* PaymentVerificationCodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PaymentVerificationCodeViewController.m; sourceTree = "<group>"; };
+		770B48B720A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentVerificationCodeViewController.xib; sourceTree = "<group>"; };
+		770B48BA20A9606300CD51A2 /* Userwallet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Userwallet.h; sourceTree = "<group>"; };
+		770B48BB20A9606300CD51A2 /* Userwallet.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Userwallet.m; sourceTree = "<group>"; };
+		770B48BD20A9953000CD51A2 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		770D7659206114A3007601A8 /* NSString+AttributedString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+AttributedString.h"; sourceTree = "<group>"; };
 		770D765A206114A3007601A8 /* NSString+AttributedString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+AttributedString.m"; sourceTree = "<group>"; };
 		770D76EE2061FB3C007601A8 /* MyWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWalletViewController.h; sourceTree = "<group>"; };
@@ -1022,6 +1042,14 @@
 		7782DDC1205FF5DC004C2108 /* OptimizeTitleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptimizeTitleViewController.h; sourceTree = "<group>"; };
 		7782DDC2205FF5DC004C2108 /* OptimizeTitleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptimizeTitleViewController.m; sourceTree = "<group>"; };
 		7782DDC3205FF5DC004C2108 /* OptimizeTitleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OptimizeTitleViewController.xib; sourceTree = "<group>"; };
+		77841ED820AA90B60099CA13 /* UserOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserOperation.h; sourceTree = "<group>"; };
+		77841ED920AA90B60099CA13 /* UserOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserOperation.m; sourceTree = "<group>"; };
+		77841EDB20AADFE70099CA13 /* ChangePhoneViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangePhoneViewController.h; sourceTree = "<group>"; };
+		77841EDC20AADFE70099CA13 /* ChangePhoneViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneViewController.m; sourceTree = "<group>"; };
+		77841EDD20AADFE70099CA13 /* ChangePhoneViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChangePhoneViewController.xib; sourceTree = "<group>"; };
+		77841EE020ABD7940099CA13 /* OpenDemandServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenDemandServiceViewController.h; sourceTree = "<group>"; };
+		77841EE120ABD7940099CA13 /* OpenDemandServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenDemandServiceViewController.m; sourceTree = "<group>"; };
+		77841EE220ABD7940099CA13 /* OpenDemandServiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpenDemandServiceViewController.xib; sourceTree = "<group>"; };
 		77848AD9202C4EAD00C0CCD2 /* InfomationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationModel.h; sourceTree = "<group>"; };
 		77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationModel.m; sourceTree = "<group>"; };
 		77848ADC202C4F1A00C0CCD2 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
@@ -1392,6 +1420,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				770B48BE20A9953000CD51A2 /* StoreKit.framework in Frameworks */,
 				77BB214B20722D85000CADC9 /* SystemConfiguration.framework in Frameworks */,
 				77BB214720721E7B000CADC9 /* UserNotifications.framework in Frameworks */,
 				77BB214920721F2C000CADC9 /* AdSupport.framework in Frameworks */,
@@ -1429,6 +1458,7 @@
 		5C030D0642A933C51717E84C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				770B48BD20A9953000CD51A2 /* StoreKit.framework */,
 				7733E2FB2079CA2B0081B05E /* FileProvider.framework */,
 				77BB214C20736BAB000CADC9 /* FileProvider.framework */,
 				77BB214A20722D85000CADC9 /* SystemConfiguration.framework */,
@@ -1492,6 +1522,15 @@
 				770D77212062595A007601A8 /* BuyTemplateViewController.h */,
 				770D77222062595A007601A8 /* BuyTemplateViewController.m */,
 				770D77232062595A007601A8 /* BuyTemplateViewController.xib */,
+				770B48B020A6DEAB00CD51A2 /* HostingBountyViewController.h */,
+				770B48B120A6DEAB00CD51A2 /* HostingBountyViewController.m */,
+				770B48B220A6DEAB00CD51A2 /* HostingBountyViewController.xib */,
+				77841EE020ABD7940099CA13 /* OpenDemandServiceViewController.h */,
+				77841EE120ABD7940099CA13 /* OpenDemandServiceViewController.m */,
+				77841EE220ABD7940099CA13 /* OpenDemandServiceViewController.xib */,
+				770B48B520A926AD00CD51A2 /* PaymentVerificationCodeViewController.h */,
+				770B48B620A926AD00CD51A2 /* PaymentVerificationCodeViewController.m */,
+				770B48B720A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib */,
 			);
 			path = Pay;
 			sourceTree = "<group>";
@@ -1704,6 +1743,9 @@
 				77C07F92204D573300D77DBD /* BindPhoneViewController.h */,
 				77C07F93204D573300D77DBD /* BindPhoneViewController.m */,
 				77C07F94204D573300D77DBD /* BindPhoneViewController.xib */,
+				77841EDB20AADFE70099CA13 /* ChangePhoneViewController.h */,
+				77841EDC20AADFE70099CA13 /* ChangePhoneViewController.m */,
+				77841EDD20AADFE70099CA13 /* ChangePhoneViewController.xib */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -1977,6 +2019,8 @@
 				777AF1D3200E0B8C009729AD /* UserInfomation.m */,
 				77A436A1204533DD00620F58 /* OtherInfo.h */,
 				77A436A2204533DD00620F58 /* OtherInfo.m */,
+				77841ED820AA90B60099CA13 /* UserOperation.h */,
+				77841ED920AA90B60099CA13 /* UserOperation.m */,
 				77E8A85620119C3200E253CC /* ThemeCustom.h */,
 				77E8A85720119C3200E253CC /* ThemeCustom.m */,
 				77E8A8A020158EAD00E253CC /* StatisticalData.h */,
@@ -2095,6 +2139,8 @@
 				776C872220A14D980045A934 /* CaseInfo.m */,
 				776C872420A14DB30045A934 /* CaseDesignerInfo.h */,
 				776C872520A14DB30045A934 /* CaseDesignerInfo.m */,
+				770B48BA20A9606300CD51A2 /* Userwallet.h */,
+				770B48BB20A9606300CD51A2 /* Userwallet.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -2887,6 +2933,7 @@
 				77484AD82024B3AA00BAC567 /* WebViewController.xib in Resources */,
 				770D77252062595A007601A8 /* BuyTemplateViewController.xib in Resources */,
 				77E8A88F20137F2900E253CC /* ResetPasswordViewController.xib in Resources */,
+				770B48B920A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib in Resources */,
 				77C764CA2026C21D00F88A03 /* TemplateDetaulViewController.xib in Resources */,
 				776C871220A03D790045A934 /* MycaseViewController.xib in Resources */,
 				77EF13092092FDC5000964A7 /* BiddingProductListCell.xib in Resources */,
@@ -2914,6 +2961,7 @@
 				77F078A52046A287004C0596 /* MarketingTableViewCell.xib in Resources */,
 				7753C316208F3421009FF82C /* CustomRequirementsStateListController.xib in Resources */,
 				770D775C2068F40E007601A8 /* PopularizeManagementViewController.xib in Resources */,
+				770B48B420A6DEAB00CD51A2 /* HostingBountyViewController.xib in Resources */,
 				77BB2123206D2C08000CADC9 /* SearchHotCollectionViewCell.xib in Resources */,
 				772F95C1205A56D800F432D2 /* MyHotH5ItmeViewCell.xib in Resources */,
 				772F95BC205A569D00F432D2 /* MyHotH5ItmeViewController.xib in Resources */,
@@ -2932,6 +2980,7 @@
 				77CE7C71202AE6EA0067D284 /* InfomationViewController.xib in Resources */,
 				775E31CF202020EA002107DD /* HotH5ItmeViewController.xib in Resources */,
 				77C07F8B204D3A4D00D77DBD /* SetupHomeTableViewCell.xib in Resources */,
+				77841EDF20AADFE70099CA13 /* ChangePhoneViewController.xib in Resources */,
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
 				770D7712206236D2007601A8 /* EarningDetailViewController.xib in Resources */,
 				772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */,
@@ -2944,6 +2993,7 @@
 				77369CE3200F546E0092AEAC /* LoginViewController.xib in Resources */,
 				77E8A894201580D100E253CC /* StatisticalDataViewController.xib in Resources */,
 				77484A802020478000BAC567 /* RecommendedTableViewCell.xib in Resources */,
+				77841EE420ABD7940099CA13 /* OpenDemandServiceViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3157,6 +3207,7 @@
 				779E3693209C5FF6006BFB53 /* ChannelList.m in Sources */,
 				775E31CE202020EA002107DD /* HotH5ItmeViewController.m in Sources */,
 				77B86FED202861C00096FB28 /* LeaveViewController.m in Sources */,
+				770B48B820A926AD00CD51A2 /* PaymentVerificationCodeViewController.m in Sources */,
 				77484A9F2021914300BAC567 /* HotDetails.m in Sources */,
 				772F95B220590DC400F432D2 /* CommentListDataSource.m in Sources */,
 				77723AE32043BBB2006294E8 /* MSSBrowseActionSheet.m in Sources */,
@@ -3165,6 +3216,7 @@
 				77E8A85820119C3200E253CC /* ThemeCustom.m in Sources */,
 				77907B32208D7AF0005FDE9D /* CustomRequirementsDesginListDataSource.m in Sources */,
 				77C07F91204D3A9B00D77DBD /* SetupHomeDataSource.m in Sources */,
+				770B48BC20A9606300CD51A2 /* Userwallet.m in Sources */,
 				77484ABA2022C54100BAC567 /* UserArticle.m in Sources */,
 				77484A832020543500BAC567 /* Recommended.m in Sources */,
 				770D770220620B72007601A8 /* TradingListStore.m in Sources */,
@@ -3173,6 +3225,7 @@
 				77A5148F207CA3C2003206B5 /* MyHotDetailViewController.m in Sources */,
 				774B8816204FC2F100F602E3 /* ShearViewManager.m in Sources */,
 				772F95C9205C061000F432D2 /* ShearInfo.m in Sources */,
+				77841EDE20AADFE70099CA13 /* ChangePhoneViewController.m in Sources */,
 				7717E99A206B7B330025DC73 /* DirectMessagesStore.m in Sources */,
 				779E369C209C6630006BFB53 /* EditChannelListTCell.m in Sources */,
 				776C871D20A056C10045A934 /* EditCaseStore.m in Sources */,
@@ -3211,12 +3264,14 @@
 				77A5149B207EF900003206B5 /* City.m in Sources */,
 				77E9815420785827007CDFED /* StatisticalDataSegmentViewController.m in Sources */,
 				77484AAB2021A1DB00BAC567 /* HotDetailStore.m in Sources */,
+				770B48B320A6DEAB00CD51A2 /* HostingBountyViewController.m in Sources */,
 				7777E5582029F026008FA348 /* LeaveDetailViewController.m in Sources */,
 				770D771620623732007601A8 /* EarningDetailTableViewCell.m in Sources */,
 				77826B952019D95800F53E28 /* MyInfomationCollectionViewCell.m in Sources */,
 				77E00A6820171910004BBD49 /* StatisticalDataModel.m in Sources */,
 				775909A52016350300F9D8EA /* PXXview.m in Sources */,
 				775909A42016350300F9D8EA /* PXLineChartView.m in Sources */,
+				77841EE320ABD7940099CA13 /* OpenDemandServiceViewController.m in Sources */,
 				77848AEF202EE35500C0CCD2 /* ProductView.m in Sources */,
 				77B2F4772010AE8000EF4119 /* WXMediaMessage+messageConstruct.m in Sources */,
 				77E8A87E2011DCB000E253CC /* MASViewConstraint.m in Sources */,
@@ -3233,6 +3288,7 @@
 				77369CD7200F530F0092AEAC /* MyInfomationViewController.m in Sources */,
 				776C872F20A187F70045A934 /* UploadProductDetailViewController.m in Sources */,
 				77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */,
+				77841EDA20AA90B60099CA13 /* UserOperation.m in Sources */,
 				777AF1D4200E0B8C009729AD /* UserInfomation.m in Sources */,
 				772F95A62058C76700F432D2 /* CommentListViewController.m in Sources */,
 				777AF1CD200DFCEB009729AD /* ThemeNavigationController.m in Sources */,

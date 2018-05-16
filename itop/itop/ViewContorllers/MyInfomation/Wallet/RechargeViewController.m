@@ -9,21 +9,21 @@
 #import "RechargeViewController.h"
 #import "biddingPayViewController.h"
 
-static const NSString *PayProduct20 = @"PayProductType20";
+static const NSString *PayProduct25 = @"001";
 
-static const NSString *PayProduct50 = @"PayProductType50";
+static const NSString *PayProduct50 = @"002";
 
-static const NSString *PayProduct100 = @"PayProductType100";
+static const NSString *PayProduct98 = @"003";
 
-static const NSString *PayProduct200 = @"PayProductType200";
+static const NSString *PayProduct198 = @"004";
 
-static const NSString *PayProduct500 = @"PayProductType500";
+static const NSString *PayProduct488 = @"005";
 
-static const NSString *PayProduct800 = @"PayProductType800";
+static const NSString *PayProduct798 = @"006";
 
-static const NSString *PayProduct1000 = @"PayProductType1000";
+static const NSString *PayProduct998 = @"007";
 
-static const NSString *PayProduct2000 = @"PayProductType2000";
+static const NSString *PayProduct1998 = @"008";
 
 @interface RechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate >
 
@@ -153,9 +153,9 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
     
     switch(productType) {
             
-        case PayProductType20:
+        case PayProductType25:
             
-            product =@[PayProduct20];
+            product =@[PayProduct25];
             
             break;
             
@@ -165,38 +165,38 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
             
             break;
             
-        case PayProductType100:
+        case PayProductType98:
             
-            product =@[PayProduct100];
-            
-            break;
-            
-        case PayProductType200:
-            
-            product =@[PayProduct200];
+            product =@[PayProduct98];
             
             break;
             
-        case PayProductType500:
+        case PayProductType198:
             
-            product =@[PayProduct500];
-            
-            break;
-            
-        case PayProductType800:
-            
-            product =@[PayProduct800];
-            break;
-            
-        case PayProductType1000:
-            
-            product =@[PayProduct1000];
+            product =@[PayProduct198];
             
             break;
             
-        case PayProductType2000:
+        case PayProductType488:
             
-            product =@[PayProduct2000];
+            product =@[PayProduct488];
+            
+            break;
+            
+        case PayProductType798:
+            
+            product =@[PayProduct798];
+            break;
+            
+        case PayProductType998:
+            
+            product =@[PayProduct998];
+            
+            break;
+            
+        case PayProductType1998:
+            
+            product =@[PayProduct1998];
             
             break;
             
@@ -206,22 +206,18 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
     }
     
     NSLog(@"请求的产品%@",product);
-    
     NSSet *nsset = [NSSet setWithArray:product];
-    
     SKProductsRequest *request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
-    
     request.delegate =self;
-    
     [request start];
-    
-    //    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
 }
 
 #pragma mark - SKProductsRequestDelegate
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
     NSLog(@"-----------收到产品反馈信息--------------");
     
     NSArray *myProduct = response.products;
@@ -245,9 +241,6 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
         NSLog(@"价格: %@", product.price);
         
         NSLog(@"Product id: %@", product.productIdentifier);
-        
-        [MBProgressHUD hideHUDForView:self.view animated:YES];
-        
         SKPayment *payment = [SKPayment paymentWithProduct:product];
         
         [[SKPaymentQueue defaultQueue] addPayment:payment];
@@ -271,7 +264,6 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
     
 }
 
-
 //监听购买结果的回调
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
@@ -284,13 +276,11 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
                 
                 NSLog(@"交易完成");
                 
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
                 //                [self verifyTransactionResult];
                 
                 break;
-                
-                 
                 
             case SKPaymentTransactionStatePurchasing:
                 
@@ -322,5 +312,11 @@ static const NSString *PayProduct2000 = @"PayProductType2000";
         }
     }
 }
+
+- (IBAction)charge:(UIButton *)sender {
+    
+    [self requestProductDataWithPayProductType:_selectPrice];
+}
+
 
 @end

@@ -28,6 +28,8 @@
 //竖线
 @property (nonatomic,retain) UIView *verLineView;
 
+@property (nonatomic,assign) NSInteger tempRow;
+
 @end
 
 @implementation AlertView
@@ -366,7 +368,12 @@
             case PickViewTypeCompnySize:
            
                 index = [self.superArray indexOfObject: [content stringByReplacingOccurrencesOfString:@" " withString:@""]];//我们提交的数据后台不知道为什么加空格 所以要去掉
-                [self.pickView selectRow:index inComponent:0 animated:NO];
+                if (index < self.superArray.count) {
+                     [self.pickView selectRow:index inComponent:0 animated:NO];
+                } else {
+                    [self.pickView selectRow:0 inComponent:0 animated:NO];
+                }
+               
                 break;
             case PickViewTypeProvince:
                 
@@ -521,19 +528,20 @@
         
     } else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [Province class]]){
         
-        Province *province = [self pickerView:pickerView titleForRow:row forComponent:component];
+        Province *province = (Province *) [self pickerView:pickerView titleForRow:row forComponent:component];
         lbl.text = province.address;
+        NSLog(@"%@",province.address);
     }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [TagList class]]){
         
-        TagList *tag = [self pickerView:pickerView titleForRow:row forComponent:component];
+        TagList *tag = (TagList *)[self pickerView:pickerView titleForRow:row forComponent:component];
         lbl.text = tag.name;
     }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [DesignerList class]]){
         
-        DesignerList *designer = [self pickerView:pickerView titleForRow:row forComponent:component];
+        DesignerList *designer = (DesignerList *)[self pickerView:pickerView titleForRow:row forComponent:component];
         lbl.text = designer.nickname;
-    }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [H5List class]]){
+    }else if([[self pickerView:pickerView titleForRow:row forComponent:component] isKindOfClass: [EditCase class]]){
         
-        EditCase *editCase = [self pickerView:pickerView titleForRow:row forComponent:component];
+        EditCase *editCase = (EditCase *) [self pickerView:pickerView titleForRow:row forComponent:component];
         lbl.text = editCase.title;
     }
     
@@ -558,35 +566,35 @@
     
     if (component==0){
     
-        switch (_pickViewType) {
-            case PickViewTypeAge:
-            case PickViewTypeSex:
-            case PickViewTypeCompnySize:
-            
-                _tempSelectItme = _superArray[row];
-                
-                break;
-            case PickViewTypeProvince:
-               _province = self.superArray[row];
-                break;
-            case PickViewTypeIndustry:
-                
-               _superTag = self.superArray[row];
-                break;
-            case PickViewTypeField:
-                
-               _superTag = self.superArray[row];
-                break;
-            case PickViewTypeDesginer:
-                
-                _designer = self.superArray[row];
-                break;
-            case PickViewTypeProduct:
-                
-                _editCase = self.superArray[row];
-                break;
-                
-        }
+            switch (_pickViewType) {
+                case PickViewTypeAge:
+                case PickViewTypeSex:
+                case PickViewTypeCompnySize:
+                    
+                    _tempSelectItme = _superArray[row];
+                    
+                    break;
+                case PickViewTypeProvince:
+                    _province = self.superArray[row];
+                    NSLog(@"%ld",row);
+                    break;
+                case PickViewTypeIndustry:
+                    
+                    _superTag = self.superArray[row];
+                    break;
+                case PickViewTypeField:
+                    
+                    _superTag = self.superArray[row];
+                    break;
+                case PickViewTypeDesginer:
+                    
+                    _designer = self.superArray[row];
+                    break;
+                case PickViewTypeProduct:
+                    
+                    _editCase = self.superArray[row];
+                    break;
+            }
         
         return self.superArray[row];
         
@@ -608,6 +616,7 @@
 -(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
 
     if (component==0){
+        
         switch (_pickViewType) {
             case PickViewTypeAge:
             case PickViewTypeSex:
@@ -620,6 +629,8 @@
                 _province = self.superArray[row];
                 self.subArray =_province.cityArray;
                 [self.pickView reloadComponent:1];
+                [self.pickView selectRow:0 inComponent:1 animated:NO];
+//                [self pickerView:pickerView didSelectRow:[pickerView selectedRowInComponent:1] inComponent:1];
                 break;
                 
             case PickViewTypeIndustry:
@@ -650,7 +661,6 @@
         } else {
 
             _subTag = self.subArray[row];
-
         }
     }
 }
@@ -679,6 +689,7 @@
     }
     return NO;
 }
+
 
 
 @end

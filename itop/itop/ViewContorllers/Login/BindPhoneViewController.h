@@ -10,4 +10,7 @@
 
 @interface BindPhoneViewController : BaseViewController
 
+@property (assign, nonatomic)BindPhoneType bindPhoneType;
+@property (strong, nonatomic)NSString *oldPhoneCode; //原来的手机号码验证码
+
 @end

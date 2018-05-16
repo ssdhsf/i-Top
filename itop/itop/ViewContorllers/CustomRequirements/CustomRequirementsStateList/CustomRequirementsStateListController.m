@@ -19,6 +19,9 @@
 @property (nonatomic ,strong)UIScrollView *scroll;
 @property (nonatomic, strong)NSArray *dataArray;
 
+@property (weak, nonatomic) IBOutlet UIButton *openDemandButton;
+@property (weak, nonatomic) IBOutlet UILabel *demandDescriptionLabel;
+
 @property (nonatomic, strong)CustomRequirementsStateListTableViewController *directionalStateListVc;
 @property (nonatomic, strong)CustomRequirementsStateListTableViewController *biddingStateListVc;
 
@@ -28,6 +31,34 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck = ^ (id obj){ //操作回掉
+        
+        if (_itmeIndex == 0) {
+          
+            [self.directionalStateListVc tableViewbeginRefreshing];
+        } else {
+            
+            [self.biddingStateListVc tableViewbeginRefreshing];
+        }
+    };
+    
+    [UIManager sharedUIManager].payBackOffBolck = ^ (NSNumber *payType){ //托管赏金
+        
+        if ([payType integerValue] == PAYTYPE_ENTERPRISE) {
+            if (_itmeIndex == 0) {
+                
+                [self.directionalStateListVc tableViewbeginRefreshing];
+            } else {
+                
+                [self.biddingStateListVc tableViewbeginRefreshing];
+            }
+        } else {
+            
+            [self initData];
+        }
+        
+    };
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -42,19 +73,41 @@
 -(void)initNavigationBarItems{
     
     self.title = @"定制管理";
-    [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(DirectionalDemandRelease)];
 }
 
 -(void)initData{
-    self.dataArray = [NSArray arrayWithObjects:@"定向需求",@"竞标需求", nil];
-    _itmeIndex = 0;
+    
+    [super initData];
+    _openDemandButton.hidden = YES;
+    _demandDescriptionLabel.hidden = YES;
+    [[UserManager shareUserManager]demandAuthority];
+    [UserManager shareUserManager].demandAuthoritySuccess = ^(id obj){ //有权限
+        
+        [self initSegment];
+        [self createScrollView];
+        [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(DirectionalDemandRelease)];
+        self.dataArray = [NSArray arrayWithObjects:@"定向需求",@"竞标需求", nil];
+        _itmeIndex = 0;
+
+    };
+    
+    [UserManager shareUserManager].demandAuthorityFailure = ^(id obj){//没有权限
+        
+        _openDemandButton.hidden = NO;
+        _demandDescriptionLabel.hidden = NO;
+        self.noDataType = NoDataTypeProduct;
+        self.originY = 50;
+        self.tipsMessage = @"您还没有开通定制服务呢";
+        [self setHasData:NO];
+    };
 }
 
 -(void)initView{
     
     [super initView];
-    [self initSegment];
-    [self createScrollView];
+    _openDemandButton.layer.cornerRadius = _openDemandButton.height/2;
+    [_openDemandButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_openDemandButton)];
+    _openDemandButton.layer.masksToBounds = YES;
 }
 
 -(void)initSegment{
@@ -139,5 +192,12 @@
     
       [UIManager showVC:@"DemandReleaseViewController"];
 }
+
+- (IBAction)openDemand:(UIButton *)sender {
+    
+    [UIManager showVC:@"OpenDemandServiceViewController"];
+    
+}
+
 
 @end

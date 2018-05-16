@@ -12,6 +12,7 @@
 #import "RecommendedTableViewCell.h"
 #import "H5ListStore.h"
 #import "HotDetailsViewController.h"
+#import "MapLocationManager.h"
 
 static NSString *const RecommendedCellIdentifier = @"Recommended";
 
@@ -73,6 +74,12 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     } else {
         
         articleType = ArticleTypeLocal;
+        if ([MapLocationManager sharedMapLocationManager].location == nil) {
+            
+            [self showToastWithMessage:@"定位失败，请检查是否开启定位"];
+            [self tableViewEndRefreshing];
+            return;
+        }
     }
     
     [[UserManager shareUserManager]hotListWithType:articleType

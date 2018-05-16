@@ -26,10 +26,10 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [UIManager sharedUIManager].customRequirementsBackOffBolck = ^ (id obj){
-        
-        [self tableViewbeginRefreshing];
-    };
+//    [UIManager sharedUIManager].customRequirementsBackOffBolck = ^ (id obj){
+//        
+//        [self tableViewbeginRefreshing];
+//    };
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -135,8 +135,19 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
             [self tableViewbeginRefreshing];
         };
     }
+    
+    if ([operationState isEqualToString:@"接单"] || [operationState isEqualToString:@"拒绝"]) {
+        
+        BOOL isAccept = [operationState isEqualToString:@"接单"] ? YES : NO;
+        [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements_id isAccept:isAccept];
+        [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
+            
+            [self tableViewbeginRefreshing];
+        };
+    }
     if ([operationState isEqualToString:@"托管赏金"]) {
         
+        [UIManager hostingBountyViewControllerWithDemandId:customRequirements_id];
         
     }
     if ([operationState isEqualToString:@"作品上传"]) {

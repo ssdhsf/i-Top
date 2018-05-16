@@ -49,18 +49,23 @@
             default:
                 break;
         }
-        self.showImg.frame = CGRectMake(60, self.originY, ScreenWidth-120, (ScreenWidth-120)*1.07f);
+        self.showImg.frame = CGRectMake(ScreenWidth/2/2, self.originY, ScreenWidth/2, (ScreenWidth/2)*1.07f);
         
-        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 90)];
+        self.tipsLab = [[UILabel alloc] initWithFrame:CGRectMake(40, CGRectGetMaxY(self.showImg.frame)+30, ScreenWidth-80, 30)];
         NSString *tipString = @"没有有数据";
-        if(self.showViewType ==1)
-        {
-            tipString = @"暂无数据";
+        if (self.tipsMessage) {
+            
+            tipString = self.tipsMessage;
         }
-        if(self.showViewType ==2)
-        {
-            tipString = @"当前没有记录,请点击右上角按钮进行创建";
-        }
+//        NSString *tipString = @"没有有数据";
+//        if(self.showViewType ==1)
+//        {
+//            tipString = @"暂无数据";
+//        }
+//        if(self.showViewType ==2)
+//        {
+//            tipString = @"当前没有记录,请点击右上角按钮进行创建";
+//        }
         NSMutableAttributedString * attributedString1 = [[NSMutableAttributedString alloc] initWithString:tipString];
         NSMutableParagraphStyle * paragraphStyle1 = [[NSMutableParagraphStyle alloc] init];
         [paragraphStyle1 setLineSpacing:12];
@@ -69,7 +74,7 @@
         self.tipsLab.numberOfLines = 0;
         self.tipsLab.textColor = [UIColor lightGrayColor];
         self.tipsLab.textAlignment = NSTextAlignmentCenter;
-        self.tipsLab.font = [UIFont systemFontOfSize:19];
+        self.tipsLab.font = [UIFont systemFontOfSize:15];
         [self.view addSubview:self.tipsLab];
         [self.view addSubview:self.showImg];
 //        self.hideView.hidden = isHasData;

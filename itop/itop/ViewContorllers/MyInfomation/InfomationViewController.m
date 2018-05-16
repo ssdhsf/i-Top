@@ -182,9 +182,13 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         }
         
         if (![Global stringIsNullWithString:segmentationString]) {
+            
             NSArray *tagArr = [_info.other_info.trade componentsSeparatedByString:segmentationString];//行业
-            _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
-            _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:[NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:[NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+            BOOL isChnese = [[Global sharedSingleton]hasChinese:tagArr[0]];
+            
+            _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+            
+            _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:isChnese ? tagArr[1] : [NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
 
         }
         

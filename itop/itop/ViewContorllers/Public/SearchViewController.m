@@ -136,8 +136,8 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeNoel PageIndex:1 PageCount:3 tagList:nil searchKey:_searchBar.text];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeNoel PageIndex:1 PageCount:3 tagList:nil searchKey:_searchBar.text isShow:YES];
+    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr , NSNumber *type){
         
         _searchListCount = _searchListCount+arr.count;
         if (arr.count != 0) {

@@ -187,14 +187,14 @@ typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
 };
 
 typedef NS_ENUM(NSInteger, PayProductType) { //支付产品价格
-    PayProductType20 = 0, //20 
+    PayProductType25 = 0, //20
     PayProductType50 = 1, //50
-    PayProductType100 , //100
-    PayProductType200 , //200
-    PayProductType500, //500
-    PayProductType800 , //800
-    PayProductType1000, //1000
-    PayProductType2000, //2000  元
+    PayProductType98 , //100
+    PayProductType198 , //200
+    PayProductType488, //500
+    PayProductType798 , //800
+    PayProductType998, //1000
+    PayProductType1998, //2000  元
 };
 
 typedef NS_ENUM(NSInteger, BiddingPayType) { //绑定支付宝类型
@@ -214,6 +214,22 @@ typedef NS_ENUM(NSInteger, DemandAddType) { //获取案例类型
     DemandAddTypeOnProduct , //作品加载
 };
 
+typedef NS_ENUM(NSInteger, PayType) { //支付类型
+    PAYTYPE_UNKNOW = 0, //未知
+    PAYTYPE_ARTICLE = 1, //文章支付
+    PAYTYPE_PRODUCT , //作品支付
+    PeyType_RECHARGE , //充值
+    PAYTYPE_ENTERPRISE , //企业服务
+    PAYTYPE_ORDER , //推广订单
+    PAYTYPE_DEMANDSERVICE , //开通定制服务
+    PAYTYPE_DEMAND , //定制需求
+};
+
+typedef NS_ENUM(NSInteger, BindPhoneType) { //绑定手机号码
+    BindPhoneTypeBind = 0, //绑定
+    BindPhoneTypeChange = 1, //修改
+};
+
 typedef void (^LoginSuccess)(id obj);
 typedef void (^LoginFailure)(id obj);
 typedef void (^VerificationSuccess)(id obj);
@@ -231,7 +247,7 @@ typedef void (^UpdataInfoFailure)(id obj);
 typedef void (^ResetPasswordSuccess)(id obj);
 typedef void (^ResetPasswordFailure)(id obj);
 
-typedef void (^HomeH5ListSuccess)(id obj);
+typedef void (^HomeH5ListSuccess)(id obj, id obj2);
 typedef void (^HomeH5ListFailure)(id obj);
 typedef void (^HomeTagListSuccess)(id obj);
 typedef void (^HomeTagListFailure)(id obj);
@@ -318,6 +334,17 @@ typedef void (^CustomRequirementsCommentsCompanySuccess)(id obj);
 typedef void (^UploadProductSuccess)(id obj);
 typedef void (^UploadProductFailure)(id obj);
 
+typedef void (^CheckCodeSuccess)(id obj);
+typedef void (^CheckCodeFailure)(id obj);
+
+typedef void (^PaySuccess)(id obj);
+typedef void (^PayFailure)(id obj);
+
+typedef void (^BalanceSuccess)(id obj);
+typedef void (^BalanceFailure)(id obj);
+
+typedef void (^DemandAuthoritySuccess)(id obj);
+typedef void (^DemandAuthorityFailure)(id obj);
 
 typedef void (^ErrorFailure)(id obj);
 
@@ -488,6 +515,22 @@ typedef void (^ErrorFailure)(id obj);
 @property (nonatomic, copy) UploadProductSuccess uploadProductSuccess;
 @property (nonatomic, copy) UploadProductFailure uploadProductFailure;
 
+/*----------------验证验证码————————————————————————*/
+@property (nonatomic, copy) CheckCodeSuccess checkCodeSuccess;
+@property (nonatomic, copy) CheckCodeFailure checkCodeFailure;
+
+/*----------------支付————————————————————————*/
+@property (nonatomic, copy) PaySuccess paySuccess;
+@property (nonatomic, copy) PayFailure payFailure;
+
+/*----------------余额查询————————————————————————*/
+@property (nonatomic, copy) BalanceSuccess balanceSuccess;
+@property (nonatomic, copy) BalanceFailure balanceFailure;
+
+/*----------------定制权限查询————————————————————————*/
+@property (nonatomic, copy) DemandAuthoritySuccess demandAuthoritySuccess;
+@property (nonatomic, copy) DemandAuthorityFailure demandAuthorityFailure;
+
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger timers;
 
@@ -539,6 +582,24 @@ typedef void (^ErrorFailure)(id obj);
 -(NSString *)crrentUserHeadImage;
 
 /**
+ *  获取本用户消息数
+ *
+ */
+-(NSNumber *)crrentMessageCount;
+
+/**
+ *  获取本用户评论数
+ *
+ */
+-(NSNumber *)crrentCommentCount;
+
+/**
+ *  获取本用户关注数量
+ *
+ */
+-(NSNumber *)crrentFollowCount;
+
+/**
  *  用户登录
  *
  *  @param userName 用户帐号
@@ -561,6 +622,18 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (void)bindPhoneWithMobili:(NSString *)mobili
            verificationCode:(NSString *)verificationCode;
+
+
+/**
+ *  修改绑定手机号码
+ *
+ *  @param mobili 手机号码
+ *  @param newPhoneCode 新手机验证码
+ *  @param oldPhoneCode 旧手机验证码
+ */
+- (void)changePhoneWithMobili:(NSString *)newPhone
+                 newPhoneCode:(NSString *)newPhoneCode
+                 oldPhoneCode:(NSString *)oldPhoneCode;
 
 /**
  *  绑定手机号码
@@ -672,7 +745,8 @@ typedef void (^ErrorFailure)(id obj);
                  PageIndex:(NSInteger )pageIndex
                  PageCount:(NSInteger )pageCount
                    tagList:(NSArray *)tagList
-                 searchKey:(NSString *)searchKey;
+                 searchKey:(NSString *)searchKey
+                    isShow:(BOOL)isShow;
 
 /**
  *  tagList
@@ -1046,12 +1120,20 @@ typedef void (^ErrorFailure)(id obj);
 - (void)deleteCustomRequirementsWithId:(NSNumber *)demant_id;
 
 /**
- *  下架定制管理
+ *  定制管理操作
  *
  *  @param demant_id 定制id
- *  @param operationType 操作类型
+ *  @param operationType 操作类型 删除 ／ 验收 ／ 下架
  */
 - (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  operation:(NSString * )operationType;
+
+/**
+ *  定制管理操作
+ *
+ *  @param demant_id 定制id
+ *  @param isAccept 接单／拒单
+ */
+- (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  isAccept:(BOOL)isAccept;
 
 /**
  *  查询上传文件列表
@@ -1073,7 +1155,6 @@ typedef void (^ErrorFailure)(id obj);
  *  @param demant_id 定制id
  */
 - (void)demandentErpriseCommentListWithId:(NSNumber *)demant_id;
-
 
 /**
  *  获取定制订单纠纷列表
@@ -1099,32 +1180,57 @@ typedef void (^ErrorFailure)(id obj);
 - (void)myCaseListWithPageIndex:(NSInteger )pageIndex
                       PageCount:(NSInteger )pageCount
                     getCaseType:(GetCaseType)getCaseType
-                         userId:(NSNumber *)user_id;
+                         userId:(NSNumber *)user_id
+                         isShow:(BOOL)isShow;
 
 /**
  *  删除案例
  *
+ *  @param case_id 案例id
  */
 -(void)deleteMyCaseWithCaseId:(NSNumber *)case_id;
 
 /**
  *  添加案例
  *
- *  isUpdate 更新／添加
+ *  @param parameters 提交的参数
+ *  @param isUpdata 更新／添加
  */
 -(void)editCaseWithParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata;
 
 /**
  *  案例详情
- *  case_id  案例Id
+ *  @param case_id  案例Id
  */
 -(void)caseDetailWithCaseId:(NSNumber *)case_id;
 
 
 /**
  *  上传作品
- *
+ *  @param parameters 提交的参数
  */
 -(void)uploadfileWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  验证验证码
+ *  @param code 需要验证的code
+ */
+-(void)checkcodeWithCode:(NSString *)code;
+
+/**
+ *  支付
+ *  @param parameters 支付参数 详情见接口
+ */
+-(void)payWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  余额查询
+ */
+-(void)getuserwallet;
+
+/**
+ *  定制权限查询
+ */
+-(void)demandAuthority;
 
 @end

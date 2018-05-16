@@ -115,4 +115,6 @@
 #pragma mark 复制链接
 -(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl;
 
+#pragma mark 判断汉字
+- (BOOL)hasChinese:(NSString *)str;
 @end

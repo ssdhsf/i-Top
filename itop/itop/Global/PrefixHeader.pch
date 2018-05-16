@@ -91,6 +91,9 @@
 #import "OSHelper.h"
 #import "JPUSHService.h"
 #import "LCRegExpTool.h"
+#import "MapLocationManager.h"
+
+#import "CompanySigningStore.h"
 
 #endif
 

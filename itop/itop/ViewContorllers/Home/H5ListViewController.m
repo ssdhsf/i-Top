@@ -107,8 +107,8 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
+    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey isShow:YES];
+    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr , NSNumber *type){
         
         [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
     };

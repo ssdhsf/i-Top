@@ -40,6 +40,7 @@
     [UIManager sharedUIManager].customRequirementsBackOffBolck = ^(id obj){
         
         [self back];
+        [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
     };
 }
 

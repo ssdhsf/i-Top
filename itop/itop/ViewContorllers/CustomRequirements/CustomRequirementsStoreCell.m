@@ -7,7 +7,8 @@
 //
 
 #import "CustomRequirementsStoreCell.h"
-#import "CompanySigningStore.h"
+#import "CustomRequirementsStore.h"
+
 
 @implementation CustomRequirementsStoreCell
 
@@ -52,10 +53,18 @@
     Province *province = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:customRequirements.city provinceCode:customRequirements.province];
     self.locationLabel.text = province.address;
 
+    CGFloat buttonWidth = [[Global sharedSingleton]widthForString:[[CustomRequirementsStore shearCustomRequirementsStore]showStateWithState:[customRequirements.demand_status integerValue]] fontSize:12 andHeight:18];
+    self.requirementButton.frame =CGRectMake(ScreenWidth-20-buttonWidth-20, 0, buttonWidth+20, 20);
+    self.requirementButton.centerY = self.nameLabel.centerY;
     [self.requirementButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_requirementButton) atIndex:0];
     self.requirementButton.tag = _buttonTag;
     self.requirementButton.layer.cornerRadius = 2;
     self.requirementButton.layer.masksToBounds = YES;
+
+    [self.requirementButton setTitle:[[CustomRequirementsStore shearCustomRequirementsStore]showStateWithState:[customRequirements.demand_status integerValue]] forState:UIControlStateNormal];
+    
+    
+    
 }
 
 @end

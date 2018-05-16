@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong)BMKLocationManager *locationManager;
 @property (nonatomic, strong)NSString *location;
+@property (nonatomic, strong)NSString *province;
 
 +(instancetype)sharedMapLocationManager;
 

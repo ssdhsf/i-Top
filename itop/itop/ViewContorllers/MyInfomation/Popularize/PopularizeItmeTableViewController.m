@@ -119,8 +119,13 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
                                                   PageCount:10];
     [UserManager shareUserManager].popularizeSuccess = ^(NSArray * arr){
         
-        [self listDataWithListArray: [[PopularizeStore shearPopularizeStore]configurationPopularizeWithMenu:arr] page:self.page_no];
-
+        if (arr.count > 0) {
+            
+            [self listDataWithListArray: [[PopularizeStore shearPopularizeStore]configurationPopularizeWithMenu:arr] page:self.page_no];
+        } else {
+            
+            [self tableViewEndRefreshing];
+        }
         self.tableView.tableHeaderView = _headView;
         [self steupTableView];
 

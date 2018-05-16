@@ -81,14 +81,16 @@ static double kFGGScrollInterval = 5.0f;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImage)];
         [imv addGestureRecognizer:tap];
         [_scroll addSubview:imv];
-//        NSString *urlString;
-            HomeBanner *banner;
-        if(i<_imageURLArray.count)
-            banner = _imageURLArray[i];
-        else
-            banner = _imageURLArray[0];
+        HomeBanner *banner ;
+        
+        if (_imageURLArray.count > 0) {
+            if(i<_imageURLArray.count)
+                banner = _imageURLArray[i];
+            else
+                banner = _imageURLArray[0];
+        }
         NSURL *url = [NSURL URLWithString:banner.img];
-        [imv sd_setImageWithURL:url placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [imv sd_setImageWithURL:url placeholderImage:ArticlePlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
             }];
             imv.clipsToBounds = YES;

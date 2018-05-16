@@ -55,12 +55,12 @@
 
 -(void)initNavigationBarItems{
     
-    self.title = @"绑定手机";
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (_bindPhoneType == BindPhoneTypeBind) {
+        self.title = @"绑定手机";
+    }  else {
+        
+         self.title = @"修改绑定手机号码";
+    }
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
@@ -85,11 +85,6 @@
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
         return;
     }
-
-//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_accountTF.text];
-//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
-//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-//    };
 }
 
 - (IBAction)resetFnish:(UIButton *)sender {
@@ -104,14 +99,47 @@
         return;
     }
     
-    [[UserManager shareUserManager]bindPhoneWithMobili:_accountTF.text verificationCode:_verificationCodeTF.text];
-    [UserManager shareUserManager].bindPhoneSuccess = ^(id obj){
-       
-        [UIManager goMianViewController];
+    if (_bindPhoneType == BindPhoneTypeBind) {
+        [[UserManager shareUserManager]bindPhoneWithMobili:_accountTF.text verificationCode:_verificationCodeTF.text];
+        [UserManager shareUserManager].bindPhoneSuccess = ^(id obj){
+            
+            [UIManager goMianViewController];
+        };
+    } else {
         
-//        NSLog(@"%@",obj);
-//        [self back];
-    };
+        [[UserManager shareUserManager]changePhoneWithMobili:_accountTF.text newPhoneCode:_verificationCodeTF.text oldPhoneCode:_oldPhoneCode];
+        [UserManager shareUserManager].bindPhoneSuccess = ^(id obj){
+            
+            [self alertOperation];
+        };
+    }
+}
+
+-(void)alertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改手机号码成功，需要重新登陆" preferredStyle:UIAlertControllerStyleAlert];
+    //    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续提交" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+        [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
+        AppDelegate *app = ApplicationDelegate;
+        app.tabBarController = nil;
+//        [[UserManager shareUserManager]loginOut];
+//        [UserManager shareUserManager].loginSuccess = ^ (id obj){
+//
+//            [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
+//
+////            [self.navigationController popToRootViewControllerAnimated:YES];
+//            [UIManager sharedUIManager].loginOutBackOffBolck (nil);
+//
+//        };
+
+        //        [UIManager sharedUIManager].realesHotBackOffBolck( @(_itmeIndex));
+    }];
+    //    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -132,5 +160,7 @@
     _accountImage.image = tag == 1 ?  [UIImage imageNamed:@"icon_phone_selected"] :[UIImage imageNamed:@"icon_phone_normal"];
     _verificationCodeImage.image = tag == 2 ?  [UIImage imageNamed:@"icon_code拷贝"]:[UIImage imageNamed:@"icon_code"];
 }
+
+
 
 @end

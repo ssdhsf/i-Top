@@ -32,6 +32,10 @@
 #import "EditCaseViewController.h"
 #import "UploadProductLinkViewController.h"
 #import "MycaseViewController.h"
+#import "HostingBountyViewController.h"
+#import "PaymentVerificationCodeViewController.h"
+#import "BuyTemplateViewController.h"
+#import "BindPhoneViewController.h"
 
 @implementation UIManager
 
@@ -494,6 +498,40 @@
     vc.getCaseType = getCaseType;
     [UIManager pushVC:vc];
 }
+
++(void)hostingBountyViewControllerWithDemandId:(NSNumber *)demand_id{
+    
+    HostingBountyViewController *vc = [[HostingBountyViewController alloc]init];
+    vc.demand_id = demand_id;
+    [UIManager pushVC:vc];
+}
+
++(void)paymentVerificationCodeViewControllerWithDemandId:(NSNumber *)demand_id
+                                                   money:(NSString *)money
+                                                 payType:(PayType)payType{
+    
+    PaymentVerificationCodeViewController *vc = [[PaymentVerificationCodeViewController alloc]init];
+    vc.demand_id = demand_id;
+    vc.money = money;
+    vc.payType = payType;
+    [UIManager pushVC:vc];
+}
+
++(void)payProductViewControllerWithProductDetail:(ProductDetail *)productDetail{
+    
+    BuyTemplateViewController *vc = [[BuyTemplateViewController alloc]init];
+    vc.productDetail = productDetail ;
+    [UIManager pushVC:vc];
+}
+
++(void)bindPhoneViewControllerWithBindPhoneType:(BindPhoneType )bindPhoneType oldPhoneCode:(NSString *)oldPhoneCode{
+    
+    BindPhoneViewController *vc = [[BindPhoneViewController alloc]init];
+    vc.bindPhoneType = bindPhoneType ;
+    vc.oldPhoneCode = oldPhoneCode;
+    [UIManager pushVC:vc];
+}
+
 
 
 @end

@@ -112,7 +112,7 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType userId:nil];
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType userId:nil isShow:NO];
     [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
         if (arr.count == 0) {

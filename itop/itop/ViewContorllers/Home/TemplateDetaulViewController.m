@@ -7,6 +7,7 @@
 //
 
 #import "TemplateDetaulViewController.h"
+#import "DirectMessagesViewController.h"
 
 @interface TemplateDetaulViewController ()<UIScrollViewDelegate>
 
@@ -103,17 +104,17 @@
             _productDetail = [[ProductDetail alloc]initWithDictionary:dic error:nil];
             _productDetail.product.descrip = dic[@"product"][@"description"];
             
-            if ([_productDetail.product.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
-                
-                [self createScrollView];
-                [self setupDetailSubViewData];
-                _focusButton.hidden = YES;
-                
-            } else {
-                
+//            if ([_productDetail.product.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
+//
+//                [self createScrollView];
+//                [self setupDetailSubViewData];
+//                _focusButton.hidden = YES;
+//
+//            } else {
+            
                 [self lodingDesignerInfomation];
                 _focusButton.hidden = NO;
-            }
+//            }
         };
     }
 }
@@ -156,12 +157,6 @@
     }];
 }
 
--(void)setupOpraitionButton{
-    
-    [self.companyButoon setTitle:@"企业免费使用" forState:UIControlStateNormal];
-    [self.companyButoon setTitle:@"企业免费使用" forState:UIControlStateNormal];
-}
-
 -(void)createScrollView{
     
     if(_scroll){
@@ -171,7 +166,7 @@
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
-    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh-169)];;
+    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT+4)];;
     [self.view addSubview:_scroll];
     _scroll.delegate = self;
     _scroll.contentSize = CGSizeMake(2*ScreenWidth, ScreenHeigh-169);
@@ -206,7 +201,7 @@
 
 -(void)setupDetailView{
     
-    _detailView.frame = CGRectMake(ScreenWidth,0 , ScreenWidth, ScreenHeigh-169);
+    _detailView.frame = CGRectMake(ScreenWidth,0 , ScreenWidth, ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT+4);
     NSInteger introduceLabelHeight = [Global heightWithString:_productDetail.product.descrip width:ScreenWidth-50 fontSize:15];
     _introduceLabel.frame = CGRectMake(25, 157, ScreenWidth-50, introduceLabelHeight+10);
     _mutabelCountLabel.frame = CGRectMake(25, CGRectGetMaxY(_introduceLabel.frame)+40, ScreenWidth-50, 21);
@@ -257,7 +252,7 @@
 
 -(void)setupCaseDetailView{
     
-    _caseDetailView.frame = CGRectMake(ScreenWidth,0 , ScreenWidth, ScreenHeigh-169);
+    _caseDetailView.frame = CGRectMake(ScreenWidth,0 , ScreenWidth, ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT+4);
     NSInteger introduceLabelHeight = [Global heightWithString:_caseDetail.info.descrip width:ScreenWidth-50 fontSize:15];
     _caseDiscriptionLabel.frame = CGRectMake(25, 52, ScreenWidth-50, introduceLabelHeight+10);
     _casecustomerLabel.frame = CGRectMake(25, CGRectGetMaxY(_caseDiscriptionLabel.frame)+40, ScreenWidth-50, 21);
@@ -284,7 +279,7 @@
     [_caseDesignerIcon sd_setImageWithURL:[NSURL URLWithString:_caseDetail.designer_info.head_img] placeholderImage:PlaceholderImage];
     [_pricebutton setTitle:@"在线咨询" forState:UIControlStateNormal];
     [self.companyButoon setTitle:@"立即定制" forState:UIControlStateNormal];
-     [self hiddenOpraitionButtonWithIsHidden:NO];
+    [self hiddenOpraitionButtonWithIsHidden:NO];
 }
 
 #pragma mark 改变热点FocusButton状态
@@ -342,26 +337,62 @@
 
 - (IBAction)price:(UIButton *)sender {
     
-    [self showToastWithMessage:@"功能暂未开放"];
+    if ([[UserManager shareUserManager]crrentUserInfomation] == nil) {
+        
+        [self showToastWithMessage:@"登陆后才可以使用功能"];
+    } else {
+        
+        if ([sender.titleLabel.text isEqualToString:@"在线咨询"]) {
+            
+            if ([[UserManager shareUserManager]crrentUserId] != _designerInfo.user_id) {
+                DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+                vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
+                vc.otherUser_name = _designerInfo.nickname;
+                [UIManager pushVC:vc];
+            } else {
+                [self showToastWithMessage:@"该作品是您自己的"];
+            }
+        } else {
+            
+            [UIManager payProductViewControllerWithProductDetail:_productDetail];
+        }
+
+    }
+//    [self showToastWithMessage:@"功能暂未开放"];
 }
 
 - (IBAction)company:(UIButton *)sender {
     
-    if ([sender.titleLabel.text isEqualToString:@"立即定制"] ) {
+    if ([[UserManager shareUserManager]crrentUserInfomation] == nil) {
         
-         if ( [[UserManager shareUserManager] crrentUserType] == UserTypeEnterprise) {
-    
+        [self showToastWithMessage:@"登陆后才可以使用功能"];
+    } else{
+        if ([sender.titleLabel.text isEqualToString:@"立即定制"] ) {
+        
+            if ( [[UserManager shareUserManager] crrentUserType] == UserTypeEnterprise) {
+                
                 [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnProduct demandType:DemandTypeDirectional demand_id:nil desginerId:_caseDetail.designer_info.user_id productId:_caseDetail.info.id];
-             
-         } else {
-        
-             [self showToastWithMessage:@"非企业用户不能定制"];
-         }
-    } else {
-        
-         [self showToastWithMessage:@"功能暂未开放"];
+                
+            } else {
+                
+                [self showToastWithMessage:@"非企业用户不能定制"];
+            }
+        }else {
+            
+            if ([[UserManager shareUserManager] crrentUserType] == UserTypeEnterprise) {
+                
+                [self showToastWithMessage:@"功能暂未开放"];
+            } else if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner  || [[UserManager shareUserManager] crrentUserType] == UserTypeMarketing){
+                
+                [self showToastWithMessage:@"仅限企业用户免费使用"];
+            } else{
+                
+                [UIManager  showVC:@"CompanySigningViewController"];
+                //            [self showToastWithMessage:@"功能暂未开放"];
+            }
+        }
+
     }
-        
 //    [self showToastWithMessage:@"功能暂未开放"];
     
 //    [UIManager showVC:@"BuyVipPayViewController"];

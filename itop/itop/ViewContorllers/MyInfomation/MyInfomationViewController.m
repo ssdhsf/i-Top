@@ -219,13 +219,9 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         [UIManager leaveWithProduct:nil leaveType:GetLeaveListTypeMyLeave];
     }else if ([info.myInfoTitle isEqualToString:@"我的案例"]){
         
-        [UIManager getCaseViewControllerWithGetCaseType:GetCaseTypeMyCase];
+
+            [UIManager getCaseViewControllerWithGetCaseType:GetCaseTypeMyCase];
     }
-    
-//    else if ([info.myInfoTitle isEqualToString:@"推广管理"]){
-//        
-//        [[UIManager sharedUIManager]  popularizeManagementViewControllerWithHome:NO];
-//    }
     
     else{
         

@@ -214,28 +214,6 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
        
        NSArray *itemArray = [[HomeStore shearHomeStore]configurationTag:arr];
         [self updataSectionWithSectionArray:itemArray index:0];
-//        Home *home = self.dataArray[0];
-//        //        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-//        //        home.itemHeader = @"推荐设计师";
-//        //        if (_isFirst && !isNotification) {
-//        //            [self.dataArray addObject: home];
-//        //            [self loadingScenarioH5List];
-//        //        }else{
-//        [self.dataArray replaceObjectAtIndex:0 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:0]];
-//        Home *home = [[Home alloc]init];
-//        home.itemKey =Type_Home;
-//        home.itemArray = tagArray;
-//        home.itemHeader = @"主题";
-//
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:0 withObject:home];
-//        }
-//        [self loadingCustomRequirementsList];
     };
 }
 
@@ -246,94 +224,22 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         NSArray* itemArray =[[CustomRequirementsStore shearCustomRequirementsStore] configurationCustomRequirementsWithRequsData:arr];
         [self updataSectionWithSectionArray:itemArray index:1];
-//        Home *home = self.dataArray[1];
-//        //        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-//        //        home.itemHeader = @"推荐设计师";
-//        //        if (_isFirst && !isNotification) {
-//        //            [self.dataArray addObject: home];
-//        //            [self loadingScenarioH5List];
-//        //        }else{
-//        [self.dataArray replaceObjectAtIndex:1 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:1]];
-//        Home *home = [[Home alloc]init];
-//        home.itemKey = Type_Custrom;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"定制需求";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:1 withObject:home];
-//        }
-//        //        [self.dataArray addObject: home];
-//        [self loadingCaseList];
     };
 }
 
 -(void)loadingCaseList{
     
-    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:GetCaseTypeHome userId:nil];
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:GetCaseTypeHome userId:nil isShow:YES];
     [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
         NSArray* itemArray = [[EditCaseStore shearEditCaseStore] configurationEditCaseStoreWithRequsData:arr];
         [self updataSectionWithSectionArray:itemArray index:2];
-//        Home *home = self.dataArray[2];
-//        //        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-//        //        home.itemHeader = @"推荐设计师";
-//        //        if (_isFirst && !isNotification) {
-//        //            [self.dataArray addObject: home];
-//        //            [self loadingScenarioH5List];
-//        //        }else{
-//        [self.dataArray replaceObjectAtIndex:2 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:2]];
-
-//        Home *home = [[Home alloc]init];
-//        home.itemKey = Type_Case;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"精品案例";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:2 withObject:home];
-//        }
-//        [self loadingRecommendedH5List];
     };
 }
 
 -(void)loadingRecommendedH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:10 tagList:nil searchKey:nil];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
-        
-        NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
-        [self updataSectionWithSectionArray:itemArray index:3];
-//        Home *home = self.dataArray[3];
-//        //        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-//        //        home.itemHeader = @"推荐设计师";
-//        //        if (_isFirst && !isNotification) {
-//        //            [self.dataArray addObject: home];
-//        //            [self loadingScenarioH5List];
-//        //        }else{
-//        [self.dataArray replaceObjectAtIndex:3 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:3]];
-
-//        Home *home = [[Home alloc]init];
-//        home.itemKey = Type_H5;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"推荐H5";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:3 withObject:home];
-//        }
-////        [self.dataArray addObject: home];
-//        [self loadingDesignerListWithIsNotification:NO];
-    };
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:10 tagList:nil searchKey:nil isShow:YES];
 }
 
 -(void)loadingDesignerListWithIsNotification:(BOOL)isNotification{
@@ -343,117 +249,50 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
        NSArray *itemArray = [[DesignerListStore shearDesignerListStore]configurationMenuWithMenu:arr];
         [self updataSectionWithSectionArray:itemArray index:4];
-//        Home *home = self.dataArray[4];
-////        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-////        home.itemHeader = @"推荐设计师";
-////        if (_isFirst && !isNotification) {
-////            [self.dataArray addObject: home];
-////            [self loadingScenarioH5List];
-////        }else{
-//            [self.dataArray replaceObjectAtIndex:4 withObject:home];
-////            [self steupCollectionView];
-//            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:4]];
-//            [self loadingScenarioH5List];
-//        }
-//        if (!isNotification) {
-//
-//            [self loadingScenarioH5List];
-//        }
     };
 }
 
 -(void)loadingScenarioH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeScenario PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
-        NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
-        [self updataSectionWithSectionArray:itemArray index:5];
-//        Home *home = self.dataArray[5 ];
-        //        home.itemKey =Type_Designer;
-//        home.itemArray = itemArray;
-//        //        home.itemHeader = @"推荐设计师";
-//        //        if (_isFirst && !isNotification) {
-//        //            [self.dataArray addObject: home];
-//        //            [self loadingScenarioH5List];
-//        //        }else{
-//        [self.dataArray replaceObjectAtIndex:5 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:5]];
-//        Home *home = [[Home alloc]init];
-//        home.itemKey =Type_H5;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"场景H5";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:5 withObject:home];
-//        }
-////        [self.dataArray addObject: home];
-//        [self loadingOnePageH5List];
-    };
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeScenario PageIndex:1 PageCount:3 tagList:nil searchKey:nil isShow:YES];
 }
 
 -(void)loadingOnePageH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeSinglePage PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
-        
-        NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
-        [self updataSectionWithSectionArray:itemArray index:6];
-//        Home *home = self.dataArray[6];
-//        home.itemArray = itemArray;
-//        [self.dataArray replaceObjectAtIndex:6 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:6]];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeSinglePage PageIndex:1 PageCount:3 tagList:nil searchKey:nil isShow:YES];
 
-//        Home *home = [[Home alloc]init];
-//        home.itemKey =Type_H5;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"一页H5";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:6 withObject:home];
-//        }
-////        [self.dataArray addObject: home];
-//        [self loadingVideoH5List];
-    };
 }
 
 -(void)loadingVideoH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeVideo PageIndex:1 PageCount:3 tagList:nil searchKey:nil];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeVideo PageIndex:1 PageCount:3 tagList:nil searchKey:nil isShow:YES];
+    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr, NSNumber *type){
         
         NSArray* itemArray =[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr];
-        [self updataSectionWithSectionArray:itemArray index:7];
-//        Home *home = [[Home alloc]init];
-//        Home *home = self.dataArray[7];
-//        home.itemArray = itemArray;
-//        [self.dataArray replaceObjectAtIndex:7 withObject:home];
-//        //            [self steupCollectionView];
-//        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:7]];
-//        home.itemKey =Type_H5;
-//        home.itemArray = itemArray;
-//        home.itemHeader = @"视频H5";
-//        if (_isFirst) {
-//            [self.dataArray addObject: home];
-//        }else{
-//            [self.dataArray replaceObjectAtIndex:7 withObject:home];
-//        }
-//
-//        _isFirst = NO;
-////        [self.dataArray addObject: home];
-//
-//        NSLog(@"%ld",self.dataArray.count);
-//
-//        [self.collectionView.header endRefreshing];
-////        [self initCollectionView];
-//        [self.collectionView reloadData];
-//        self.collectionView.scrollEnabled = YES;
-//
-//        [self haveHiddenAnimationWithAlpha:0 navigationBarHidden:NO offsetY:0];
+        
+        NSInteger index ;
+        switch ([type integerValue]) {
+            case H5ProductTypeDefault:
+                
+                index = 3;
+                break;
+            case H5ProductTypeScenario:
+                
+                index = 5;
+                break;
+            case H5ProductTypeSinglePage:
+                
+                index = 6;
+                break;
+            case H5ProductTypeVideo:
+                
+                index = 7;
+                break;
+                
+            default:
+                break;
+        }
+        [self updataSectionWithSectionArray:itemArray index:index];
     };
 }
 

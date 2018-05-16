@@ -9,8 +9,8 @@
 #import <JSONModel/JSONModel.h>
 
 @protocol UserInfomation  <NSObject>
-@end
 
+@end
 
 @interface UserInfomation : JSONModel
 
