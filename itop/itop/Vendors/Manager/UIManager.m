@@ -447,18 +447,21 @@
     [UIManager pushVC:biddingVc];
 }
 
-+(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id{
++(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                        {
     
     SubmitDisputesViewController *submitDisputesVc = [[SubmitDisputesViewController alloc]init];
     submitDisputesVc.demant_id = custom_id;
     [UIManager pushVC:submitDisputesVc];
 }
 
-+(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id{
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                  message:(NSString *)message{
     
-    DisputesViewController *submitDisputesVc = [[DisputesViewController alloc]init];
-    submitDisputesVc.demant_id = custom_id;
-    [UIManager pushVC:submitDisputesVc];
+    DisputesViewController *disputes = [[DisputesViewController alloc]init];
+    disputes.demant_id = custom_id;
+    disputes.message = message;
+    [UIManager pushVC:disputes];
 }
 
 +(void)commentPopularizeViewControllerWithCustomId:(NSNumber *)custom_id

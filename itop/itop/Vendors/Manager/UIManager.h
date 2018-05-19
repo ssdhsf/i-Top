@@ -42,14 +42,17 @@ typedef void (^RealesHotBackOffBolck)(id parameter); //发布热点返回上一�
 typedef void (^LoadingBackOffBolck)(id parameter); //加载完启动GIF返回上一级回掉
 typedef void (^SubmitInfomationBackOffBolck)(id parameter); //提交用户信息返回上一级回掉
 typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一级回掉
-typedef void (^SelectProductBolck)(id product); //选择作品回掉
-typedef void (^SelectProvinceBackOffBolck)(id product); //选择城市回掉
-typedef void (^SetupProductBackOffBolck)(id product); //选择城市回掉
-typedef void (^CustomRequirementsBackOffBolck)(id product); //定制需求提交回掉
-typedef void (^CustomRequirementsRequestDataBackOffBolck)(id product); //定制需求提交回掉
-typedef void (^EditCaseBackOffBolck)(id product); //案例提交回掉
-typedef void (^UploadProductBackOffBolck)(id product); //定制需求提交回掉
-typedef void (^PayBackOffBolck)(id product); //支付回掉
+typedef void (^SelectProductBolck)(id parameter); //选择作品回掉
+typedef void (^SelectProvinceBackOffBolck)(id parameter); //选择城市回掉
+typedef void (^SetupProductBackOffBolck)(id parameter); //选择城市回掉
+typedef void (^CustomRequirementsRequestDataBackOffBolck)(id parameter); //定制需求操作提交回掉
+typedef void (^EditCaseBackOffBolck)(id parameter); //案例提交回掉
+typedef void (^UploadProductBackOffBolck)(id parameter); //定制需求提交回掉
+typedef void (^PayBackOffBolck)(id parameter); //支付回掉
+typedef void (^SelectTagBackOffBolck)(id parameter); //支付回掉
+typedef void (^IntroductionBackOffBolck)(id parameter); //简介输入回掉
+
+
 //typedef void (^FocusDesginerBackOffBolck)(id product); //定制需求提交回掉
 
 @class H5List;
@@ -70,11 +73,12 @@ typedef void (^PayBackOffBolck)(id product); //支付回掉
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
 @property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
 @property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
-@property (copy, nonatomic)CustomRequirementsBackOffBolck customRequirementsBackOffBolck;
 @property (copy, nonatomic)CustomRequirementsRequestDataBackOffBolck customRequirementsRequestDataBackOffBolck;
 @property (copy, nonatomic)EditCaseBackOffBolck editCaseBackOffBolck;
 @property (copy, nonatomic)UploadProductBackOffBolck uploadProductBackOffBolck;
 @property (copy, nonatomic)PayBackOffBolck payBackOffBolck;
+@property (copy, nonatomic)SelectTagBackOffBolck selectTagOffBolck;
+@property (copy, nonatomic)IntroductionBackOffBolck introductionBackOffBolck;
 //@property (copy, nonatomic)FocusDesginerBackOffBolck focusDesginerBackOffBolck;
 
 + (AppDelegate *)appDelegate;
@@ -303,7 +307,8 @@ typedef void (^PayBackOffBolck)(id product); //支付回掉
 /**
  *  平台介入List（纠纷）
  */
-+(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id;
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                  message:(NSString *)message;
 
 /**
  *  评论

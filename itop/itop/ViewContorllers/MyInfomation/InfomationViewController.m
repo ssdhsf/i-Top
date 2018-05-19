@@ -14,6 +14,7 @@
 #import "CompanySigningStore.h"
 #import "DesignerSigningStore.h"
 #import "EditChannelListViewController.h"
+#import "IntroductionViewController.h"
 
 static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
@@ -32,7 +33,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, strong)TagList *superTag; //选择行业 父级
 @property (nonatomic, strong)TagList *subTag; //选择行业 子级
 
-@property (nonatomic, strong)TagList *field; //选择擅长
+@property (nonatomic, strong)NSString *field; //选择擅长
 
 @property (nonatomic, strong)NSArray *industryArray; // 行业／1级
 @property (nonatomic, strong)NSArray *industrySubArray;//行业／子级
@@ -48,6 +49,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, assign)BOOL isUpdataInfo; //是否修改信息
 
 @property (nonatomic, strong)NSArray *channelList;//渠道资源
+@property (nonatomic, strong)NSArray *tagArray;//渠道资源
 
 @end
 
@@ -162,7 +164,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner) {
         
          _fieldArray = [[CompanySigningStore shearCompanySigningStore]fieldList];
-         _field = [[CompanySigningStore shearCompanySigningStore]fieldWithTagId:[NSNumber numberWithInteger:[_info.other_info.field integerValue]]];
+         _field = [[CompanySigningStore shearCompanySigningStore]fieldsWithTagId:_info.other_info.field];
         
     } else if ([[UserManager shareUserManager] crrentUserType] == UserTypeEnterprise || [[UserManager shareUserManager] crrentUserType] == UserTypeMarketing ){
        
@@ -230,7 +232,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             _selectSex = [[InfomationStore shearInfomationStore]sexWithIndex:info.content] ;
         }
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"擅长领域"]) {
-            info.content = [NSString stringWithFormat:@"%@",_field.name];
+            info.content = [[CompanySigningStore shearCompanySigningStore]fieldsWithTagId:_info.other_info.field];
         }
         
         if (_channelList.count != 0 && [info.title isEqualToString:@"渠道资源"]) {
@@ -277,7 +279,16 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 71;
+    _editorItem = [_infomationDataSource itemAtIndexPath:indexPath];
+    if (_editorItem.pickViewType == PickViewTypeIntroduction){
+        
+        CGFloat heigth = [Global heightWithString:_editorItem.content width:ScreenWidth-106-48 fontSize:15];
+        return heigth+65;
+        
+    } else {
+        
+        return 71;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -303,7 +314,40 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             };
             [UIManager pushVC:editChannelVs];
             
-        } else {
+        }else  if (_editorItem.pickViewType == PickViewTypeField) { //编辑渠道
+            
+            [UIManager showVC:@"SelectagViewController"];
+            [UIManager sharedUIManager].selectTagOffBolck = ^(NSArray *selectTagArray) {
+                
+                _tagArray = selectTagArray;
+                NSString *tagString = [NSString string];
+                for (TagList *tag in _tagArray) {
+                   
+                    if ([Global stringIsNullWithString:tagString]) {
+                        tagString = [NSString stringWithFormat:@"%@",tag.name];
+                    } else {
+                        
+                        tagString = [NSString stringWithFormat:@"%@,%@",tagString,tag.name];
+                    }
+                }
+                _editorItem.content = tagString;
+                [self.tableView reloadData];
+
+            };
+            
+        }else  if (_editorItem.pickViewType == PickViewTypeIntroduction) { //编辑渠道
+            
+           
+            IntroductionViewController *vc = [[IntroductionViewController alloc]init];
+            vc.introduction = _editorItem.content;
+            [self.navigationController pushViewController:vc animated:YES];
+            [UIManager sharedUIManager].introductionBackOffBolck = ^(NSString *introduction){
+               
+                _editorItem.content = introduction;
+                [self.tableView reloadData];
+            };
+            
+        }  else {
             
             [self showAlertViewWithItem:_editorItem];
         }
@@ -422,10 +466,10 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             _subTag = (TagList *)selectSubItme;
             info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name];
             break;
-        case PickViewTypeField:
-            
-            _field = (TagList *)selectSuperItme;
-             info.content = [NSString stringWithFormat:@"%@",_field.name];
+//        case PickViewTypeField:
+//
+//            _field = (TagList *)selectSuperItme;
+//             info.content = [NSString stringWithFormat:@"%@",_field.name];
             
 
         default:
@@ -477,7 +521,7 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             break;
         case UserTypeEnterprise:
             otherInfoDic = [self enterpriseOtherInfo];
-//            [userInfoDic setObject:_info.name forKey:@"Name"];
+            [userInfoDic setObject:_info.name forKey:@"Name"];
             break;
         case UserTypeMarketing:
             userInfoDic = [self userInfo];
@@ -576,12 +620,22 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 -(NSMutableDictionary *)desginerOtherInfo{
     
     NSMutableDictionary *otherInfoDic = [NSMutableDictionary dictionary];
-    
+    NSString *tagString = [NSString string];
+    for (TagList *tag in _tagArray) {
+        
+        if ([Global stringIsNullWithString:tagString]) {
+            tagString = [NSString stringWithFormat:@"%@",tag.id];
+        } else {
+            
+            tagString = [NSString stringWithFormat:@"%@,%@",tagString,tag.id];
+        }
+    }
+
     for (Infomation *info in self.dataArray) {
         
-        if ([info.title isEqualToString:@"擅长领域"] && _field) {
+        if ([info.title isEqualToString:@"擅长领域"] && ![Global stringIsNullWithString:tagString]) {
             
-            [otherInfoDic setObject:_field.id forKey:info.sendKey];
+            [otherInfoDic setObject:tagString forKey:info.sendKey];
         }
     }
     return otherInfoDic;

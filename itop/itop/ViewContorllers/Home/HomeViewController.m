@@ -209,7 +209,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingTagList{
     
-    [[UserManager shareUserManager] hometagListWithType:TagTypeProduct];
+    [[UserManager shareUserManager] homeProductTagListWithType:@58];
     [UserManager shareUserManager] .homeTagListSuccess = ^(NSArray *arr){
        
        NSArray *itemArray = [[HomeStore shearHomeStore]configurationTag:arr];
@@ -351,7 +351,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                  NSLog(@"%ld",(long)indx);
 
             };
-            _tagbannerView.tag = 0;
+            _tagbannerView.tag = 1;
             [_tagbannerView createTagScrollView];
             [newCell addSubview:_tagbannerView];
             
@@ -375,7 +375,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 //                NSLog(@"你选择第%ld张图片",selectedIndex);
                 
             }];
-            _custrombannerView.tag = 1;
+            _custrombannerView.tag = 2;
             [_custrombannerView createCustromScrollView];
             [newCell addSubview:_custrombannerView];
             
@@ -397,7 +397,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 [UIManager pushTemplateDetailViewControllerWithTemplateId:editCase.id productType:H5ProductTypeCase];
                 
             }];
-            _casebannerView.tag = 2;
+            _casebannerView.tag = 3;
             [_casebannerView createTopScrollViewWithType:H5ProductTypeCase];
             [newCell addSubview:_casebannerView];
             
@@ -420,7 +420,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 //                NSLog(@"你选择第%ld张图片",selectedIndex);
 
             }];
-            _h5bannerView.tag = 3;
+            _h5bannerView.tag = 4;
             [_h5bannerView createTopScrollViewWithType:H5ProductTypeDefault];
             [newCell addSubview:_h5bannerView];
         } else if (indexPath.section == 4){
@@ -441,7 +441,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
             }];
             [_designerbannerView createdesignerScrollView];
             [newCell addSubview:_designerbannerView];
-            _designerbannerView.tag = 4;
+            _designerbannerView.tag = 5;
             
         } else  if (indexPath.section > 4) {
           

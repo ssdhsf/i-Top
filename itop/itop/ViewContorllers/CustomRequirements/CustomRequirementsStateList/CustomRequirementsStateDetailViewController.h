@@ -13,6 +13,6 @@
 @property (assign, nonatomic)DemandType demandType;
 @property (assign, nonatomic)CustomRequirementsType customRequirementsType;
 @property (strong, nonatomic)NSNumber *demand_id;
-
+@property (strong, nonatomic)NSString *message;
 
 @end

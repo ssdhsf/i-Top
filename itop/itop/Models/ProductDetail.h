@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSNumber <Optional>*designer_id;
 @property (nonatomic, strong) NSString <Optional>*designer_head_img;
 @property (nonatomic, strong) NSString <Optional>*designer_name;
+@property (nonatomic, strong) NSNumber <Optional>*designer_follow;
+@property (nonatomic, strong) NSString <Optional>*designer_field;
 @property (nonatomic, strong) ProductModel <ProductModel, Optional>*product;
 @property (nonatomic, strong) NSArray <Optional>*product_view;
 @property (nonatomic, strong) NSArray <Optional>*product_tag;

@@ -208,7 +208,7 @@ typedef NS_ENUM(NSInteger, GetCaseType) { //获取案例类型
     GetCaseTypeOtherCase , //其他人
 };
 
-typedef NS_ENUM(NSInteger, DemandAddType) { //获取案例类型
+typedef NS_ENUM(NSInteger, DemandAddType) { //添加定制类型
     DemandAddTypeOnNew = 0, //新增
     DemandAddTypeOnEdit = 1, //编辑
     DemandAddTypeOnProduct , //作品加载
@@ -760,11 +760,18 @@ typedef void (^ErrorFailure)(id obj);
                 PageCount:(NSInteger )pageCount;
 
 /**
- *  首页Tag
+ *  获取Tag
  *
  *  @param type Tag类型
  */
 - (void)hometagListWithType:(TagType )type;
+
+/**
+ *  首页获取Tag
+ *
+ *  @param parent_id 分类
+ */
+- (void)homeProductTagListWithType:(NSNumber *)parent_id;
 
 /**
  *  获取消息列表
@@ -1166,6 +1173,13 @@ typedef void (^ErrorFailure)(id obj);
                             pageCount:(NSInteger )pageCount;
 
 /**
+ *  获取定制订单纠纷列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)selectCooperationDesginerWithId:(NSNumber *)demant_id desginerId:(NSNumber *)desginer_id;
+
+/**
  *  添加纠纷
  *
  *  @param parameters 纠纷参数 问题／图片证明／备注／demandId／UserId
@@ -1204,6 +1218,12 @@ typedef void (^ErrorFailure)(id obj);
  */
 -(void)caseDetailWithCaseId:(NSNumber *)case_id;
 
+/**
+ *  投标
+ *  @param demand_id  定制id
+ *  @param isCancel  投标／取消投标
+ */
+-(void)tenderWithDemandId:(NSNumber *)demand_id isCancel:(BOOL)isCancel;
 
 /**
  *  上传作品

@@ -694,6 +694,32 @@ _errorFailure(__id_obj); }
     }];
 }
 
+- (void)homeProductTagListWithType:(NSNumber *)parent_id{
+    
+    //    SHOW_GET_DATA
+    NSString *api = @"/api/tag/getlistbyparentid";
+    NSDictionary *parameters = @{@"tagType" : parent_id};
+    
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        //        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+            
+        } else {
+            _homeTagListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        //        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+
 -(void)cityList{
 
     SHOW_GET_DATA
@@ -1903,7 +1929,8 @@ _errorFailure(__id_obj); }
     
     SHOW_GET_DATA
     NSString *api = [NSString string];
-    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:demant_id forKey:@"id"];
     if ([operationType isEqualToString:@"删除"]) {
         api = @"/api/demand/delete";
     }
@@ -1912,10 +1939,19 @@ _errorFailure(__id_obj); }
         api = @"/api/demand/off";
     }
     
+    if ([operationType isEqualToString:@"上架"]) {
+        api = @"/api/demand/shelves";
+    }
+    
     if ([operationType isEqualToString:@"验收完成"]) {
         api = @"/api/demand/sucess";
     }
-    NSDictionary *parameters = @{@"id":demant_id};
+    
+    if ([operationType isEqualToString:@"取消合作"]) {
+        api = @"/api/demand/canceldemand";
+        [parameters setObject:@"true" forKey:@"isCancel"];
+    }
+
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         HIDDEN_GET_DATA
@@ -2015,7 +2051,7 @@ _errorFailure(__id_obj); }
     
     NSString *api  = [NSString string];
     api = @"/api/demand/getenterprisescorepagelist";
-    NSDictionary *parameters = @{@"id":demant_id};
+    NSDictionary *parameters = @{@"id":demant_id , @"PageCount" : @100000,@"PageIndex" : @1};
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
         HIDDEN_GET_DATA
@@ -2054,6 +2090,30 @@ _errorFailure(__id_obj); }
             
             NSArray *arr = object[@"rows"];
             _customRequirementsSuccess(arr);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+- (void)selectCooperationDesginerWithId:(NSNumber *)demant_id desginerId:(NSNumber *)desginer_id{
+    
+    NSString *api  = [NSString string];
+    api = @"/api/demand/selectebid";
+    NSDictionary *parameters = @{@"id":demant_id,@"designerUserId" : desginer_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            ERROR_MESSAGER(object);
+        } else {
+            
+            _customRequirementsSuccess(object);
         }
         
     } failure:^(NSError *error) {
@@ -2210,6 +2270,35 @@ _errorFailure(__id_obj); }
         } else {
             
             _myCaseListSuccess(object);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
+-(void)tenderWithDemandId:(NSNumber *)demand_id isCancel:(BOOL)isCancel{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/demand/bid";
+    
+    if (isCancel) {
+        api = @"/api/demand/unbid";
+    }
+    
+    NSDictionary *parameters = @{@"id" : demand_id};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            _customRequirementsSuccess(object);
         }
         
     } failure:^(NSError *error) {

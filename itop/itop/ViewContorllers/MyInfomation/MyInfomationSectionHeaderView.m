@@ -89,7 +89,7 @@
         }];
         if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
             
-            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].other_info.short_name;
+            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
         } else {
             
             userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].user_info.nickname;
@@ -104,7 +104,7 @@
             
             if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
                 
-                 userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].other_info.short_name;
+                 userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].name;
             } else {
                 
                 userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].user_info.nickname;

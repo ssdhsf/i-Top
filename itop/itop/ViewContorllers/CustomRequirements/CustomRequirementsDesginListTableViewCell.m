@@ -46,7 +46,15 @@
     self.orderLabel.text = [NSString stringWithFormat:@"订单详情  %@",degsin.demand_count] ;
     self.commentLabel.text = [NSString stringWithFormat:@"评   分  %@",degsin.score_average];
     self.disputesLabel.text = [NSString stringWithFormat:@"纠  纷  率  %@",degsin.dispute];
-    
 }
+
+- (IBAction)selectCooperationDesginer:(UIButton *)sender {
+    
+    if(_selectCooperationDesginer){
+        
+        self.selectCooperationDesginer(self);
+    }
+}
+
 
 @end

@@ -273,8 +273,8 @@ static double kFGGScrollInterval = 5.0f;
         [cell setItmeOfModel:custom];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapCustrom:)];
         //        tap.numberOfTapsRequired = i;
-        [self addGestureRecognizer:tap];
-        self.tag = i;
+        [cell addGestureRecognizer:tap];
+        cell.tag = i;
     }
 }
 

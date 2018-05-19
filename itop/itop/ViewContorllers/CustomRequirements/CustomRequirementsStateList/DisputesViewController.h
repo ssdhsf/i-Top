@@ -11,6 +11,7 @@
 @interface DisputesViewController : BaseTableViewController
 
 @property (strong, nonatomic)NSNumber *demant_id;
+@property (strong, nonatomic)NSString *message;
 //@property (strong, nonatomic)NSArray *requstData;
 
 @end

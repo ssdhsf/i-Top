@@ -12,6 +12,7 @@
 #import "CustomRequirementsDetailTabelViewController.h"
 #import "CustomRequirementsDesginListViewController.h"
 #import "DesignerListStore.h"
+#import "DirectMessagesViewController.h"
 
 #import "Demand.h"
 #import "Enterprise.h"
@@ -40,6 +41,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *tenderButton;
 @property (weak, nonatomic) IBOutlet UIButton *consultingButton;
+
+@property (nonatomic, strong)TagList *superTag; //选择行业 父级
+@property (nonatomic, strong)TagList *subTag; //选择行业 子级
 
 @end
 
@@ -88,14 +92,36 @@ static CGFloat const HeaderH = 223;
         _customRequirementsDetail.demand.descrip = obj[@"demand"][@"description"];
         NSLog(@"%@",obj);
         _checkState = [_customRequirementsDetail.demand.check_status integerValue];
-        [self setupHeaderView];
-        [self initCheckStateView];
-        [self setupChildViewController];
-        [self addChildViewInContentView:0];
-        [self addChildViewInContentView:1];
-        [self setData];
+        [self loadingTag];
     };
     _itmeIndex = 0;
+}
+
+-(void)tenderButtonState{
+    
+    BidDesginerList *bidDesginer = [[CustomRequirementsStore shearCustomRequirementsStore]getBidDesginerListWithRequsData:_customRequirementsDetail.designer_list];
+    if (bidDesginer != nil) {
+        
+        if ([bidDesginer.bid integerValue] == 1 && [bidDesginer.success_bid integerValue] == 1) {
+            
+            [_tenderButton setTitle:@"中标成功" forState:UIControlStateNormal];
+            _tenderButton.enabled = NO;
+        }
+        if ([bidDesginer.bid integerValue] == 1 && [bidDesginer.success_bid integerValue] == 0) {
+            
+            [_tenderButton setTitle:@"投标取消" forState:UIControlStateNormal];
+             _tenderButton.enabled = YES;
+        }
+        if ([bidDesginer.bid integerValue] == 0 && [bidDesginer.success_bid integerValue] == 0) {
+            
+             [_tenderButton setTitle:@"立即投标" forState:UIControlStateNormal];
+             _tenderButton.enabled = YES;
+        }
+        
+    } else {
+        
+        [_tenderButton setTitle:@"立即投标" forState:UIControlStateNormal];
+    }
 }
 
 -(void)initView{
@@ -134,6 +160,55 @@ static CGFloat const HeaderH = 223;
     
     self.detailLabel.font = [UIFont systemFontOfSize:10];
     self.expectedPriceLabel.font = [UIFont systemFontOfSize:15];
+    [self tenderButtonState];
+}
+
+
+-(void)loadingTag{
+    
+    if ([[CompanySigningStore shearCompanySigningStore]superTagList].count == 0) {
+        
+        [[UserManager shareUserManager]hometagListWithType:TagTypeTrade];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionIndustryWithRequstIndustryArray:arr];
+            
+            [self setupTag];
+            
+        };
+    } else {
+        
+        [self setupTag];
+    }
+}
+
+-(void)setupTag{
+    
+    NSString *segmentationString;
+    if ([_customRequirementsDetail.demand.trade rangeOfString:@","].location != NSNotFound) {
+        segmentationString = @",";//C端提交的格式  也是最终的格式
+    } else if ([_customRequirementsDetail.demand.trade rangeOfString:@"-"].location != NSNotFound){
+        segmentationString = @"-";  //B端提交的格式
+    }else if ([_customRequirementsDetail.demand.trade rangeOfString:@""].location != NSNotFound){
+        segmentationString = @"、"; //A端提交的格式
+    } else{
+        
+    }
+    if (![Global stringIsNullWithString:segmentationString]) {
+        
+        NSArray *tagArr = [_customRequirementsDetail.demand.trade componentsSeparatedByString:segmentationString];//行业
+        BOOL isChnese = [[Global sharedSingleton]hasChinese:tagArr[0]];
+        
+        _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+        
+        _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:isChnese ? tagArr[1] : [NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+    }
+    [self setupHeaderView];
+    [self initCheckStateView];
+    [self setupChildViewController];
+    [self addChildViewInContentView:0];
+    [self addChildViewInContentView:1];
+    [self setData];
 }
 
 -(void)setupHeaderView{
@@ -292,7 +367,8 @@ static CGFloat const HeaderH = 223;
 - (void)setupChildViewController{
     
     CustomRequirementsDetailTabelViewController *oneVc = [[CustomRequirementsDetailTabelViewController alloc]init];
-    NSArray *array = [[CustomRequirementsStore shearCustomRequirementsStore]configurationCustomRequirementsDetailWithMenu:_customRequirementsDetail];
+    NSString*teader = [NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name];
+    NSArray *array = [[CustomRequirementsStore shearCustomRequirementsStore]configurationCustomRequirementsDetailWithMenu:_customRequirementsDetail teader:teader];
     _customRequirementsDetaiVc = oneVc;
     oneVc.delegate = self;
     [oneVc.dataArray addObjectsFromArray: array];
@@ -301,6 +377,7 @@ static CGFloat const HeaderH = 223;
     CustomRequirementsDesginListViewController *twoVc = [[CustomRequirementsDesginListViewController alloc]init];
     _customRequirementsDesginList = twoVc;
    [twoVc.dataArray  addObject:[[DesignerListStore shearDesignerListStore]configurationCustomRequirementsDegsinListWithRequstData:_customRequirementsDetail.designer_list]];
+    twoVc.demant_id = _customRequirementsDetail.demand.id;
     twoVc.delegate = self;
     [self addChildViewController:_customRequirementsDetaiVc];
     [self addChildViewController:_customRequirementsDesginList];
@@ -424,6 +501,35 @@ static CGFloat const HeaderH = 223;
         
 //        [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
     }];
+}
+
+- (IBAction)tender:(UIButton *)sender {
+
+    if ([[UserManager shareUserManager]crrentUserType] == UserTypeDesigner ||![sender.titleLabel.text isEqualToString:@"中标成功"]) {
+        
+        BOOL isCancel = [sender.titleLabel.text isEqualToString:@"立即投标"] ? NO : YES;
+        [[UserManager shareUserManager]tenderWithDemandId:_customRequirementsDetail.demand.id isCancel:isCancel];
+        [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
+            
+            NSString *title = isCancel ? @"立即投标" : @"取消投标";
+            [_tenderButton setTitle:title forState:UIControlStateNormal];
+        };
+    } else {
+        
+        [self showToastWithMessage:@"设计师才可以投标"];
+    }
+}
+
+- (IBAction)sendMessage:(UIButton *)sender {
+    
+    if ([[UserManager shareUserManager]crrentUserId] != _customRequirementsDetail.demand.user_id) {
+        DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
+        vc.otherUser_id = [NSString stringWithFormat:@"%@", _customRequirementsDetail.demand.user_id];
+        vc.otherUser_name = _customRequirementsDetail.enterprise.nickname;
+        [UIManager pushVC:vc];
+    } else {
+        [self showToastWithMessage:@"该作品是您自己的"];
+    }
 }
 
 

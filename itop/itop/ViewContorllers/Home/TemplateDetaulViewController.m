@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *designerIntroductionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *focusButton;
 @property (nonatomic, assign)FocusType focusType;
-@property (nonatomic, strong)DesignerInfo *designerInfo;
+//@property (nonatomic, strong)DesignerInfo *designerInfo;
 @property (weak, nonatomic) IBOutlet UIButton *pricebutton;
 
 @property (nonatomic, strong)CaseDetail *caseDetail; //案例详情
@@ -79,17 +79,27 @@
         [UserManager shareUserManager].myCaseListSuccess = ^(NSDictionary *obj){
             
             _caseDetail = [[CaseDetail alloc]initWithDictionary:obj error:nil];
-            if ([_caseDetail.designer_info.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
+//            if ([_caseDetail.designer_info.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
+            
+            [self createScrollView];
+            [self setupCaseDetailSubViewData];
+//            [self createScrollView];
+            
+//            if (_productType == H5ProductTypeCase) {
+            
+            [self setupCaseDetailSubViewData];
+//            } else {
+            
+//                [self setupDetailSubViewData];
+//            }
+
+//                _focu_focusButton    UIButton *    0x7fd9f8db7620    0x00007fd9f8db7620sButton.hidden = YES;
                 
-                [self createScrollView];
-                [self setupCaseDetailSubViewData];
-//                _focusButton.hidden = YES;
-                
-            } else {
-                
-                [self lodingDesignerInfomation];
-                _focusButton.hidden = NO;
-            }
+//            } else {
+//
+//                [self lodingDesignerInfomation];
+//                _focusButton.hidden = NO;
+//            }
 
             //        self.dataArray = [[DirectionalDemandReleaseStore shearDirectionalDemandReleaseStore]configurationCaseWitiCaseDetail:_caseDetail isEdit:_isEdit];
             
@@ -104,6 +114,9 @@
             _productDetail = [[ProductDetail alloc]initWithDictionary:dic error:nil];
             _productDetail.product.descrip = dic[@"product"][@"description"];
             
+            [self createScrollView];
+            [self setupCaseDetailSubViewData];
+            [self setupDetailSubViewData];
 //            if ([_productDetail.product.user_id isEqualToNumber:[[UserManager shareUserManager] crrentUserId]]) {
 //
 //                [self createScrollView];
@@ -112,32 +125,32 @@
 //
 //            } else {
             
-                [self lodingDesignerInfomation];
-                _focusButton.hidden = NO;
+//                [self lodingDesignerInfomation];
+//                _focusButton.hidden = NO;
 //            }
         };
     }
 }
 
--(void)lodingDesignerInfomation{
-    
-    NSNumber *desginer_id = _productType == H5ProductTypeCase ? _caseDetail.designer_info.user_id : _productDetail.product.user_id;
-    [[UserManager shareUserManager]designerDetailWithDesigner:desginer_id];
-    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
-        
-        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
-        
-        [self createScrollView];
-
-        if (_productType == H5ProductTypeCase) {
-            
-            [self setupCaseDetailSubViewData];
-        } else {
-            
-            [self setupDetailSubViewData];
-        }
-    };
-}
+//-(void)lodingDesignerInfomation{
+//
+//    NSNumber *desginer_id = _productType == H5ProductTypeCase ? _caseDetail.designer_info.user_id : _productDetail.product.user_id;
+//    [[UserManager shareUserManager]designerDetailWithDesigner:desginer_id];
+//    [UserManager shareUserManager].designerDetailSuccess = ^(id obj){
+//
+//        _designerInfo = [[DesignerInfo alloc]initWithDictionary:obj error:nil];
+//
+//        [self createScrollView];
+//
+//        if (_productType == H5ProductTypeCase) {
+//
+//            [self setupCaseDetailSubViewData];
+//        } else {
+//
+//            [self setupDetailSubViewData];
+//        }
+//    };
+//}
 
 -(void)initView{
     
@@ -214,11 +227,11 @@
     
     _designerNameLabel.frame = CGRectMake(CGRectGetMaxX(_designerIcon.frame)+24, CGRectGetMaxY(_desginerTiltleLabel.frame)+25, ScreenWidth-160, 21);
     
-    NSInteger designerIntroductionLabelHeight = [Global heightWithString:_productDetail.product.description width:ScreenWidth-110 fontSize:15];
+    NSInteger designerIntroductionLabelHeight = [Global heightWithString:_productDetail.designer_field width:ScreenWidth-110 fontSize:15];
     _designerIntroductionLabel.frame = CGRectMake(CGRectGetMaxX(_designerIcon.frame)+24, CGRectGetMaxY(_designerNameLabel.frame)+10, ScreenWidth-110, designerIntroductionLabelHeight);
 
     
-    _focusType = [_designerInfo.follow integerValue];
+    _focusType = [_productDetail.designer_follow integerValue];
     [self setupFocusState];
     
     [_scroll addSubview:_detailView];
@@ -245,7 +258,7 @@
     [str setAttributes:attrs range:range1];
     [_pricebutton setAttributedTitle:str forState:UIControlStateNormal];
     [_designerIcon sd_setImageWithURL:[NSURL URLWithString:_productDetail.designer_head_img] placeholderImage:PlaceholderImage];
-    _designerIntroductionLabel.text = _designerInfo.field;
+    _designerIntroductionLabel.text = _productDetail.designer_field;
     [self.companyButoon setTitle:@"企业免费使用" forState:UIControlStateNormal];
      [self hiddenOpraitionButtonWithIsHidden:NO];
 }
@@ -262,7 +275,7 @@
     _caseDesignerIcon.layer.masksToBounds = YES;
     _caseDesignerIcon.layer.cornerRadius = 20;
     _caseDesignerNameLabel.frame = CGRectMake(CGRectGetMaxX(_caseDesignerIcon.frame)+24, 0, ScreenWidth-160, 21);
-    _focusType = [_designerInfo.follow integerValue];
+//    _focusType = [_caseDetail.designer_info.follow integerValue];
     
     _caseDesignerNameLabel.centerY = _caseDesignerIcon.centerY;
     [self setupCaseDesginerFocusState];
@@ -344,10 +357,10 @@
         
         if ([sender.titleLabel.text isEqualToString:@"在线咨询"]) {
             
-            if ([[UserManager shareUserManager]crrentUserId] != _designerInfo.user_id) {
+            if ([[UserManager shareUserManager]crrentUserId] != _caseDetail.designer_info.user_id) {
                 DirectMessagesViewController *vc = [[DirectMessagesViewController alloc]init];
-                vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
-                vc.otherUser_name = _designerInfo.nickname;
+                vc.otherUser_id = [NSString stringWithFormat:@"%@", _caseDetail.designer_info.user_id];
+                vc.otherUser_name = _caseDetail.designer_info.nickname;
                 [UIManager pushVC:vc];
             } else {
                 [self showToastWithMessage:@"该作品是您自己的"];
@@ -356,9 +369,7 @@
             
             [UIManager payProductViewControllerWithProductDetail:_productDetail];
         }
-
     }
-//    [self showToastWithMessage:@"功能暂未开放"];
 }
 
 - (IBAction)company:(UIButton *)sender {
@@ -393,20 +404,12 @@
         }
 
     }
-//    [self showToastWithMessage:@"功能暂未开放"];
-    
-//    [UIManager showVC:@"BuyVipPayViewController"];
 }
 
 -(void)hiddenOpraitionButtonWithIsHidden:(BOOL)isHidden{
     
     _companyButoon.hidden = isHidden;
     _pricebutton.hidden = isHidden;
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

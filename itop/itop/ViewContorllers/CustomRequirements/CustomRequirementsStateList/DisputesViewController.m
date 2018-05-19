@@ -17,6 +17,7 @@ static NSString *const DisputesCellIdentifier = @"Disputes";
 
 @property (strong, nonatomic)DisputesDataSource *disputesDataSource;
 @property (weak, nonatomic) IBOutlet UIButton *addDisputes;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 
 @end
 
@@ -35,10 +36,12 @@ static NSString *const DisputesCellIdentifier = @"Disputes";
 -(void)initData{
     
     [super initData];
-    
-    
     [self showRefresh];
+}
+
+-(void)initNavigationBarItems{
     
+    self.title = @"平台介入";
 }
 
 -(void)refreshData{
@@ -59,14 +62,28 @@ static NSString *const DisputesCellIdentifier = @"Disputes";
 -(void)initView{
     
     [super initView];
-    [self initTableViewWithFrame:TableViewFrame(0, 0, ScreenWidth, ScreenHeigh)];
+    
+    CGFloat orige = 0;
+    if (_message != nil) {
+        
+        orige = [Global  heightWithString:_message width:ScreenWidth-60 fontSize:17];
+        _titleLabel.frame = CGRectMake(30, 25, ScreenWidth-60, orige+10);
+        _titleLabel.text = _message;
+    }
+    
+    if (orige > 0) {
+        
+        orige = orige + 50;
+    }
+    
+    [self initTableViewWithFrame:TableViewFrame(0, orige, ScreenWidth, ScreenHeigh)];
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
-        make.top.left.right.mas_equalTo(self.view);
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(orige);
         make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -135 : 100);
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//    self.tableView.contentInset = UIEdgeInsetsMake( 0, 0, 100, 0);
     self.tableView.scrollIndicatorInsets = self.tableView.contentInset;
     
     [_addDisputes.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_addDisputes)];

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^SelectCooperationDesginer)(id obj); //选择的设计师
+
 @interface CustomRequirementsDesginListTableViewCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
@@ -17,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *disputesLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *isBid;
 @property (weak, nonatomic) IBOutlet UIButton *cooperationButton;
+@property (copy, nonatomic) SelectCooperationDesginer selectCooperationDesginer;
 
 -(void)setItmeOfModel:(CustomRequirementsDegsinList *)degsin;
 

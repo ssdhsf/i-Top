@@ -26,10 +26,6 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    [UIManager sharedUIManager].customRequirementsBackOffBolck = ^ (id obj){
-//        
-//        [self tableViewbeginRefreshing];
-//    };
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -89,7 +85,7 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
          
             NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
             CustomRequirementsList *list = [self.customRequirementsStateListDataSource itemAtIndexPath:indexPath];
-            [self operationStateWithOperation:tagButtonTitle customRequirementsId:list.id];
+            [self operationStateWithOperation:tagButtonTitle customRequirements:list];
         };
     };
     self.customRequirementsStateListDataSource = [[CustomRequirementsStateListDataSource alloc]initWithItems:self.dataArray cellIdentifier:CustomRequirementsStateListCellIdentifier cellConfigureBlock:congfigureCell];
@@ -118,18 +114,24 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     CustomRequirementsStateDetailViewController *vc = [[CustomRequirementsStateDetailViewController alloc]init];
     vc.demand_id = list.id;
     vc.customRequirementsType = [list.demand_type integerValue];
+    vc.demandType = _demandType;
+    vc.message = list.message;
     [UIManager pushVC:vc];
 }
 
--(void)operationStateWithOperation:(NSString *)operationState customRequirementsId:(NSNumber *)customRequirements_id{
+-(void)operationStateWithOperation:(NSString *)operationState customRequirements:(CustomRequirementsList *)customRequirements{
     
     if ([operationState isEqualToString:@"编辑"] || [operationState isEqualToString:@"重新发布"]) {
         
-        [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnEdit demandType:_demandType demand_id:customRequirements_id desginerId:nil productId:nil];
+        [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnEdit demandType:_demandType demand_id:customRequirements.id desginerId:nil productId:nil];
     }
-    if ([operationState isEqualToString:@"删除"] || [operationState isEqualToString:@"下架"] || [operationState isEqualToString:@"验收完成"]) {
+    if ([operationState isEqualToString:@"删除"] ||
+        [operationState isEqualToString:@"下架"] ||
+        [operationState isEqualToString:@"验收完成"] ||
+        [operationState isEqualToString:@"上架"] ||
+        [operationState isEqualToString:@"取消合作"]) {
        
-        [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements_id operation:operationState];
+        [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements.id operation:operationState];
         [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
           
             [self tableViewbeginRefreshing];
@@ -139,7 +141,7 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     if ([operationState isEqualToString:@"接单"] || [operationState isEqualToString:@"拒绝"]) {
         
         BOOL isAccept = [operationState isEqualToString:@"接单"] ? YES : NO;
-        [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements_id isAccept:isAccept];
+        [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements.id isAccept:isAccept];
         [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
             
             [self tableViewbeginRefreshing];
@@ -147,25 +149,25 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     }
     if ([operationState isEqualToString:@"托管赏金"]) {
         
-        [UIManager hostingBountyViewControllerWithDemandId:customRequirements_id];
+        [UIManager hostingBountyViewControllerWithDemandId:customRequirements.id];
         
     }
     if ([operationState isEqualToString:@"作品上传"]) {
         
-        [UIManager uploadProductLinkViewControllerWithDemandId:customRequirements_id userId:[[UserManager shareUserManager]crrentUserId]];
+        [UIManager uploadProductLinkViewControllerWithDemandId:customRequirements.id userId:[[UserManager shareUserManager]crrentUserId]];
     }
     if ([operationState isEqualToString:@"平台介入"]) {
         
-        [[UserManager shareUserManager]demandDemanddisputeListWithId:customRequirements_id pageIndex:1 pageCount:10];
+        [[UserManager shareUserManager]demandDemanddisputeListWithId:customRequirements.id pageIndex:1 pageCount:10];
         [UserManager shareUserManager].customRequirementsSuccess = ^(NSArray *arr){
             
             if (arr.count == 0) {
 
-                [UIManager submitDisputesViewControllerWithCustomId:customRequirements_id];
+                [UIManager submitDisputesViewControllerWithCustomId:customRequirements.id ];
                 
             } else {
                 
-                [UIManager disputesViewControllerWithCustomId:customRequirements_id];
+                [UIManager disputesViewControllerWithCustomId:customRequirements.id message:customRequirements.message];
             }
         };
     }
@@ -173,7 +175,7 @@ static NSString *const CustomRequirementsStateListCellIdentifier = @"CustomRequi
     if ([operationState isEqualToString:@"评价"]) {
         
         CommentType commentType = [[UserManager shareUserManager] crrentUserType] == UserTypeDesigner ? CommentTypeDemandDesginerToEnterprise : CommentTypeDemandEnterpriseToDesginer;
-         [UIManager commentPopularizeViewControllerWithCustomId:customRequirements_id commentType:commentType];
+         [UIManager commentPopularizeViewControllerWithCustomId:customRequirements.id commentType:commentType];
         
         [UIManager sharedUIManager].commentPopularizeBackOffBolck = ^ (id obj){
             

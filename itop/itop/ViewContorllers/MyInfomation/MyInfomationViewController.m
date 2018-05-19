@@ -167,6 +167,12 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if(![[UserManager shareUserManager]isLogin] && indexPath.section ==0){
+        
+        [self showToastWithMessage:@"请登录"];
+        return;
+    }
+    
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];
     
     if ([info.myInfoTitle isEqualToString:@"意见反馈"]){

@@ -183,6 +183,42 @@ static NSArray *_fieldList = nil;
     return nil;
 }
 
+-(NSString *)fieldsWithTagId:(NSString *)tag_id {
+    
+    NSString *segmentationString;
+    if ([tag_id rangeOfString:@","].location != NSNotFound) {
+        segmentationString = @",";//C端提交的格式  也是最终的格式
+    } else if ([tag_id rangeOfString:@"-"].location != NSNotFound){
+        segmentationString = @"-";  //B端提交的格式
+    }else if ([tag_id rangeOfString:@""].location != NSNotFound){
+        segmentationString = @"、"; //A端提交的格式
+    } else{
+        
+    }
+    NSString *tagStr = [NSString string];
+    if (![Global stringIsNullWithString:segmentationString]) {
+        NSArray *tagArr = [tag_id componentsSeparatedByString:segmentationString];//行业
+        for (NSString *tagId in tagArr) {
+            
+            for (TagList *tagList in _fieldList) {
+                
+                if ([tagId isEqualToString:[NSString stringWithFormat:@"%@",tagList.id]]) {
+                    
+                    if ([Global stringIsNullWithString:tagStr]) {
+                       
+                        tagStr = [NSString stringWithFormat:@"%@",tagList.name];
+                    } else {
+                        
+                        tagStr = [NSString stringWithFormat:@"%@,%@",tagStr,tagList.name];
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+    return tagStr;
+}
 
 -(TagList *)subTagWithTagId:(NSNumber *)tag_id superTagId:(NSNumber *)superTagId{
     

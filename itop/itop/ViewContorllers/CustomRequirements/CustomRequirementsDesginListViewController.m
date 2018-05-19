@@ -10,6 +10,7 @@
 #import "CustomRequirementsDesginListTableViewCell.h"
 #import "DesignerSigningStore.h"
 #import "CustomRequirementsDesginListDataSource.h"
+#import "CustomRequirementsStateListController.h"
 
 static NSString *const CustomRequirementsDesginListCellIdentifier = @"CustomRequirementsDesginList";
 
@@ -60,6 +61,24 @@ static NSString *const CustomRequirementsDesginListCellIdentifier = @"CustomRequ
     TableViewCellConfigureBlock congfigureCell = ^(CustomRequirementsDesginListTableViewCell *cell ,  CustomRequirementsDegsinList*item , NSIndexPath *indexPath){
         
         [cell setItmeOfModel:item];
+        cell. selectCooperationDesginer = ^(CustomRequirementsDesginListTableViewCell *selectCell){
+            
+            NSIndexPath *index = [self.tableView indexPathForCell:selectCell];
+            CustomRequirementsDegsinList *degsin = [_customRequirementsDesginListDataSource itemAtIndexPath:index];
+            [[UserManager shareUserManager]selectCooperationDesginerWithId:_demant_id desginerId:degsin.designer_id];
+            [UserManager shareUserManager].customRequirementsSuccess =  ^(id obj){
+                
+                for (UIViewController *vc in [UIManager getNavigationController].viewControllers) {
+                    
+                    if ([vc isKindOfClass:[CustomRequirementsStateListController class]]) {
+                        
+                        [[UIManager getNavigationController] popToViewController:vc animated:YES];
+                        [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
+                    }
+                }
+                
+            };
+        };
     };
     self.customRequirementsDesginListDataSource = [[CustomRequirementsDesginListDataSource alloc]initWithItems:self.dataArray cellIdentifier:CustomRequirementsDesginListCellIdentifier cellConfigureBlock:congfigureCell];
     
@@ -88,7 +107,6 @@ static NSString *const CustomRequirementsDesginListCellIdentifier = @"CustomRequ
     if ([self.delegate respondsToSelector:@selector(CustomRequirementsDesginListViewControllerTableViewDidScroll:)]) {
         [self.delegate CustomRequirementsDesginListViewControllerTableViewDidScroll:scrollView.contentOffset.y];
         }
-    //    NSLog(@"12");
 }
 
 

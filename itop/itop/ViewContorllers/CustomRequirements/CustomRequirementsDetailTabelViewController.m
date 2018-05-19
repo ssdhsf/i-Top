@@ -31,7 +31,6 @@ static NSString *const CustomRequirementsDetailCellIdentifier = @"CustomRequirem
 -(void)initData{
    
     [super initData];
-//    self.dataArray = [[CustomRequirementsStore shearCustomRequirementsStore]configurationCustomRequirementsDetailWithMenu:nil];
 }
 
 -(void)initView{

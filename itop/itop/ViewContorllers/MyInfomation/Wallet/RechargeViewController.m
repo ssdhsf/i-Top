@@ -9,21 +9,21 @@
 #import "RechargeViewController.h"
 #import "biddingPayViewController.h"
 
-static const NSString *PayProduct25 = @"001";
+static const NSString *PayProduct25 = @"0001";
 
-static const NSString *PayProduct50 = @"002";
+static const NSString *PayProduct50 = @"0002";
 
-static const NSString *PayProduct98 = @"003";
+static const NSString *PayProduct98 = @"0003";
 
-static const NSString *PayProduct198 = @"004";
+static const NSString *PayProduct198 = @"0004";
 
-static const NSString *PayProduct488 = @"005";
+static const NSString *PayProduct488 = @"0005";
 
-static const NSString *PayProduct798 = @"006";
+static const NSString *PayProduct798 = @"0006";
 
-static const NSString *PayProduct998 = @"007";
+static const NSString *PayProduct998 = @"0007";
 
-static const NSString *PayProduct1998 = @"008";
+static const NSString *PayProduct1998 = @"0008";
 
 @interface RechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate >
 
@@ -55,7 +55,7 @@ static const NSString *PayProduct1998 = @"008";
     [super initData];
     self.tagArray = [NSMutableArray array];
     self.buttonArray = [NSMutableArray array];
-    [self.tagArray addObjectsFromArray:@[@"20",@"50",@"100",@"200",@"500",@"800",@"1000",@"2000"]];
+    [self.tagArray addObjectsFromArray:@[@"25",@"50",@"98",@"198",@"488",@"798",@"998",@"1998"]];
     _moneyLabel.text = [NSString stringWithFormat:@"0元"];
 }
 
@@ -149,8 +149,8 @@ static const NSString *PayProduct1998 = @"008";
 
 - (void)requestProductDataWithPayProductType:(PayProductType)productType{
     
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     NSArray *product;
-    
     switch(productType) {
             
         case PayProductType25:
@@ -208,9 +208,15 @@ static const NSString *PayProduct1998 = @"008";
     NSLog(@"请求的产品%@",product);
     NSSet *nsset = [NSSet setWithArray:product];
     SKProductsRequest *request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
-    request.delegate =self;
+    request.delegate = self;
     [request start];
-    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+}
+
+-(void) PurchasedTransaction: (SKPaymentTransaction *)transaction{
+
+    NSLog(@"-----PurchasedTransaction----");
+    NSArray *transactions =[[NSArray alloc] initWithObjects:transaction, nil];
+    [self paymentQueue:[SKPaymentQueue defaultQueue] updatedTransactions:transactions];
 }
 
 #pragma mark - SKProductsRequestDelegate
@@ -242,16 +248,26 @@ static const NSString *PayProduct1998 = @"008";
         
         NSLog(@"Product id: %@", product.productIdentifier);
         SKPayment *payment = [SKPayment paymentWithProduct:product];
-        
         [[SKPaymentQueue defaultQueue] addPayment:payment];
         
         //addPayment 将支付信息添加进苹果的支付队列后，苹果会自动完成后续的购买请求，在用户购买成功或者点击取消购买的选项后回调
     }
+    
+//    [self requestProUpgradeProductData];
 }
 
 //+ (id)paymentWithProductIdentifier:(NSString*)identifier{
 //    NS_DEPRECATED_IOS(3_0,5_0,"Use +paymentWithProduct: after fetching the available products using SKProductsRequest");
 //}
+
+- (void)requestProUpgradeProductData{
+    
+    NSLog(@"------请求升级数据---------");
+    NSSet *productIdentifiers = [NSSet setWithObject:@"com.productid"];
+    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
+    productsRequest.delegate = self;
+    [productsRequest start];
+}
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     
@@ -266,17 +282,17 @@ static const NSString *PayProduct1998 = @"008";
 
 //监听购买结果的回调
 
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transaction{
+- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions{
     
-    for(SKPaymentTransaction *tran in transaction){
+    for(SKPaymentTransaction *transaction in transactions){
         
-        switch(tran.transactionState) {
+        switch(transaction.transactionState) {
                 
             case SKPaymentTransactionStatePurchased:
                 
                 NSLog(@"交易完成");
                 
-//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
                 //                [self verifyTransactionResult];
                 
@@ -300,22 +316,35 @@ static const NSString *PayProduct1998 = @"008";
                 
                 //                [MyTaShowMessageView showMessage:@"交易失败！"];
                 
-                [[SKPaymentQueue defaultQueue] finishTransaction:tran];
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
                 break;
-                
-                
             default:
                 
                 break;
-                
         }
     }
 }
 
+-(void)paymentQueue:(SKPaymentQueue *) paymentQueue restoreCompletedTransactionsFailedWithError:(NSError *)error{
+    NSLog(@"-------paymentQueue----");
+}
+
+
 - (IBAction)charge:(UIButton *)sender {
     
-    [self requestProductDataWithPayProductType:_selectPrice];
+    if ([SKPaymentQueue canMakePayments]) {
+        
+        [self requestProductDataWithPayProductType:_selectPrice];
+        NSLog(@"允许程序内付费购买");
+    }else
+    {
+        NSLog(@"不允许程序内付费购买");
+        UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"提示"
+                                                            message:@"您的手机没有打开程序内付费购买"
+                                                           delegate:nil cancelButtonTitle:NSLocalizedString(@"关闭",nil) otherButtonTitles:nil];
+        [alerView show];
+    }
 }
 
 

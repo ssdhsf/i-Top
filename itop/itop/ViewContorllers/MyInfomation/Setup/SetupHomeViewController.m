@@ -104,8 +104,13 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
         
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
         
-    }else {
+    }  else {
         
+        if (![[UserManager shareUserManager]isLogin] && [info.myInfoTitle isEqualToString:@"账号与安全"]){
+            
+            [self showToastWithMessage:@"请登录"];
+            return;
+        }
         [UIManager showVC:info.nextVcName];
     }
 }

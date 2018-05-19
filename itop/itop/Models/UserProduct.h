@@ -14,7 +14,7 @@
 
 @interface UserProduct : JSONModel
 
-@property (nonatomic, strong) NSString <Optional>*user_id;
+@property (nonatomic, strong) NSNumber <Optional>*user_id;
 @property (nonatomic, strong) NSString <Optional>*product_id;
 @property (nonatomic, strong) NSString <Optional>*praise;
 @property (nonatomic, strong) NSString <Optional>*collection;

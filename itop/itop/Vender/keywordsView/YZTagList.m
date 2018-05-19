@@ -112,7 +112,7 @@ CGFloat const imageViewWH = 20;
 // 添加标签
 - (void)addFieldTag:(NSArray *)tagArray action:(SEL)action{
     
-    for (SpecialityTag *tagStr in tagArray) {
+    for (TagList *tagStr in tagArray) {
         Class tagClass = _tagClass?_tagClass : [YZTagButton class];
         
         // 创建标签按钮
@@ -122,7 +122,7 @@ CGFloat const imageViewWH = 20;
         }
         
         tagButton.layer.cornerRadius = 0;
-        if ([tagStr.tag isEqualToString:@"最多选3个"] || tagStr.selecteTag == YES) {
+        if ([tagStr.name isEqualToString:@"最多选3个"] || tagStr.selecteTag.selecteTag == YES) {
             
             tagButton.layer.borderWidth = 0;
         } else {
@@ -130,8 +130,8 @@ CGFloat const imageViewWH = 20;
             tagButton.layer.borderWidth = _borderWidth;
         }
         
-        tagButton.selected = tagStr.selecteTag;
-        if (tagStr.selecteTag == YES) {
+        tagButton.selected = tagStr.selecteTag.selecteTag;
+        if (tagStr.selecteTag.selecteTag == YES) {
             
             [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [tagButton setBackgroundColor:UIColorFromRGB(0xcbedfb)];
@@ -146,7 +146,7 @@ CGFloat const imageViewWH = 20;
         // 保存到字典
         [self.tags setObject:tagButton forKey:tagStr];
         [self.tagArray addObject:tagStr];
-        [self generalSetupWithButton:tagButton action:action tag:tagStr.tag];
+        [self generalSetupWithButton:tagButton action:action tag:tagStr.name];
     }
 }
 

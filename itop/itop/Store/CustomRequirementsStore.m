@@ -47,17 +47,17 @@
     return array;
 }
 
-- (NSMutableArray *)configurationCustomRequirementsDetailWithMenu:(CustomRequirementsDetail *)datail{
+- (NSMutableArray *)configurationCustomRequirementsDetailWithMenu:(CustomRequirementsDetail *)datail teader:(NSString *)teader{
     
     NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:datail.demand.finish_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     NSMutableArray *array = [NSMutableArray array];
-    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"订单号" content:datail.demand.pay_order_no]];
+//    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"订单号" content:datail.demand.pay_order_no]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"活动名称" content:datail.demand.contact_name]];
-    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"截稿时间" content:time]];
-    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"预算" content:datail.demand.price]];
+
+//    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"预算" content:datail.demand.price]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考网站" content:datail.demand.reference_url]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考图片" content:datail.demand.reference_img]];
-    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"行业" content:datail.demand.contact_name]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"行业" content:teader]];
     
     Province *province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:datail.demand.province];
     Province *city = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:datail.demand.city provinceCode:datail.demand.province];
@@ -66,10 +66,54 @@
          string = [NSString stringWithFormat:@"%@,%@",province.address,city.address];
     }
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"地域要求" content:string]];
-
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"截稿时间" content:time]];
     [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"需求描述" content:datail.demand.descrip]];
     return array;
 }
+
+//我的定制详情显示
+- (NSMutableArray *)configurationMyCustomRequirementsDetailWithMenu:(CustomRequirementsDetail *)datail
+                                                         demandType:(DemandType)demandType
+                                                           desginer:(DesignerList*)desginer
+                                                           editCase:(EditCase*)editCase
+                                                             teader:(NSString *)teader{
+   
+    NSMutableArray *array = [NSMutableArray array];
+    NSString *demandTypeString = demandType == DemandTypeDirectional ? @"定制需求" : @"竞标需求";
+    NSString *time = [[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:datail.demand.finish_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"订单号" content:datail.demand.pay_order_no]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"订单类型" content:demandTypeString]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"活动名称" content:datail.demand.contact_name]];
+    if (demandType == DemandTypeDirectional) {
+        
+        [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"设计师" content:desginer.nickname]];
+        [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考案例" content:editCase.title]];
+
+    } else {
+        
+        [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考网站" content:datail.demand.reference_url]];
+        [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"参考图片" content:datail.demand.reference_img]];
+        
+        Province *province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:datail.demand.province];
+        Province *city = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:datail.demand.city provinceCode:datail.demand.province];
+        NSString *string = [NSString string];
+        if (province) {
+            string = [NSString stringWithFormat:@"%@,%@",province.address,city.address];
+        }
+        [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"地域要求" content:string]];
+    }
+    
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"行业" content:teader]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"预算" content:datail.demand.price]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"截稿时间" content:time]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"联系人" content:datail.demand.contact_name]];
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"联系电话" content:datail.demand.contact_phone]];
+    
+    [array addObject:[self setupCustomRequirementsWithCustomRequirementsDetailTitle:@"需求描述" content:datail.demand.descrip]];
+
+    return array;
+}
+
 
 -(NSArray *)configurationCustomRequirementsCommentsWithRequsData:(NSArray *)arr{
     
@@ -123,6 +167,19 @@
             break;
     }
     return checkSting;
+}
+
+-(BidDesginerList *)getBidDesginerListWithRequsData:(NSArray *)arr {
+    
+    for (NSDictionary *dic in arr) {
+        
+        BidDesginerList *binDesginer = [[BidDesginerList alloc]initWithDictionary:dic error:nil];
+        if ([binDesginer.designer_id isEqualToNumber:[[UserManager shareUserManager]crrentUserId]]) {
+            
+            return binDesginer;
+        }
+    }
+    return nil;
 }
 
 -(NSArray *)operationStateWithState:(CustomRequirementsType)state demandType:(DemandType)demandType{

@@ -32,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
     [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck = ^ (id obj){ //操作回掉
         
         if (_itmeIndex == 0) {
@@ -83,12 +84,14 @@
     [[UserManager shareUserManager]demandAuthority];
     [UserManager shareUserManager].demandAuthoritySuccess = ^(id obj){ //有权限
         
+        self.dataArray = [NSArray arrayWithObjects:@"定向需求",@"竞标需求", nil];
         [self initSegment];
         [self createScrollView];
-        [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(DirectionalDemandRelease)];
-        self.dataArray = [NSArray arrayWithObjects:@"定向需求",@"竞标需求", nil];
+        
+        if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
+            [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(DirectionalDemandRelease)];
+        }
         _itmeIndex = 0;
-
     };
     
     [UserManager shareUserManager].demandAuthorityFailure = ^(id obj){//没有权限

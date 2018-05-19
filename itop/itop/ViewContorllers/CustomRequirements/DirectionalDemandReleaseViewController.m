@@ -14,6 +14,7 @@
 #import "DesignerListStore.h"
 #import "H5ListStore.h"
 #import "EditCaseStore.h"
+#import "CustomRequirementsStateListController.h"
 
 #define REGIONAL @"地域优先"
 #define INDUSTRY @"行业"
@@ -621,11 +622,17 @@ static NSString *const DirectionalDemandReleaseCellIdentifier = @"DirectionalDem
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续发布" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
-        if (_demandAddType == DemandAddTypeOnEdit) {
-            
-            [self back];
+        if (_demandAddType == DemandAddTypeOnEdit || _demandAddType == DemandAddTypeOnNew) {
+
+            for (UIViewController *vc in [UIManager getNavigationController].viewControllers) {
+                
+                if ([vc isKindOfClass:[CustomRequirementsStateListController class]]) {
+                    
+                    [[UIManager getNavigationController] popToViewController:vc animated:YES];
+                    [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
+                }
+            }
         }
-        [UIManager sharedUIManager].customRequirementsBackOffBolck(nil);
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];

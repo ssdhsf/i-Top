@@ -35,7 +35,6 @@
 #import "InfomationModel.h"
 #import "ProductModel.h"
 #import "ProductDetail.h"
-#import "SpecialityTag.h"
 #import "OtherInfo.h"
 #import "Marketing.h"
 #import "Message.h"
@@ -64,5 +63,6 @@
 #import "EditCase.h"
 #import "CaseDetail.h"
 #import "Userwallet.h"
+#import "BidDesginerList.h"
 
 #endif /* AllModels_h */

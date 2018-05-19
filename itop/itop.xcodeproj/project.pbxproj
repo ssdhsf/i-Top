@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7708FDCF20AE7123005C86AD /* IntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7708FDCD20AE7123005C86AD /* IntroductionViewController.m */; };
+		7708FDD020AE7123005C86AD /* IntroductionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7708FDCE20AE7123005C86AD /* IntroductionViewController.xib */; };
 		770B48B320A6DEAB00CD51A2 /* HostingBountyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48B120A6DEAB00CD51A2 /* HostingBountyViewController.m */; };
 		770B48B420A6DEAB00CD51A2 /* HostingBountyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770B48B220A6DEAB00CD51A2 /* HostingBountyViewController.xib */; };
 		770B48B820A926AD00CD51A2 /* PaymentVerificationCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48B620A926AD00CD51A2 /* PaymentVerificationCodeViewController.m */; };
 		770B48B920A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770B48B720A926AD00CD51A2 /* PaymentVerificationCodeViewController.xib */; };
 		770B48BC20A9606300CD51A2 /* Userwallet.m in Sources */ = {isa = PBXBuildFile; fileRef = 770B48BB20A9606300CD51A2 /* Userwallet.m */; };
-		770B48BE20A9953000CD51A2 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770B48BD20A9953000CD51A2 /* StoreKit.framework */; };
 		770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D765A206114A3007601A8 /* NSString+AttributedString.m */; };
 		770D76F12061FB3C007601A8 /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D76EF2061FB3C007601A8 /* MyWalletViewController.m */; };
 		770D76F22061FB3C007601A8 /* MyWalletViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770D76F02061FB3C007601A8 /* MyWalletViewController.xib */; };
@@ -58,6 +59,9 @@
 		770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D7768206900D2007601A8 /* PopularizeDataSource.m */; };
 		770D776C20690139007601A8 /* PopularizeStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776B20690139007601A8 /* PopularizeStore.m */; };
 		770D776F20690F00007601A8 /* Popularize.m in Sources */ = {isa = PBXBuildFile; fileRef = 770D776E20690F00007601A8 /* Popularize.m */; };
+		770F3EA020AD763C0023F2E7 /* SelectagViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 770F3E9E20AD763C0023F2E7 /* SelectagViewController.m */; };
+		770F3EA120AD763C0023F2E7 /* SelectagViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 770F3E9F20AD763C0023F2E7 /* SelectagViewController.xib */; };
+		770F3EA420AD81790023F2E7 /* SelecteTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 770F3EA320AD81790023F2E7 /* SelecteTag.m */; };
 		7717E991206B71530025DC73 /* DirectMessages.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E990206B71530025DC73 /* DirectMessages.m */; };
 		7717E994206B74B80025DC73 /* UserMessege.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E993206B74B80025DC73 /* UserMessege.m */; };
 		7717E997206B7B020025DC73 /* DirectMessagesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E996206B7B020025DC73 /* DirectMessagesDataSource.m */; };
@@ -216,7 +220,6 @@
 		77723A3A203179A5006294E8 /* DesignerSigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A38203179A5006294E8 /* DesignerSigningViewController.xib */; };
 		77723A402033E1AD006294E8 /* YZTagButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3D2033E1AD006294E8 /* YZTagButton.m */; };
 		77723A412033E1AD006294E8 /* YZTagList.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A3F2033E1AD006294E8 /* YZTagList.m */; };
-		77723A44203EF219006294E8 /* SpecialityTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A43203EF219006294E8 /* SpecialityTag.m */; };
 		77723A48203FC0AF006294E8 /* CompanySigningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A46203FC0AF006294E8 /* CompanySigningViewController.m */; };
 		77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77723A47203FC0AF006294E8 /* CompanySigningViewController.xib */; };
 		77723A4C20415531006294E8 /* CompanySigningStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 77723A4B20415531006294E8 /* CompanySigningStore.m */; };
@@ -303,6 +306,7 @@
 		77841EDF20AADFE70099CA13 /* ChangePhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77841EDD20AADFE70099CA13 /* ChangePhoneViewController.xib */; };
 		77841EE320ABD7940099CA13 /* OpenDemandServiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77841EE120ABD7940099CA13 /* OpenDemandServiceViewController.m */; };
 		77841EE420ABD7940099CA13 /* OpenDemandServiceViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 77841EE220ABD7940099CA13 /* OpenDemandServiceViewController.xib */; };
+		77841EE720AC43280099CA13 /* BidDesginerList.m in Sources */ = {isa = PBXBuildFile; fileRef = 77841EE620AC43280099CA13 /* BidDesginerList.m */; };
 		77848ADB202C4EAD00C0CCD2 /* InfomationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */; };
 		77848ADE202C4F1A00C0CCD2 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848ADD202C4F1A00C0CCD2 /* UserInfo.m */; };
 		77848AE2202D37EC00C0CCD2 /* MyFocusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77848AE0202D37EC00C0CCD2 /* MyFocusViewController.m */; };
@@ -545,6 +549,9 @@
 /* Begin PBXFileReference section */
 		3F4F896C20E3CF680A8B738B /* libPods-itop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-itop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A538600B333827AA61CE679 /* Pods-itop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-itop.release.xcconfig"; path = "Pods/Target Support Files/Pods-itop/Pods-itop.release.xcconfig"; sourceTree = "<group>"; };
+		7708FDCC20AE7123005C86AD /* IntroductionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IntroductionViewController.h; sourceTree = "<group>"; };
+		7708FDCD20AE7123005C86AD /* IntroductionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IntroductionViewController.m; sourceTree = "<group>"; };
+		7708FDCE20AE7123005C86AD /* IntroductionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IntroductionViewController.xib; sourceTree = "<group>"; };
 		770B48B020A6DEAB00CD51A2 /* HostingBountyViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HostingBountyViewController.h; sourceTree = "<group>"; };
 		770B48B120A6DEAB00CD51A2 /* HostingBountyViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HostingBountyViewController.m; sourceTree = "<group>"; };
 		770B48B220A6DEAB00CD51A2 /* HostingBountyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HostingBountyViewController.xib; sourceTree = "<group>"; };
@@ -626,6 +633,11 @@
 		770D776B20690139007601A8 /* PopularizeStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopularizeStore.m; sourceTree = "<group>"; };
 		770D776D20690F00007601A8 /* Popularize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Popularize.h; sourceTree = "<group>"; };
 		770D776E20690F00007601A8 /* Popularize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Popularize.m; sourceTree = "<group>"; };
+		770F3E9D20AD763C0023F2E7 /* SelectagViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelectagViewController.h; sourceTree = "<group>"; };
+		770F3E9E20AD763C0023F2E7 /* SelectagViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelectagViewController.m; sourceTree = "<group>"; };
+		770F3E9F20AD763C0023F2E7 /* SelectagViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectagViewController.xib; sourceTree = "<group>"; };
+		770F3EA220AD81790023F2E7 /* SelecteTag.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SelecteTag.h; sourceTree = "<group>"; };
+		770F3EA320AD81790023F2E7 /* SelecteTag.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SelecteTag.m; sourceTree = "<group>"; };
 		7717E98F206B71530025DC73 /* DirectMessages.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DirectMessages.h; sourceTree = "<group>"; };
 		7717E990206B71530025DC73 /* DirectMessages.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DirectMessages.m; sourceTree = "<group>"; };
 		7717E992206B74B80025DC73 /* UserMessege.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserMessege.h; sourceTree = "<group>"; };
@@ -897,8 +909,6 @@
 		77723A3D2033E1AD006294E8 /* YZTagButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagButton.m; sourceTree = "<group>"; };
 		77723A3E2033E1AD006294E8 /* YZTagList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZTagList.h; sourceTree = "<group>"; };
 		77723A3F2033E1AD006294E8 /* YZTagList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZTagList.m; sourceTree = "<group>"; };
-		77723A42203EF219006294E8 /* SpecialityTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialityTag.h; sourceTree = "<group>"; };
-		77723A43203EF219006294E8 /* SpecialityTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialityTag.m; sourceTree = "<group>"; };
 		77723A45203FC0AF006294E8 /* CompanySigningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySigningViewController.h; sourceTree = "<group>"; };
 		77723A46203FC0AF006294E8 /* CompanySigningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySigningViewController.m; sourceTree = "<group>"; };
 		77723A47203FC0AF006294E8 /* CompanySigningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CompanySigningViewController.xib; sourceTree = "<group>"; };
@@ -1050,6 +1060,8 @@
 		77841EE020ABD7940099CA13 /* OpenDemandServiceViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenDemandServiceViewController.h; sourceTree = "<group>"; };
 		77841EE120ABD7940099CA13 /* OpenDemandServiceViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenDemandServiceViewController.m; sourceTree = "<group>"; };
 		77841EE220ABD7940099CA13 /* OpenDemandServiceViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OpenDemandServiceViewController.xib; sourceTree = "<group>"; };
+		77841EE520AC43280099CA13 /* BidDesginerList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BidDesginerList.h; sourceTree = "<group>"; };
+		77841EE620AC43280099CA13 /* BidDesginerList.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BidDesginerList.m; sourceTree = "<group>"; };
 		77848AD9202C4EAD00C0CCD2 /* InfomationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfomationModel.h; sourceTree = "<group>"; };
 		77848ADA202C4EAD00C0CCD2 /* InfomationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfomationModel.m; sourceTree = "<group>"; };
 		77848ADC202C4F1A00C0CCD2 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
@@ -1420,7 +1432,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				770B48BE20A9953000CD51A2 /* StoreKit.framework in Frameworks */,
 				77BB214B20722D85000CADC9 /* SystemConfiguration.framework in Frameworks */,
 				77BB214720721E7B000CADC9 /* UserNotifications.framework in Frameworks */,
 				77BB214920721F2C000CADC9 /* AdSupport.framework in Frameworks */,
@@ -1643,6 +1654,12 @@
 				77CE7C74202AE78E0067D284 /* InfomationTableViewCell.xib */,
 				77CE7C83202B02DF0067D284 /* AlertView.h */,
 				77CE7C84202B02DF0067D284 /* AlertView.m */,
+				770F3E9D20AD763C0023F2E7 /* SelectagViewController.h */,
+				770F3E9E20AD763C0023F2E7 /* SelectagViewController.m */,
+				770F3E9F20AD763C0023F2E7 /* SelectagViewController.xib */,
+				7708FDCC20AE7123005C86AD /* IntroductionViewController.h */,
+				7708FDCD20AE7123005C86AD /* IntroductionViewController.m */,
+				7708FDCE20AE7123005C86AD /* IntroductionViewController.xib */,
 				779E3694209C6609006BFB53 /* EditChannelListViewController.h */,
 				779E3695209C6609006BFB53 /* EditChannelListViewController.m */,
 				779E3696209C6609006BFB53 /* EditChannelListViewController.xib */,
@@ -2053,6 +2070,8 @@
 				77484AAD2021F26A00BAC567 /* HomeBanner.m */,
 				77484ABB2022F8C600BAC567 /* TagList.h */,
 				77484ABC2022F8C600BAC567 /* TagList.m */,
+				770F3EA220AD81790023F2E7 /* SelecteTag.h */,
+				770F3EA320AD81790023F2E7 /* SelecteTag.m */,
 				7777E55220294413008FA348 /* Leave.h */,
 				7777E55320294413008FA348 /* Leave.m */,
 				7777E55F2029F369008FA348 /* LeaveDetail.h */,
@@ -2077,8 +2096,6 @@
 				77848AF1202EE3C300C0CCD2 /* UserProduct.m */,
 				77848AF3202EE43E00C0CCD2 /* ProductTag.h */,
 				77848AF4202EE43E00C0CCD2 /* ProductTag.m */,
-				77723A42203EF219006294E8 /* SpecialityTag.h */,
-				77723A43203EF219006294E8 /* SpecialityTag.m */,
 				77F078AC2046A7CE004C0596 /* Marketing.h */,
 				77F078AD2046A7CE004C0596 /* Marketing.m */,
 				772F958B2054D0E500F432D2 /* Message.h */,
@@ -2141,6 +2158,8 @@
 				776C872520A14DB30045A934 /* CaseDesignerInfo.m */,
 				770B48BA20A9606300CD51A2 /* Userwallet.h */,
 				770B48BB20A9606300CD51A2 /* Userwallet.m */,
+				77841EE520AC43280099CA13 /* BidDesginerList.h */,
+				77841EE620AC43280099CA13 /* BidDesginerList.m */,
 				777AF1C7200DFB30009729AD /* AllModels.h */,
 			);
 			path = Models;
@@ -2872,6 +2891,7 @@
 				77907B17208B425D005FDE9D /* DirectionalDemandReleaseViewController.xib in Resources */,
 				7753C320208F3724009FF82C /* CustomRequirementsStateListCell.xib in Resources */,
 				77723ABE2043BB42006294E8 /* fanhui.png in Resources */,
+				7708FDD020AE7123005C86AD /* IntroductionViewController.xib in Resources */,
 				77723ABD2043BB42006294E8 /* delete_show.png in Resources */,
 				7777E5592029F026008FA348 /* LeaveDetailViewController.xib in Resources */,
 				7717E9A4206B878D0025DC73 /* DirectMessagesViewController.xib in Resources */,
@@ -2984,6 +3004,7 @@
 				775E31C720201822002107DD /* HotTableViewCell.xib in Resources */,
 				770D7712206236D2007601A8 /* EarningDetailViewController.xib in Resources */,
 				772F959D2056206A00F432D2 /* SetupProductViewController.xib in Resources */,
+				770F3EA120AD763C0023F2E7 /* SelectagViewController.xib in Resources */,
 				772F95B7205A48FB00F432D2 /* MyhotViewController.xib in Resources */,
 				772F958A2054C23C00F432D2 /* MessageTableViewCell.xib in Resources */,
 				77723A49203FC0AF006294E8 /* CompanySigningViewController.xib in Resources */,
@@ -3121,6 +3142,7 @@
 				77723A8D2043B702006294E8 /* OrganizationManagement.m in Sources */,
 				77CE7C75202AE78E0067D284 /* InfomationTableViewCell.m in Sources */,
 				77BE88AD208887B400C72617 /* CustomRequirementsStore.m in Sources */,
+				7708FDCF20AE7123005C86AD /* IntroductionViewController.m in Sources */,
 				770D765B206114A3007601A8 /* NSString+AttributedString.m in Sources */,
 				777AF1BD200DA2E5009729AD /* InterfaceBase.m in Sources */,
 				77484AB72022BB9200BAC567 /* LoginMannager.m in Sources */,
@@ -3131,7 +3153,6 @@
 				772FCDAF2099691900B833E2 /* CustomRequirementsCommentsViewController.m in Sources */,
 				77EF13122093033A000964A7 /* BiddingProduct.m in Sources */,
 				77369CD2200F52AF0092AEAC /* HotViewController.m in Sources */,
-				77723A44203EF219006294E8 /* SpecialityTag.m in Sources */,
 				77F078AE2046A7CE004C0596 /* Marketing.m in Sources */,
 				770D771A20623BBE007601A8 /* EarningDetailDataSource.m in Sources */,
 				770D7769206900D2007601A8 /* PopularizeDataSource.m in Sources */,
@@ -3356,11 +3377,13 @@
 				7792B71A201ACED800587399 /* HomeDataSource.m in Sources */,
 				772F95902054D2CF00F432D2 /* MessageStore.m in Sources */,
 				77369CA1200EF53A0092AEAC /* Global.m in Sources */,
+				770F3EA020AD763C0023F2E7 /* SelectagViewController.m in Sources */,
 				77484AD3202403C600BAC567 /* MyTabBar.m in Sources */,
 				77CE7C79202AEB570067D284 /* InfomationDataSource.m in Sources */,
 				77723AE92043BBB2006294E8 /* MSSBrowseModel.m in Sources */,
 				7753C31F208F3724009FF82C /* CustomRequirementsStateListCell.m in Sources */,
 				772F95AF20590D8B00F432D2 /* CommentListStore.m in Sources */,
+				770F3EA420AD81790023F2E7 /* SelecteTag.m in Sources */,
 				779E3697209C6609006BFB53 /* EditChannelListViewController.m in Sources */,
 				7777E56A202AE058008FA348 /* HomeSectionHeaderView.m in Sources */,
 				77DA833620187EEB00E7CB36 /* DesignerListViewCollectionViewCell.m in Sources */,
@@ -3402,6 +3425,7 @@
 				77E8A8812011DCB000E253CC /* View+MASAdditions.m in Sources */,
 				772F95892054C23C00F432D2 /* MessageTableViewCell.m in Sources */,
 				77E8A8542011997800E253CC /* ThemeCustomViewCollectionViewCell.m in Sources */,
+				77841EE720AC43280099CA13 /* BidDesginerList.m in Sources */,
 				77A436A3204533DD00620F58 /* OtherInfo.m in Sources */,
 				77369CCD200F52810092AEAC /* HomeViewController.m in Sources */,
 				77BE88BF2088AE7D00C72617 /* CustomRequirementsDetailViewController.m in Sources */,

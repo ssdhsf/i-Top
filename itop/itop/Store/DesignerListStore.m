@@ -53,7 +53,7 @@
 
 - (NSMutableArray *)configurationCustomRequirementsDegsinListWithRequstData:(NSArray *)desgin{
     
-        NSMutableArray *sectionArray = [NSMutableArray array];
+    NSMutableArray *sectionArray = [NSMutableArray array];
     
     for (NSDictionary *dic in desgin) {
         

@@ -15,14 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="130.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWF-F0-FbJ">
-                        <rect key="frame" x="254" y="27" width="50" height="15"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lWF-F0-FbJ">
+                        <rect key="frame" x="224" y="27" width="80" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="MzQ-C8-3zn"/>
-                            <constraint firstAttribute="width" constant="50" id="yt3-Ox-moB"/>
+                            <constraint firstAttribute="width" constant="80" id="yt3-Ox-moB"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.97647058823529409" green="0.6470588235294118" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,7 +52,7 @@
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="lWF-F0-FbJ" firstAttribute="leading" secondItem="5RF-nB-4ah" secondAttribute="trailing" constant="1" id="39F-zq-Eii"/>
+                    <constraint firstItem="lWF-F0-FbJ" firstAttribute="leading" secondItem="5RF-nB-4ah" secondAttribute="trailing" constant="-29" id="39F-zq-Eii"/>
                     <constraint firstAttribute="trailing" secondItem="eAI-IH-pbI" secondAttribute="trailing" constant="16" id="4Rd-Ut-tUG"/>
                     <constraint firstAttribute="trailing" secondItem="L8a-zC-XwS" secondAttribute="trailing" constant="16" id="FBK-Mg-Tsa"/>
                     <constraint firstItem="eAI-IH-pbI" firstAttribute="top" secondItem="L8a-zC-XwS" secondAttribute="bottom" constant="8" id="HaN-MF-alb"/>

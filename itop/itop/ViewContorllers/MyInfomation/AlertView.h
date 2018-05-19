@@ -23,7 +23,8 @@ typedef NS_ENUM(NSInteger, PickViewType) { //选择个人信息Type
     PickViewTypeChannel ,//修改渠道列表
     PickViewTypeDate, //选择时间
     PickViewTypeDesginer, //选择设计师 （定制需求）
-    PickViewTypeProduct//选择设计师作品 （定制需求）
+    PickViewTypeProduct,//选择设计师作品 （定制需求）
+    PickViewTypeIntroduction //简介
 };
 
 //typedef NS_ENUM(NSInteger, SignPickViewType) { //入驻Type

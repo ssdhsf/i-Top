@@ -15,6 +15,7 @@
 #import "CustomRequirementsCommentsViewController.h"
 #import "SubmitDisputesViewController.h"
 #import "DisputesViewController.h"
+#import "EditCaseStore.h"
 
 @interface CustomRequirementsStateDetailViewController ()<SegmentTapViewDelegate, UIScrollViewDelegate>
 
@@ -37,6 +38,17 @@
 @property (nonatomic, strong)CustomRequirementsComments *customRequirementsOtherComments;
 
 @property (strong, nonatomic) YZTagList *tagList;
+
+@property (nonatomic, strong)NSArray *desginList; // 所有设计师
+@property (nonatomic, strong)DesignerList *desgin;// 订单的设计师
+@property (nonatomic, strong)NSArray *desginProduct; // 设计师所有作品
+@property (nonatomic, strong)EditCase *selectCase;// 订单
+
+@property (nonatomic, strong)TagList *superTag; //选择行业 父级
+@property (nonatomic, strong)TagList *subTag; //选择行业 子级
+
+//@property (nonatomic, strong)CustomRequirementsComments *myComments;
+
 
 @end
 
@@ -62,13 +74,97 @@
         _customRequirementsDetail = [[CustomRequirementsDetail alloc]initWithDictionary:obj error:nil];
         weakSelf.customRequirementsDetail.demand.descrip = obj[@"demand"][@"description"];
         [weakSelf.dataArray addObjectsFromArray: [[CustomRequirementsStore shearCustomRequirementsStore] showPageTitleWithState:[_customRequirementsDetail.demand.demand_status integerValue] demandType:_demandType]];
-        [weakSelf initSegment];
-        [weakSelf setupOptionButton];
-        [weakSelf createScrollView];
-        [weakSelf initCheckStateView];
-        [weakSelf setupChildViewInContentView];
-       
+        
+        if (_demandType == DemandTypeBidding) { //竞标详情
+             [self loadingTag];
+        } else { //定制详情
+            
+            [self refreshDesginListData];
+        }
     };
+}
+
+-(void)refreshDesginListData{
+    
+    [[Global sharedSingleton] createProgressHUDInView:self.view withMessage:@"加载中..."];
+    [[UserManager shareUserManager]designerlistWithPageIndex:1 PageCount:1000000 designerListType:DesignerListTypeHome searchKey:nil];
+    [UserManager shareUserManager].designerlistSuccess = ^(NSArray * arr){
+        
+        self.desginList = [[DesignerListStore shearDesignerListStore] configurationMenuWithMenu:arr];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        
+            for (DesignerList *designer in self.desginList) {
+                
+                if ([designer.id isEqualToNumber: _customRequirementsDetail.demand.designer_user_id]) {
+                    _desgin = designer;
+                    [self refreshDesginProductDataWithDesginID:designer.id];
+                }
+        }
+    };
+}
+
+-(void)refreshDesginProductDataWithDesginID:(NSNumber *)desgin_id {
+    
+    [[Global sharedSingleton] createProgressHUDInView:self.view withMessage:@"加载中..."];
+    [[UserManager shareUserManager] myCaseListWithPageIndex:1 PageCount:10000 getCaseType:GetCaseTypeHome userId:desgin_id isShow:YES];
+    [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
+        
+        self.desginProduct = [[EditCaseStore shearEditCaseStore] configurationEditCaseStoreWithRequsData:arr];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
+        
+        for (EditCase *editCase in self.desginProduct) {
+                    
+            if ([editCase.id isEqualToNumber:_customRequirementsDetail.demand.demand_case_id]) {
+                _selectCase = editCase;
+            }
+        }
+        [self loadingTag];
+    };
+}
+
+-(void)loadingTag{
+    
+    if ([[CompanySigningStore shearCompanySigningStore]superTagList].count == 0) {
+        
+        [[UserManager shareUserManager]hometagListWithType:TagTypeTrade];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionIndustryWithRequstIndustryArray:arr];
+            [self setupTag];
+        };
+    } else {
+    
+        [self setupTag];
+    }
+}
+
+-(void)setupTag{
+    
+    NSString *segmentationString;
+    if ([_customRequirementsDetail.demand.trade rangeOfString:@","].location != NSNotFound) {
+        segmentationString = @",";//C端提交的格式  也是最终的格式
+    } else if ([_customRequirementsDetail.demand.trade rangeOfString:@"-"].location != NSNotFound){
+        segmentationString = @"-";  //B端提交的格式
+    }else if ([_customRequirementsDetail.demand.trade rangeOfString:@""].location != NSNotFound){
+        segmentationString = @"、"; //A端提交的格式
+    } else{
+        
+    }
+    if (![Global stringIsNullWithString:segmentationString]) {
+        
+        NSArray *tagArr = [_customRequirementsDetail.demand.trade componentsSeparatedByString:segmentationString];//行业
+        BOOL isChnese = [[Global sharedSingleton]hasChinese:tagArr[0]];
+        
+        _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+        
+        _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:isChnese ? tagArr[1] : [NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+    }
+    
+    [self initSegment];
+    [self setupOptionButton];
+    [self createScrollView];
+    [self initCheckStateView];
+    [self setupChildViewInContentView];
 }
 
 -(void)initNavigationBarItems{
@@ -85,7 +181,7 @@
     
     __weak typeof(self) weakSelf = self;
     
-    if ([_customRequirementsDetail.demand.demand_status integerValue] == CustomRequirementsTypeSucess && [[UserManager shareUserManager]crrentUserType ] == UserTypeDesigner ) {
+    if ([_customRequirementsDetail.demand.demand_status integerValue] == CustomRequirementsTypeSucess && [[UserManager shareUserManager]crrentUserType ] == UserTypeDesigner ) { //验收完成 设计师
         
         [[UserManager shareUserManager]demandDesginerCommentListWithId:_demand_id];
         [UserManager shareUserManager].customRequirementsCommentsDisginSuccess  = ^(NSArray *arr){
@@ -93,7 +189,7 @@
             [weakSelf addMyCommentsWithArray:arr];
         };
         
-    } else if ([_customRequirementsDetail.demand.demand_status integerValue] == CustomRequirementsTypeSucess && [[UserManager shareUserManager]crrentUserType ] == UserTypeEnterprise ) {
+    } else if ([_customRequirementsDetail.demand.demand_status integerValue] == CustomRequirementsTypeSucess && [[UserManager shareUserManager]crrentUserType ] == UserTypeEnterprise ) { //验收完成 企业
         
         [[UserManager shareUserManager]demandentErpriseCommentListWithId:_demand_id];
         [UserManager shareUserManager].customRequirementsCommentsCompanySuccess  = ^(NSArray *arr){
@@ -129,12 +225,15 @@
     
     for (CustomRequirementsComments *comments in commentArray) {
         
-        if ([comments.id isEqualToNumber:_customRequirementsDetail.demand.id] && [comments.user_id isEqualToNumber:_customRequirementsDetail.demand.user_id]) {
+        if ([comments.demand_id isEqualToNumber:_customRequirementsDetail.demand.id] && [comments.user_id isEqualToNumber:_customRequirementsDetail.demand.user_id]) {
             
             [self.dataArray addObject:@"我的评价"];
+             _customRequirementsMyComments = comments;
         }
     }
     
+    [self initSegment];
+    [self createScrollView];
     [self setupChildViewController];
     for (int i = 0; i < _dataArray.count; i++) {
         
@@ -225,11 +324,17 @@
         
         [UIManager customRequirementsReleaseViewControllerWithDemandAddType:DemandAddTypeOnEdit demandType:_demandType demand_id:customRequirements_id desginerId:nil productId:nil];
     }
-    if ([operationState isEqualToString:@"删除"] || [operationState isEqualToString:@"下架"] || [operationState isEqualToString:@"验收完成"]) {
+    if ([operationState isEqualToString:@"删除"] ||
+        [operationState isEqualToString:@"下架"] ||
+        [operationState isEqualToString:@"验收完成"] ||
+        [operationState isEqualToString:@"上架"] ||
+         [operationState isEqualToString:@"取消合作"]) {
         
         [[UserManager shareUserManager] operationCustomRequirementsWithId:customRequirements_id operation:operationState];
         [UserManager shareUserManager].customRequirementsSuccess = ^(id obj){
-            
+           
+            [self back];
+             [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
 //            [self refreshData];
         };
     }
@@ -245,21 +350,26 @@
             
             if (arr.count == 0) {
                
-                [UIManager submitDisputesViewControllerWithCustomId:_customRequirementsDetail.demand.id];
+                [UIManager submitDisputesViewControllerWithCustomId:_customRequirementsDetail.demand.id ];
                 
             } else {
                 
-                [UIManager disputesViewControllerWithCustomId:_customRequirementsDetail.demand.id];
+                [UIManager disputesViewControllerWithCustomId:_customRequirementsDetail.demand.id message:_message];
             }
         };
     }
     
     if ([operationState isEqualToString:@"评价"]) {
         
-
+        CommentType commentType = [[UserManager shareUserManager] crrentUserType] == UserTypeDesigner ? CommentTypeDemandDesginerToEnterprise : CommentTypeDemandEnterpriseToDesginer;
+        [UIManager commentPopularizeViewControllerWithCustomId:customRequirements_id commentType:commentType];
+    }
+    
+    if ([operationState isEqualToString:@"作品上传"]) {
+        
+        [UIManager uploadProductLinkViewControllerWithDemandId:customRequirements_id userId:[[UserManager shareUserManager]crrentUserId]];
     }
 }
-
 
 - (void)setupChildViewController{
 
@@ -268,16 +378,20 @@
         if ([string isEqualToString:@"订单"]) {
             
             CustomRequirementsDetailTabelViewController *oneVc = [[CustomRequirementsDetailTabelViewController alloc]init];
-            NSArray *array = [[CustomRequirementsStore shearCustomRequirementsStore]configurationCustomRequirementsDetailWithMenu:_customRequirementsDetail];
+            
+            NSString*teader = [NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name];
+             NSArray *array = [[CustomRequirementsStore shearCustomRequirementsStore]configurationMyCustomRequirementsDetailWithMenu:_customRequirementsDetail demandType:_demandType desginer:_desgin editCase:_selectCase teader:teader];
+             [oneVc.dataArray addObjectsFromArray: array];
             _customRequirementsDetaiVc = oneVc;
-            [oneVc.dataArray addObjectsFromArray: array];
             [self addChildViewController:_customRequirementsDetaiVc];
         }
         
         if ([string isEqualToString:@"投标"]) {
             
             CustomRequirementsDesginListViewController *twoVc = [[CustomRequirementsDesginListViewController alloc]init];
+            twoVc.demant_id = _customRequirementsDetail.demand.id;
             _customRequirementsDesginList = twoVc;
+            
             [twoVc.dataArray  addObject:[[DesignerListStore shearDesignerListStore]configurationCustomRequirementsDegsinListWithRequstData:_customRequirementsDetail.designer_list]];
             [self addChildViewController:_customRequirementsDesginList];
         }
@@ -287,6 +401,11 @@
             product.demant_id = _customRequirementsDetail.demand.id;
             _biddingProductListVc = product;
             [self addChildViewController:_biddingProductListVc];
+            [UIManager sharedUIManager].uploadProductBackOffBolck = ^ (id obj){
+              
+                [_biddingProductListVc initData];
+                
+            };
         }
         
         if ([string isEqualToString:@"设计师评价"] || [string isEqualToString:@"客户评价"]) {

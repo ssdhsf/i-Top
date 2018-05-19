@@ -17,7 +17,7 @@
 @property (strong ,nonatomic)NSString <Optional>*img;
 @property (strong ,nonatomic)NSString <Optional>*remark;
 @property (strong ,nonatomic)NSString <Optional>*create_datetime;
-
+//@property (strong ,nonatomic)NSString <Optional>*message;
 //"id": 27,
 //"demand_id": 92,
 //"user_id": 81,

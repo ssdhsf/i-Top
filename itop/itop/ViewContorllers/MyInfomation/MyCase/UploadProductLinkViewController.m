@@ -206,7 +206,7 @@ static NSString *const UploadProductLinkCellIdentifier = @"UploadProductLink";
 
 -(void)alertOperation{
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"添加案例成功" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"上传作品成功" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续发布" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"离开" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
@@ -214,6 +214,10 @@ static NSString *const UploadProductLinkCellIdentifier = @"UploadProductLink";
         if([UIManager sharedUIManager].uploadProductBackOffBolck){
            
             [UIManager sharedUIManager].uploadProductBackOffBolck(nil);
+        }
+        
+        if ([UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck) {
+            [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
         }
     }];
     [alertController addAction:cancelAction];

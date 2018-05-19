@@ -19,5 +19,5 @@
 
 @property(nonatomic,weak)id<CustomRequirementsDesginListViewControllerDelegate> delegate;
 //@property(strong,nonatomic)NSArray *array;
-
+@property (strong, nonatomic)NSNumber *demant_id;
 @end

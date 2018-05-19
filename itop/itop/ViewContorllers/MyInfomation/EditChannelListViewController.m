@@ -52,6 +52,15 @@ static NSString *const EditChannelListCellIdentifier = @"EditChannelList";
     [self setupViews];
 }
 
+-(void)initData{
+    
+    [super initData];
+    if (self.dataArray.count == 0) {
+        ChannelList *channel = [[ChannelList alloc]init];
+        [self.dataArray addObject:channel];
+    }
+}
+
 -(void)setupViews{
     
     _addChannelButton.frame = CGRectMake(100, 42, ScreenWidth-120, 30);

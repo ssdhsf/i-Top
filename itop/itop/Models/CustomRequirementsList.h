@@ -34,6 +34,8 @@
 @property (nonatomic, strong)NSString <Optional>*short_name;
 @property (nonatomic, strong)NSString <Optional>*title;
 @property (nonatomic, strong)NSString <Optional>*trade;
+@property (nonatomic, strong)NSNumber <Optional>*intervention_user_id;
+@property (nonatomic, strong)NSString <Optional>*message;
 //"check_status" = 0;
 //city = "<null>";
 //"contact_name" = "\U963f\U7fd4";

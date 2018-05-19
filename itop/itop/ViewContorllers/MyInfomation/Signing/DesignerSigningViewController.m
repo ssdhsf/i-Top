@@ -42,7 +42,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *agreedbutton;
 @property (weak, nonatomic) IBOutlet UIView *agreedView;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-//@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
 
 @property (strong, nonatomic) H5List *select_h5;
 @property (strong, nonatomic) UIImageView *h5_cover;
@@ -64,15 +63,24 @@
     _views = [[NSBundle mainBundle] loadNibNamed:@"DesignerSigningViewController" owner:self options:nil];
     self.view = [_views firstObject];
     _tagArray = [NSMutableArray array];
-    for (NSString *tag in [[DesignerSigningStore shearDesignerSigningStore]fieldArray]) {
+    if ([[CompanySigningStore shearCompanySigningStore]fieldList].count == 0) {
         
-        SpecialityTag *specialityTag = [[SpecialityTag alloc]init];
-        specialityTag.tag = tag;
-        specialityTag.selecteTag = NO;
-        [_tagArray addObject:specialityTag];
+        [[UserManager shareUserManager]hometagListWithType:TagTypeField];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionFieldWithRequstFieldArray:arr];
+            [_tagArray addObjectsFromArray:[[CompanySigningStore shearCompanySigningStore]fieldList]];
+            [self addkeywordsViewWithkeywords:_tagArray];
+        };
+    } else {
+        
+        [_tagArray addObjectsFromArray:[[CompanySigningStore shearCompanySigningStore]fieldList]];
+        for (TagList *tag in _tagArray) {
+            tag.selecteTag.selecteTag = NO;
+        }
+        [self addkeywordsViewWithkeywords:_tagArray];
     }
-//    [self buttonSublayer];
-    [self addkeywordsViewWithkeywords:_tagArray];
+
     [self setupViews];
 }
 
@@ -101,13 +109,6 @@
     _submitButton.layer.masksToBounds = YES;
     [_submitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitButton)];
     _submitButton.layer.cornerRadius = _submitButton.height/2;
-    
-    _nextButton.layer.masksToBounds = YES;
-    _nextButton.layer.cornerRadius = _nextButton.height/2;
-    _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
-//    _nextButton.frame = CGRectMake(self.view.centerX-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
-//    _nextButton.centerX = self.view.centerX;
-    [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
    
     [_uploadButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_uploadButton)];
     _uploadButton.layer.masksToBounds = YES;
@@ -206,18 +207,18 @@
     _tagList.fieldTagBlock = ^ (NSString *tag, BOOL select){
         
         NSInteger selectNumber = 0 ;
-        for (SpecialityTag *sTag in weakSelf.tagArray) {
-            if (sTag.selecteTag ==YES) {
+        for (TagList *sTag in weakSelf.tagArray) {
+            if (sTag.selecteTag.selecteTag ==YES) {
                 
                 selectNumber ++;
             }
         }
         if (selectNumber == 3) {
             
-            for (SpecialityTag *sTag in weakSelf.tagArray) {
-                if ([sTag.tag isEqualToString:tag]  && sTag.selecteTag == YES) {
+            for (TagList *sTag in weakSelf.tagArray) {
+                if ([sTag.name isEqualToString:tag]  && sTag.selecteTag.selecteTag == YES) {
                     
-                    sTag.selecteTag = !sTag.selecteTag;
+                    sTag.selecteTag.selecteTag = !sTag.selecteTag.selecteTag;
                     [weakSelf addkeywordsViewWithkeywords:weakSelf.tagArray];
                     return ;
                 }
@@ -226,10 +227,10 @@
             return ;
         }else {
         
-            for (SpecialityTag *sTag in weakSelf.tagArray) {
-                if ([sTag.tag isEqualToString:tag]) {
+            for (TagList *sTag in weakSelf.tagArray) {
+                if ([sTag.name isEqualToString:tag]) {
                     
-                    sTag.selecteTag = !sTag.selecteTag;
+                    sTag.selecteTag.selecteTag = !sTag.selecteTag.selecteTag;
                 }
             }
             
@@ -237,6 +238,11 @@
         [weakSelf addkeywordsViewWithkeywords:weakSelf.tagArray];
         NSLog(@"%@",tag);
     };
+    
+    _nextButton.layer.masksToBounds = YES;
+    _nextButton.layer.cornerRadius = _nextButton.height/2;
+    _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
+    [_nextButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton) atIndex:0];
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
@@ -291,8 +297,8 @@
     }
 
     NSInteger selectNumber = 0 ;
-    for (SpecialityTag *sTag in self.tagArray) {
-        if (sTag.selecteTag ==YES) {
+    for (TagList *sTag in self.tagArray) {
+        if (sTag.selecteTag.selecteTag ==YES) {
             
             selectNumber ++;
         }
@@ -453,22 +459,22 @@
             [parameters setObject:_select_h5.url forKey:@"Url"];
         }
         
-        if ([Global stringIsNullWithString:_productLinkTF.text]) {
+        if (![Global stringIsNullWithString:_productLinkTF.text]) {
             
             [parameters setObject:_productLinkTF.text forKey:@"Attachment"];
         }
     }
 
     NSString *field ;
-    for (SpecialityTag *sTag in self.tagArray) {
-        if (sTag.selecteTag ==YES) {
+    for (TagList *sTag in self.tagArray) {
+        if (sTag.selecteTag.selecteTag == YES) {
             
             if (field == nil) {
                 
-                field = [NSString stringWithFormat:@"%@",sTag.tag];
+                field = [NSString stringWithFormat:@"%@",sTag.id];
             } else {
                 
-                field = [NSString stringWithFormat:@"%@,%@",field,sTag.tag];
+                field = [NSString stringWithFormat:@"%@,%@",field,sTag.id];
             }
         }
     }
@@ -476,8 +482,8 @@
     [parameters setObject:_nameTF.text forKey:@"Name"];
     [parameters setObject:_mobiliTF.text forKey:@"Phone"];
     [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
-    [parameters setObject:_province.code forKey:@"Province"];
-    [parameters setObject:_city.code forKey:@"City"];
+    [parameters setObject:_province.code forKey:@"Province_code"];
+    [parameters setObject:_city.code forKey:@"City_code"];
     [parameters setObject:field forKey:@"Field"];
     
     [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeDesigner];

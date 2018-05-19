@@ -37,11 +37,6 @@
     [super initView];
     [self initSegment];
     [self createScrollView];
-    [UIManager sharedUIManager].customRequirementsBackOffBolck = ^(id obj){
-        
-        [self back];
-        [UIManager sharedUIManager].customRequirementsRequestDataBackOffBolck(nil);
-    };
 }
 
 -(void)viewWillAppear:(BOOL)animated{

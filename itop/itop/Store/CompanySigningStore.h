@@ -35,4 +35,6 @@
 -(TagList *)subTagWithTagId:(NSNumber *)tag_id superTagId:(NSNumber *)superTagId;//获取某个子行业
 
 -(TagList *)fieldWithTagId:(NSNumber *)tag_id;//获取某个擅长领域
+
+-(NSString *)fieldsWithTagId:(NSString *)tag_id; //获取标签
 @end
