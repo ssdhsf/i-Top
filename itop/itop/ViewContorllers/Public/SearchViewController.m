@@ -270,7 +270,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
                 [UIManager designerListWithDesignerListType:DesignerListTypeHome searchKey:_searchBar.text];
             } else {
                 
-                [UIManager recommendedViewControllerWithGetArticleListType:GetArticleListTypeHot searchKey:nil];// searchKey暂时没有搜索数据   传空可已获取 测试数据
+                [UIManager recommendedViewControllerWithGetArticleListType:GetArticleListTypeHot searchKey:_searchBar.text];// searchKey暂时没有搜索数据   传空可已获取 测试数据
             }
         };
         infView.titleLbl.text = home.itemHeader;

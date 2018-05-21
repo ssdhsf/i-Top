@@ -37,9 +37,9 @@
     self.commentsLabel.text = recommended.comment_count;
     [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:ArticlePlaceholderImage];
     
-    [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:ArticlePlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        NSLog(@"%f--%f",self.hotImage.image.size.width,self.hotImage.image.size.height);
-    }];
+//    [self.hotImage sd_setImageWithURL:[NSURL URLWithString:recommended.cover_img] placeholderImage:ArticlePlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+//        NSLog(@"%f--%f",self.hotImage.image.size.width,self.hotImage.image.size.height);
+//    }];
     
     [self setupStateLableWithGetArticleListType:getArticleListType recommended:recommended];
     self.hotImage.clipsToBounds = YES;

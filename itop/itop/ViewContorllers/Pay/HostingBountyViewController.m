@@ -45,6 +45,7 @@
     _confirmPayButton.layer.masksToBounds = YES;
     _confirmPayButton.layer.cornerRadius = _confirmPayButton.height/2;
     
+    _moneyTF.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
     _moneyTF.delegate = self;
 }
 
@@ -55,6 +56,12 @@
 }
 
 - (IBAction)confirmPay:(UIButton *)sender {
+    
+    if([Global stringIsNullWithString:_moneyTF.text]){
+       
+        [self showToastWithMessage:@"请输入金额"];
+        return;
+    }
     
     if ([self compareInputPrice]) {
         

@@ -142,13 +142,13 @@ _errorFailure(__id_obj); }
 #pragma mark - 续命
 - (void)continueWithToken{
     
-    SHOW_GET_DATA
+//    SHOW_GET_DATA
     NSString *api = @"/api/user/getuserstatus";
     NSString *token = [[[self class]shareUserManager]crrentUserInfomation].token;
     NSDictionary *parameters = @{@"token" : token};
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
-        HIDDEN_GET_DATA
+//        HIDDEN_GET_DATA
         if ([object isKindOfClass:[NSError class]]) {
             
             [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
@@ -165,7 +165,7 @@ _errorFailure(__id_obj); }
         
     } failure:^(NSError *error) {
         
-        HIDDEN_GET_DATA
+//        HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
 }
@@ -958,7 +958,7 @@ _errorFailure(__id_obj); }
     if (type == ArticleTypeLocal) { //本地
         
         Province *city = [[CompanySigningStore shearCompanySigningStore]cityWithCityCode:[MapLocationManager sharedMapLocationManager].location provinceCode:[MapLocationManager sharedMapLocationManager].province];
-        [parameters setObject:city.code forKey:@"City_code"];
+        [parameters setObject:city.code ? city.code : @"440100" forKey:@"City_code"];
     }
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {

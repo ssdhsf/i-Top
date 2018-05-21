@@ -11,7 +11,7 @@
 /**
  *  滚动时间间隔 可以自己修改
  */
-static double continueTokenInterval = 10.0f;
+static double continueTokenInterval = 600.0f;
 
 @interface LoginMannager : NSObject
 

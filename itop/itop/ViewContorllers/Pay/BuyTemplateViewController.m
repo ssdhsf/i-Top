@@ -29,6 +29,12 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+-(void)initNavigationBarItems{
+    
+    [super initNavigationBarItems];
+    self.title = @"托管赏金" ;
+}
+
 -(void)initData{
     
     

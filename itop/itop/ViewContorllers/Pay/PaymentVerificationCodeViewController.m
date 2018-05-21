@@ -71,7 +71,7 @@ static NSString *const DEMAND = @"7"; //定制需求
 -(void)sendVerificationCode{
     
     if([_codeButton.titleLabel.text isEqualToString:@"获取验证码"]){
-        [[UserManager shareUserManager]getVerificationCodeWithPhone:[[UserManager shareUserManager]crrentUserInfomation].phone];
+        [[UserManager shareUserManager]getVerificationCodeWithPhone:[[UserManager shareUserManager]crrentUserInfomation].phone ? [[UserManager shareUserManager]crrentUserInfomation].phone : @"" ];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){
             
             _descriptionLabel.text = [NSString stringWithFormat:@"i-Top已经向您的%@的手机发送短信验证码，请输入验证码完成支付",[self hiddenMobili]];

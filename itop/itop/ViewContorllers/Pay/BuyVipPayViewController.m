@@ -8,7 +8,6 @@
 
 #import "BuyVipPayViewController.h"
 
-
 static NSString *const PINK_DIMAOND = @"6000";   // 粉钻
 static NSString *const BLUE_DIMAOND = @"16000";   // 蓝钻
 static NSString *const BLACK_DIMAOND = @"26000";   // 黑钻
