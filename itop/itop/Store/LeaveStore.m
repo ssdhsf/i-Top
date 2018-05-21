@@ -25,8 +25,12 @@
     NSMutableArray *sectionArray = [NSMutableArray array];
     for (NSDictionary *dic in menu) {
         
+        
         Leave *leave = [[Leave alloc]initWithDictionary:dic error:nil];
+        NSString *strUrl = [dic[@"json_result"] stringByReplacingOccurrencesOfString:@"\\" withString: @""];
+        leave.json_result = [[LeaveDetail alloc]initWithString:strUrl error:nil];
         [sectionArray addObject:leave];
+        
     }
     
 #ifdef DEBUG

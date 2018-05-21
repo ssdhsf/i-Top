@@ -87,24 +87,39 @@
             make.height.mas_equalTo(21);
             make.top.mas_equalTo(163);
         }];
-        userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
-        if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {
+        if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
             
-            NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
-            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].name;
+        } else {
+            
+            userNameLabel.text = [[UserManager shareUserManager]crrentUserInfomation].user_info.nickname;
+        }
+        if ([[UserManager shareUserManager]crrentInfomationModel] != nil) {//修改个人信息的缓存
+            
+            NSString *headView = [[UserManager shareUserManager]crrentInfomationModel].user_info.head_img;
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 [info setImage:info.imageView.image forState:UIControlStateNormal];
             }];
-            userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].name;
-        }else if ([[UserManager shareUserManager]crrentUserInfomation] != nil) {
+            
+            if ([[UserManager shareUserManager]crrentUserType] == UserTypeEnterprise) {
+                
+                 userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].name;
+            } else {
+                
+                userNameLabel.text = [[UserManager shareUserManager]crrentInfomationModel].user_info.nickname;
+            }
+ 
+        }else if ([[UserManager shareUserManager]crrentUserInfomation] != nil) { //未修改个人信息用登录返回的个人信息
+            
             NSString *headView = [[UserManager shareUserManager]crrentUserInfomation].user_info.head_img;
-            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:[UIImage imageNamed:@"default_man"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            [info.imageView sd_setImageWithURL:[NSURL URLWithString:headView] placeholderImage:PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
                 
                 [info setImage:info.imageView.image forState:UIControlStateNormal];
             }];
         } else {
             
-             [info setImage:[UIImage imageNamed:@"default_man"] forState:UIControlStateNormal];
+             [info setImage:PlaceholderImage forState:UIControlStateNormal];
              userNameLabel.text = @"点击登陆";
         }
        
@@ -114,7 +129,7 @@
     }
     _titleLbl = UILabel.new;
     [self addSubview:_titleLbl];
-    _titleLbl.text = section == 0?  @"我的" : @"i-Top";
+    _titleLbl.text = section == 0? @"我的" : @"i-Top";
     _titleLbl.font = [UIFont systemFontOfSize:16];
     _titleLbl.textColor = [UIColor blackColor];
     [_titleLbl mas_makeConstraints:^(MASConstraintMaker *make){

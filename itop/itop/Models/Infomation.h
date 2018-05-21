@@ -15,6 +15,6 @@
 @property(nonatomic, strong) NSString *content;
 @property(nonatomic) BOOL isEdit; //是否可以编辑
 @property(nonatomic ,strong) NSString *sendKey; //提交的Key
-@property(nonatomic ,assign) PickViewType pickViewType; //提交的Key
+@property(nonatomic ,assign) PickViewType pickViewType; //选择类型
 
 @end

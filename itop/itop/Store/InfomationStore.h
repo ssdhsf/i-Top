@@ -21,5 +21,6 @@
 //- (NSString*)provinceAppdingCity:(NSString *)province city:(NSString *)city;
 
 -(NSArray *)sexArray;
+-(NSString *)userVersionWithVersion:(NSString*)version;//企业等级
 
 @end

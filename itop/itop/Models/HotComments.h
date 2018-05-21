@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString <Optional>*parent_id;
 @property (nonatomic, strong) NSString <Optional>*create_datetime;
 @property (nonatomic, strong) NSString <Optional>*replyString;
+
 //{
 //    "id": 0,
 //    "user_head_img": "string",

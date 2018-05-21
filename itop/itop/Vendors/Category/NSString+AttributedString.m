@@ -75,4 +75,18 @@
     return size.height;
 }
 
+-(NSMutableAttributedString *)setupAttributedString:(CGFloat)stringNumber color:(UIColor*)color string:(NSString *)string {
+    
+    NSString *price = string;
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:price];
+    //设置范围
+    NSRange range1 = NSMakeRange(0, 1);
+    //为某一范围内文字设置多个属性
+    NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+                           color, NSForegroundColorAttributeName,
+                           [UIFont systemFontOfSize:stringNumber], NSFontAttributeName,  nil];
+    [str setAttributes:attrs range:range1];
+    return str;
+}
+
 @end

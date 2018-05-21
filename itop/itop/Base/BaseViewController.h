@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, NoDataType) { //无数据类型
 @property (nonatomic, strong) UIImageView *showImg;
 @property (nonatomic, strong) UILabel *tipsLab;
 @property (nonatomic, assign) NSInteger originY;
+@property (nonatomic, strong) NSString *tipsMessage;
 @property (nonatomic, assign) NoDataType noDataType;
 
 

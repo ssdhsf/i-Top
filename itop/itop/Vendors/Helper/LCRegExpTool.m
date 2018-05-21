@@ -123,7 +123,7 @@
                                longest:(NSInteger)longest
                               password:(NSString *)pwd
 {
-    NSString *regEx =[NSString stringWithFormat:@"^[a-zA-Z0-9]{%ld,%ld}+$", shortest, longest];
+    NSString *regEx =[NSString stringWithFormat:@"^(?=.*[0-9])(?=.*[a-zA-Z])(.{%ld,%ld})$", shortest, longest];
     return [self baseCheckForRegEx:regEx data:pwd];
 }
 

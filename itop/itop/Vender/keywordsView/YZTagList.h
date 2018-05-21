@@ -126,13 +126,21 @@
 - (void)addFieldTag:(NSArray *)tagArray action:(SEL)action;
 
 /**
- *  删除标签
+ *  添加搜索标签
  *
  *  @param tagArray 标签文字
  *  @param action 标签的方法
  */
 - (void)addSearchListTag:(NSArray *)tagArray action:(SEL)action;
 
+
+/**
+ *  添加订单状态操作标签
+ *
+ *  @param tagArray 标签文字
+ *  @param action 点击标签的方法
+ */
+- (void)addOperationDemandListTag:(NSArray *)tagArray action:(SEL)action;
 
 /**
  *  点击设计师领域标签，执行Block
@@ -144,5 +152,11 @@
  */
 
 @property (nonatomic, strong) void(^searchListTagBlock)(NSString *tag);
+
+/**
+ *  点击搜索历史标签，执行Block
+ */
+@property (nonatomic, strong) void(^operationDemandListTagBlock)(NSString *tag);
+
 
 @end

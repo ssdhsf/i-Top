@@ -8,10 +8,8 @@
 
 #import "DesignerSigningViewController.h"
 #import "DesignerSigningStore.h"
+#import "CompanySigningStore.h"
 //#import <FileProvider/FileProvider.h>
-
-
-//#define TIPSMESSEGE(__CONTENT) [NSString stringWithFormat:@"请输入%@",__CONTENT]
 
 @interface DesignerSigningViewController ()<UIDocumentPickerDelegate,UIDocumentMenuDelegate>
 
@@ -26,6 +24,14 @@
 @property (weak, nonatomic) IBOutlet UITextField *mobiliTF;
 @property (weak, nonatomic) IBOutlet UITextField *verificationCodeTF;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UIButton *selectProvinceButton;
+
+@property (nonatomic, strong)NSArray *provinceArray; // 省份
+@property (nonatomic, strong)NSArray *cityArray;//城市
+@property (nonatomic, strong)Province *province; //选择省份
+@property (nonatomic, strong)Province *city; //选择的城市
+@property (nonatomic, strong)AlertView *alertView; //弹窗
+@property (assign, nonatomic) NSInteger selectButtonTag; //选中的tag
 
 //上传作品页面
 @property (weak, nonatomic) IBOutlet UIButton *selectItopProductButton;
@@ -36,12 +42,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *agreedbutton;
 @property (weak, nonatomic) IBOutlet UIView *agreedView;
 @property (weak, nonatomic) IBOutlet UIButton *submitButton;
-//@property (strong, nonatomic) CAShapeLayer *currentShapeLayer;
 
 @property (strong, nonatomic) H5List *select_h5;
 @property (strong, nonatomic) UIImageView *h5_cover;
 @property (strong, nonatomic) CAShapeLayer *currentH5ShapeLayer;
-
 @property (strong, nonatomic) UIDocumentPickerViewController *documentPicker;
 
 @end
@@ -55,20 +59,39 @@
 
 -(void)initView{
     
+    [super initView];
     _views = [[NSBundle mainBundle] loadNibNamed:@"DesignerSigningViewController" owner:self options:nil];
     self.view = [_views firstObject];
     _tagArray = [NSMutableArray array];
-    for (NSString *tag in [[DesignerSigningStore shearDesignerSigningStore]fieldArray]) {
+    if ([[CompanySigningStore shearCompanySigningStore]fieldList].count == 0) {
         
-        SpecialityTag *specialityTag = [[SpecialityTag alloc]init];
-        specialityTag.tag = tag;
-        specialityTag.selecteTag = NO;
-        [_tagArray addObject:specialityTag];
+        [[UserManager shareUserManager]hometagListWithType:TagTypeField];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionFieldWithRequstFieldArray:arr];
+            [_tagArray addObjectsFromArray:[[CompanySigningStore shearCompanySigningStore]fieldList]];
+            [self addkeywordsViewWithkeywords:_tagArray];
+        };
+    } else {
+        
+        [_tagArray addObjectsFromArray:[[CompanySigningStore shearCompanySigningStore]fieldList]];
+        for (TagList *tag in _tagArray) {
+            tag.selecteTag.selecteTag = NO;
+        }
+        [self addkeywordsViewWithkeywords:_tagArray];
     }
-//    [self buttonSublayer];
-    [self addkeywordsViewWithkeywords:_tagArray];
+
     [self setupViews];
 }
+
+-(void)initData{
+    
+    [super initData];
+    _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
+    Province *province = _provinceArray[0];
+    _cityArray = province.cityArray;
+}
+
 
 -(void)viewWillAppear:(BOOL)animated{
     
@@ -86,13 +109,6 @@
     _submitButton.layer.masksToBounds = YES;
     [_submitButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitButton)];
     _submitButton.layer.cornerRadius = _submitButton.height/2;
-    
-    _nextButton.layer.masksToBounds = YES;
-    _nextButton.layer.cornerRadius = _nextButton.height/2;
-    _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
-//    _nextButton.frame = CGRectMake(self.view.centerX-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
-//    _nextButton.centerX = self.view.centerX;
-    [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
    
     [_uploadButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_uploadButton)];
     _uploadButton.layer.masksToBounds = YES;
@@ -109,6 +125,65 @@
 -(void)initNavigationBarItems{
     
     self.title = @"入驻申请";
+}
+
+- (IBAction)selectItem:(UIButton *)sender {
+    
+    _selectButtonTag = sender.tag;
+    [self showAlertViewWithItem:sender];
+}
+
+
+-(void)showAlertViewWithItem:(UIButton*)button{
+    
+    NSString *string = [NSString stringWithFormat:@"请选择%@",button.titleLabel.text];
+    
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (button.tag) {
+    
+        case PickViewTypeProvince:
+            superArray = _provinceArray;
+            subArray = _cityArray;
+            break;
+        default:
+            break;
+    }
+    
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                         message:nil
+                                         sureBtn:@"确定"
+                                       cancleBtn:@"取消"
+                                    pickViewType:button.tag
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
+        
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
+    };
+    
+    if ([button.titleLabel.text  rangeOfString:@"请选择"].location  == NSNotFound) {
+        [_alertView setupPickViewWithContent:button.titleLabel.text];
+    }
+    [_alertView showXLAlertView];
+}
+
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
+    
+    switch (_selectButtonTag) {
+        case PickViewTypeProvince:
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
+            [_selectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 -(void)addkeywordsViewWithkeywords:(NSArray *)keywords{
@@ -132,18 +207,18 @@
     _tagList.fieldTagBlock = ^ (NSString *tag, BOOL select){
         
         NSInteger selectNumber = 0 ;
-        for (SpecialityTag *sTag in weakSelf.tagArray) {
-            if (sTag.selecteTag ==YES) {
+        for (TagList *sTag in weakSelf.tagArray) {
+            if (sTag.selecteTag.selecteTag ==YES) {
                 
                 selectNumber ++;
             }
         }
         if (selectNumber == 3) {
             
-            for (SpecialityTag *sTag in weakSelf.tagArray) {
-                if ([sTag.tag isEqualToString:tag]  && sTag.selecteTag == YES) {
+            for (TagList *sTag in weakSelf.tagArray) {
+                if ([sTag.name isEqualToString:tag]  && sTag.selecteTag.selecteTag == YES) {
                     
-                    sTag.selecteTag = !sTag.selecteTag;
+                    sTag.selecteTag.selecteTag = !sTag.selecteTag.selecteTag;
                     [weakSelf addkeywordsViewWithkeywords:weakSelf.tagArray];
                     return ;
                 }
@@ -152,10 +227,10 @@
             return ;
         }else {
         
-            for (SpecialityTag *sTag in weakSelf.tagArray) {
-                if ([sTag.tag isEqualToString:tag]) {
+            for (TagList *sTag in weakSelf.tagArray) {
+                if ([sTag.name isEqualToString:tag]) {
                     
-                    sTag.selecteTag = !sTag.selecteTag;
+                    sTag.selecteTag.selecteTag = !sTag.selecteTag.selecteTag;
                 }
             }
             
@@ -163,19 +238,24 @@
         [weakSelf addkeywordsViewWithkeywords:weakSelf.tagArray];
         NSLog(@"%@",tag);
     };
+    
+    _nextButton.layer.masksToBounds = YES;
+    _nextButton.layer.cornerRadius = _nextButton.height/2;
+    _nextButton.frame = CGRectMake(ScreenWidth/2-65,CGRectGetMaxY(_tagList.frame)+30,130 , 35);
+    [_nextButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton) atIndex:0];
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    if ([Global stringIsNullWithString:_mobiliTF.text]) {
-        
-        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
-        return;
-    }
     [_mobiliTF resignFirstResponder];
     [_verificationCodeTF resignFirstResponder];
     [_nameTF resignFirstResponder];
-    
+
+    if([Global stringIsNullWithString:_mobiliTF.text] || ![LCRegExpTool lc_checkingMobile:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:@"请输入正确的手机号码"];
+        return;
+    }
     if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
         [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){
@@ -190,14 +270,6 @@
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
         return;
     }
-
-    
-//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
-//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
-//        
-//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-//        NSLog(@"%@",obj);
-//    };
 }
 
 - (IBAction)next:(UIButton *)sender {
@@ -218,10 +290,15 @@
         [self showToastWithMessage:TIPSMESSEGE(@"验证码")];
         return;
     }
+    if (!_province) {
+        
+        [self showToastWithMessage:TIPSMESSEGESELECT(@"地区")];
+        return;
+    }
 
     NSInteger selectNumber = 0 ;
-    for (SpecialityTag *sTag in self.tagArray) {
-        if (sTag.selecteTag ==YES) {
+    for (TagList *sTag in self.tagArray) {
+        if (sTag.selecteTag.selecteTag ==YES) {
             
             selectNumber ++;
         }
@@ -233,7 +310,7 @@
         return;
     }
     
-    self.view  = [_views lastObject];
+    self.view  = _views[1] ;
 }
 
 - (IBAction)agreedProtcol:(UIButton *)sender {
@@ -260,7 +337,7 @@
         
         _select_h5 = h5;
         _h5_cover = [[UIImageView alloc]init];
-        [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:[UIImage imageNamed:@"h5"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        [_h5_cover sd_setImageWithURL:[NSURL URLWithString:h5.cover_img] placeholderImage:H5PlaceholderImage completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             
             [_selectItopProductButton setImage:_h5_cover.image forState:UIControlStateNormal];
             [_currentH5ShapeLayer removeFromSuperlayer];
@@ -341,7 +418,7 @@
 
 -(void)back{
     
-    if (self.view == [_views lastObject]) {
+    if (self.view == _views[1] ) {
         
         self.view  = [_views firstObject];
     }else {
@@ -364,20 +441,40 @@
 }
 
 - (IBAction)submit:(UIButton *)sender {
-    
+
+    if (!_agreedbutton.selected) {
+        
+        [self showToastWithMessage:@"必须同意i-Top协议才能入驻申请"];
+        return;
+    }
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
-    
+    if (_select_h5 == nil && [Global stringIsNullWithString:_productLinkTF.text]) {
+        
+        [self showToastWithMessage:@"请至少选择一个作品或者作品链接"];
+        
+    } else {
+        if (_select_h5 != nil) {
+            
+            [parameters setObject:_select_h5.url forKey:@"Url"];
+        }
+        
+        if (![Global stringIsNullWithString:_productLinkTF.text]) {
+            
+            [parameters setObject:_productLinkTF.text forKey:@"Attachment"];
+        }
+    }
+
     NSString *field ;
-    for (SpecialityTag *sTag in self.tagArray) {
-        if (sTag.selecteTag ==YES) {
+    for (TagList *sTag in self.tagArray) {
+        if (sTag.selecteTag.selecteTag == YES) {
             
             if (field == nil) {
                 
-                field = [NSString stringWithFormat:@"%@",sTag.tag];
+                field = [NSString stringWithFormat:@"%@",sTag.id];
             } else {
                 
-                field = [NSString stringWithFormat:@"%@,%@",field,sTag.tag];
+                field = [NSString stringWithFormat:@"%@,%@",field,sTag.id];
             }
         }
     }
@@ -385,8 +482,9 @@
     [parameters setObject:_nameTF.text forKey:@"Name"];
     [parameters setObject:_mobiliTF.text forKey:@"Phone"];
     [parameters setObject:_verificationCodeTF.text forKey:@"Phone_code"];
+    [parameters setObject:_province.code forKey:@"Province_code"];
+    [parameters setObject:_city.code forKey:@"City_code"];
     [parameters setObject:field forKey:@"Field"];
-    [parameters setObject:@"http://192.168.7.100:8029/Lib/images/main/Designer1.jpg" forKey:@"Url"];
     
     [[UserManager shareUserManager]submitSigningWithParameters:parameters signingType:SigningTypeDesigner];
     [UserManager shareUserManager].signingSuccess =  ^(id obj){

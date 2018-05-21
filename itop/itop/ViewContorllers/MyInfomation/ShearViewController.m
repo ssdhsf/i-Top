@@ -56,7 +56,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeProduct];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
         
         

@@ -25,17 +25,17 @@
 
 // onReq是微信终端向第三方程序发起请求，要求第三方程序响应。第三方程序响应完后必须调用sendRsp返
 //回。在调用sendRsp返回时，会切回到微信终端程序界面。
--(void) onReq:(BaseReq*)req{
-    
-    NSLog(@"dfdf");
-}
+//-(void) onReq:(BaseReq*)req{
+//    
+//    NSLog(@"dfdf");
+//}
 
 //如果第三方程序向微信发送了sendReq的请求，那么onResp会被回调。sendReq请求调用后，会切到微信终
 //端程序界面。
--(void) onResp:(BaseResp*)resp{
-   
-    NSLog(@"dfdf");
-}
+//-(void) onResp:(BaseResp*)resp{
+//   
+//    NSLog(@"dfdf");
+//}
 
 //-(BOOL) sendReq:(BaseReq*)req{
 //    

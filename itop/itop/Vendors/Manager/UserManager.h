@@ -12,7 +12,9 @@ typedef NS_ENUM(NSInteger, ArticleType) { //文章类型
     ArticleTypeDefault = 0, //资讯
     ArticleTypeH5 = 1,//H5List
     ArticleTypeVideo,//H5视频
-    ArticleTypeOther//其他
+    ArticleTypeCommend,//推荐
+    ArticleTypeLocal//本地
+    
 };
 
 typedef NS_ENUM(NSInteger, GetArticleListType) { //获取文章入口
@@ -26,6 +28,7 @@ typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
     H5ProductTypeScenario = 1,//场景H5
     H5ProductTypeSinglePage,//单页
     H5ProductTypeVideo,//H5视频
+    H5ProductTypeCase,//案例
     H5ProductTypeNoel//无
 };
 
@@ -112,8 +115,9 @@ typedef NS_ENUM(NSUInteger, UMS_SHARE_TYPE){ //微信分享类型
 };
 
 typedef NS_ENUM(NSInteger, FeedbackType) { //用户类型
-    FeedbackTypeCustomerService = 1,//联系客服
-    FeedbackTypeOpinion = 2, //意见反馈
+   
+    FeedbackTypeOpinion = 1, //意见反馈
+     FeedbackTypeCustomerService = 2,//联系客服
 };
 
 typedef NS_ENUM(NSInteger, ItemType) {//H5类型
@@ -142,13 +146,88 @@ typedef NS_ENUM(NSInteger, StatisticalDataType) { //获取数据统计入口
 };
 
 typedef NS_ENUM(NSInteger, OrderStatusType) { //推广订单状态
-    OrderStatusTypeReady = 0, //准备中
-    OrderStatusTypeGoOn = 1, //进行中
-    OrderStatusTypefail , //完成失败
+    OrderStatusTypeReady = 0, //待接单
+    OrderStatusTypeStart = 1, //进行中
+    OrderStatusTypeRefuse , //拒绝
     OrderStatusTypeSucess , //完成
-    OrderStatusTypeStart, //开启中
-//    OrderStatusTypeStart, //开启中
-    OrderStatusTypeNoel , //全部
+    OrderStatusTypeFail, //失败
+    OrderStatusTypeScore , //已经评价
+    OrderStatusTypePending, //待审核
+    OrderStatusTypeCanceled, //已取消
+    OrderStatusTypeNotPass //审核不通过
+};
+
+typedef NS_ENUM(NSInteger, DemandType) { //首页Tag类型
+    DemandTypeDirectional = 0, //定向需求
+    DemandTypeBidding = 1,//竞标需求
+};
+
+typedef NS_ENUM(NSInteger, CommentType) { //评价类型
+    CommentTypePopularize = 0, //推广评价
+    CommentTypeDemandDesginerToEnterprise = 1, //定制需求设计师评价企业
+    CommentTypeDemandEnterpriseToDesginer  //定制需求企业评价设计师
+};
+
+typedef NS_ENUM(NSInteger, CustomRequirementsType) { //推广订单状态
+    CustomRequirementsTypeUnAccept = 0, //待接单
+    CustomRequirementsTypeAccept = 1, //已接单
+    CustomRequirementsTypeRefuse , //已拒绝
+    CustomRequirementsTypeBid , //竞标中
+    CustomRequirementsTypeBidSucess, //竞标成功
+    CustomRequirementsTypeBidFail , //竞标失败
+    CustomRequirementsTypeBidCancel, //竞标取消
+    CustomRequirementsTypeSucess, //验收完成
+    CustomRequirementsTypeFail, //合作失败
+    CustomRequirementsTypeCompletion, //已完成
+    CustomRequirementsTypePending, //审核中
+    CustomRequirementsTypeNotPass, //审核不通过
+    CustomRequirementsTypeCanceled, //合作取消
+    CustomRequirementsTypeOut, //已下架
+    CustomRequirementsTypeIntervention, //平台介入
+};
+
+typedef NS_ENUM(NSInteger, PayProductType) { //支付产品价格
+    PayProductType25 = 0, //20
+    PayProductType50 = 1, //50
+    PayProductType98 , //100
+    PayProductType198 , //200
+    PayProductType488, //500
+    PayProductType798 , //800
+    PayProductType998, //1000
+    PayProductType1998, //2000  元
+};
+
+typedef NS_ENUM(NSInteger, BiddingPayType) { //绑定支付宝类型
+    BiddingPayTypeWexinPay = 0, //微信支付
+    BiddingPayTypeAliPay = 1, //支付宝
+};
+
+typedef NS_ENUM(NSInteger, GetCaseType) { //获取案例类型
+    GetCaseTypeHome = 0, //首页案例
+    GetCaseTypeMyCase = 1, //我的案例
+    GetCaseTypeOtherCase , //其他人
+};
+
+typedef NS_ENUM(NSInteger, DemandAddType) { //添加定制类型
+    DemandAddTypeOnNew = 0, //新增
+    DemandAddTypeOnEdit = 1, //编辑
+    DemandAddTypeOnProduct , //作品加载
+};
+
+typedef NS_ENUM(NSInteger, PayType) { //支付类型
+    PAYTYPE_UNKNOW = 0, //未知
+    PAYTYPE_ARTICLE = 1, //文章支付
+    PAYTYPE_PRODUCT , //作品支付
+    PeyType_RECHARGE , //充值
+    PAYTYPE_ENTERPRISE , //企业服务
+    PAYTYPE_ORDER , //推广订单
+    PAYTYPE_DEMANDSERVICE , //开通定制服务
+    PAYTYPE_DEMAND , //定制需求
+};
+
+typedef NS_ENUM(NSInteger, BindPhoneType) { //绑定手机号码
+    BindPhoneTypeBind = 0, //绑定
+    BindPhoneTypeChange = 1, //修改
 };
 
 typedef void (^LoginSuccess)(id obj);
@@ -168,7 +247,7 @@ typedef void (^UpdataInfoFailure)(id obj);
 typedef void (^ResetPasswordSuccess)(id obj);
 typedef void (^ResetPasswordFailure)(id obj);
 
-typedef void (^HomeH5ListSuccess)(id obj);
+typedef void (^HomeH5ListSuccess)(id obj, id obj2);
 typedef void (^HomeH5ListFailure)(id obj);
 typedef void (^HomeTagListSuccess)(id obj);
 typedef void (^HomeTagListFailure)(id obj);
@@ -179,6 +258,8 @@ typedef void (^FocusOnUserSuccess)(id obj);
 typedef void (^FocusOnUserFailure)(id obj);
 typedef void (^CollectionOnHotSuccess)(id obj);
 typedef void (^CollectionOnHotFailure)(id obj);
+typedef void (^PraiseHotSuccess)(id obj);
+typedef void (^PraiseHotFailure)(id obj);
 
 typedef void (^DesignerlistSuccess)(id obj);
 typedef void (^DesignerlistFailure)(id obj);
@@ -198,6 +279,8 @@ typedef void (^ProductDetailSuccess)(id obj);
 typedef void (^ProductDetailFailure)(id obj);
 typedef void (^HotCommentSuccess)(id obj);
 typedef void (^HotCommentFailure)(id obj);
+typedef void (^HotStareSuccess)(id obj);
+typedef void (^HotStareFailure)(id obj);
 typedef void (^CommentListSuccess)(id obj);
 typedef void (^CommentListFailure)(id obj);
 
@@ -208,6 +291,8 @@ typedef void (^HomeBannerSuccess)(id obj);
 typedef void (^HomeBannerFailure)(id obj);
 typedef void (^MyProductListSuccess)(id obj);
 typedef void (^MyProductListFailure)(id obj);
+typedef void (^MyCaseListSuccess)(id obj);
+typedef void (^MyCaseListFailure)(id obj);
 typedef void (^LeaveProductSuccess)(id obj);
 typedef void (^LeaveProductFailure)(id obj);
 typedef void (^SubmitFileSuccess)(id obj);
@@ -238,10 +323,34 @@ typedef void (^MessageListFailure)(id obj);
 typedef void (^MapLocationManagerSuccess)(id obj);//定位
 typedef void (^MapLocationManagerFailure)(id obj);//定位
 
+typedef void (^CityListSuccess)(id obj);
+typedef void (^CityListFailure)(id obj);
+
+typedef void (^CustomRequirementsSuccess)(id obj);
+typedef void (^CustomRequirementsFailure)(id obj);
+typedef void (^CustomRequirementsCommentsDisginSuccess)(id obj);
+typedef void (^CustomRequirementsCommentsCompanySuccess)(id obj);
+
+typedef void (^UploadProductSuccess)(id obj);
+typedef void (^UploadProductFailure)(id obj);
+
+typedef void (^CheckCodeSuccess)(id obj);
+typedef void (^CheckCodeFailure)(id obj);
+
+typedef void (^PaySuccess)(id obj);
+typedef void (^PayFailure)(id obj);
+
+typedef void (^BalanceSuccess)(id obj);
+typedef void (^BalanceFailure)(id obj);
+
+typedef void (^DemandAuthoritySuccess)(id obj);
+typedef void (^DemandAuthorityFailure)(id obj);
+
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
 @class InfomationModel;
+
 @interface UserManager : NSObject
 /*----------------全局错误信息————————————————————————*/
 @property (nonatomic, copy) ErrorFailure  errorFailure;
@@ -268,9 +377,12 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取个人信息————————————————————————*/
 @property (nonatomic, copy) UserInfoSuccess userInfoSuccess;
 @property (nonatomic, copy) UserInfoFailure userInfoFailure;
-/*----------------更新个人信息————————————————————————*/
+/*----------------更新个人信息第一个接口 基本信息————————————————————————*/
 @property (nonatomic, copy) UpdataInfoSuccess updataInfoSuccess;
 @property (nonatomic, copy) UpdataInfoFailure updataInfoFailure;
+/*----------------更新个人信息第二个接口 除一般用户的其他用户————————————————————————*/
+@property (nonatomic, copy) UpdataInfoSuccess updataUserInfoSuccess;
+@property (nonatomic, copy) UpdataInfoFailure updataUserInfoFailure;
 
 /*----------------重置密码————————————————————————*/
 @property (nonatomic, copy) ResetPasswordSuccess resetPasswordSuccess;
@@ -281,6 +393,11 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------收藏热点————————————————————————*/
 @property (nonatomic, copy) CollectionOnHotSuccess collectionOnHotSuccess;
 @property (nonatomic, copy) CollectionOnHotFailure collectionOnHotFailure;
+
+/*----------------收藏热点/文章————————————————————————*/
+@property (nonatomic, copy) PraiseHotSuccess praiseHotSuccess;
+@property (nonatomic, copy) PraiseHotFailure praiseHotFailure;
+
 /*----------------首页H5————————————————————————*/
 @property (nonatomic, copy) HomeH5ListSuccess homeH5ListSuccess;
 @property (nonatomic, copy) HomeH5ListFailure homeH5ListFailure;
@@ -290,6 +407,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------TagList————————————————————————*/
 @property (nonatomic, copy) TagListSuccess tagListSuccess;
 @property (nonatomic, copy) TagListFailure tagListFailure;
+
+/*----------------CityList————————————————————————*/
+@property (nonatomic, copy) CityListSuccess cityListSuccess;
+@property (nonatomic, copy) CityListFailure cityListFailure;
 
 /*----------------设计师列表————————————————————————*/
 @property (nonatomic, copy) DesignerlistSuccess designerlistSuccess;
@@ -325,6 +446,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------评论热点————————————————————————*/
 @property (nonatomic, copy) CommentSuccess commentSuccess;
 @property (nonatomic, copy) CommentFailure commentFailure;
+/*----------------删除／是否展示热点————————————————————————*/
+@property (nonatomic, copy) HotStareSuccess hotStareSuccess;
+@property (nonatomic, copy) HotStareFailure hotStareFailure;
 
 /*----------------Home轮播图————————————————————————*/
 @property (nonatomic, copy) HomeBannerSuccess homeBannerSuccess;
@@ -333,6 +457,9 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------我的作品————————————————————————*/
 @property (nonatomic, copy) MyProductListSuccess myProductListSuccess;
 @property (nonatomic, copy) MyProductListFailure myProductListFailure;
+/*----------------我的案例————————————————————————*/
+@property (nonatomic, copy) MyCaseListSuccess myCaseListSuccess;
+@property (nonatomic, copy) MyCaseListFailure myCaseListFailure;
 
 /*----------------作品留资————————————————————————*/
 @property (nonatomic, copy) LeaveProductSuccess leaveProductSuccess;
@@ -377,6 +504,32 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------获取定位————————————————————————*/
 @property (nonatomic, copy) MapLocationManagerSuccess mapLocationManagerSuccess;
 @property (nonatomic, copy) MapLocationManagerFailure mapLocationManagerFailure;
+
+/*----------------定制需求————————————————————————*/
+@property (nonatomic, copy) CustomRequirementsSuccess customRequirementsSuccess;
+@property (nonatomic, copy) CustomRequirementsFailure customRequirementsFailure;
+@property (nonatomic, copy) CustomRequirementsCommentsDisginSuccess customRequirementsCommentsDisginSuccess;
+@property (nonatomic, copy) CustomRequirementsCommentsCompanySuccess customRequirementsCommentsCompanySuccess;
+
+/*----------------作品上传————————————————————————*/
+@property (nonatomic, copy) UploadProductSuccess uploadProductSuccess;
+@property (nonatomic, copy) UploadProductFailure uploadProductFailure;
+
+/*----------------验证验证码————————————————————————*/
+@property (nonatomic, copy) CheckCodeSuccess checkCodeSuccess;
+@property (nonatomic, copy) CheckCodeFailure checkCodeFailure;
+
+/*----------------支付————————————————————————*/
+@property (nonatomic, copy) PaySuccess paySuccess;
+@property (nonatomic, copy) PayFailure payFailure;
+
+/*----------------余额查询————————————————————————*/
+@property (nonatomic, copy) BalanceSuccess balanceSuccess;
+@property (nonatomic, copy) BalanceFailure balanceFailure;
+
+/*----------------定制权限查询————————————————————————*/
+@property (nonatomic, copy) DemandAuthoritySuccess demandAuthoritySuccess;
+@property (nonatomic, copy) DemandAuthorityFailure demandAuthorityFailure;
 
 @property (nonatomic, strong) dispatch_source_t timer;
 @property (nonatomic, assign) NSInteger timers;
@@ -423,6 +576,30 @@ typedef void (^ErrorFailure)(id obj);
 -(NSNumber *)crrentUserId;
 
 /**
+ *  获取本用户头像
+ *
+ */
+-(NSString *)crrentUserHeadImage;
+
+/**
+ *  获取本用户消息数
+ *
+ */
+-(NSNumber *)crrentMessageCount;
+
+/**
+ *  获取本用户评论数
+ *
+ */
+-(NSNumber *)crrentCommentCount;
+
+/**
+ *  获取本用户关注数量
+ *
+ */
+-(NSNumber *)crrentFollowCount;
+
+/**
  *  用户登录
  *
  *  @param userName 用户帐号
@@ -445,6 +622,18 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (void)bindPhoneWithMobili:(NSString *)mobili
            verificationCode:(NSString *)verificationCode;
+
+
+/**
+ *  修改绑定手机号码
+ *
+ *  @param mobili 手机号码
+ *  @param newPhoneCode 新手机验证码
+ *  @param oldPhoneCode 旧手机验证码
+ */
+- (void)changePhoneWithMobili:(NSString *)newPhone
+                 newPhoneCode:(NSString *)newPhoneCode
+                 oldPhoneCode:(NSString *)oldPhoneCode;
 
 /**
  *  绑定手机号码
@@ -513,12 +702,35 @@ typedef void (^ErrorFailure)(id obj);
 /**
  *  收藏热点
  *
- *  @param hot_id 用户id
+ *  @param hot_id 文章／作品id
  *  @param collectionType 收藏／取消
  */
 - (void)collectionOnHotWithHotId:(NSString *)hot_id
                   CollectionType:(CollectionType)collectionType;
 
+/**
+ *  点赞热点／作品
+ *
+ *  @param hot_id 文章／作品id
+ */
+- (void)praiseOnHotWithHotId:(NSString *)hot_id;
+
+/**
+ *  下架热点
+ *
+ *  @param hot_id 用户id
+ *  @param isShow 会否展示
+ */
+- (void)soldOutMyHotWithHotId:(NSString *)hot_id
+                       isShow:(NSNumber *)isShow;
+
+
+/**
+ *  删除热点
+ *
+ *  @param hot_id 用户id
+ */
+- (void)deleteMyHotWithHotId:(NSString *)hot_id;
 
 /**
  *  首页H5
@@ -533,7 +745,8 @@ typedef void (^ErrorFailure)(id obj);
                  PageIndex:(NSInteger )pageIndex
                  PageCount:(NSInteger )pageCount
                    tagList:(NSArray *)tagList
-                 searchKey:(NSString *)searchKey;
+                 searchKey:(NSString *)searchKey
+                    isShow:(BOOL)isShow;
 
 /**
  *  tagList
@@ -547,11 +760,24 @@ typedef void (^ErrorFailure)(id obj);
                 PageCount:(NSInteger )pageCount;
 
 /**
- *  首页Tag
+ *  获取Tag
  *
  *  @param type Tag类型
  */
 - (void)hometagListWithType:(TagType )type;
+
+/**
+ *  首页获取Tag
+ *
+ *  @param parent_id 分类
+ */
+- (void)homeProductTagListWithType:(NSNumber *)parent_id;
+
+/**
+ *  获取消息列表
+ *
+ */
+-(void)cityList;
 
 /**
  *  首页轮播图
@@ -575,14 +801,14 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param designer_id 设计师ID
  */
-- (void)designerDetailWithDesigner:(NSString *)designer_id;
+- (void)designerDetailWithDesigner:(NSNumber *)designer_id;
 
 /**
  *  设计师作品列表
  *
  *  @param designer_id 设计师ID
  */
-- (void)designerProductListWithDesigner:(NSString *)designer_id
+- (void)designerProductListWithDesigner:(NSNumber *)designer_id
                               PageIndex:(NSInteger )pageIndex
                               PageCount:(NSInteger )pageCount;
 
@@ -593,6 +819,12 @@ typedef void (^ErrorFailure)(id obj);
  */
 - (void)addHotListWithParameters:(NSDictionary *)parameters;
 
+/**
+ *  修改热点
+ *
+ *  @param parameters 修改的内容
+ */
+- (void)updateHotListWithParameters:(NSDictionary *)parameters;
 
 /**
  *  热点列表
@@ -623,7 +855,7 @@ typedef void (^ErrorFailure)(id obj);
  *
  *  @param detail_id 详情 id
  */
-- (void)productDetailWithHotDetailId:(NSString *)detail_id;
+- (void)productDetailWithHotDetailId:(NSNumber *)detail_id;
 
 /**
  *  获取热点评论列表
@@ -779,9 +1011,31 @@ typedef void (^ErrorFailure)(id obj);
                      orderStatus:(OrderStatusType )order_status
                        PageIndex:(NSInteger )pageIndex
                        PageCount:(NSInteger )pageCount;
+/**
+ *  获取推广订单总量
+ *
+ *  @param user_id 用户id
+ */
+- (void)popularizeStatisticsCountWithUserId:(NSNumber *)user_id;
 
 /**
- *  获取推广订单分页
+ *  删除推广订单
+ *
+ *  @param order_id 订单id
+ */
+- (void)deletePopularizeWithOrderId:(NSNumber *)order_id;
+
+/**
+ *  更新推广订单状态
+ *
+ *  @param order_id 订单id
+ *  @param state 状态
+ */
+- (void)updataOrderStatePopularizeWithOrderId:(NSNumber *)order_id
+                                        state:(OrderStatusType)state;
+
+/**
+ *  接／拒单
  *
  *  @param order_id 订单id
  *  @param isAccept 是否接单
@@ -789,7 +1043,21 @@ typedef void (^ErrorFailure)(id obj);
 - (void)popularizeIsAcceptWithOrderId:(NSNumber *)order_id
                              isAccept:(NSNumber *)isAccept;
 
-
+/**
+ *  接／拒单
+ *
+ *  @param order_id 订单id
+ *  @param effect 是否接单
+ *  @param service 是否接单
+ *  @param sincerity 是否接单
+ *  @param content 是否接单
+ */
+- (void)commentPopularizeWithOrderId:(NSNumber *)order_id
+                              effect:(NSNumber *)effect
+                             service:(NSNumber *)service
+                           sincerity:(NSNumber *)sincerity
+                             content:(NSString *)content
+                         commentType:(CommentType)commentType;
 /**
  *   更新作品
  *
@@ -810,14 +1078,179 @@ typedef void (^ErrorFailure)(id obj);
  */
 -(void)userMessageListWithId:(NSString *)user_id;
 
-
 /**
  *  发送记录
  *
  *  @param user_id 发送对象用户id
  *  @param content 发送消息
  */
-
 -(void)sendMessageWithUserId:(NSString *)user_id messageContent:(NSString *)content;
+
+/*
+ *  获取定制案例分页
+ *
+ *  @param user_id 用户id
+ */
+- (void)customRequirementsListWithUserId:(NSNumber *)user_id
+                               PageIndex:(NSInteger )pageIndex
+                               PageCount:(NSInteger )pageCount;
+/*
+ *  获取定制管理分页
+ *
+ *  @param user_id 用户id
+ */
+- (void)getUserCustomRequirementsListWithUserId:(NSNumber *)user_id
+                                     demandType:(DemandType)demand_type
+                                      PageIndex:(NSInteger )pageIndex
+                                      PageCount:(NSInteger )pageCount;
+
+/**
+ *  获取定制案例详情
+ *
+ *  @param detail_id 用户id
+ */
+- (void)customRequirementsDetailWithDetailId:(NSNumber *)detail_id;
+
+/**
+ *  提交定制管理
+ *
+ *  @param parameters 提交定制管理参数
+ *  @param isUpdata   是否更新
+ */
+- (void)customRequirementsParameters:(NSDictionary *)parameters demandAddType:(DemandAddType)demandAddType;
+
+/**
+ *  删除定制管理
+ *
+ *  @param demant_id 定制id
+ */
+- (void)deleteCustomRequirementsWithId:(NSNumber *)demant_id;
+
+/**
+ *  定制管理操作
+ *
+ *  @param demant_id 定制id
+ *  @param operationType 操作类型 删除 ／ 验收 ／ 下架
+ */
+- (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  operation:(NSString * )operationType;
+
+/**
+ *  定制管理操作
+ *
+ *  @param demant_id 定制id
+ *  @param isAccept 接单／拒单
+ */
+- (void)operationCustomRequirementsWithId:(NSNumber *)demant_id  isAccept:(BOOL)isAccept;
+
+/**
+ *  查询上传文件列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)biddingProductListWithId:(NSNumber *)demant_id;
+
+/**
+ *  定制订单(获取设计师评价分页)
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandDesginerCommentListWithId:(NSNumber *)demant_id;
+
+/**
+ *  定制订单(获取企业评价分页)
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandentErpriseCommentListWithId:(NSNumber *)demant_id;
+
+/**
+ *  获取定制订单纠纷列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)demandDemanddisputeListWithId:(NSNumber *)demant_id
+                            pageIndex:(NSInteger )pageIndex
+                            pageCount:(NSInteger )pageCount;
+
+/**
+ *  获取定制订单纠纷列表
+ *
+ *  @param demant_id 定制id
+ */
+- (void)selectCooperationDesginerWithId:(NSNumber *)demant_id desginerId:(NSNumber *)desginer_id;
+
+/**
+ *  添加纠纷
+ *
+ *  @param parameters 纠纷参数 问题／图片证明／备注／demandId／UserId
+ */
+- (void)addDemandDemanddisputeWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  案例列表
+ *  @param getCaseType 我的／其他人/首页
+ *  @param user_id 其他人
+ */
+- (void)myCaseListWithPageIndex:(NSInteger )pageIndex
+                      PageCount:(NSInteger )pageCount
+                    getCaseType:(GetCaseType)getCaseType
+                         userId:(NSNumber *)user_id
+                         isShow:(BOOL)isShow;
+
+/**
+ *  删除案例
+ *
+ *  @param case_id 案例id
+ */
+-(void)deleteMyCaseWithCaseId:(NSNumber *)case_id;
+
+/**
+ *  添加案例
+ *
+ *  @param parameters 提交的参数
+ *  @param isUpdata 更新／添加
+ */
+-(void)editCaseWithParameters:(NSDictionary *)parameters isUpdate:(BOOL)isUpdata;
+
+/**
+ *  案例详情
+ *  @param case_id  案例Id
+ */
+-(void)caseDetailWithCaseId:(NSNumber *)case_id;
+
+/**
+ *  投标
+ *  @param demand_id  定制id
+ *  @param isCancel  投标／取消投标
+ */
+-(void)tenderWithDemandId:(NSNumber *)demand_id isCancel:(BOOL)isCancel;
+
+/**
+ *  上传作品
+ *  @param parameters 提交的参数
+ */
+-(void)uploadfileWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  验证验证码
+ *  @param code 需要验证的code
+ */
+-(void)checkcodeWithCode:(NSString *)code;
+
+/**
+ *  支付
+ *  @param parameters 支付参数 详情见接口
+ */
+-(void)payWithParameters:(NSDictionary *)parameters;
+
+/**
+ *  余额查询
+ */
+-(void)getuserwallet;
+
+/**
+ *  定制权限查询
+ */
+-(void)demandAuthority;
 
 @end

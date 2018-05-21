@@ -138,6 +138,8 @@
 //    UIImage*imge;
 
     for (UIImage * image in _photoView.photoMenuItems) {
+        
+        [self submitImageWithImage:image];
         //        处理图片
 //        if ([img isKindOfClass:[ALAsset class]]) {
 //            ALAsset*alasset = img;
@@ -151,16 +153,16 @@
 //            UIImageView*imageView = (UIImageView*)img;
 //            imge=imageView.image;
 //        }
-        UIImage * compression = [[Global sharedSingleton]compressImage:image];
-        NSData *imageData = UIImageJPEGRepresentation(compression,1);
-        
-        NSString *str = [imageData base64EncodedString];
-        NSLog(@"%@",str);
-        NSString *file_type =@".jpg";   //图片类型
-        NSDictionary * parameters = @{@"fileName" : file_type,
-                                      @"imageBase64" : str
-                                      };
-        [[UserManager shareUserManager] submitImageWithParameters:parameters];
+//        UIImage * compression = [[Global sharedSingleton]compressImage:image];
+//        NSData *imageData = UIImageJPEGRepresentation(compression,1);
+//        
+//        NSString *str = [imageData base64EncodedString];
+//        NSLog(@"%@",str);
+//        NSString *file_type =@".jpg";   //图片类型
+//        NSDictionary * parameters = @{@"fileName" : file_type,
+//                                      @"imageBase64" : str
+//                                      };
+//        [[UserManager shareUserManager] submitImageWithParameters:parameters];
 //        [UserManager shareUserManager] .submitFileSuccess = ^(id obj){
 //            
 //            if ([obj isKindOfClass:[SubmitFile class]]) {
@@ -180,6 +182,23 @@
     }
     
 }
+
+-(void)submitImageWithImage:(UIImage *)image{
+    
+    UIImage * compression = [[Global sharedSingleton]compressImage:image];
+    NSData *imageData = UIImageJPEGRepresentation(compression,1);
+    
+    NSString *str = [imageData base64EncodedString];
+    NSLog(@"%@",str);
+    NSString *file_type =@".jpg";   //图片类型
+    NSDictionary * parameters = @{@"fileName" : file_type,
+                                  @"imageBase64" : str
+                                  };
+    [[UserManager shareUserManager] submitImageWithParameters:parameters];
+    
+}
+
+
 
 //判断上传照片成功的张数
 - (void)judgePicturesUploadNumber {

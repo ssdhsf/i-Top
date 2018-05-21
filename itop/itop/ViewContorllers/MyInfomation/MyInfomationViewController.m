@@ -33,7 +33,12 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     [super viewDidLoad];
     
-//    [[NSUserDefaults standardUserDefaults] setObject:@"huangli" forKey:@"huangli"];
+    [UIManager sharedUIManager].loginOutBackOffBolck  = ^ (id obj){
+    
+        [super viewDidLoad];
+    };
+    
+    //    [[NSUserDefaults standardUserDefaults] setObject:@"huangli" forKey:@"huangli"];
 //    NSString * path  =  NSHomeDirectory();
 //    NSLog(@"path：%@",path);
 }
@@ -48,7 +53,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     [super viewDidAppear:animated];
     
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeMyhome];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
         
     };
@@ -66,6 +71,11 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
         make.bottom.mas_equalTo(-20);
     }];
     [self steupCollectionView];
+    
+    [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger  index){
+        
+        NSLog(@"分享成功");
+    };
 }
 
 -(void)initData{
@@ -79,7 +89,7 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     } else {
         self.dataArray = [[MyInfomationStore shearMyInfomationStore] configurationMenuWithUserType:[user.user_type integerValue]];
         
-        [UIManager sharedUIManager].backOffBolck = ^(id obj){
+        [UIManager sharedUIManager].submitInfomationBackOffBolck = ^(id obj){
             
             [[UserManager shareUserManager]userInfomationWithUserType:[[UserManager shareUserManager] crrentUserType]];
             [UserManager shareUserManager].userInfoSuccess = ^(id obj){
@@ -157,27 +167,35 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     
+    if(![[UserManager shareUserManager]isLogin] && indexPath.section ==0){
+        
+        [self showToastWithMessage:@"请登录"];
+        return;
+    }
+    
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];
     
     if ([info.myInfoTitle isEqualToString:@"意见反馈"]){
-        
+
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
-        
-    }else if ([info.myInfoTitle isEqualToString:@"作品"]){
+    }
+    else if ([info.myInfoTitle isEqualToString:@"作品"]){
         
         [UIManager productViewControllerWithType:GetProductListTypeMyProduct];
-    }else if ([info.myInfoTitle isEqualToString:@"分享"]){
+    }
+    else if ([info.myInfoTitle isEqualToString:@"分享"]){
         
         [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_IMAGE_URL completion:^(NSInteger tag) {
             ShearInfo *sherInfo = [[ShearInfo alloc]init];
             sherInfo.shear_title = @"itop";
             sherInfo.shear_discrimination = @"H5内容制作";
             sherInfo.shear_thume_image = @"https://mobile.umeng.com/images/pic/home/social/img-1.png";
-            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html ";
+            sherInfo.shear_webLink = @"http://www.i-top.cn/Page/m/introduce.html";
             [[ShearViewManager sharedShearViewManager]shareWebPageToPlatformType:tag parameter:sherInfo];
         } ];
 
-    }else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
+    }
+    else if ([info.myInfoTitle isEqualToString:@"入驻申请"]){
         
         [[UserManager shareUserManager]signingState];
         [UserManager shareUserManager].signingSuccess = ^ (NSDictionary *obj){
@@ -205,7 +223,13 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     }else if ([info.myInfoTitle isEqualToString:@"留资"]){
         
         [UIManager leaveWithProduct:nil leaveType:GetLeaveListTypeMyLeave];
-    } else {
+    }else if ([info.myInfoTitle isEqualToString:@"我的案例"]){
+        
+
+            [UIManager getCaseViewControllerWithGetCaseType:GetCaseTypeMyCase];
+    }
+    
+    else{
         
         [UIManager showVC:info.nextVcName];
     }

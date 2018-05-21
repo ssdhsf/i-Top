@@ -10,6 +10,8 @@
 
 @interface TemplateDetaulViewController : BaseViewController
 
-@property (nonatomic,strong)NSString *template_id;
+@property (nonatomic,strong)NSNumber *template_id;
+@property (nonatomic,assign)H5ProductType productType;
+@property (nonatomic,strong)NSString *cove_image;
 
 @end

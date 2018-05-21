@@ -37,20 +37,22 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 @property (weak, nonatomic) IBOutlet UIButton *selectProvinceButton;
 
 @property (strong, nonatomic) NSArray *views;
-@property (assign, nonatomic) SignPickViewType signPickViewType;
-@property (nonatomic, strong) UIPickerView *pickView;
 @property (nonatomic, strong) NSArray *provinceArray; // 省份
 @property (nonatomic, strong) NSArray *cityArray;//城市
 @property (nonatomic, strong) NSArray *industryArray; // 行业／1级
 @property (nonatomic, strong) NSArray *industrySubArray;//行业／子级
 @property (nonatomic, strong) Province *province; //选择省份
 @property (nonatomic, strong) Province *city; //选择的城市
-@property (nonatomic, strong) NSString *industry; //选择的行业／父级
-@property (nonatomic, strong) NSString *subIndustry; //选择的行业／子级
-@property (nonatomic, strong) NSMutableArray *channelArray; //选择的行业／子级
-@property (nonatomic, strong) MarketingDataSource *marketingDataSource; //选择的行业／子级
+@property (nonatomic, strong)TagList *superTag; //选择行业 父级
+@property (nonatomic, strong)TagList *subTag; //选择行业 子级
+
+@property (nonatomic, strong) NSMutableArray *channelArray; //渠道列表
+@property (nonatomic, strong) MarketingDataSource *marketingDataSource;
 @property (strong, nonatomic) IBOutlet UIView *fooderView;
 
+@property (nonatomic, strong)AlertView *alertView; //弹窗
+
+@property (assign, nonatomic) NSInteger selectButtonTag;
 @end
 
 @implementation MarketingViewController
@@ -68,13 +70,23 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 -(void)initData{
     
     [super initData];
+    
+    if ([[CompanySigningStore shearCompanySigningStore]superTagList].count == 0) {
+        
+        [[UserManager shareUserManager]hometagListWithType:TagTypeTrade];
+        [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+            
+            [[CompanySigningStore shearCompanySigningStore]confitionIndustryWithRequstIndustryArray:arr];
+            _industryArray = [[CompanySigningStore shearCompanySigningStore]superTagList];
+            TagList *tag = _industryArray[0];
+            _industrySubArray = tag.subTagArray;
+            
+        };
+    }
+
     _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
     Province *province = _provinceArray[0];
     _cityArray = province.cityArray;
-    
-    _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
-    NSString *industryKey = _industryArray[0];
-    _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
     
     _addChannelNumber = 1;
     [self.dataArray addObject: [[MarketingStore shearMarketingStore ]configurationMenuWithShowIndex:_addChannelNumber]];
@@ -107,12 +119,18 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
     self.tableView.tableFooterView = _fooderView;
 }
 
+-(void)viewDidAppear:(BOOL)animated{
+    
+    [super viewDidAppear:animated];
+}
+
 -(void)setupSubView{
     
     _nextButton.layer.masksToBounds = YES;
     _nextButton.layer.cornerRadius = _nextButton.frame.size.height/2;
     [_nextButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_nextButton)];
     
+    _addChannelButton.frame = CGRectMake(100, 42, ScreenWidth-120, 30);
     _addChannelButton.layer.masksToBounds = YES;
     _addChannelButton.layer.cornerRadius = 5;
     [_addChannelButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_addChannelButton)];
@@ -138,7 +156,10 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
         [cell setItmeOfModel:item];
         cell.inputConfigureBlock = ^(NSString *inputText, MarketingTableViewCell *cell1){
             
+            NSLog(@"%@",inputText);
             NSIndexPath *index = [self.tableView indexPathForCell:cell1];
+            MarketingTableViewCell *cell = [self.tableView cellForRowAtIndexPath:index];
+            NSLog(@"%@",cell.ContentTF.text);
             Marketing *markt = [_marketingDataSource itemAtIndexPath:index];
             markt.content = inputText;
         };
@@ -211,254 +232,89 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
 
 - (IBAction)selectItem:(UIButton *)sender {
     
+    [_nameTF resignFirstResponder];
+    [_mobiliTF resignFirstResponder];
+    [_verificationCodeTF resignFirstResponder];
+    _selectButtonTag = sender.tag;
     [self showAlertViewWithItem:sender];
 }
 
 -(void)showAlertViewWithItem:(UIButton*)button{
+
+    NSString *string = [NSString stringWithFormat:@"请选择%@",button.titleLabel.text];
     
-    _signPickViewType = button.tag;
-    UIView *view = [[UIView alloc] init];
-    NSString *string ;
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (button.tag) {
+            
+        case PickViewTypeProvince:
+            
+            superArray = _provinceArray;
+            subArray = _cityArray;
+            break;
+        case PickViewTypeIndustry:
+            
+            superArray = _industryArray;
+            subArray = _industrySubArray;
+            break;
+        default:
+            break;
+    }
     
-    [self initPickViewWith:button.tag];
-    view.frame = self.pickView.frame;
-    [view addSubview:self.pickView];
-    string  = _signPickViewType == SignPickViewTypeIndustry ? @"请选择行业" :  _signPickViewType == SignPickViewTypeCompnySize ? @"请选择企业规模" : @"请选择地区";
-    AlertView *alertView = [[AlertView alloc]initWithTitle:string
-                                                   message:view
-                                                   sureBtn:@"确定"
-                                                 cancleBtn:@"取消"
-                                              pickViewType:button.tag];
-    alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                         message:nil
+                                         sureBtn:@"确定"
+                                       cancleBtn:@"取消"
+                                    pickViewType:button.tag
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
         
-        
-        if (picViewType == SignPickViewTypeIndustry) {
-            
-            [_selectIndustryButton setTitle:[NSString stringWithFormat:@"%@,%@",_industry,_subIndustry] forState:UIControlStateNormal];
-        } else {
-            
-            [_selectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
-        }
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
     };
     
-    [alertView showXLAlertView];
+    if ([button.titleLabel.text  rangeOfString:@"请选择"].location  == NSNotFound) {
+        [_alertView setupPickViewWithContent:button.titleLabel.text];
+    }
+    [_alertView showXLAlertView];
 }
 
--(void)initPickViewWith:(SignPickViewType)pickViewType{
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
     
-    self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
-    self.pickView.backgroundColor = [UIColor whiteColor];
-    self.pickView.delegate = self;
-    self.pickView.dataSource = self;
-    self.pickView.showsSelectionIndicator = YES;
-    [self.pickView reloadAllComponents];
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    if (pickViewType == SignPickViewTypeIndustry) {
-        
-        button = _selectIndustryButton;
-    } else {
-        
-        button = _selectProvinceButton;
-    }
-    if (button.titleLabel.text != nil  && ![button.titleLabel.text isEqualToString:@"请选择行业"] && ![button.titleLabel.text isEqualToString:@"请选择地区"]) {
-        
-        switch (pickViewType) {
-            case SignPickViewTypeIndustry:
-                
-                [self industrypPositioningWithIndex:button.titleLabel.text];
-                break;
-            
-            case SignPickViewTypeProvince:
-                
-                [self positioningwithindex:button.titleLabel.text];
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
+    switch (_selectButtonTag) {
 
-#pragma mark 选择数据时将有数据的itme赋给已选择的temp
--(void)positioningwithindex:(NSString *)info{
-    
-    NSArray *arr = [info componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (Province *province in self.provinceArray ) {
-        
-        if ([province.address isEqualToString:arr[0]]) {
+        case PickViewTypeProvince:
             
-            index = [self.provinceArray indexOfObject:province];
-            self.cityArray = province.cityArray;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (Province *province in self.cityArray ) {
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
             
-            if ([province.address isEqualToString:arr[1]]) {
-                
-                inde2 = [self.cityArray indexOfObject:province];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
--(void)industrypPositioningWithIndex:(NSString *)info{
-    
-    NSArray *arr = [info componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (NSString *industryp in self.industryArray ) {
-        
-        if ([industryp isEqualToString:arr[0]]) {
+            [_selectProvinceButton setTitle:[NSString stringWithFormat:@"%@,%@",_province.address,_city.address] forState:UIControlStateNormal];
+            break;
+        case PickViewTypeIndustry:
+            _superTag = (TagList *)selectSuperItme;
+            _subTag = (TagList *)selectSubItme;
+            [_selectIndustryButton setTitle:[NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name] forState:UIControlStateNormal];
+            break;
             
-            index = [self.industryArray indexOfObject:industryp];
-            self.cityArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (NSString *subIndustryp in self.cityArray ) {
-            
-            if ([subIndustryp isEqualToString:arr[1]]) {
-                
-                inde2 = [self.industrySubArray indexOfObject:subIndustryp];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
-#pragma mark 数据源 Method numberOfComponentsInPickerView
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    
-    return 2;
-}
-
--(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    
-    UILabel *lbl = (UILabel *)view;
-    
-    if (lbl == nil) {
-        
-        lbl = [[UILabel alloc]init];
-        //在这里设置字体相关属性
-        lbl.adjustsFontSizeToFitWidth = YES;
-        lbl.font = [UIFont systemFontOfSize:15];
-        lbl.textColor = [UIColor blackColor];
-        [lbl setTextAlignment:NSTextAlignmentCenter];
-        [lbl setBackgroundColor:[UIColor clearColor]];
-    }
-    //重新加载lbl的文字内容
-    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    return lbl;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    
-    if (component==0){ //省
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            
-            return self.provinceArray.count;
-            
-        }else{
-            return self.industryArray.count;
-        }
-    }else{
-        //市
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            
-            return _cityArray.count;
-            
-        } else {
-            
-            return self.industrySubArray.count;
-        }
-    }
-}
-
-#pragma mark delegate 显示信息的方法
-
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-    if (component==0){
-        
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            
-            Province *province = self.provinceArray[row];
-            _province = province;
-            return province.address;
-            
-        }else{
-            _industry = self.industryArray[row];
-            return self.industryArray[row];
-        }
-        //选择的省份
-        
-    }else{
-        
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            
-            Province *city = self.cityArray[row];
-            _city = city;
-            return city.address;//省份对应的市区
-            
-        } else {
-            
-            _subIndustry = self.industrySubArray[row];
-            return self.industrySubArray[row];
-            
-        }
-    }
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-    
-    if (component==0){
-        
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            _province = self.provinceArray[row];
-            self.cityArray =_province.cityArray;
-            [self.pickView reloadComponent:1];
-            
-        } else {
-            
-            _industry = self.industryArray[row];
-            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][_industry];
-            [self.pickView reloadComponent:1];
-        }
-        
-    }else{
-        
-        if (_signPickViewType == SignPickViewTypeProvince) {
-            
-            _city = self.cityArray[row];
-        } else {
-            
-            _subIndustry = self.industrySubArray[row];
-        }
+        default:
+            break;
     }
 }
 
 - (IBAction)verificationCode:(UIButton *)sender {
     
-    if ([Global stringIsNullWithString:_mobiliTF.text]) {
-        
-        [self showToastWithMessage:TIPSMESSEGE(@"手机号")];
-        return;
-    }
     [_mobiliTF resignFirstResponder];
     [_verificationCodeTF resignFirstResponder];
     [_nameTF resignFirstResponder];
+    if([Global stringIsNullWithString:_mobiliTF.text] || ![LCRegExpTool lc_checkingMobile:_mobiliTF.text]) {
+        
+        [self showToastWithMessage:@"请输入正确的手机号码"];
+        return;
+    }
     if([_verificationCodeButton.titleLabel.text isEqualToString:@"获取验证码"]){
         [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
         [UserManager shareUserManager].verificationSuccess = ^(id obj){
@@ -473,12 +329,6 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
         return;
     }
-//    [[UserManager shareUserManager]getVerificationCodeWithPhone:_mobiliTF.text];
-//    [UserManager shareUserManager].verificationSuccess = ^(id obj){
-//        
-//        [[Global sharedSingleton]showToastInTop:self.view withMessage:@"验证码已发送至您手机"];
-//        NSLog(@"%@",obj);
-//    };
 }
 
 - (IBAction)submit:(UIButton *)sender {
@@ -535,9 +385,9 @@ static NSString *const MarketingCellIdentifier = @"Marketing";
                            @"Phone" : _mobiliTF.text,
                            @"Phone_code" : _verificationCodeTF.text,
                            @"ChannelList" : _channelArray,
-                           @"Trade" : [NSString stringWithFormat:@"%@,%@",_industry,_subIndustry],
-                           @"Province" : _province.address,
-                           @"City" : _city.address,
+                           @"Trade" : [NSString stringWithFormat:@"%@,%@",_superTag.id,_subTag.id],
+                           @"Province" : _province.code,
+                           @"City" : _city.code,
                            };
     
     [[UserManager shareUserManager]submitSigningWithParameters:dic signingType:SigningTypeMarketing];

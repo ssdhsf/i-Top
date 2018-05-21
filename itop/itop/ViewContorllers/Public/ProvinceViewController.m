@@ -45,7 +45,7 @@ static NSString *const ProvinceCellIdentifier = @"Province";
         make.right.mas_equalTo(-5);
         make.bottom.top.mas_equalTo(self.view);
     }];
-    [[Global sharedSingleton] createProgressHUDInView:self.view withMessage:@"加载中"];
+//    [[Global sharedSingleton] createProgressHUDInView:self.view withMessage:@"加载中"];
     self.tableView.hidden = YES;
 }
 
@@ -54,32 +54,46 @@ static NSString *const ProvinceCellIdentifier = @"Province";
     self.title = @"选择城市" ;
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    
-    [super viewDidAppear:animated];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(queue, ^{
-        
-        NSLog(@"%@",[NSThread currentThread]);
-        self.dataArray = [[ProvinceStore shearProvinceStore]configurationProvinceStoreMenuWithMenu:nil];
-        self.sectionTitle = [[ProvinceStore shearProvinceStore] screeningLetter];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSLog(@"%@",[NSThread currentThread]);
-            [MBProgressHUD hideHUDForView:self.view animated:NO];
-            self.tableView.hidden = NO;
-            [self steupTableView];
-        });
-    });
-}
+//-(void)viewDidAppear:(BOOL)animated{
+//    
+//    [super viewDidAppear:animated];
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(queue, ^{
+//        
+////        NSLog(@"%@",[NSThread currentThread]);
+////        self.dataArray = [[ProvinceStore shearProvinceStore]configurationProvinceStoreMenuWithMenu:nil];
+////        self.sectionTitle = [[ProvinceStore shearProvinceStore] screeningLetter];
+////        dispatch_async(dispatch_get_main_queue(), ^{
+////            NSLog(@"%@",[NSThread currentThread]);
+////            [MBProgressHUD hideHUDForView:self.view animated:NO];
+////            self.tableView.hidden = NO;
+////            [self steupTableView];
+////        });
+//    });
+//}
 
 -(void)initData{
     
     [super initData];
+    
+    self.sectionTitle = [NSMutableArray array];
+    [[UserManager shareUserManager]cityList];
+    [UserManager shareUserManager].cityListSuccess = ^(NSArray *arr){
+      
+        self.dataArray = [[ProvinceStore shearProvinceStore]configurationProvinceStoreMenuWithMenu:arr];
+        
+        for (SelecteProvinceModel *city in self.dataArray) {
+            
+            [self.sectionTitle addObject:city.letterKey];
+        }
+        self.tableView.hidden = NO;
+        [self steupTableView];
+    };
 }
 
 - (void)steupTableView{
     
-    TableViewCellConfigureBlock congfigureCell = ^(ProvinceTableViewCell *cell , Province *item , NSIndexPath *indexPath){
+    TableViewCellConfigureBlock congfigureCell = ^(ProvinceTableViewCell *cell , City *item , NSIndexPath *indexPath){
         
         [cell setItmeOfModel:item];
         
@@ -107,24 +121,28 @@ static NSString *const ProvinceCellIdentifier = @"Province";
 - (UIView *)tableView:(UITableView *)tableView  viewForHeaderInSection:(NSInteger)section {
     
     UILabel *lable = [[UILabel alloc]init];
-    if ([_sectionTitle[section] isEqualToString:@"当"]) {
-        lable.text =[NSString stringWithFormat:@"    %@", @"当前定位"];
-    } else {
-       
-        lable.text = [NSString stringWithFormat:@"    %@",_sectionTitle[section]];
+    if (_sectionTitle.count != 0) {
+        
+        if ([_sectionTitle[section] isEqualToString:@"当"]) {
+            lable.text =[NSString stringWithFormat:@"    %@", @"当前定位"];
+        } else {
+            
+            lable.text = [NSString stringWithFormat:@"    %@",_sectionTitle[section]];
+        }
+        
+        lable.backgroundColor = RGB(224, 227, 230);
+        lable.font = [UIFont systemFontOfSize:13];
+
     }
-    
-    lable.backgroundColor = RGB(224, 227, 230);
     return lable;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    Province *city = [_provinceDataSource itemAtIndexPath:indexPath];
+    City *city = [_provinceDataSource itemAtIndexPath:indexPath];
 
     [self back];
     [UIManager sharedUIManager].selectProvinceBackOffBolck(city);
-    
 }
 
 @end

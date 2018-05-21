@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *accountImage;
 @property (weak, nonatomic) IBOutlet UIImageView *passwordImage;
 @property (weak, nonatomic) IBOutlet UIButton *seeIcon;
-@property (weak, nonatomic) IBOutlet UIButton *backIcon;
+//@property (weak, nonatomic) IBOutlet UIButton *backIcon;
 
 @end
 
@@ -30,8 +30,7 @@
 
 -(void)initView{
     
-    
-    _backIcon.hidden = _isLogin;
+//    _backIcon.hidden = _isLogin;
     
     [_loginButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_loginButton)];
     _loginButton.layer.cornerRadius = _loginButton.frame.size.height/2;
@@ -45,26 +44,43 @@
 -(void)initData{
     
     [WXApiManager sharedManager].delegate = self;
-    
     _accountTF.text = [[Global sharedSingleton]getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME];
     _passwordTF.text = [[Global sharedSingleton]getUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD];
+}
+
+-(void)initNavigationBarItems{
+    
+    [super initNavigationBarItems];
+    [self setLeftCustomBarItem :@"zuo_icon_close" action:@selector(back)];
+    self.title = @"登录";
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    [self hiddenNavigationController:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [self hiddenNavigationController:_isLogin];
+    [self hiddenNavigafindHairlineImageView:YES];
+    self.navigationController.navigationBar.translucent = NO;
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+}
+
+- (void)viewSafeAreaInsetsDidChange{
+    [super viewSafeAreaInsetsDidChange];
+    if (@available(iOS 11, *)) {
+//        [self setAdditionalSafeAreaInsets:self.view.safeAreaInsets];
+        
+    }
+//    [self defaultUIWithSafeAreaInsets:self.view.safeAreaInsets];
 }
 
 //登录
 - (IBAction)login:(UIButton *)sender {
-    
-    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text] || ![LCRegExpTool lc_checkingStrFormNumberAndLetter:_passwordTF.text]){
-        
-        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
-        return;
-    }
+//    
+//    if (![LCRegExpTool lc_checkingPasswordWithShortest:6 longest:12 password:_passwordTF.text]){
+//        
+//        [self showToastWithMessage:@"请输入6-12位大小英文字母和数字组成的密码"];
+//        return;
+//    }
 
     [_accountTF resignFirstResponder];
     [_passwordTF resignFirstResponder];
@@ -92,7 +108,7 @@
 - (IBAction)weChatLogin:(UIButton *)sender {
     
     [WXApiRequestHandler sendAuthRequestScope:@"snsapi_userinfo"
-                                            State:@"itop"
+                                            State:@"i-Top"
                                            OpenID:WECHAT_APP_ID
                                  InViewController:self];
 }
@@ -110,7 +126,7 @@
     
     UIViewController *vc = [UIManager viewControllerWithName:@"ResetPasswordViewController"];
     [self.navigationController pushViewController:vc animated:YES];
-    [UIManager showVC:@"ResetPasswordViewController"];
+//    [UIManager showVC:@"ResetPasswordViewController"];
 }
 
 //密码可见
@@ -145,11 +161,11 @@
     _passwordImage.image = tag == 2 ?  [UIImage imageNamed:@"icon_password_selected"] :[UIImage imageNamed:@"icon_password_normal"];
 }
 
--(void)hiddenNavigationController:(BOOL)animated{
-    
-    [self.navigationController.navigationBar setHidden:animated];
-    [self.navigationController.tabBarController.tabBar setHidden:animated];
-}
+//-(void)hiddenNavigationController:(BOOL)animated{
+//
+//    [self.navigationController.navigationBar setHidden:animated];
+//    [self.navigationController.tabBarController.tabBar setHidden:animated];
+//}
 
 //微信登陆回调
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response {
@@ -162,7 +178,7 @@
         [[UserManager shareUserManager]wechatLoginWithCallBackCode:response.code];
         [UserManager shareUserManager].loginSuccess = ^ (id obj){
             
-            if ([obj isKindOfClass:[NSString class]]) {
+            if ([obj isKindOfClass:[NSString class]] && [obj rangeOfString:@"WeChat"].location != NSNotFound) {
                 
                 NSString *cacheKey = [NSString stringWithFormat:@"%@",obj];
                 [[Global sharedSingleton]
@@ -198,9 +214,9 @@
     //    [UIAlertView showWithTitle:strTitle message:strMsg sure:nil];
 }
 
-- (IBAction)back:(UIButton *)sender {
+-(void)back{
     
-    [self back];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSString <Optional>*user_id;
 @property (nonatomic, strong) NSString <Optional>*article_id;
-@property (nonatomic, strong) NSString <Optional>*praise;
+@property (nonatomic, strong) NSNumber <Optional>*praise;
 @property (nonatomic, strong) NSString <Optional>*collection;
 @property (nonatomic, strong) NSString <Optional>*payment;
 @property (nonatomic, strong) NSString <Optional>*create_datetime;

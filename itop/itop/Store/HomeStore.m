@@ -81,6 +81,90 @@
     return tagArray;
 }
 
+-(NSMutableArray *)configurationAllTagWithMenu:(NSArray *)menu {
+    
+    NSMutableArray  *useArray = [NSMutableArray array];
+    for (NSDictionary *dic in menu) {
+        
+        TagList *tag = [[TagList alloc]initWithDictionary:dic error:nil];
+        [useArray addObject:tag];
+    }
+    
+    return useArray;
+}
+
+
+-(NSString *)headerTitleWithSection:(NSInteger)section {
+    
+    NSArray *titleArray = @[@"标签",@"定制需求",@"精品案例",@"推荐H5",@"推荐设计师",@"场景H5",@"一页H5",@"视频H5"];
+    return titleArray[section];
+}
+
+
+- (NSString *)sectionTypeWithSection:(NSInteger)section{
+    
+    NSArray *titleArray = @[Type_Home,Type_Custrom,Type_Case,Type_H5,Type_Designer,Type_H5,Type_H5,Type_H5];
+    return titleArray[section];
+}
+
+
+- (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType{
+    
+    NSMutableArray  *useArray = [NSMutableArray array];
+    NSNumber *idStr ;
+    for (TagList *tag in menu) {
+        
+//        TagList *tag = [[TagList alloc]initWithDictionary:dic error:nil];
+        if ([tag.name isEqualToString:tagType]) {
+            idStr = tag.id;
+            break;
+        }
+    }
+    
+    for (TagList *tag  in menu) {
+        
+//        TagList *tag = [[TagList alloc]initWithDictionary:dic error:nil];
+        if ([tag.parent_id isEqualToNumber:idStr]) {
+            [useArray addObject: tag];
+        }
+    }
+    return useArray;
+}
+
+
+- (NSMutableArray *)configurationTagNameWithMenu:(NSArray *)menu  tagType:(NSString *)tagType{
+    
+    NSMutableArray  *useArray = [NSMutableArray array];
+    for ( TagList *tag in menu) {
+        
+        [useArray addObject: tag.name];
+    }
+    return useArray;
+}
+
+-(NSMutableArray *)configurationTagNameWithTag:(NSString *)tag{
+    
+    NSMutableArray  *useArray = [NSMutableArray array];
+    
+    if ([tag isEqualToString:@"场景H5"]) {
+        
+        [useArray addObjectsFromArray:@[@"用途",@"行业",@"热点",@"风格"]];
+    }
+    
+    if ([tag isEqualToString:@"一页H5"]) {
+        
+        [useArray addObjectsFromArray:@[@"用途",@"行业",@"技术",@"风格"]];
+    }
+    
+    if ([tag isEqualToString:@"视频H5"]) {
+        
+        [useArray addObjectsFromArray:@[@"用途",@"尺寸",@"时长",@"风格"]];
+    }
+    
+    return useArray;
+}
+
+
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu{
     
     NSMutableArray *sectionArray = [NSMutableArray array];

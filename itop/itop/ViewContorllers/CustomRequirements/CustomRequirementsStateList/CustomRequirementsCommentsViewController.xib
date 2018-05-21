@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CustomRequirementsCommentsViewController">
+            <connections>
+                <outlet property="comentsBaseLabel" destination="FC3-no-L9d" id="aA7-0z-rvR"/>
+                <outlet property="commentContentLabel" destination="K4v-Ra-KLZ" id="Fa9-hf-kC6"/>
+                <outlet property="commentsProfessionLabel" destination="FAW-Rz-uCK" id="HGb-ju-nuH"/>
+                <outlet property="commentsSevieceLabel" destination="fzN-TW-toy" id="ETL-cd-rfu"/>
+                <outlet property="view" destination="Nu9-32-i9i" id="4PV-CK-vHR"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Nu9-32-i9i">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="推广效果" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FC3-no-L9d">
+                    <rect key="frame" x="16" y="20" width="85" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="YFq-xP-zK0"/>
+                        <constraint firstAttribute="width" constant="85" id="ZRA-6I-pfH"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="服务态度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fzN-TW-toy">
+                    <rect key="frame" x="16" y="61" width="85" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="85" id="FD8-g2-Ezu"/>
+                        <constraint firstAttribute="height" constant="21" id="XNb-7d-k7a"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="诚  信  度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FAW-Rz-uCK">
+                    <rect key="frame" x="16" y="102" width="85" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="F9s-40-RQK"/>
+                        <constraint firstAttribute="width" constant="85" id="UCX-XS-jK9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="备注" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q78-nA-EFW">
+                    <rect key="frame" x="16" y="143" width="73" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="Fpr-e8-HS7"/>
+                        <constraint firstAttribute="width" constant="73" id="a5L-Ta-HSD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4v-Ra-KLZ">
+                    <rect key="frame" x="97" y="143" width="262" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fzN-TW-toy" firstAttribute="top" secondItem="FC3-no-L9d" secondAttribute="bottom" constant="20" id="MxS-Dh-RgD"/>
+                <constraint firstItem="fzN-TW-toy" firstAttribute="leading" secondItem="Nu9-32-i9i" secondAttribute="leading" constant="16" id="OJa-3a-Xr9"/>
+                <constraint firstItem="FAW-Rz-uCK" firstAttribute="leading" secondItem="Nu9-32-i9i" secondAttribute="leading" constant="16" id="X3n-5F-OIi"/>
+                <constraint firstItem="q78-nA-EFW" firstAttribute="leading" secondItem="Nu9-32-i9i" secondAttribute="leading" constant="16" id="Y32-l7-eqj"/>
+                <constraint firstItem="FC3-no-L9d" firstAttribute="top" secondItem="Nu9-32-i9i" secondAttribute="top" constant="20" id="h0K-ll-OXC"/>
+                <constraint firstItem="FC3-no-L9d" firstAttribute="leading" secondItem="Nu9-32-i9i" secondAttribute="leading" constant="16" id="qAj-cY-zhW"/>
+                <constraint firstItem="q78-nA-EFW" firstAttribute="top" secondItem="FAW-Rz-uCK" secondAttribute="bottom" constant="20" id="sTM-bl-mbI"/>
+                <constraint firstItem="FAW-Rz-uCK" firstAttribute="top" secondItem="fzN-TW-toy" secondAttribute="bottom" constant="20" id="vPM-Ix-L0t"/>
+            </constraints>
+            <point key="canvasLocation" x="33.5" y="53.5"/>
+        </view>
+    </objects>
+</document>

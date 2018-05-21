@@ -12,6 +12,6 @@
 
 + (instancetype)shearDesignerSigningStore;
 
--(NSArray *)fieldArray;
+//-(NSArray *)fieldArray;
 
 @end

@@ -10,4 +10,11 @@
 
 @implementation TagList
 
+-(instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err{
+    
+    self = [super initWithDictionary:dict error:err];
+    self.selecteTag =[[SelecteTag alloc]init];
+    return self;
+}
+
 @end

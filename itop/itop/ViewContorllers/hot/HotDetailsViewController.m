@@ -22,7 +22,6 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *browseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *praiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *commentLabel;
 @property (weak, nonatomic) IBOutlet UIButton *focusButton;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImage;
@@ -33,8 +32,8 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (strong, nonatomic) UIView *commentTVBgView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *browseIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *praiseIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *commentIcon;
+@property (weak, nonatomic) IBOutlet UIButton *praiseButton;
 
 /*---------------h5headerview--------------------*/
 @property (strong, nonatomic) IBOutlet UIView *h5HeaderView;
@@ -43,22 +42,22 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 @property (weak, nonatomic) IBOutlet UILabel *h5UserNameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *h5ImageView;
 @property (weak, nonatomic) IBOutlet UILabel *h5BrowseLabel;
-@property (weak, nonatomic) IBOutlet UILabel *h5PraiseLabel;
 @property (weak, nonatomic) IBOutlet UILabel *h5CommentLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *h5BrowseIcon;
-@property (weak, nonatomic) IBOutlet UIImageView *h5PraiseIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *h5CommentIcon;
+@property (weak, nonatomic) IBOutlet UIButton *h5PraiseButton;
 
 /*---------------publicview--------------------*/
 @property (weak, nonatomic) IBOutlet UIButton *sendButton;
 @property (weak, nonatomic) IBOutlet UIButton *collectionButton;
 @property (weak, nonatomic) IBOutlet UIButton *shearButton;
-@property (strong, nonatomic)WebViewController *webVc;
-@property (nonatomic, strong)HotDetails *hotDetail;
-@property (nonatomic, strong)HotDetailDataSource *hotDetailDataSource;
-@property (nonatomic, strong)NSString *parent_id;
-@property (nonatomic, assign)FocusType focusType;
-@property (nonatomic, assign)CollectionType collectionType;
+@property (strong, nonatomic) WebViewController *webVc;
+@property (nonatomic, strong) HotDetails *hotDetail;
+@property (nonatomic, strong) HotDetailDataSource *hotDetailDataSource;
+@property (nonatomic, strong) NSString *parent_id;
+@property (nonatomic, assign) FocusType focusType;
+@property (nonatomic, assign) CollectionType collectionType;
+@property (nonatomic, assign)BOOL isOperation;//是否操作关注
 
 @end
 
@@ -76,6 +75,11 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:YES];
     [IQKeyboardManager sharedManager].enable = NO;
+
+    if (_webVc != nil) {
+        
+       [self initWebView];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -93,7 +97,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)viewDidAppear:(BOOL)animated{
     
     [super viewDidAppear:animated];
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeProduct];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
 
     };
@@ -102,6 +106,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)initData{
     
     [super initData];
+    _isOperation = NO;
     [[UserManager shareUserManager]hotDetailWithHotDetailId:_hotDetail_id PageIndex:0 PageCount:0];
     [UserManager shareUserManager].hotDetailSuccess = ^(NSDictionary *dic){
       
@@ -150,8 +155,13 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.right.top.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(-50);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -83 : -50);
     }];
+    
+//    if (kDevice_Is_iPhoneX) {
+//
+//        self.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh-34);
+//    }
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
 }
@@ -160,15 +170,35 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     
     _commentTVBgView = [[UIView alloc]init];
     _commentTV = [[UITextView alloc]init];
-        _commentTVBgView.backgroundColor = [UIColor whiteColor];
-    _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
+    _commentTVBgView.backgroundColor = [UIColor whiteColor];
+    _commentTV.frame = CGRectMake(20, ScreenHeigh-64, ScreenWidth-127, 30);
+     [self.view addSubview:_commentTV];
+    [self.commentTV mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(20);
+        make.right.mas_equalTo(-127);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -44 : -10);
+        make.height.mas_equalTo(30);
+    }];
+
     _commentTV.layer.cornerRadius = 5;
-    [self.view addSubview:_commentTV];
     _commentTV.delegate = self;
     _commentTV.layer.masksToBounds = YES;
     _commentTV.backgroundColor = UIColorFromRGB(0xf5f7f9);
     _sendButton.hidden = YES;
     [self.view addSubview:_commentTVBgView];
+    
+    [self.shearButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.mas_equalTo(-19);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -38 : -4);
+        make.height.mas_equalTo(40);
+         make.width.mas_equalTo(25);
+    }];
+    [self.collectionButton mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.mas_equalTo(-67);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -38 : -4);
+        make.height.mas_equalTo(40);
+        make.width.mas_equalTo(25);
+    }];
 }
 
 - (void)steupTableView{
@@ -196,16 +226,14 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.browseIcon.frame = CGRectMake(CGRectGetMaxX(self.timeLabel.frame), 0, 14, 9);
     self.browseLabel.frame = CGRectMake(CGRectGetMaxX(self.browseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
     
-    self.praiseIcon.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, 0, 10, 9);
-    self.praiseLabel.frame = CGRectMake(CGRectGetMaxX(self.praiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
-    
-    self.commentIcon.frame = CGRectMake(CGRectGetMaxX(self.praiseLabel.frame)+10, 0, 10, 9);
+    self.praiseButton.frame = CGRectMake(CGRectGetMaxX(self.browseLabel.frame)+10, 0, goodLabelTextWidth+20, 25);
+
+    self.commentIcon.frame = CGRectMake(CGRectGetMaxX(self.praiseButton.frame)+10, 0, 10, 9);
     self.commentLabel.frame = CGRectMake(CGRectGetMaxX(self.commentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
     
     self.browseIcon.centerY = self.timeLabel.centerY;
     self.browseLabel.centerY = self.browseIcon.centerY;
-    self.praiseIcon.centerY = self.browseIcon.centerY;
-    self.praiseLabel.centerY = self.browseIcon.centerY;
+    self.praiseButton.centerY = self.browseIcon.centerY;
     self.commentIcon.centerY = self.browseIcon.centerY;
     self.commentLabel.centerY = self.browseIcon.centerY;
     
@@ -237,15 +265,20 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [self setupTextViewWithKeyboardShowAnimation:NO];
 }
 
+
+-(void)initWebView{
+    _webVc = [[WebViewController alloc]init];
+    _webVc.h5Url = _hotDetail.article.url;
+    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
+    [_h5HeaderView addSubview:_webVc.view];
+}
+
 -(void)setupH5HeaderView{
     
     self.title = _hotDetail.article.title;
     _h5HeaderView.frame = CGRectMake(0 , 0, ScreenWidth, ScreenHeigh/3*2);
     self.tableView.tableHeaderView = _h5HeaderView;
-    _webVc = [[WebViewController alloc]init];
-    _webVc.h5Url = _hotDetail.article.url;
-    _webVc.view.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh/3*2-142);
-    [_h5HeaderView addSubview:_webVc.view];
+    [self initWebView];
     
     NSInteger goodLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.praise_count fontSize:13 andHeight:15];
     NSInteger browseLabelTextWidth = [[Global sharedSingleton]widthForString:_hotDetail.article.browse_count fontSize:13 andHeight:15];
@@ -254,14 +287,11 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.h5BrowseIcon.frame = CGRectMake(30, oringinY, 14, 9);
     self.h5BrowseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseIcon.frame)+10, 0, browseLabelTextWidth+5, 15);
     
-    self.h5PraiseIcon.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseLabel.frame)+10, 0, 10, 9);
-    self.h5PraiseLabel.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseIcon.frame)+10, 0, goodLabelTextWidth+5, 15);
-    
-    self.h5CommentIcon.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseLabel.frame)+10, 0, 10, 9);
+    self.h5PraiseButton.frame = CGRectMake(CGRectGetMaxX(self.h5BrowseLabel.frame)+10, 0, goodLabelTextWidth+20, 25);
+    self.h5CommentIcon.frame = CGRectMake(CGRectGetMaxX(self.h5PraiseButton.frame)+10, 0, 10, 9);
     self.h5CommentLabel.frame = CGRectMake(CGRectGetMaxX(self.h5CommentIcon.frame)+10,0, commentsLabelTextWidth+5, 15);
     self.h5BrowseLabel.centerY = self.h5BrowseIcon.centerY;
-    self.h5PraiseIcon.centerY = self.h5BrowseIcon.centerY;
-    self.h5PraiseLabel.centerY = self.h5BrowseIcon.centerY;
+    self.h5PraiseButton.centerY = self.h5BrowseIcon.centerY;
     self.h5CommentIcon.centerY = self.h5BrowseIcon.centerY;
     self.h5CommentLabel.centerY = self.h5BrowseIcon.centerY;
 
@@ -277,7 +307,14 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)setH5HeaderViewSubViewData{
     
     _h5BrowseLabel.text = _hotDetail.article.browse_count;
-    _h5PraiseLabel.text = _hotDetail.article.praise_count;
+    [_h5PraiseButton setTitle:_hotDetail.article.praise_count forState:UIControlStateNormal];
+    if (_hotDetail.user_article!= nil && [_hotDetail.user_article.praise isEqualToNumber:@1]) {
+        
+        [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+    } else{
+        
+         [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good_grey"] forState:UIControlStateNormal];
+    }
     _h5CommentLabel.text = _hotDetail.article.commend;
     _h5UserNameLabel.text = _hotDetail.author_nickname;
     [_h5ImageView sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
@@ -288,13 +325,22 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     _titleLabel.text = _hotDetail.article.title;
     _timeLabel.text =[[Global sharedSingleton]timeFormatTotimeStringFormatWithtime:_hotDetail.article.create_datetime willPattern:TIME_PATTERN_second didPattern:TIME_PATTERN_day];
     _browseLabel.text = _hotDetail.article.browse_count;
-    _praiseLabel.text = _hotDetail.article.praise_count;
+
+    [_praiseButton setTitle:_hotDetail.article.praise_count forState:UIControlStateNormal];
+    if (_hotDetail.user_article!= nil && [_hotDetail.user_article.praise isEqualToNumber:@1]) {
+        
+        [_praiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+    } else{
+        
+        [_praiseButton setImage:[UIImage imageNamed:@"icon_good_grey"] forState:UIControlStateNormal];
+    }
+
     _commentLabel.text = _hotDetail.article.comment_count;
 //    _contentLabel.text = _hotDetail.article.content;
     _userNameLabel.text = _hotDetail.author_nickname;
     
     [_iconImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.author_head_img] placeholderImage:PlaceholderImage];
-    [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:nil];
+    [_showImage sd_setImageWithURL:[NSURL URLWithString:_hotDetail.article.cover_img] placeholderImage:ArticlePlaceholderImage];
     
     UIFont *font = [UIFont systemFontOfSize:16];
     self.contentLabel.font = font;
@@ -351,6 +397,27 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     } else {
         
         [self alertOperation];
+    }
+}
+
+- (IBAction)praise:(UIButton *)sender { //点赞
+    
+    if (_hotDetail.user_article== nil || [_hotDetail.user_article.praise isEqualToNumber:@0]){
+        
+        [[UserManager shareUserManager]praiseOnHotWithHotId:_hotDetail.article.id];
+        [UserManager shareUserManager].praiseHotSuccess = ^(id obj){
+            
+            if (sender.tag == H5ItemDetailType) {
+                
+                [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+            } else {
+                
+                [_praiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+            }
+        };
+    } else {
+        
+        [self showToastWithMessage:@"不能重复点赞"];
     }
 }
 
@@ -440,8 +507,13 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     shear.shear_webLink = _hotDetail.article.url;
     [[ShearViewManager sharedShearViewManager]addShearViewToView:self.view shearType:UMS_SHARE_TYPE_WEB_LINK completion:^(NSInteger tag) {
         
-        [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearType[tag] integerValue] parameter:shear];
+        [[ShearViewManager sharedShearViewManager] shareWebPageToPlatformType:[[ShearViewManager sharedShearViewManager].shearTypeArray[tag] integerValue] parameter:shear];
     } ];
+    
+    [ShearViewManager sharedShearViewManager].shearSuccessBlock = ^(NSInteger  index){
+        
+        NSLog(@"分享成功");
+    };
 }
 
 -(void)alertOperation{
@@ -462,6 +534,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     [[UserManager shareUserManager]focusOnUserWithUserId:_hotDetail.article.user_id focusType:_focusType];
     [UserManager shareUserManager].focusOnUserSuccess = ^ (id obj){
         
+        _isOperation = YES;
         _focusType = !_focusType;
         if (_focusType == FocusTypeFocus) {
             
@@ -490,7 +563,7 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     CGRect keyboardRect = [value CGRectValue];
     //获取键盘高度
     int height = keyboardRect.size.height;
-    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
+    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-NAVIGATION_HIGHT-80, ScreenWidth, 80);
      [self setupTextViewWithKeyboardShowAnimation:YES];
     [self shutDownTableViewCellEventWithAnimation:NO];
 }
@@ -518,24 +591,51 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 -(void)setupTextViewWithKeyboardShowAnimation:(BOOL)animation{
     
     if (animation) {
-        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-120, 60);
+//        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-120, 60);
         _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
         _sendButton.centerY = _commentTV.centerY;
         _commentTV.layer.cornerRadius = 5;
+//        [_commentTV removeFromSuperview];
         [_commentTVBgView addSubview:_commentTV];
         [_commentTVBgView addSubview:_sendButton];
-        
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-80);
+            make.top.mas_equalTo(10);
+            make.bottom.mas_equalTo(-10);
+        }];
+        [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make){
+            make.right.mas_equalTo(-38);
+            make.top.mas_equalTo(20);
+            make.height.mas_equalTo(40);
+            make.width.mas_equalTo(25);
+        }];
     }else {
         
-        _commentTV.frame = CGRectMake(20, ScreenHeigh-40-64, ScreenWidth-127, 30);
-        _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
         [_commentTV resignFirstResponder];
         [self.view addSubview:_commentTV];
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-127);
+            make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -44 : -10);
+            make.height.mas_equalTo(30);
+        }];
+        _commentTV.layer.cornerRadius = 30/2;
     }
     
     _sendButton.hidden = !animation;
     _commentTVBgView.hidden = !animation;
 }
+
+-(void)back{
+    
+    if (_isOperation) {
+        
+        [[NSNotificationCenter defaultCenter]postNotificationName:Notification_CHANGE_FOCUS_DESGINER object:nil userInfo:nil];
+    }
+    [super back];
+}
+
 
 
 @end

@@ -10,7 +10,7 @@
 #import <JavaScriptCore/JavaScriptCore.h>
 
 @interface WebViewController ()<UIWebViewDelegate>
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+
 
 @end
 
@@ -55,8 +55,8 @@
 #pragma mark-视图加载完执行的方法
 -(void)webViewDidFinishLoad:(UIWebView*)webView{
     
-    [MBProgressHUD hideHUDForView: self.view animated:NO];
-    [self loadJsCallOC];
+//    [MBProgressHUD hideHUDForView: self.view animated:NO];
+//    [self loadJsCallOC];
 }
 
 #pragma mark 创建JS调用OC本地代码
@@ -100,6 +100,11 @@
     };
 }
 
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    
+    NSURLRequest *request = webView.request;
+    NSLog(@"didFailLoadWithError-url=%@--%@",[request URL],[request HTTPBody]);
+}
 
 - (void)setUserAgent {
     //get the original user-agent of wßebview

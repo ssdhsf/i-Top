@@ -112,7 +112,7 @@ CGFloat const imageViewWH = 20;
 // 添加标签
 - (void)addFieldTag:(NSArray *)tagArray action:(SEL)action{
     
-    for (SpecialityTag *tagStr in tagArray) {
+    for (TagList *tagStr in tagArray) {
         Class tagClass = _tagClass?_tagClass : [YZTagButton class];
         
         // 创建标签按钮
@@ -122,7 +122,7 @@ CGFloat const imageViewWH = 20;
         }
         
         tagButton.layer.cornerRadius = 0;
-        if ([tagStr.tag isEqualToString:@"最多选3个"] || tagStr.selecteTag == YES) {
+        if ([tagStr.name isEqualToString:@"最多选3个"] || tagStr.selecteTag.selecteTag == YES) {
             
             tagButton.layer.borderWidth = 0;
         } else {
@@ -130,8 +130,8 @@ CGFloat const imageViewWH = 20;
             tagButton.layer.borderWidth = _borderWidth;
         }
         
-        tagButton.selected = tagStr.selecteTag;
-        if (tagStr.selecteTag == YES) {
+        tagButton.selected = tagStr.selecteTag.selecteTag;
+        if (tagStr.selecteTag.selecteTag == YES) {
             
             [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [tagButton setBackgroundColor:UIColorFromRGB(0xcbedfb)];
@@ -146,16 +146,14 @@ CGFloat const imageViewWH = 20;
         // 保存到字典
         [self.tags setObject:tagButton forKey:tagStr];
         [self.tagArray addObject:tagStr];
-        [self generalSetupWithButton:tagButton action:action tag:tagStr.tag];
+        [self generalSetupWithButton:tagButton action:action tag:tagStr.name];
     }
 }
 
-
-// 添加标签
-- (void)addSearchListTag:(NSArray *)tagList action:(SEL)action
-{
+// 添加搜索标签
+- (void)addSearchListTag:(NSArray *)tagArray action:(SEL)action{
     
-    for (NSString *tag in tagList) {
+    for (NSString *tag in tagArray) {
         
         Class tagClass = _tagClass?_tagClass : [YZTagButton class];
         
@@ -171,6 +169,29 @@ CGFloat const imageViewWH = 20;
         [self generalSetupWithButton:tagButton action:action tag:tag];
     }
 }
+
+- (void)addOperationDemandListTag:(NSArray *)tagArray action:(SEL)action{
+
+    for (NSString *tag in tagArray) {
+        
+        Class tagClass = _tagClass?_tagClass : [YZTagButton class];
+        
+        // 创建标签按钮
+        YZTagButton *tagButton = [tagClass buttonWithType:UIButtonTypeCustom];
+        if (_tagClass == nil) {
+            tagButton.margin = _tagButtonMargin;
+        }
+        
+        tagButton.layer.cornerRadius = 0;
+        [tagButton setTitleColor:_tagColor forState:UIControlStateNormal];
+        [tagButton setBackgroundColor:_tagBackgroundColor];
+        
+        [self generalSetupWithButton:tagButton action:action tag:tag];
+        [tagButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(tagButton) atIndex:0];
+        [tagButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }
+}
+
 
 -(void)generalSetupWithButton:(UIButton *)tagButton action:(SEL)action tag:(NSString *)tag{
     
@@ -222,6 +243,19 @@ CGFloat const imageViewWH = 20;
 - (void)searchListTag:(UIButton *)button{
     if (_searchListTagBlock ) {
         _searchListTagBlock(button.currentTitle);
+    }
+}
+
+// 点击标签  状态操作
+- (void)operationDemandListTagTag:(UIButton *)button{
+    if (_operationDemandListTagBlock ) {
+        _operationDemandListTagBlock(button.currentTitle);
+    }
+}
+
+- (void)rechargeTag:(UIButton *)button{
+    if (_fieldTagBlock) {
+        _fieldTagBlock(button.currentTitle, button.selected);
     }
 }
 
@@ -358,7 +392,6 @@ CGFloat const imageViewWH = 20;
             self.frame = frame;
         }];
     }
-
 }
 
 // 更新标签
@@ -403,8 +436,7 @@ CGFloat const imageViewWH = 20;
     if (preI >= 0) {
         preButton = self.tagButtons[preI];
     }
-    
-    
+ 
     // 获取当前按钮
     YZTagButton *tagButton = self.tagButtons[i];
     // 判断是否设置标签的尺寸
@@ -416,8 +448,6 @@ CGFloat const imageViewWH = 20;
         // 计算标签按钮frame（regular）
         [self setupTagButtonRegularFrame:tagButton];
     }
-    
-    
 }
 
 // 计算标签按钮frame（按规律排布）
@@ -471,7 +501,6 @@ CGFloat const imageViewWH = 20;
     
     tagButton.frame = CGRectMake(btnX, btnY, btnW+btnH/2, btnH);
     tagButton.layer.cornerRadius = _tagCornerRadius;
-    
 }
 
 @end

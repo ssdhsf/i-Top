@@ -12,7 +12,9 @@
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
 #import "HotDetailsViewController.h"
-#import "MapLocationManager.h"
+//#import "MapLocationManager.h"
+
+#define EFFECTIVE_HIGHT ScreenHeigh - NAVIGATION_HIGHT-TABBAR_HIGHT-65
 
 @interface HotViewController ()<SegmentTapViewDelegate,UIScrollViewDelegate>
 
@@ -26,13 +28,14 @@
 @property (nonatomic ,strong)RecommendedViewController *informationVc;
 @property (nonatomic ,strong)RecommendedViewController *localVc;
 
-@property (nonatomic, strong) UIView *navBgView;
-@property (nonatomic, strong) UIButton *loctionBtn;
+//@property (nonatomic, strong) UIView *navBgView;
+//@property (nonatomic, strong) UIButton *loctionBtn;
 @property (nonatomic, strong) UIButton *searchBtn;
-@property (nonatomic, strong) UILabel *loctionLable;
+//@property (nonatomic, strong) UILabel *loctionLable;
+//@property (nonatomic, assign) CGFloat effectiveHight;
 
-@property (nonatomic, assign) BOOL isSelectProvince;
-@property (nonatomic, strong) Province *selectProvince;
+//@property (nonatomic, assign) BOOL isSelectProvince;
+//@property (nonatomic, strong) City *selectProvince;
 
 @end
 
@@ -54,15 +57,40 @@
     
     [super viewWillAppear:animated];
     [self hiddenNavigafindHairlineImageView:NO];
-    [self setNavBar];
+    [self hiddenNavigationController:NO];
+//    [self setRightCustomBarItem:@"hot_icon_search" action:@selector(hotSearch)];
+    [self setLeftCustomBarItem:@"" action:nil];
+
+//    switch (_showProductType) {
+//        case GetProductListTypeHome:
+//            
+//            [self hiddenNavigafindHairlineImageView:NO];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            [self setLeftCustomBarItem:@"" action:nil];
+//            break;
+//        case GetProductListTypeMyProduct:
+//            
+//            [self hiddenNavigafindHairlineImageView:YES];
+//            [self hiddenNavigationController:NO];
+//            self.navigationItem.rightBarButtonItem.tintColor = RGB(232, 98, 159);
+//            break;
+//        case GetProductListTypeSelect:
+//            
+//            [self hiddenNavigafindHairlineImageView:YES];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            break;
+//        default:
+//            break;
+//    }
     self.navigationController.navigationBar.translucent = NO;
 }
+
 
 - (void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
     [self.navigationController.navigationBar lt_reset];
-    [self.navBgView removeFromSuperview];
+//    [self.navBgView removeFromSuperview];
     [self.navigationController.navigationBar setShadowImage:nil];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.navigationController.navigationBar.translucent = NO;
@@ -82,10 +110,11 @@
         [_scroll removeFromSuperview];
         _scroll = nil;
     }
-    _scroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 65, ScreenWidth, ScreenHeigh-129)];;
+
+    _scroll = [[UIScrollView alloc]initWithFrame: CGRectMake(0,65, ScreenWidth, EFFECTIVE_HIGHT)];
     [self.view addSubview:_scroll];
     _scroll.delegate = self;
-    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, ScreenHeigh-129);
+    _scroll.contentSize = CGSizeMake(self.dataArray.count*ScreenWidth, 0);
     _scroll.pagingEnabled = YES;
     _scroll.showsHorizontalScrollIndicator = NO;
     int index = _scroll.contentOffset.x/ViewWidth;
@@ -100,7 +129,7 @@
             
             if (!_recommendedVc) {
                 _recommendedVc = [[RecommendedViewController alloc]initWithNibName:@"RecommendedViewController" bundle:nil];
-                _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _recommendedVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _recommendedVc.itmeType = itmeTitle;
                 _recommendedVc.getArticleListType = GetArticleListTypeHot;
                 _recommendedVc.pushControl = ^ (H5List *h5){
@@ -110,12 +139,11 @@
                 };
             }
             [_scroll addSubview:_recommendedVc.view];
-            
             break;
         case 1:
             if (!_h5Vc) {
                 _h5Vc = [[HotH5ItmeViewController alloc]initWithNibName:@"HotH5ItmeViewController" bundle:nil];
-                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _h5Vc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _h5Vc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _h5Vc.getArticleListType = GetArticleListTypeHot;
                 _h5Vc.pushH5DetailControl = ^ (H5List *h5){
@@ -132,7 +160,7 @@
         case 2:
             if (!_informationVc) {
                 _informationVc = [[RecommendedViewController alloc]init];
-                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _informationVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _informationVc.itmeType = itmeTitle;
                 _informationVc.getArticleListType = GetArticleListTypeHot;
                 _informationVc.pushControl = ^ (H5List *h5){
@@ -145,7 +173,7 @@
         case 3:
             if (!_videoVc) {
                 _videoVc = [[HotH5ItmeViewController alloc]initWithNibName:@"HotH5ItmeViewController" bundle:nil];
-                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _videoVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _videoVc.itemType = [itmeTitle isEqualToString:@"H5"] ? H5ItmeViewController : VideoItmeViewController;
                 _videoVc.getArticleListType = GetArticleListTypeHot;
                 
@@ -160,7 +188,7 @@
         case 4:
             if (!_localVc) {
                 _localVc = [[RecommendedViewController alloc]init];
-                _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, ScreenHeigh-178);
+                _localVc.view.frame = CGRectMake(itemIndex*ScreenWidth, 0, ScreenWidth, EFFECTIVE_HIGHT);
                 _localVc.itmeType = itmeTitle;
                 _localVc.getArticleListType = GetArticleListTypeHot;
                 _localVc.pushControl = ^ (H5List *h5){
@@ -178,7 +206,7 @@
 
 -(void)initData{
 
-     _isSelectProvince = NO;
+//     _isSelectProvince = NO;
     [self.dataArray addObjectsFromArray:[NSArray arrayWithObjects:@"推荐",@"H5",@"资讯", @"视频", @"本地", nil]];
 }
 
@@ -214,59 +242,59 @@
     }];
 }
 
-- (void)setNavBar{
-    
-    UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
-    [self.navigationController.navigationBar addSubview:navBgView];
-    self.navBgView = navBgView;
-    navBgView.backgroundColor = [UIColor clearColor];
-    
-    UITextField *searchBtn = [[UITextField alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
+//- (void)setNavBar{
+//    
+//    UIView *navBgView = [[UIView alloc] initWithFrame:CGRectMake(0, -20, ScreenWidth, 64)];
+//    [self.navigationController.navigationBar addSubview:navBgView];
+//    self.navBgView = navBgView;
+//    navBgView.backgroundColor = [UIColor clearColor];
+//    
+//    UITextField *searchBtn = [[UITextField alloc] initWithFrame:CGRectMake(0, 27, 200 * KadapterW, 30)];
+//
+//    UILabel * leftView = [[UILabel alloc] initWithFrame:CGRectMake(10,0,20,26)];
+//    leftView.backgroundColor = [UIColor clearColor];
+//    //左面导航按钮
+//    UIButton *readerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.loctionBtn = readerButton;
+//    readerButton.frame = CGRectMake(20, 0, 25 , 25 );
+//    self.loctionBtn.centerY = searchBtn.centerY;
+//    
+//    self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
+////        self.loctionLable.centerY = searchBtn.centerY;
+//    self.loctionLable.font = [UIFont systemFontOfSize:9];
+////    self.loctionLable .text = self.loctionString;
+//    [navBgView addSubview: self.loctionLable];
+//    [navBgView addSubview:self.loctionBtn];
+//    
+//    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.searchBtn.frame = CGRectMake(ScreenWidth-50 , 0, 25 , 25 );
+//    self.searchBtn.centerY = searchBtn.centerY;
+//    [self.searchBtn addTarget:self action:@selector(hotSearch) forControlEvents:UIControlEventTouchDown];
+//    [navBgView addSubview:self.searchBtn];
+//    [self.loctionBtn setImage:[UIImage imageNamed:@"hot_icon_location"] forState:UIControlStateNormal];
+//    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
+//    [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
 
-    UILabel * leftView = [[UILabel alloc] initWithFrame:CGRectMake(10,0,20,26)];
-    leftView.backgroundColor = [UIColor clearColor];
-    //左面导航按钮
-    UIButton *readerButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.loctionBtn = readerButton;
-    readerButton.frame = CGRectMake(20, 0, 25 , 25 );
-    self.loctionBtn.centerY = searchBtn.centerY;
-    
-    self.loctionLable = [[UILabel alloc ]initWithFrame:CGRectMake(CGRectGetMaxX(self.loctionBtn.frame), 40, 35 , 16 )];
-//        self.loctionLable.centerY = searchBtn.centerY;
-    self.loctionLable.font = [UIFont systemFontOfSize:9];
-//    self.loctionLable .text = self.loctionString;
-    [navBgView addSubview: self.loctionLable];
-    [navBgView addSubview:self.loctionBtn];
-    
-    self.searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.searchBtn.frame = CGRectMake(ScreenWidth-50 , 0, 25 , 25 );
-    self.searchBtn.centerY = searchBtn.centerY;
-    [self.searchBtn addTarget:self action:@selector(hotSearch) forControlEvents:UIControlEventTouchDown];
-    [navBgView addSubview:self.searchBtn];
-    [self.loctionBtn setImage:[UIImage imageNamed:@"hot_icon_location"] forState:UIControlStateNormal];
-    [self.loctionBtn addTarget:self action:@selector(selectLoction) forControlEvents:UIControlEventTouchDown];
-    [self.searchBtn setImage:[UIImage imageNamed:@"hot_icon_search"] forState:UIControlStateNormal];
-    
-    if (!_isSelectProvince) {
-        if ([MapLocationManager sharedMapLocationManager].location == nil) {
-            
-            [[MapLocationManager sharedMapLocationManager] initMapLocation];
-            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
-                
-                self.loctionLable .text = loction;
-            };
-            
-            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
-                
-                [self showToastWithError:error];
-            };
-        } else {
-            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
-        }
-    } else {
-        
-        self.loctionLable .text = _selectProvince.address;
-    }
+//    if (!_isSelectProvince) {
+//        if ([MapLocationManager sharedMapLocationManager].location == nil) {
+//            
+//            [[MapLocationManager sharedMapLocationManager] initMapLocation];
+//            [UserManager shareUserManager].mapLocationManagerSuccess = ^(NSString *loction){
+//                
+//                self.loctionLable .text = loction;
+//            };
+//            
+//            [UserManager shareUserManager].mapLocationManagerFailure = ^(NSError *error){
+//                
+//                [self showToastWithError:error];
+//            };
+//        } else {
+//            self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
+//        }
+//    } else {
+//        
+//        self.loctionLable .text = _selectProvince.name;
+//    }
 
 //    if ([MapLocationManager sharedMapLocationManager].location == nil) {
 //        
@@ -283,22 +311,22 @@
 //    } else {
 //        self.loctionLable .text = [MapLocationManager sharedMapLocationManager].location;
 //    }
-}
+//}
 
 -(void)hotSearch{
     
     [UIManager showVC:@"SearchViewController"];
 }
 
--(void)selectLoction{
-    
-    [UIManager showVC:@"ProvinceViewController"];
-    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(Province *city){
-        
-        _isSelectProvince = YES;
-        _selectProvince = city;
-    };
-}
+//-(void)selectLoction{
+//    
+//    [UIManager showVC:@"ProvinceViewController"];
+//    [UIManager sharedUIManager].selectProvinceBackOffBolck = ^(City *city){
+//        
+//        _isSelectProvince = YES;
+//        _selectProvince = city;
+//    };
+//}
 
 
 @end

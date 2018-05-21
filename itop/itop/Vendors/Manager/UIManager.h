@@ -21,18 +21,65 @@ typedef NS_ENUM(NSInteger, StatisticalItmeType) { //加载数据统计Itme类型
     StatisticalItmeTypePop , //推广管理
 };
 
+typedef NS_ENUM(NSInteger, EditType) { //
+    EditTypeNoel = 0, //不可编辑
+    EditTypeTextFied = 1,//文本编辑
+    EditTypeTextView,//文本编辑
+    EditTypeSelectImage,//选择图片
+    EditTypeSelectItem, //选择项
+    EditTypeSelectTime //选择时间
+};
+
+typedef NS_ENUM(NSInteger, ShearType) { //首页Tag类型
+    ShearTypeProduct = 0, //不可编辑
+    ShearTypeMyhome = 1,//文本编辑
+};
+
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
-typedef void (^SelectProductBolck)(id product); //选择作品回掉
+typedef void (^CommentPopularizeBackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^UpdateHotBackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^RealesHotBackOffBolck)(id parameter); //发布热点返回上一级回掉
+typedef void (^LoadingBackOffBolck)(id parameter); //加载完启动GIF返回上一级回掉
+typedef void (^SubmitInfomationBackOffBolck)(id parameter); //提交用户信息返回上一级回掉
+typedef void (^LoginOutBackOffBolck)(id parameter); //退出登录返回上一级回掉
+typedef void (^SelectProductBolck)(id parameter); //选择作品回掉
+typedef void (^SelectProvinceBackOffBolck)(id parameter); //选择城市回掉
+typedef void (^SetupProductBackOffBolck)(id parameter); //选择城市回掉
+typedef void (^CustomRequirementsRequestDataBackOffBolck)(id parameter); //定制需求操作提交回掉
+typedef void (^EditCaseBackOffBolck)(id parameter); //案例提交回掉
+typedef void (^UploadProductBackOffBolck)(id parameter); //定制需求提交回掉
+typedef void (^PayBackOffBolck)(id parameter); //支付回掉
+typedef void (^SelectTagBackOffBolck)(id parameter); //支付回掉
+typedef void (^IntroductionBackOffBolck)(id parameter); //简介输入回掉
+
+
+//typedef void (^FocusDesginerBackOffBolck)(id product); //定制需求提交回掉
 
 @class H5List;
+@class EditCase;
+@class ProductDetail;
 
 @interface UIManager : NSObject
 
 + (instancetype)sharedUIManager;
 
-@property (copy, nonatomic)BackOffBolck backOffBolck;
-@property (copy, nonatomic)BackOffBolck selectProvinceBackOffBolck;
+@property (copy, nonatomic)BackOffBolck backOffBolck;//
+@property (copy, nonatomic)RealesHotBackOffBolck realesHotBackOffBolck;//
+@property (copy, nonatomic)UpdateHotBackOffBolck updateHotBackOffBolck;//
+@property (copy, nonatomic)LoadingBackOffBolck loadingBackOffBolck;//
+@property (copy, nonatomic)SubmitInfomationBackOffBolck submitInfomationBackOffBolck;//
+@property (copy, nonatomic)LoginOutBackOffBolck loginOutBackOffBolck;//
+@property (copy, nonatomic)SelectProvinceBackOffBolck selectProvinceBackOffBolck;
 @property (copy, nonatomic)SelectProductBolck selectProductBolck;
+@property (copy, nonatomic)CommentPopularizeBackOffBolck commentPopularizeBackOffBolck;
+@property (copy, nonatomic)SetupProductBackOffBolck setupProductBackOffBolck;
+@property (copy, nonatomic)CustomRequirementsRequestDataBackOffBolck customRequirementsRequestDataBackOffBolck;
+@property (copy, nonatomic)EditCaseBackOffBolck editCaseBackOffBolck;
+@property (copy, nonatomic)UploadProductBackOffBolck uploadProductBackOffBolck;
+@property (copy, nonatomic)PayBackOffBolck payBackOffBolck;
+@property (copy, nonatomic)SelectTagBackOffBolck selectTagOffBolck;
+@property (copy, nonatomic)IntroductionBackOffBolck introductionBackOffBolck;
+//@property (copy, nonatomic)FocusDesginerBackOffBolck focusDesginerBackOffBolck;
 
 + (AppDelegate *)appDelegate;
 + (UIWindow *)keyWindow;
@@ -129,7 +176,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
 *
 *  @param designer_id 设计师id
 */
-+ (void)designerDetailWithDesignerId:(NSString*)designer_id;
++ (void)designerDetailWithDesignerId:(NSNumber*)designer_id;
 
 /**
  *  设计师列表
@@ -175,7 +222,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *
  *  @param template_ld H5  id
  */
-+(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld;
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSNumber *)template_ld productType:(H5ProductType)productType;
 
 /**
  *  联系客服／意见反馈公用
@@ -214,7 +261,7 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  *  @param article_id  文章id
  *  @param article_type  文章类型
  */
-+(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type;
++(void)hotDetailsViewControllerWithArticleId:(NSNumber *)article_id articleType:(ItemDetailType)article_type;
 
 /**
  *  搜索热点列表
@@ -229,6 +276,94 @@ typedef void (^SelectProductBolck)(id product); //选择作品回掉
  */
 -(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome;
 
+/**
+ *  定制需求列表
+ */
++(void)customRequirementsViewController;
 
+/**
+ *  定制需求详情
+ */
++(void)customRequirementsDetailViewControllerWithCustomId:(NSNumber *)custom_id;
+
+/**
+ *  定制需求添加
+ *  @param demandAddType  添加定制需求类型 新增／编辑／作品入口
+ *  @param demandType     定制需求类型 定制／竞标
+ *  @param demand_id      重新编辑的 定制ID
+ *  @param desginer_id     作品入口 设计师id
+ *  @param product_id      作品入口 作品ID
+ */
++(void)customRequirementsReleaseViewControllerWithDemandAddType:(DemandAddType)demandAddType
+                                                     demandType:(DemandType)demandType
+                                                      demand_id:(NSNumber *)demand_id
+                                                     desginerId:(NSNumber *)desginer_id
+                                                      productId:(NSNumber *)product_id;
+/**
+ *  添加平台介入（纠纷）
+ */
++(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id;
+
+/**
+ *  平台介入List（纠纷）
+ */
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                  message:(NSString *)message;
+
+/**
+ *  评论
+ *  custom_id   需要评论id
+ *  commentType 评论类型
+ */
++(void)commentPopularizeViewControllerWithCustomId:(NSNumber *)custom_id
+                                       commentType:(CommentType)commentType;
+
+/**
+ *  添加／编辑案例
+ *  isEdite 是否编辑
+ *  editCase 编辑的模型
+ */
++(void)editCaseViewControllerIsEdit:(BOOL)isEdite editCase:(EditCase *)editCase;
+
+/**
+ *  上传作品
+ *  demand_id  定制id
+ *  user_id user_id
+ */
++(void)uploadProductLinkViewControllerWithDemandId:(NSNumber *)demand_id
+                                            userId:(NSNumber *)user_id;
+/**  案例List
+ *
+ *  getCaseType  首页获取／我的案例
+ */
++(void)getCaseViewControllerWithGetCaseType:(GetCaseType)getCaseType;
+
+/**
+ *  托管赏金
+ *  demand_id  定制id
+ */
++(void)hostingBountyViewControllerWithDemandId:(NSNumber *)demand_id;
+
+/**
+ *  作品支付
+ *  productDetail  作品
+ */
++(void)payProductViewControllerWithProductDetail:(ProductDetail *)productDetail;
+
+/**
+ *  确认支付
+ *  demand_id  定制id
+ *  money  价格
+ *  payType 支付类型
+ */
++(void)paymentVerificationCodeViewControllerWithDemandId:(NSNumber *)demand_id
+                                                   money:(NSString *)money
+                                                 payType:(PayType)payType;
+/**
+ *  绑定手机号码
+ *  bindPhoneType  初次登陆绑定／修改
+ *  oldPhoneCode  需要修改的手机号码验证码
+ */
++(void)bindPhoneViewControllerWithBindPhoneType:(BindPhoneType )bindPhoneType oldPhoneCode:(NSString *)oldPhoneCode;
 
 @end

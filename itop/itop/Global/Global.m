@@ -430,5 +430,23 @@
     return borderLayer;
 }
 
+-(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
+    
+    UIPasteboard *paste = [UIPasteboard generalPasteboard];
+    paste.string = linkUrl;
+    [[Global sharedSingleton] showToastInTop:[[UIManager sharedUIManager]topViewController].view withMessage:@"复制成功"];
+}
+
+- (BOOL)hasChinese:(NSString *)str {
+    for(int i=0; i< [str length];i++){
+        int a = [str characterAtIndex:i];
+        if( a > 0x4e00 && a < 0x9fff)
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 
 @end

@@ -10,4 +10,6 @@
 
 @interface BuyTemplateViewController : BaseViewController
 
+@property (strong, nonatomic)ProductDetail *productDetail;
+
 @end

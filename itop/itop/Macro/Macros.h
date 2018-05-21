@@ -8,8 +8,8 @@
 
 #import "ApiMacros.h"
 
-#ifndef Macros_h
-#define Macros_h
+//#ifndef Macros_h
+//#define Macros_h
 
 // 缓存最后登录帐户信息
 #define UD_KEY_LAST_LOGIN_USERINFOMATION      @"UserInfomation"   // 登陆返回信息
@@ -45,6 +45,7 @@
 #define JPUSH_Notification_PresentView       @"PresentView"
 #define JPUSH_Notification_ShowNotice        @"ShowNotice"
 
+#define Notification_CHANGE_FOCUS_DESGINER @"changeFocusDsginer"
 //颜色配置
 #define RGB(__R, __G, __B)\
     [UIColor colorWithRed:(__R) / 255.0f\
@@ -105,8 +106,9 @@
 #define kAlphaNum   @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
 
 //背景图
-#define PlaceholderImage [UIImage imageNamed:@"default_man"]
-#define H5PlaceholderImage [UIImage imageNamed:@"h5"]
+#define PlaceholderImage [UIImage imageNamed:@"home_icon_portrait_default"] //设计师
+#define H5PlaceholderImage [UIImage imageNamed:@"img_default"] //H5
+#define ArticlePlaceholderImage [UIImage imageNamed:@"hotimg_bg_default"] //热点
 
 #define FOCUSSTATETITLE_NOFOCUS @"关 注"
 #define FOCUSSTATETITLE_FOCUS @"已关注"
@@ -123,7 +125,10 @@
 #define TIPSMESSEGESELECT(__CONTENT) [NSString stringWithFormat:@"请选择%@",__CONTENT]
 #define TIPSMESSEGEADD(__CONTENT) [NSString stringWithFormat:@"请添加%@",__CONTENT]
 
+#define kDevice_Is_iPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
 
-//#define  WeakSelf() __weak typeof(self) weakSelf = self;
+#define NAVIGATION_HIGHT (kDevice_Is_iPhoneX ? 88 : 64)
+#define TABBAR_HIGHT (kDevice_Is_iPhoneX ? 83 : 49)
+//#define GENRRAL_EFFECTIVE_HIGHT ScreenHeigh-NAVIGATION_HIGHT-TABBAR_HIGHT
 
-#endif /* Macros_h */
+

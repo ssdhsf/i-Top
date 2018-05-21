@@ -11,5 +11,6 @@
 @interface WebViewController : BaseViewController
 
 @property (strong,nonatomic) NSString *h5Url;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 
 @end

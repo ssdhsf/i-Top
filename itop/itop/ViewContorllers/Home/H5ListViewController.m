@@ -107,8 +107,8 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey];
-    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr){
+    [[UserManager shareUserManager]homeH5ListWithType:_h5ProductType PageIndex:self.page_no PageCount:10 tagList:_tagList searchKey:_searchKey isShow:YES];
+    [UserManager shareUserManager].homeH5ListSuccess = ^ (NSArray *arr , NSNumber *type){
         
         [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:arr] page:self.page_no];
     };
@@ -160,7 +160,7 @@ static NSString *const H5ListCellIdentifier = @"H5List";
 //    [super collectionView:collectionView didSelectItemAtIndexPath:indexPath];
     
     H5List *h5 = [_h5ListDataSource itemAtIndexPath:indexPath];
-    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id];
+    [UIManager pushTemplateDetailViewControllerWithTemplateId:h5.id productType:H5ProductTypeDefault];
 //    HotDetailsViewController *hotDetailsVc = [[HotDetailsViewController alloc]init];
 //    hotDetailsVc.hotDetail_id = h5.id;
 //    hotDetailsVc.itemDetailType = H5ItemDetailType;

@@ -16,7 +16,8 @@
 
 @interface PopularizeItmeTableViewController : BaseTableViewController
 
-@property (nonatomic, assign)OrderStatusType orderStatus;
+@property (nonatomic, assign) OrderStatusType orderStatus;
 @property (nonatomic, assign) id <UpdateFrameDelegate> delegate;
+@property (assign, nonatomic) BOOL isHome;
 
 @end

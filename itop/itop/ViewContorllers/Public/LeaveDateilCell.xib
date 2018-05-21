@@ -48,6 +48,7 @@
                 <outlet property="contentLabel" destination="xhr-b5-Rj8" id="Rt8-28-8Ft"/>
                 <outlet property="titleLabel" destination="Stb-71-q5M" id="PaA-fr-ofh"/>
             </connections>
+            <point key="canvasLocation" x="40" y="80"/>
         </tableViewCell>
     </objects>
 </document>

@@ -13,24 +13,30 @@
 #import "AlertView.h"
 #import "CompanySigningStore.h"
 #import "DesignerSigningStore.h"
+#import "EditChannelListViewController.h"
+#import "IntroductionViewController.h"
 
 static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
-@interface InfomationViewController ()<UIAlertViewDelegate,UIPickerViewDelegate,UIPickerViewDataSource,SubmitFileManagerDelegate>
+@interface InfomationViewController ()<UIAlertViewDelegate,SubmitFileManagerDelegate>
 
 @property (nonatomic, strong)InfomationDataSource *infomationDataSource;
-@property (nonatomic, strong)UIPickerView *pickView;
+//@property (nonatomic, strong)UIPickerView *pickView;
 @property (nonatomic, strong)NSArray *provinceArray; // 省份
 @property (nonatomic, strong)NSArray *cityArray;//城市
 @property (nonatomic, strong)NSMutableArray *ageArray; //年龄
 @property (nonatomic, strong)NSArray *sexArray; //性别
+@property (nonatomic, strong)NSArray *fieldArray; //擅长领域
 @property (nonatomic, strong)Province *province; //选择省份
 @property (nonatomic, strong)Province *city; //选择的城市
 
+@property (nonatomic, strong)TagList *superTag; //选择行业 父级
+@property (nonatomic, strong)TagList *subTag; //选择行业 子级
+
+@property (nonatomic, strong)NSString *field; //选择擅长
+
 @property (nonatomic, strong)NSArray *industryArray; // 行业／1级
 @property (nonatomic, strong)NSArray *industrySubArray;//行业／子级
-@property (nonatomic, strong)NSString *industryString; // 选中的行业／1级
-@property (nonatomic, strong)NSString *industrySubString;//选中的行业／子级
 
 @property (nonatomic, strong)NSString *selectSex; //选择的性别
 @property (nonatomic, strong)NSString *selectAge; //选择的年龄
@@ -42,6 +48,8 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 @property (nonatomic, strong)AlertView *alertView; //选择类型
 @property (nonatomic, assign)BOOL isUpdataInfo; //是否修改信息
 
+@property (nonatomic, strong)NSArray *channelList;//渠道资源
+@property (nonatomic, strong)NSArray *tagArray;//渠道资源
 
 @end
 
@@ -90,9 +98,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
              setUserDefaultsWithKey:INFOMATION_EDIT_MODEL([[UserManager shareUserManager]crrentUserId])
              andValue:[_info toJSONString]];
             [self loadingView];
-//            self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
-//            [self setupSelectItme];
-//            [self steupTableView];
         };
     } else {
         [self loadingView];
@@ -107,17 +112,105 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     _provinceArray = [[CompanySigningStore shearCompanySigningStore]provinceArray];
     Province *province = _provinceArray[0];
     _cityArray = province.cityArray;
-
-    _industryArray = [[[CompanySigningStore shearCompanySigningStore]industryArray] allKeys];
-    NSString *industryKey = _industryArray[0];
-    _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryKey];
-    
     _isUpdataInfo = NO;
 }
 
 -(void)loadingView{
     
-    self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
+    switch ([[UserManager shareUserManager] crrentUserType]) {
+        
+        case UserTypeDefault:
+            [self setupProvinceAndTag];
+            break;
+            
+        case UserTypeDesigner:
+            if ([[CompanySigningStore shearCompanySigningStore]fieldList].count == 0) {
+                
+                [[UserManager shareUserManager]hometagListWithType:TagTypeField];
+                [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+                    
+                    [[CompanySigningStore shearCompanySigningStore]confitionFieldWithRequstFieldArray:arr];
+                    [self setupProvinceAndTag];
+                };
+            } else {
+                
+                [self setupProvinceAndTag];
+            }
+            break;
+        case UserTypeEnterprise:
+        case UserTypeMarketing:
+            if ([[CompanySigningStore shearCompanySigningStore]superTagList].count == 0) {
+                
+                [[UserManager shareUserManager]hometagListWithType:TagTypeTrade];
+                [UserManager shareUserManager].homeTagListSuccess = ^(id arr){
+                    
+                    [[CompanySigningStore shearCompanySigningStore]confitionIndustryWithRequstIndustryArray:arr];
+                    
+                    [self setupProvinceAndTag];
+                };
+            } else {
+                
+                [self setupProvinceAndTag];
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+-(void)setupProvinceAndTag{
+    
+    if ([[UserManager shareUserManager] crrentUserType] == UserTypeDesigner) {
+        
+         _fieldArray = [[CompanySigningStore shearCompanySigningStore]fieldList];
+         _field = [[CompanySigningStore shearCompanySigningStore]fieldsWithTagId:_info.other_info.field];
+        
+    } else if ([[UserManager shareUserManager] crrentUserType] == UserTypeEnterprise || [[UserManager shareUserManager] crrentUserType] == UserTypeMarketing ){
+       
+        _industryArray = [[CompanySigningStore shearCompanySigningStore]superTagList];
+        TagList *tag = _industryArray[0];
+        _industrySubArray = tag.subTagArray;
+        
+        NSString *segmentationString;
+        if ([_info.other_info.trade rangeOfString:@","].location != NSNotFound) {
+            segmentationString = @",";//C端提交的格式  也是最终的格式
+        } else if ([_info.other_info.trade rangeOfString:@"-"].location != NSNotFound){
+            segmentationString = @"-";  //B端提交的格式
+        }else if ([_info.other_info.trade rangeOfString:@""].location != NSNotFound){
+            segmentationString = @"、"; //A端提交的格式
+        } else{
+            
+        }
+        
+        if (![Global stringIsNullWithString:segmentationString]) {
+            
+            NSArray *tagArr = [_info.other_info.trade componentsSeparatedByString:segmentationString];//行业
+            BOOL isChnese = [[Global sharedSingleton]hasChinese:tagArr[0]];
+            
+            _superTag = [[CompanySigningStore shearCompanySigningStore]superTagWithTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+            
+            _subTag = [[CompanySigningStore shearCompanySigningStore] subTagWithTagId:isChnese ? tagArr[1] : [NSNumber numberWithInteger:[tagArr[1] integerValue]] superTagId:isChnese ? tagArr[0] : [NSNumber numberWithInteger:[tagArr[0] integerValue]]];
+
+        }
+        
+        if ([[UserManager shareUserManager] crrentUserType] == UserTypeMarketing) {
+            
+            _channelList = [[CompanySigningStore shearCompanySigningStore]confitionChannelListWithRequstChannelListArray:_info.channelList];
+        }
+    }
+    if ([[UserManager shareUserManager]crrentUserType] == UserTypeDefault ||
+        [[UserManager shareUserManager]crrentUserType] == UserTypeDesigner ) {
+        _province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:_info.user_info.province];
+        _city = [[CompanySigningStore shearCompanySigningStore] cityWithCityCode:_info.user_info.city provinceCode:_info.user_info.province];
+        
+    } else {
+        
+        _province = [[CompanySigningStore shearCompanySigningStore]provinceWithProvinceCode:_info.other_info.province];
+        _city = [[CompanySigningStore shearCompanySigningStore] cityWithCityCode:_info.other_info.city provinceCode:_info.other_info.province];
+    }
+    
+     self.dataArray = [[InfomationStore shearInfomationStore]configurationMenuWithUserInfo:_info userType:[_info.user_type integerValue]];
     [self setupSelectItme];
     [self steupTableView];
 }
@@ -127,28 +220,34 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     for (Infomation *info in self.dataArray) {
         
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"所在城市"]) {
-            NSArray *arr = [info.content componentsSeparatedByString:@","];
-            for (Province *province in _provinceArray) {
-                
-                if ([province.address isEqualToString:arr[0]]) {
-                    _province = province;
-                    self.cityArray = province.cityArray;
-                }
-            }
+            info.content = [NSString stringWithFormat:@"%@,%@",_province.address, _city.address];
+        }
+        
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"所属行业"]) {
+            info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name, _subTag.name];
             
-            if (arr.count > 1) {
-               
-                for (Province *city in _cityArray) {
-                    
-                    if ([city.address isEqualToString:arr[1]]) {
-                        _city = city;
-                    }
-                }
-            }
         }
         
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"性别"]) {
             _selectSex = [[InfomationStore shearInfomationStore]sexWithIndex:info.content] ;
+        }
+        if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"擅长领域"]) {
+            info.content = [[CompanySigningStore shearCompanySigningStore]fieldsWithTagId:_info.other_info.field];
+        }
+        
+        if (_channelList.count != 0 && [info.title isEqualToString:@"渠道资源"]) {
+            
+            NSString *string ;
+            for (ChannelList *channel in _channelList) {
+                
+                if (string == nil) {
+                    
+                    string = channel.name;
+                } else {
+                    string = [NSString stringWithFormat:@"%@,%@", string,channel.name];
+                }
+            }
+            info.content = string;
         }
     }
 }
@@ -159,138 +258,6 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [self hiddenNavigationController:NO];
     [self hiddenNavigafindHairlineImageView:YES];
     self.navigationController.navigationBar.translucent = NO;
-}
-
-#pragma mark 重新加载数据时将有数据的itme赋给已选择的temp
--(void)initPickViewWith:(Infomation*)info{
-    
-    if (info.pickViewType == PickViewTypeSex) {
-      
-         self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 60)];
-        
-    } else {
-         self.pickView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, ScreenWidth-120, 120)];
-    }
-    self.pickView.backgroundColor = [UIColor whiteColor];
-    self.pickView.delegate = self;
-    self.pickView.dataSource = self;
-    self.pickView.showsSelectionIndicator = YES;
-    [self.pickView reloadAllComponents];
-//    Infomation *info = self.dataArray[pickView];
-    NSInteger index ;
-    if (![Global stringIsNullWithString:info.content]) {
-        
-        switch (info.pickViewType) {
-            case PickViewTypeAge:
-                
-                index = [self.ageArray indexOfObject:info.content];
-                [self.pickView selectRow:index inComponent:0 animated:NO];
-                break;
-            case PickViewTypeSex:
-                
-                index = [[InfomationStore shearInfomationStore] indexWithSex:info.content];
-                if (index > 0) {
-                    
-                    index = index-1;
-                }
-                [self.pickView selectRow:index inComponent:0 animated:NO];
-                break;
-            case PickViewTypeCompnySize:
-                
-                index = [[[CompanySigningStore shearCompanySigningStore]companySizeArray] indexOfObject:[info.content stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]]];
-                [self.pickView selectRow:index inComponent:0 animated:NO];
-                break;
-            case PickViewTypeField:
-                
-                index = [[[DesignerSigningStore shearDesignerSigningStore]fieldArray] indexOfObject:info.content];
-                [self.pickView selectRow:index inComponent:0 animated:NO];
-                break;
-                
-            case PickViewTypeProvince:
-                
-                [self positioningProvinceWithindex:info];
-                break;
-            case PickViewTypeIndustry:
-                
-                [self positioningIndustryWithindex:info];
-                break;
-                
-            default:
-                break;
-        }
-    }
-}
-
-#pragma mark 选择数据时将有数据的城市赋给已选择的temp
--(void)positioningProvinceWithindex:(Infomation *)info{
-    
-    NSArray *arr = [info.content componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (Province *province in self.provinceArray ) {
-        
-        if ([province.address isEqualToString:arr[0]]) {
-            
-            index = [self.provinceArray indexOfObject:province];
-            self.cityArray =province.cityArray;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-
-    if (arr.count > 1) {
-        
-        for (Province *province in self.cityArray ) {
-            
-            if ([province.address isEqualToString:arr[1]]) {
-                
-                inde2 = [self.cityArray indexOfObject:province];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
-#pragma mark 选择数据时将有数据的行业赋给已选择的temp
--(void)positioningIndustryWithindex:(Infomation *)info{
-    
-    NSArray *arr = [info.content componentsSeparatedByString:@","];
-    NSInteger index = 0 ;
-    NSInteger inde2 = 0 ;
-    for (NSString *industryp in self.industryArray ) {
-        
-        if ([industryp isEqualToString:arr[0]]) {
-            
-            index = [self.industryArray indexOfObject:industryp];
-            self.industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][industryp];;
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-    
-    if (arr.count > 1) {
-        
-        for (NSString *subIndustryp in self.industrySubArray ) {
-            
-            if ([subIndustryp isEqualToString:arr[1]]) {
-                
-                inde2 = [self.industrySubArray indexOfObject:subIndustryp];
-            }
-        }
-        [self.pickView selectRow:inde2 inComponent:1 animated:NO];
-    }
-}
-
--(void)initInputNameTFWithPlaceholder:(NSString *)placeholder content:(NSString *)content{
-    
-    self.inputNameTF = [[UITextField alloc]initWithFrame:CGRectMake(20, 0, ScreenWidth-160, 30)];
-    
-    if ([Global stringIsNullWithString:content]) {
-        self.inputNameTF.placeholder = placeholder;
-    }  else {
-        self.inputNameTF.text = content;
-    }
-    [_inputNameTF becomeFirstResponder];
-    _inputNameTF.textAlignment = UITextAlignmentCenter;
-    _inputNameTF.font = [UIFont systemFontOfSize:15];
 }
 
 - (void)steupTableView{
@@ -312,7 +279,16 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 71;
+    _editorItem = [_infomationDataSource itemAtIndexPath:indexPath];
+    if (_editorItem.pickViewType == PickViewTypeIntroduction){
+        
+        CGFloat heigth = [Global heightWithString:_editorItem.content width:ScreenWidth-106-48 fontSize:15];
+        return heigth+65;
+        
+    } else {
+        
+        return 71;
+    }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -326,9 +302,54 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         if (_editorItem.pickViewType == PickViewTypePicture) {
             
             [[SubmitFileManager sheardSubmitFileManager].photoView openMenu];
-        } else {
+        } else  if (_editorItem.pickViewType == PickViewTypeChannel) { //编辑渠道
             
-             [self showAlertViewWithItem:_editorItem];
+            EditChannelListViewController *editChannelVs = [[EditChannelListViewController alloc]init];
+            [editChannelVs.dataArray addObjectsFromArray: _channelList];
+            editChannelVs.editChannelListBlock = ^(NSArray * array){
+              
+                _channelList = array;
+                [self setupSelectItme];
+                [self steupTableView];
+            };
+            [UIManager pushVC:editChannelVs];
+            
+        }else  if (_editorItem.pickViewType == PickViewTypeField) { //编辑渠道
+            
+            [UIManager showVC:@"SelectagViewController"];
+            [UIManager sharedUIManager].selectTagOffBolck = ^(NSArray *selectTagArray) {
+                
+                _tagArray = selectTagArray;
+                NSString *tagString = [NSString string];
+                for (TagList *tag in _tagArray) {
+                   
+                    if ([Global stringIsNullWithString:tagString]) {
+                        tagString = [NSString stringWithFormat:@"%@",tag.name];
+                    } else {
+                        
+                        tagString = [NSString stringWithFormat:@"%@,%@",tagString,tag.name];
+                    }
+                }
+                _editorItem.content = tagString;
+                [self.tableView reloadData];
+
+            };
+            
+        }else  if (_editorItem.pickViewType == PickViewTypeIntroduction) { //编辑渠道
+            
+           
+            IntroductionViewController *vc = [[IntroductionViewController alloc]init];
+            vc.introduction = _editorItem.content;
+            [self.navigationController pushViewController:vc animated:YES];
+            [UIManager sharedUIManager].introductionBackOffBolck = ^(NSString *introduction){
+               
+                _editorItem.content = introduction;
+                [self.tableView reloadData];
+            };
+            
+        }  else {
+            
+            [self showAlertViewWithItem:_editorItem];
         }
     }
 }
@@ -337,234 +358,125 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     InfomationTableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-    cell.iconImage.image = [array lastObject];
+    cell.iconImage.image = [[Global sharedSingleton]compressImage:[array lastObject]];
+//    cell.iconImage.layer.cornerRadius = cell.iconImage.height/2;
 }
 
 -(void)showAlertViewWithItem:(Infomation *)info{
     
-//    _pickViewType = row;
-    UIView *view = [[UIView alloc] init];
     NSString *string ;
     if (info.pickViewType <= PickViewTypeEdit) {
         
         string  = [NSString stringWithFormat:@"请输入%@",_editorItem.title];
-        [self initInputNameTFWithPlaceholder:string content:info.content];
-        view.frame = self.inputNameTF.frame;
-        [view addSubview:self.inputNameTF];
     }else {
-        [self initPickViewWith:info];
-        view.frame = self.pickView.frame;
-        [view addSubview:self.pickView];
         string  = [NSString stringWithFormat:@"请选择%@",_editorItem.title];
     }
     
-    _alertView = [[AlertView alloc]initWithTitle:string
-                                                   message:view
-                                                   sureBtn:@"确定"
-                                                 cancleBtn:@"取消"
-                                              pickViewType:info.pickViewType];
-    _alertView.resultIndex = ^(NSInteger index ,PickViewType picViewType){
-        
-        if (index == 2 && picViewType == PickViewTypeIndustry | picViewType == PickViewTypeProvince | picViewType == PickViewTypeEdit) {
+    NSArray *superArray = [NSArray array];
+    NSArray *subArray = [NSArray array];
+    switch (info.pickViewType) {
+        case PickViewTypeEdit:
             
-             [self updataInfomationWithUpdataItem:picViewType];
-        } else {
-            
-            [self.tableView reloadData];
-        }
-    };
-    [_alertView showXLAlertView];
-}
-
-#pragma mark 数据源 Method numberOfComponentsInPickerView
-- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-    
-    Infomation *info = self.dataArray[_selectRow];
-    return info.pickViewType == PickViewTypeProvince || info.pickViewType == PickViewTypeIndustry ? 2 : 1;
-}
-
--(UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view{
-    
-    UILabel *lbl = (UILabel *)view;
-    
-    if (lbl == nil) {
-        
-        lbl = [[UILabel alloc]init];
-        //在这里设置字体相关属性
-        lbl.adjustsFontSizeToFitWidth = YES;
-        lbl.font = [UIFont systemFontOfSize:15];
-        lbl.textColor = [UIColor blackColor];
-        [lbl setTextAlignment:NSTextAlignmentCenter];
-        [lbl setBackgroundColor:[UIColor clearColor]];
-    }
-    //重新加载lbl的文字内容
-    lbl.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    return lbl;
-}
-
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    
-    Infomation *info = self.dataArray[_selectRow];
-    if (component==0){
-        switch (info.pickViewType) {
-            case PickViewTypeAge:
-                
-                return self.ageArray.count;
-                break;
-            case PickViewTypeSex:
-                
-                return self.sexArray.count;
-                break;
-            case PickViewTypeCompnySize:
-                
-                return [[CompanySigningStore shearCompanySigningStore]companySizeArray].count ;
-                break;
-            case PickViewTypeField:
-                
-                return [[DesignerSigningStore shearDesignerSigningStore]fieldArray].count;
-                break;
-                
-            case PickViewTypeProvince:
-                
-                return self.provinceArray.count;
-                break;
-            case PickViewTypeIndustry:
-                
-                return self.industryArray.count;
-                break;
-        }
-    }else{
-        
-        if (info.pickViewType == PickViewTypeProvince) {
-            
-            return _cityArray.count;//省份对应的市区
-        } else {
-            
-            return self.industrySubArray.count;
-        }
-    }
-    
-    return 0;
-}
-
-#pragma mark delegate 显示信息的方法
--(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-    
-    Infomation *info = self.dataArray[_selectRow];
-    if (component==0){
-        switch (info.pickViewType) {
-            case PickViewTypeAge:
-                
-                return self.ageArray[row];
-                break;
-            case PickViewTypeSex:
-                
-                return self.sexArray[row];
-                break;
-            case PickViewTypeCompnySize:
-                
-                return [[CompanySigningStore shearCompanySigningStore]companySizeArray][row] ;
-                break;
-            case PickViewTypeField:
-                
-                return [[DesignerSigningStore shearDesignerSigningStore]fieldArray][row];
-                break;
-                
-            case PickViewTypeProvince:
-                _province = self.provinceArray[row];
-                return _province.address;
-                break;
-            case PickViewTypeIndustry:
-                
-                _industryString = self.industryArray[row];
-                return self.industryArray[row];
-                break;
-        }
-        
-    }else{
-        
-        if (info.pickViewType == PickViewTypeProvince) {
-            
-            _city = self.cityArray[row];
-            return _city.address;//省份对应的市区
-        } else {
-            
-            _industrySubString = self.industrySubArray[row];
-            return _industrySubString;
-        }
-    }
-    
-    return nil;
-}
-
--(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-   
-    Infomation *info = self.dataArray[_selectRow];
-    if (component==0){
-        switch (info.pickViewType) {
-            case PickViewTypeAge:
-                
-                info.content = self.ageArray[row];
-                break;
-            case PickViewTypeSex:
-                
-                info.content = self.sexArray[row];
-                break;
-            case PickViewTypeCompnySize:
-                
-                info.content = [[CompanySigningStore shearCompanySigningStore]companySizeArray][row] ;
-                break;
-            case PickViewTypeField:
-                
-                info.content = [[DesignerSigningStore shearDesignerSigningStore]fieldArray][row];
-                break;
-                
-            case PickViewTypeProvince:
-                _province = self.provinceArray[row];
-                self.cityArray =_province.cityArray;
-                [self.pickView reloadComponent:1];
-                break;
-            case PickViewTypeIndustry:
-                
-                _industryString = self.industryArray[row];
-                _industrySubArray = [[CompanySigningStore shearCompanySigningStore]industryArray][self.industryArray[row]];
-                [self.pickView reloadComponent:1];
-                break;
-        }
-    }else{
-    
-        if (info.pickViewType == PickViewTypeProvince) {
-           
-             _city = self.cityArray[row];
-        } else {
-            
-            _industrySubString = self.industrySubArray[row];
-            
-        }
-    }
-}
-
--(void)updataInfomationWithUpdataItem:(PickViewType )pickViewType{
-    
-    Infomation *info = self.dataArray[_selectRow];
-    
-    switch (pickViewType) {
-        case PickViewTypeProvince:
-            info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
+            superArray = nil;
+            subArray = nil;
             break;
-        case PickViewTypeEdit :
-            info.content = [NSString stringWithFormat:@"%@",_inputNameTF.text];
+        case PickViewTypeSex:
+            
+            superArray = self.sexArray;
+            subArray = nil;
+            break;
+        case PickViewTypeAge:
+            
+            superArray = _ageArray;
+            subArray = nil;
+            break;
+            
+        case PickViewTypeCompnySize:
+            
+            superArray = [[CompanySigningStore shearCompanySigningStore]companySizeArray];
+            subArray = nil;
+            break;
+        case PickViewTypeProvince:
+            
+            superArray = _provinceArray;
+            subArray = _cityArray;
             break;
         case PickViewTypeIndustry:
-            info.content = [NSString stringWithFormat:@"%@,%@",_industryString,_industrySubString];
+            
+            superArray = _industryArray;
+            subArray = _industrySubArray;
+            break;
+        case PickViewTypeField:
+            
+            superArray = _fieldArray;
+            subArray = nil;
             break;
         default:
             break;
     }
     
-    [self.tableView reloadData];
+    _alertView = [[AlertView alloc]initWithTitle:string
+                                                   message:nil
+                                                   sureBtn:@"确定"
+                                                 cancleBtn:@"取消"
+                                              pickViewType:info.pickViewType
+                                      superArray:superArray
+                                        subArray:subArray];
+    
+    
+    __weak typeof(self) weakSelf = self;
+    _alertView.selectResult = ^( id superResult, id subResult) {
+       
+        [weakSelf updataInfomationWithselectSuperItme:superResult selectSubItme:subResult];
+    };
+    if (info.pickViewType == PickViewTypeEdit) { //赋予原来的值
+        
+        [_alertView setupInputNameTFWithPlaceholder:info.title content:info.content];
+    } else {
+        
+        [_alertView setupPickViewWithContent:info.content];
+    }
+     [_alertView showXLAlertView];
 }
 
+
+-(void)updataInfomationWithselectSuperItme:(id)selectSuperItme
+                             selectSubItme:(id)selectSubItme{
+    
+    Infomation *info = self.dataArray[_selectRow];
+    
+    switch (info.pickViewType) {
+        
+        case PickViewTypeEdit :
+        case PickViewTypeSex :
+        case PickViewTypeAge :
+        case PickViewTypeCompnySize :
+            info.content = [NSString stringWithFormat:@"%@",(NSString *)selectSuperItme];
+            break;
+
+        case PickViewTypeProvince:
+            
+            _province = (Province *)selectSuperItme;
+            _city = (Province *)selectSubItme;
+            
+            info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
+            break;
+        case PickViewTypeIndustry:
+            _superTag = (TagList *)selectSuperItme;
+            _subTag = (TagList *)selectSubItme;
+            info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name,_subTag.name];
+            break;
+//        case PickViewTypeField:
+//
+//            _field = (TagList *)selectSuperItme;
+//             info.content = [NSString stringWithFormat:@"%@",_field.name];
+            
+
+        default:
+            break;
+    }
+    [self.tableView reloadData];
+}
 
 -(void)keyBoardWillShow:(NSNotification *)notification{
     
@@ -593,86 +505,67 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     self.alertView.frame = CGRectMake(0, 0, ScreenWidth, ScreenHeigh);
 }
 
-//-(NSArray *)showItemAletViewWithItemViewType:(PickViewType )pickViewType{
-//    
-//    Infomation *info = self.dataArray[_selectRow];
-//    
-//    switch (pickViewType) {
-//        case PickViewTypeProvince:
-//            info.content = [NSString stringWithFormat:@"%@,%@",_province.address,_city.address];
-//            break;
-//        case PickViewTypeSex:
-//            info.content = [NSString stringWithFormat:@"%@",_selectSex];
-//            break;
-//        case PickViewTypeEdit :
-//            
-//            info.content = [NSString stringWithFormat:@"%@",_inputNameTF.text];
-//            break;
-//        case PickViewTypeAge:
-//            info.content = [NSString stringWithFormat:@"%@",_selectAge];
-//            break;
-//        default:
-//            break;
-//    }
-//    
-//    [self.tableView reloadData];
-//}
-
 -(void)submitInfomation{
 
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    for (Infomation *info in self.dataArray) {
+    NSMutableDictionary *otherInfoDic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *userInfoDic = [NSMutableDictionary dictionary];
+    
+    switch ([[UserManager shareUserManager] crrentUserType]) {
         
-        if ([Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"年龄"]) {
-            
-            [[Global sharedSingleton]showToastInTop:self.view withMessage:@"年龄不能为空"];
-            return;
-        }
-
-        switch (info.pickViewType) {
-            case PickViewTypeAge :
-            case PickViewTypeCompnySize :
-            case PickViewTypeField :
-            case PickViewTypeEdit:
-            case PickViewTypeIndustry:
-                if (![Global stringIsNullWithString:info.content]) {
-                   
-                    [dic setObject:info.content forKey:info.sendKey];
-                }
-                break;
-            case PickViewTypeSex:
-                
-                [dic setObject:@([[InfomationStore shearInfomationStore]indexWithSex:info.content]) forKey:info.sendKey];
-                break;
-                
-         case PickViewTypeProvince:
-
-                if ([info.content componentsSeparatedByString:@","].count == 2) {
-                    
-                    [dic setObject:[info.content componentsSeparatedByString:@","][0] forKey:@"Province"];
-                    [dic setObject:[info.content componentsSeparatedByString:@","][1] forKey:@"City"];
-                }
-                break;
-        }
+        case UserTypeDefault:
+            userInfoDic = [self userInfo];
+            break;
+        case UserTypeDesigner:
+            userInfoDic = [self userInfo];
+            otherInfoDic = [self desginerOtherInfo];
+            break;
+        case UserTypeEnterprise:
+            otherInfoDic = [self enterpriseOtherInfo];
+            [userInfoDic setObject:_info.name forKey:@"Name"];
+            break;
+        case UserTypeMarketing:
+            userInfoDic = [self userInfo];
+            otherInfoDic = [self marktingOtherInfo];
+            break;
+        default:
+            break;
     }
     
     if ([[SubmitFileManager sheardSubmitFileManager]getSelectedPicktures].count != 0) {
         [[SubmitFileManager sheardSubmitFileManager]compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:self andType:nil];
         [UserManager shareUserManager].submitFileSuccess = ^ (NSString *obj){
             
-            [dic setObject:obj forKey:@"Head_img"];
-            [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
+            [userInfoDic setObject:obj forKey:@"Head_img"];
+            [[UserManager shareUserManager]updataInfoWithKeyValue:userInfoDic userType:UserTypeDefault];
             [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
-                [self AlertOperation];
+                
+                if ([[UserManager shareUserManager] crrentUserType] != UserTypeDefault) {
+                    [[UserManager shareUserManager]updataInfoWithKeyValue:otherInfoDic userType:[_info.user_type integerValue]];
+                    [UserManager shareUserManager].updataUserInfoSuccess = ^(id obj){
+                        [self AlertOperation];
+                    };
+                } else{
+                    
+                     [self AlertOperation];
+                }
             };
         };
     }else {
         
-        [dic setObject:_info.user_info.head_img forKey:@"Head_img"];
-        [[UserManager shareUserManager]updataInfoWithKeyValue:dic userType:[_info.user_type integerValue]];
+        [userInfoDic setObject:_info.user_info.head_img forKey:@"Head_img"];
+        [[UserManager shareUserManager]updataInfoWithKeyValue:userInfoDic userType:UserTypeDefault];
         [UserManager shareUserManager].updataInfoSuccess = ^(id obj){
             
-            [self AlertOperation];
+            if ([[UserManager shareUserManager] crrentUserType] != UserTypeDefault) {
+                
+                [[UserManager shareUserManager]updataInfoWithKeyValue:otherInfoDic userType:[_info.user_type integerValue]];
+                [UserManager shareUserManager].updataUserInfoSuccess = ^(id obj){
+                    [self AlertOperation];
+                };
+            }else{
+                
+                [self AlertOperation];
+            }
         };
     }
 }
@@ -691,13 +584,148 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
     [self presentViewController:alertController animated:YES completion:nil];
 }
 
+-(NSMutableDictionary *)enterpriseOtherInfo{
+    
+    NSMutableDictionary *otherInfoDic = [NSMutableDictionary dictionary];
+    
+    for (Infomation *info in self.dataArray) {
+        
+        if ([info.title isEqualToString:@"企业名称"]) {
+           
+            [otherInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"企业简称"]) {
+            
+            [otherInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"企业规模"]) {
+            
+            [otherInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"所属行业"] && _superTag ) {
+            
+            [otherInfoDic setObject:[NSString stringWithFormat:@"%@,%@",_superTag.id,_subTag.id] forKey:info.sendKey];
+        }
+        
+        if ([info.title isEqualToString:@"所在城市"] && _province ) {
+            
+            [otherInfoDic setObject:_city.code forKey:@"City"];
+            [otherInfoDic setObject:_province.code forKey:@"Province"];
+        }
+    }
+    
+    return otherInfoDic;
+}
+
+-(NSMutableDictionary *)desginerOtherInfo{
+    
+    NSMutableDictionary *otherInfoDic = [NSMutableDictionary dictionary];
+    NSString *tagString = [NSString string];
+    for (TagList *tag in _tagArray) {
+        
+        if ([Global stringIsNullWithString:tagString]) {
+            tagString = [NSString stringWithFormat:@"%@",tag.id];
+        } else {
+            
+            tagString = [NSString stringWithFormat:@"%@,%@",tagString,tag.id];
+        }
+    }
+
+    for (Infomation *info in self.dataArray) {
+        
+        if ([info.title isEqualToString:@"擅长领域"] && ![Global stringIsNullWithString:tagString]) {
+            
+            [otherInfoDic setObject:tagString forKey:info.sendKey];
+        }
+    }
+    return otherInfoDic;
+}
+
+-(NSMutableDictionary *)marktingOtherInfo{
+    
+    NSMutableDictionary *otherInfoDic = [NSMutableDictionary dictionary];
+    
+    for (Infomation *info in self.dataArray) {
+        
+        if ([info.title isEqualToString:@"所在城市"] && _province) {
+            
+            [otherInfoDic setObject:_province.code forKey:@"Province"];
+            [otherInfoDic setObject:_city.code forKey:@"City"];
+        }
+        
+        if ([info.title isEqualToString:@"渠道资源"] && _channelList.count != 0) {
+            
+//            NSMutableArray *channelModelArray = [NSMutableArray array];
+            NSString *channelJsonStr = [NSString string];
+            for (ChannelList *channel in _channelList) {
+                
+                if ([Global stringIsNullWithString:channelJsonStr] ) {
+                    channelJsonStr = [NSString stringWithFormat:@"{name:%@,fans_count:%@,index_url:%@}",channel.name,channel.fans_count,channel.index_url];
+                } else {
+                    
+                    channelJsonStr =  [NSString stringWithFormat:@"%@,{name:%@,fans_count:%@,index_url:%@}",channelJsonStr,channel.name,channel.fans_count,channel.index_url];
+                }
+                
+//                NSDictionary *dic = @{@"name":channel.name,@"fans_count":channel.fans_count,@"index_url":channel.fans_count};
+//                [channelModelArray addObject:dic];
+            }
+            NSMutableString *targerStr = [[NSMutableString alloc] initWithString:channelJsonStr ];
+            [targerStr insertString:@"[" atIndex:0];
+            [targerStr insertString:@"]" atIndex:targerStr.length];
+            [otherInfoDic setObject:targerStr forKey:info.sendKey];
+        }
+        
+        if ([info.title isEqualToString:@"所属行业"] && _superTag ) {
+            
+            [otherInfoDic setObject:[NSString stringWithFormat:@"%@,%@",_superTag.id,_subTag.id] forKey:info.sendKey];
+        }
+    }
+    
+    return otherInfoDic;
+}
+
+-(NSMutableDictionary *)userInfo{
+    
+     NSMutableDictionary *userInfoDic = [NSMutableDictionary dictionary];
+    for (Infomation *info in self.dataArray) {
+        
+        if ([info.title isEqualToString:@"姓名"]) {
+            
+            [userInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"昵称"]) {
+            
+            [userInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"年龄"]) {
+            
+            [userInfoDic setObject:info.content forKey:info.sendKey];
+        }
+        if ([info.title isEqualToString:@"性别"]) {
+            
+            [userInfoDic setObject:@([[InfomationStore shearInfomationStore]indexWithSex:info.content]) forKey:info.sendKey];
+        }
+        
+        if ([[UserManager shareUserManager]crrentUserType] == UserTypeDefault || [[UserManager shareUserManager]crrentUserType] == UserTypeDesigner) {
+            
+            if ([info.title isEqualToString:@"所在城市"] && _province) {
+                
+                [userInfoDic setObject:_province.code forKey:@"Province"];
+                [userInfoDic setObject:_city.code forKey:@"City"];
+            }
+        }
+       
+    }
+        return userInfoDic;
+}
+
 -(void)back{
     
     [super back];
     
     if (_isUpdataInfo) {
     
-        [UIManager sharedUIManager].backOffBolck(nil);
+        [UIManager sharedUIManager].submitInfomationBackOffBolck(nil);
     }
 }
 

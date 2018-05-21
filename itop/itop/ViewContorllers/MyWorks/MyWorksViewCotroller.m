@@ -21,8 +21,6 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
 @property (nonatomic, strong) NSArray *titleArray;
 @property (strong, nonatomic) UIView *editorBgView;
 @property (strong, nonatomic) IBOutlet UIView *editorView;
-@property (nonatomic, strong) NSString *link;
-
 
 @property (nonatomic, strong) UIButton *searchBtn;
 @property (nonatomic, strong) H5List *h5;
@@ -47,7 +45,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         case GetProductListTypeHome:
             
             [self hiddenNavigafindHairlineImageView:NO];
-            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
             [self setLeftCustomBarItem:@"" action:nil];
             break;
         case GetProductListTypeMyProduct:
@@ -59,7 +57,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         case GetProductListTypeSelect:
             
             [self hiddenNavigafindHairlineImageView:YES];
-            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
+//            [self setRightCustomBarItem:@"hot_icon_search" action:@selector(search)];
             break;
         default:
             break;
@@ -86,7 +84,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
         [self steupEditorBuuton];
     }
     
-    [[ShearViewManager sharedShearViewManager]setupShearView];
+    [[ShearViewManager sharedShearViewManager]setupShearViewWithshearType:ShearTypeProduct];
     [ShearViewManager sharedShearViewManager].selectShearItme = ^(NSInteger tag){
         
     };
@@ -143,7 +141,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     self.editorBgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth, ScreenHeigh)];
     self.editorBgView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.4];
     [self.view.window addSubview:self.editorBgView];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cancelEditor)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(cancelEditor:)];
     [self.editorBgView addGestureRecognizer:tap];
     self.editorBgView.hidden = YES;
 }
@@ -233,7 +231,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"预览"]) {
-       [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id];
+          [UIManager pushTemplateDetailViewControllerWithTemplateId:_h5.id productType:H5ProductTypeDefault];
     }
     
     if ([sender.titleLabel.text isEqualToString:@"留资"]) {
@@ -242,6 +240,11 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     if ([sender.titleLabel.text isEqualToString:@"设置"]) {
         [UIManager shearProductWithProduct:_h5];
+        
+        [UIManager sharedUIManager].setupProductBackOffBolck = ^ (id obj){
+          
+        [self collectionBeginRefreshing];
+        };
     }
     
     if ([sender.titleLabel.text isEqualToString:@"分享"]) {
@@ -252,7 +255,7 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
     
     if ([sender.titleLabel.text isEqualToString:@"复制链接"]) {
-        [self copyTheLinkWithLinkUrl:_h5.url];
+        [[Global sharedSingleton] copyTheLinkWithLinkUrl:_h5.url];
     }
     if ([sender.titleLabel.text isEqualToString:@"二维码"]) {
         [UIManager  qrCodeViewControllerWithCode:_h5.url];
@@ -267,16 +270,12 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     }
 }
 
--(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
-    
-    UIPasteboard *paste = [UIPasteboard generalPasteboard];
-    paste.string = linkUrl;
-    
-    if ([paste.string isEqualToString:_link]) {
-        
-        [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
-    }
-}
+//-(void)copyTheLinkWithLinkUrl:(NSString *)linkUrl{
+//
+//    UIPasteboard *paste = [UIPasteboard generalPasteboard];
+//    paste.string = linkUrl;
+//    [[Global sharedSingleton] showToastInTop:self.view withMessage:@"复制成功"];
+//}
 
 -(void)steupEditorBuuton{
     
@@ -286,14 +285,13 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     
     NSInteger page= self.titleArray.count/8;
     
-    if (self.titleArray.count%6 != 0) {
+    if (self.titleArray.count%8 != 0) {
         page = page +1;
     }
     scroll.contentSize = CGSizeMake(page*ScreenWidth, 251-50);
-    
     scroll.pagingEnabled=YES;
     scroll.showsHorizontalScrollIndicator = NO;
-    self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
+    self.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 251);
     self.editorView.backgroundColor = [UIColor whiteColor];
     [self.editorBgView addSubview:self.editorView];
 
@@ -375,10 +373,18 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     [self editoeViewWithAnimation:NO];
 }
 
--(void)cancelEditor{
+-(void)cancelEditor:(UITapGestureRecognizer *)sender{
     
-    self.editorBgView.hidden = YES;
-    [self editoeViewWithAnimation:NO];
+    CGPoint point = [sender locationInView:self.view];
+    NSLog(@"handleSingleTap!pointx:%f,y:%f",point.x,point.y);
+    
+    NSLog(@"%f",ScreenHeigh);
+    if (point.y < ScreenHeigh - 251-64) {
+        
+        self.editorBgView.hidden = YES;
+        [self editoeViewWithAnimation:NO];
+
+    }
 }
 
 -(void)editoeViewWithAnimation:(BOOL)animation{
@@ -390,10 +396,11 @@ static NSString *const MyWorksCellIdentifier = @"MyWork";
     __weak typeof(self) weakSelf = self;
     //添加滚动动画
     [UIView animateWithDuration:0.3 animations:^{
-        
+       
+        CGFloat editViewHeight = kDevice_Is_iPhoneX ? 286 : 251;
         self.editorBgView.hidden = !animation;
         if (animation) {
-             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-251, ScreenWidth, 251);
+             weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh-editViewHeight, ScreenWidth, editViewHeight);
         }else {
              weakSelf.editorView.frame = CGRectMake(0, ScreenHeigh, ScreenWidth, 300);
         }

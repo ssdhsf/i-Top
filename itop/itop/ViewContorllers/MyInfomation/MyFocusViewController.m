@@ -74,7 +74,7 @@
 
 -(void)initData{
     
-    self.dataArray = @[@"设计师",@"H5",@"资讯", @"视频"];
+    self.dataArray = @[@"关注的人",@"H5",@"资讯", @"视频"];
 }
 
 -(void)initSegment{
@@ -163,7 +163,7 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
     
     int index = scrollView.contentOffset.x/ViewWidth;
-    [self.segment selectIndex:index+1];
+    [self.segment selectIndex:index];
     [self setItmeWithItmeTitle:self.dataArray[index] itemIndex:index];
     //    _itmeIndex = index;
 }

@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 
 static NSString *const Type_Home = @"Home";
+static NSString *const Type_Custrom = @"Custrom";
 static NSString *const Type_H5 = @"H5";
 static NSString *const Type_Designer = @"Designer";
 static NSString *const Type_SearchHot = @"SearchHot";
+static NSString *const Type_Case = @"Case";
+
 
 @interface HomeStore : NSObject
 
@@ -22,4 +25,14 @@ static NSString *const Type_SearchHot = @"SearchHot";
 - (NSMutableArray *)requestConfigurationMenuWithMenu:(NSArray *)menu;
 - (NSMutableArray *)configurationBanner:(NSArray *)banner;//轮播图
 - (NSMutableArray *)configurationTag:(NSArray *)tag;//轮播图
+
+- (NSMutableArray *)configurationTagNameWithMenu:(NSArray *)menu  tagType:(NSString *)tagType;//设置标签name
+- (NSMutableArray *)configurationTagWithMenu:(NSArray *)menu  tagType:(NSString *)tagType; //设置标签模型
+- (NSMutableArray *)configurationTagNameWithTag:(NSString *)tag;//根据H5类型show标签title
+
+- (NSMutableArray *)configurationAllTagWithMenu:(NSArray *)menu;//解析全部tag模型
+
+- (NSString *)headerTitleWithSection:(NSInteger)section;
+- (NSString *)sectionTypeWithSection:(NSInteger)section;
+
 @end

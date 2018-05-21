@@ -50,7 +50,7 @@
 
 // Sina
 #define SINA_APP_ID         CONFIG_DICTIONARY[@"Sina"][@"appId"]
-#define SINA_APP_SECRET     CONFIG_DICTIONARY[@"WeChat"][@"appSecret"]
+#define SINA_APP_SECRET     CONFIG_DICTIONARY[@"Sina"][@"appkey"]
 
 //searchList
 #define SEARCH_LIST     @"Search_list"

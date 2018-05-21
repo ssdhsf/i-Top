@@ -147,6 +147,20 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     TableViewCellConfigureBlock congfigureCell = ^(LeaveTableViewCell *cell , Leave *item , NSIndexPath *indexPath){
         
         [cell setItmeOfModel:item animation:_isManageMent];
+        cell.callButtonBlock = ^(LeaveTableViewCell *cell){
+            
+            NSIndexPath *index = [self.tableView indexPathForCell:cell];
+            Leave *item = [_leaveDataSouce itemAtIndexPath:index];
+            NSString *callPhone = [NSString stringWithFormat:@"telprompt://%@",item.json_result.phone];
+            CGFloat version = [[[UIDevice currentDevice]systemVersion]floatValue];
+            if (version >= 10.0) {
+                /// 大于等于10.0系统使用此openURL方法
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone] options:@{} completionHandler:nil];
+            } else {
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:callPhone]];
+            }
+
+        };
  
     };
     self.leaveDataSouce = [[LeaveDataSource alloc]initWithItems:self.dataArray cellIdentifier:LeaveCellIdentifier cellConfigureBlock:congfigureCell];
@@ -168,13 +182,13 @@ static NSString *const LeaveCellIdentifier = @"Leave";
     
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     
+    Leave * leave = [self.leaveDataSouce itemAtIndexPath:indexPath];
     if ([self.navigationItem.rightBarButtonItem.title isEqualToString:MANAGEMENT]) {
-        
         LeaveDetailViewController *vc = [[LeaveDetailViewController alloc]init];
+        vc.leave = leave;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-       
-        Leave * leave = [self.leaveDataSouce itemAtIndexPath:indexPath];
+//        Leave * leave = [self.leaveDataSouce itemAtIndexPath:indexPath];
         leave.select = [NSNumber numberWithBool:![leave.select integerValue]];
         [self.tableView reloadData];
         _isDelete = NO;

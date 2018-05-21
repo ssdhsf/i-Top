@@ -50,7 +50,7 @@
     //self(自定义view).superview（控制器的根view）
     [[UIManager keyWindow] addSubview:tipView];
     tipView.text = [NSString stringWithFormat:@"%@",title];
-    tipView.font=[UIFont systemFontOfSize:25];
+    tipView.font=[UIFont systemFontOfSize:60];
     CGFloat tipH = 60;
     tipView .size = CGSizeMake(tipH, tipH);
     tipView.center = [UIManager keyWindow].center;
@@ -64,15 +64,15 @@
     tipView.layer.masksToBounds = YES; //剪裁超过bounds的部分
     
     //动画效果
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.1 animations:^{
         tipView.alpha = 0.9;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.1 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
-            tipView.alpha = 0;
-        } completion:^(BOOL finished) {
+//        [UIView animateWithDuration:0.1 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
+//            tipView.alpha = 0;
+//        } completion:^(BOOL finished) {
             //从父view中移除
             [tipView removeFromSuperview];
-        }];
+//        }];
         
     }];
     

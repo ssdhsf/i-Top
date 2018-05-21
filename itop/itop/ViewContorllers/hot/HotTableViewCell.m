@@ -10,7 +10,6 @@
 #import "HotH5ItmeViewController.h"
 #import "RecommendedViewController.h"
 
-
 @implementation HotTableViewCell
 
 

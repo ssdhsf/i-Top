@@ -22,7 +22,20 @@
 #import "OptimizeTitleViewController.h"
 #import "LoadingViewController.h"
 #import "RecommendedViewController.h"
-#import "PopularizeManagementViewController.h"
+#import "CustomRequirementsViewController.h"
+#import "PopularizeItmeTableViewController.h"
+#import "CustomRequirementsDetailViewController.h"
+#import "DirectionalDemandReleaseViewController.h"
+#import "SubmitDisputesViewController.h"
+#import "DisputesViewController.h"
+#import "CommentPopularizeViewController.h"
+#import "EditCaseViewController.h"
+#import "UploadProductLinkViewController.h"
+#import "MycaseViewController.h"
+#import "HostingBountyViewController.h"
+#import "PaymentVerificationCodeViewController.h"
+#import "BuyTemplateViewController.h"
+#import "BindPhoneViewController.h"
 
 @implementation UIManager
 
@@ -62,7 +75,7 @@
     [appDelegate.window makeKeyAndVisible];
     LoadingViewController *loadingVc = [[LoadingViewController alloc]init];
     appDelegate.window.rootViewController = loadingVc;
-    [UIManager sharedUIManager].backOffBolck = ^ ( id obj){
+    [UIManager sharedUIManager].loadingBackOffBolck = ^ ( id obj){
         
         UIViewController *vc = [[UIViewController alloc]init];
         vc.view.backgroundColor = [UIColor whiteColor];
@@ -89,9 +102,6 @@
         
         vc = [[UIManager sharedUIManager] homeProductViewControllerWithType:GetProductListTypeHome];
     }
-    
-    
-    
     ThemeNavigationController *nav3 = [[ThemeNavigationController alloc]initWithRootViewController: vc];
 
     ThemeNavigationController *nav4 = [[ThemeNavigationController alloc]initWithRootViewController:[[self class] viewControllerWithName:@"MyInfomationViewController"]];
@@ -162,7 +172,7 @@
 + (void)rootVCTabBarControllerShowVC:(NSString *)vcName{
     AppDelegate * appDelegate = [[self class] appDelegate];
     UIViewController * vc = [[self class] viewControllerWithName:vcName];
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     [nav pushViewController:vc animated:YES];
     vc = nil;
@@ -217,7 +227,7 @@
 + (void)pushVC:(UIViewController *)vc{
   
     AppDelegate * appDelegate = [[self class] appDelegate];
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
     [nav pushViewController:vc animated:YES];
 }
@@ -225,6 +235,8 @@
 +(CGFloat)getTabBarHeight{
     // 获取tabBarHeight
     UITabBarController *tabBarController =[[UITabBarController alloc]init];
+    
+    NSLog(@"%f",CGRectGetHeight(tabBarController.tabBar.bounds));
     return CGRectGetHeight(tabBarController.tabBar.bounds);
 }
 //-(void)hiddenNavigationController:(BOOL)animated{
@@ -236,16 +248,16 @@
 + (void)showViewController:(UIViewController *)vc Animated:(BOOL)animated{
     AppDelegate * appDelegate = [[self class] appDelegate];
     UINavigationController * nav = (UINavigationController *)appDelegate.tabBarController.selectedViewController;
-    //  vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed = YES;
     [nav pushViewController:vc animated:YES];
 }
-
 
 #pragma mark 返回登陆页
 - (void)LoginViewControllerWithLoginState:(BOOL)isLogin{
     
     LoginViewController *vc = [[LoginViewController alloc] init];
     vc.isLogin = isLogin;
+//    vc.hidesBottomBarWhenPushed = YES;
     if (isLogin) { //退出登录
     
         ThemeNavigationController* loginNavigation = [[ThemeNavigationController alloc] initWithRootViewController:vc];
@@ -258,11 +270,11 @@
     }
 }
 
-+ (void)designerDetailWithDesignerId:(NSString*)designer_id{
++ (void)designerDetailWithDesignerId:(NSNumber*)designer_id{
     
     DesignerInfoViewController *vc = [[DesignerInfoViewController alloc]init];
     vc.desginer_id = designer_id;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -271,7 +283,7 @@
     DesignerListViewController *vc = [[DesignerListViewController alloc]init];
     vc.designerListType = type;
     vc.searchKey = searchKey;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -281,7 +293,7 @@
     vc.showView_type = type;
     vc.signingState = signingState;
     vc.signingType = signingType;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -290,8 +302,8 @@
     
     LeaveViewController *vc = [[LeaveViewController alloc]init];
     vc.currentProduct = product;
-    vc.getLeaveListType = GetLeaveListTypeProduct;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.getLeaveListType = leaveType;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -299,7 +311,7 @@
     
     SetupProductViewController *vc = [[SetupProductViewController alloc]init];
     vc.product = product;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -307,15 +319,16 @@
     
     ProtocolViewController *vc = [[ProtocolViewController alloc]init];
     vc.protocolType = protocolType;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
-+(void)pushTemplateDetailViewControllerWithTemplateId:(NSString *)template_ld{
++(void)pushTemplateDetailViewControllerWithTemplateId:(NSNumber *)template_ld productType:(H5ProductType)productType{
     
     TemplateDetaulViewController *vc = [[TemplateDetaulViewController alloc] init];
     vc.template_id = template_ld;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.productType = productType;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 //    [self.navigationController pushViewController:vc animated:YES];
 }
@@ -324,7 +337,7 @@
     
     CustomerServiceViewController *vc = [[CustomerServiceViewController alloc] init];
     vc.titel = type;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -332,7 +345,7 @@
     
     QrCodeViewController *vc = [[QrCodeViewController alloc] init];
     vc.qrCode = link;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  kDevice_Is_iPhoneX ? NO : YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
@@ -355,11 +368,11 @@
     
     OptimizeTitleViewController *vc = [[OptimizeTitleViewController alloc]init];
     vc.product_h5 = product;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
-+(void)hotDetailsViewControllerWithArticleId:(NSString *)article_id articleType:(ItemDetailType)article_type{
++(void)hotDetailsViewControllerWithArticleId:(NSNumber *)article_id articleType:(ItemDetailType)article_type{
     
     HotDetailsViewController *vc = [[HotDetailsViewController alloc]init];
     vc.itemDetailType = article_type;
@@ -373,22 +386,36 @@
     RecommendedViewController *vc = [[RecommendedViewController alloc]init];
     vc.getArticleListType = getArticleListType;
     vc.searchKey = searchKey;
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.hidesBottomBarWhenPushed =  YES;
     [UIManager showViewController:vc Animated:YES];
 }
 
--(PopularizeManagementViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome{
+-(PopularizeItmeTableViewController *)popularizeManagementViewControllerWithHome:(BOOL)isHome{
     
-    PopularizeManagementViewController *vc = [[PopularizeManagementViewController alloc]init];
+    PopularizeItmeTableViewController *vc = [[PopularizeItmeTableViewController alloc]init];
     vc.isHome = isHome;
     if (isHome) {
         return vc;
     } else {
-        vc.hidesBottomBarWhenPushed =  !isHome;
+        vc.hidesBottomBarWhenPushed =  YES;
         [UIManager showViewController:vc Animated:YES];
     }
     
     return nil;
+}
+
++(void)customRequirementsViewController{
+    
+    CustomRequirementsViewController *vc = [[CustomRequirementsViewController alloc]init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [UIManager showViewController:vc Animated:YES];
+}
+
++(void)customRequirementsDetailViewControllerWithCustomId:(NSNumber *)custom_id{
+    
+    CustomRequirementsDetailViewController *vc = [[CustomRequirementsDetailViewController alloc]init];
+    vc.custom_id = custom_id;
+    [UIManager pushVC:vc];
 }
 
 + (UINavigationController *)getNavigationController{
@@ -398,7 +425,115 @@
     return nav;
 }
 
++(void)customRequirementsReleaseViewControllerWithDemandAddType:(DemandAddType)demandAddType
+                                                     demandType:(DemandType)demandType
+                                                      demand_id:(NSNumber *)demand_id
+                                                     desginerId:(NSNumber *)desginer_id
+                                                      productId:(NSNumber *)product_id{
+    
+    DirectionalDemandReleaseViewController *biddingVc = [[DirectionalDemandReleaseViewController alloc]init];
+    biddingVc.demandAddType = demandAddType ;
+    biddingVc.demandType = demandType;
+    if (demandAddType == DemandAddTypeOnEdit) {
+        
+        biddingVc.demand_id = demand_id ;
+    }
+    
+    if (demandAddType == DemandAddTypeOnProduct) {
+        
+        biddingVc.desginer_id = desginer_id ;
+        biddingVc.desginer_product_id = product_id ;
+    }
+    [UIManager pushVC:biddingVc];
+}
 
++(void)submitDisputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                        {
+    
+    SubmitDisputesViewController *submitDisputesVc = [[SubmitDisputesViewController alloc]init];
+    submitDisputesVc.demant_id = custom_id;
+    [UIManager pushVC:submitDisputesVc];
+}
+
++(void)disputesViewControllerWithCustomId:(NSNumber *)custom_id
+                                  message:(NSString *)message{
+    
+    DisputesViewController *disputes = [[DisputesViewController alloc]init];
+    disputes.demant_id = custom_id;
+    disputes.message = message;
+    [UIManager pushVC:disputes];
+}
+
++(void)commentPopularizeViewControllerWithCustomId:(NSNumber *)custom_id
+                                       commentType:(CommentType)commentType{
+    
+    CommentPopularizeViewController *vc = [[CommentPopularizeViewController alloc]init];
+    if (commentType == CommentTypePopularize) {
+        vc.popularize_id = custom_id;
+    } else {
+        vc.demand_id = custom_id;
+    }
+    vc.commentType = commentType;
+    [UIManager pushVC:vc];
+}
+
++(void)editCaseViewControllerIsEdit:(BOOL)isEdite editCase:(EditCase *)editCase{
+    
+    EditCaseViewController *vc = [[EditCaseViewController alloc]init];
+    vc.isEdit = isEdite;
+    vc.editCase = editCase;
+    [UIManager pushVC:vc];
+}
+
++(void)uploadProductLinkViewControllerWithDemandId:(NSNumber *)demand_id
+                                            userId:(NSNumber *)user_id{
+    
+    UploadProductLinkViewController *vc = [[UploadProductLinkViewController alloc]init];
+    vc.demand_id = demand_id;
+    vc.user_id = user_id;
+    [UIManager pushVC:vc];
+}
+
++(void)getCaseViewControllerWithGetCaseType:(GetCaseType)getCaseType{
+    
+    
+    MycaseViewController *vc = [[MycaseViewController alloc]init];
+    vc.getCaseType = getCaseType;
+    [UIManager pushVC:vc];
+}
+
++(void)hostingBountyViewControllerWithDemandId:(NSNumber *)demand_id{
+    
+    HostingBountyViewController *vc = [[HostingBountyViewController alloc]init];
+    vc.demand_id = demand_id;
+    [UIManager pushVC:vc];
+}
+
++(void)paymentVerificationCodeViewControllerWithDemandId:(NSNumber *)demand_id
+                                                   money:(NSString *)money
+                                                 payType:(PayType)payType{
+    
+    PaymentVerificationCodeViewController *vc = [[PaymentVerificationCodeViewController alloc]init];
+    vc.demand_id = demand_id;
+    vc.money = money;
+    vc.payType = payType;
+    [UIManager pushVC:vc];
+}
+
++(void)payProductViewControllerWithProductDetail:(ProductDetail *)productDetail{
+    
+    BuyTemplateViewController *vc = [[BuyTemplateViewController alloc]init];
+    vc.productDetail = productDetail ;
+    [UIManager pushVC:vc];
+}
+
++(void)bindPhoneViewControllerWithBindPhoneType:(BindPhoneType )bindPhoneType oldPhoneCode:(NSString *)oldPhoneCode{
+    
+    BindPhoneViewController *vc = [[BindPhoneViewController alloc]init];
+    vc.bindPhoneType = bindPhoneType ;
+    vc.oldPhoneCode = oldPhoneCode;
+    [UIManager pushVC:vc];
+}
 
 
 

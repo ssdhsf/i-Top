@@ -23,7 +23,7 @@
 -(NSMutableArray *)configurationPopularizeWithMenu:(NSArray *)arr{
     
     NSMutableArray *array = [NSMutableArray array];
-    
+
     for (NSDictionary *dic in arr) {
        
         Popularize *pop = [[Popularize alloc]initWithDictionary:dic error:nil];

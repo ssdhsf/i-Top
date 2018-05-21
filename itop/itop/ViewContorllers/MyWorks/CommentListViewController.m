@@ -58,7 +58,7 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.right.mas_equalTo(self.view);
         make.top.mas_equalTo(128);
-        make.bottom.mas_equalTo(-40);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -83 : -40);
     }];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self setupkeyBoardDidShowView];
@@ -68,21 +68,44 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
 
 -(void)setupkeyBoardDidShowView{
     
-    _commentTVBgView = [[UIView alloc]initWithFrame:CGRectMake(0, ScreenHeigh-40-64, ScreenWidth, 40)];
+    _commentTVBgView = [[UIView alloc]init];
     _commentTV = [[UITextView alloc]init];
     _commentTVBgView.backgroundColor = [UIColor whiteColor];
     _commentTV.placeholder = @"我来说两句";
 //    _commentTV.frame = CGRectMake(20, 5, ScreenWidth-127, 30);
 //    _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
 //    _commentTV.layer.cornerRadius = _commentTV;
-    [_commentTVBgView addSubview:_commentTV];
-    [_commentTVBgView addSubview:_sendButton];
+
     _commentTV.delegate = self;
     _commentTV.layer.masksToBounds = YES;
     _commentTV.backgroundColor = UIColorFromRGB(0xf5f7f9);
     _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
 //    _sendButton.hidden = NO;
     [self.view addSubview:_commentTVBgView];
+
+    [self.commentTVBgView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(40);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+    }];
+    [_commentTVBgView addSubview:_commentTV];
+    [_commentTVBgView addSubview:_sendButton];
+    
+    [self.commentTV mas_makeConstraints:^(MASConstraintMaker *make){
+        make.left.mas_equalTo(20);
+        make.right.mas_equalTo(-107);
+        make.bottom.mas_equalTo(-5);
+        make.height.mas_equalTo(30);
+    }];
+    
+    [self.sendButton mas_makeConstraints:^(MASConstraintMaker *make){
+        
+        make.right.mas_equalTo(-32);
+        make.width.mas_equalTo(25);
+        make.bottom.mas_equalTo(0);
+        make.height.mas_equalTo(40);
+    }];
+
     [self setupTextViewWithKeyboardShowAnimation:NO];
 }
 
@@ -218,7 +241,13 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     CGRect keyboardRect = [value CGRectValue];
     //获取键盘高度
     int height = keyboardRect.size.height;
-    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
+//    _commentTVBgView.frame = CGRectMake(0, ScreenHeigh-height-64-80, ScreenWidth, 80);
+    [self.commentTVBgView mas_remakeConstraints:^(MASConstraintMaker *make){
+        make.left.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(ScreenHeigh-height-80-NAVIGATION_HIGHT);
+        make.height.mas_equalTo(80);
+    }];
+
     [self setupTextViewWithKeyboardShowAnimation:YES];
     [self shutDownTableViewCellEventWithAnimation:NO];
 }
@@ -240,17 +269,53 @@ static NSString *const CommentListCellIdentifier = @"CommentList";
     
     if (animation) {
         
-        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-100, 60);
-        _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
-        _sendButton.centerY = _commentTV.centerY;
+//        _commentTV.frame = CGRectMake(20, 10, ScreenWidth-100, 60);
+//        _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
+//        _sendButton.centerY = _commentTV.centerY;
+        
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-107);
+            make.bottom.mas_equalTo(-10);
+            make.top.mas_equalTo(10);
+        }];
+        
+        [self.sendButton mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.right.mas_equalTo(-32);
+            make.width.mas_equalTo(25);
+            make.top.mas_equalTo(20);
+            make.height.mas_equalTo(40);
+        }];
         _commentTV.layer.cornerRadius = 5;
+        _commentTVBgView .backgroundColor = [UIColor whiteColor];
+        [self.view bringSubviewToFront:_commentTVBgView];
         
     }else {
         
-        _commentTVBgView.frame =  CGRectMake(0, ScreenHeigh-40-64, ScreenWidth, 40);
-        _commentTV.frame = CGRectMake(20, 5, ScreenWidth-100, 30);
-        _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
-        _commentTV.layer.cornerRadius = _commentTV.frame.size.height/2;
+        [self.commentTVBgView mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.right.mas_equalTo(self.view);
+            make.height.mas_equalTo(40);
+            make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -34 : 0);
+        }];
+        
+        [self.commentTV mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.left.mas_equalTo(20);
+            make.right.mas_equalTo(-107);
+            make.bottom.mas_equalTo(-5);
+            make.top.mas_equalTo(5);
+        }];
+
+        [self.sendButton mas_remakeConstraints:^(MASConstraintMaker *make){
+            make.right.mas_equalTo(-32);
+            make.width.mas_equalTo(25);
+            make.top.mas_equalTo(0);
+            make.bottom.mas_equalTo(0);
+        }];
+
+//        _commentTVBgView.frame =  CGRectMake(0, ScreenHeigh-40-64, ScreenWidth, 40);
+//        _commentTV.frame = CGRectMake(20, 5, ScreenWidth-100, 30);
+//        _sendButton.frame = CGRectMake(CGRectGetMaxX(_commentTV.frame)+((ScreenWidth - CGRectGetMaxX(_commentTV.frame))/2-20), 0, 25, 40);
+        _commentTV.layer.cornerRadius = 30/2;
         [_commentTV resignFirstResponder];
     }
 }

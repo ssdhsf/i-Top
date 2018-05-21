@@ -44,7 +44,7 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
     
     if (![[UserManager shareUserManager]isLogin]) {
         
-        [_loginOutButton setTitle:@"登陆" forState:UIControlStateNormal];
+        [_loginOutButton setTitle:@"登录" forState:UIControlStateNormal];
     } else {
         [_loginOutButton setTitle:@"退出登录" forState:UIControlStateNormal];
     }
@@ -104,22 +104,26 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
         
         [UIManager customerServiceAndFeedbackWithTitle:info.myInfoTitle];
         
-    }else {
+    }  else {
         
+        if (![[UserManager shareUserManager]isLogin] && [info.myInfoTitle isEqualToString:@"账号与安全"]){
+            
+            [self showToastWithMessage:@"请登录"];
+            return;
+        }
         [UIManager showVC:info.nextVcName];
     }
 }
 
 - (IBAction)loginOut:(UIButton *)sender {
     
-    [[UserManager shareUserManager]loginOut];
-    [UserManager shareUserManager].loginSuccess = ^ (id obj){
+    if ([sender.titleLabel.text  isEqualToString:@"登录"]) {
         
-        [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
-        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
-//        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+    } else {
         
-    };
+        [self alertOperation];
+    }
 }
 
 #pragma mark 点击清理缓存空间
@@ -137,6 +141,31 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
                             waitUntilDone:YES];
         
     });
+}
+
+-(void)alertOperation{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定退出登录吗" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        [[UserManager shareUserManager]loginOut];
+        [UserManager shareUserManager].loginSuccess = ^ (id obj){
+            
+            [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            [UIManager sharedUIManager].loginOutBackOffBolck (nil);
+            //        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
+            //        [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
+            
+        };
+
+//        [self back];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (void)clearCacheSuccess {

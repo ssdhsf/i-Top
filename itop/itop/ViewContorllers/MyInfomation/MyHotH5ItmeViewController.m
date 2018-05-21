@@ -67,7 +67,6 @@ static NSString *const MyHotH5ItmeCellIdentifier = @"MyHot";
                                          searchKey:nil];
     [UserManager shareUserManager].hotlistSuccess = ^(NSArray * obj){
         
-        
         [self listDataWithListArray:[[H5ListStore shearH5ListStore] configurationMenuWithMenu:obj] page:self.page_no];
     };
     

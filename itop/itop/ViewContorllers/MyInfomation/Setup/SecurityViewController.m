@@ -7,6 +7,7 @@
 //
 
 #import "SecurityViewController.h"
+#import "ChangePhoneViewController.h"
 
 @interface SecurityViewController ()
 
@@ -36,7 +37,7 @@
     [super initData];
     UserModel *user = [[UserManager shareUserManager]crrentUserInfomation];
     
-    _mobiliLabel.text = user.username;
+    _mobiliLabel.text = user.phone;
     _mobiliLabel.text = [_mobiliLabel.text stringByReplacingOccurrencesOfString:[_mobiliLabel.text substringWithRange:NSMakeRange(3,4)] withString:@"****"];
     if ([Global stringIsNullWithString:user.name]) {
         
@@ -51,7 +52,11 @@
  
     if(sender.tag == 1){
 
-        [UIManager showVC:@"BindPhoneViewController"];
+        ChangePhoneViewController *vc = [[ChangePhoneViewController alloc]init];
+        vc.oldPhone = [[UserManager shareUserManager]crrentUserInfomation].phone;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+//        [UIManager showVC:@"BindPhoneViewController"];
         
     }else{
 

@@ -9,6 +9,7 @@
 #import <JSONModel/JSONModel.h>
 #import "UserInfomation.h"
 #import "OtherInfo.h"
+#import "UserOperation.h"
 
 @interface UserModel : JSONModel
 
@@ -16,10 +17,13 @@
 @property (nonatomic, strong) NSString <Optional>*user_type;
 @property (nonatomic, strong) OtherInfo <OtherInfo ,Optional>*other_info;
 @property (nonatomic, strong) NSString <Optional>*name;
+@property (nonatomic, strong) NSString <Optional>*phone;
 @property (nonatomic, strong) NSString <Optional>*login_count;
+@property (nonatomic, strong) NSString <Optional>*token;
 @property (nonatomic, strong) NSString <Optional>*last_login_datetime;
 @property (nonatomic, strong) NSArray <Optional>*channelList;
 @property (nonatomic, strong) UserInfomation <UserInfomation,Optional>*user_info;
+@property (nonatomic, strong) UserOperation <UserOperation,Optional>*user_operation;
 
 //channelList = "<null>";
 //"last_login_datetime" = "2018-02-01 16:05:46";

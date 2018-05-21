@@ -24,15 +24,14 @@
         self.focusButton.frame = CGRectMake((self.frame.size.width/2-25), CGRectGetMaxY(self.designerProfessionalLabel.frame)+6,50, 16);
     }
     
-    [self.designerImage sd_setImageWithURL:[NSURL URLWithString:designerList.head_img] placeholderImage:[UIImage imageNamed:@"default_man"] options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.designerImage sd_setImageWithURL:[NSURL URLWithString:designerList.head_img] placeholderImage:PlaceholderImage options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
     }];
     self.designerImage.layer.cornerRadius =  self.designerImage.frame.size.height/2;
     
     self.designerImage.layer.masksToBounds = YES;
     
     self.designerNameLabel.text = designerList.nickname;
-    
-    
+
     [self.focusButton addTarget:self action:@selector(focus:) forControlEvents:UIControlEventTouchDown];
     [self.focusButton.layer insertSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_focusButton) atIndex:0];
     self.focusButton.tag = index;
@@ -64,14 +63,23 @@
         
     } else {
         
-        [self.focusButton setTitle:[designerList.follow integerValue] == FocusTypeTypeCancelFocus ? FOCUSSTATETITLE_NOFOCUS : FOCUSSTATETITLE_FOCUS forState:UIControlStateNormal];
-        self.designerProfessionalLabel.text = designerList.field;
+        [self.focusButton setTitle:[designerList.isfollow integerValue] == FocusTypeTypeCancelFocus ? FOCUSSTATETITLE_NOFOCUS : FOCUSSTATETITLE_FOCUS forState:UIControlStateNormal];
+        NSArray *field = [designerList.field componentsSeparatedByString:@","];
+        self.designerProfessionalLabel.text = [field firstObject];
     }
 }
 
 -(void)focus:(UIButton *)button{
     
-    _focusUserBlock(button.tag, self);
+//    _focusUserBlock(button.tag, self);
+//
+    if ([button.titleLabel.text isEqualToString:FOCUSSTATETITLE_FOCUS]) {
+        
+        [self alertOperationWithButton:button];
+    } else {
+        
+        _focusUserBlock(button.tag, self);
+    }
 }
 
 #pragma mark 改变热点FocusButton状态
@@ -92,5 +100,18 @@
     _focusButton.layer.cornerRadius = 2;
 }
 
+-(void)alertOperationWithButton:(UIButton *)button{
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"是否取消关注该用户" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        
+        _focusUserBlock(button.tag, self);
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [[[UIManager sharedUIManager]topViewController] presentViewController:alertController animated:YES completion:nil];
+    
+}
 
 @end

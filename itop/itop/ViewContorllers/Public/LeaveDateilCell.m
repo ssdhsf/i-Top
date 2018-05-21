@@ -11,7 +11,7 @@
 @implementation LeaveDateilCell
 
 
--(void)setItmeOfModel:(LeaveDetail *)leave{
+-(void)setItmeOfModel:(Infomation *)leave{
     
     self.titleLabel.text = leave.title;
     self.contentLabel.text = leave.content;

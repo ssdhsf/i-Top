@@ -24,8 +24,7 @@
     _lastPoint = _currentPoint;
     _currentPoint = _startPoint;
     if (_action) _action(self, YYGestureRecognizerStateBegan);
-        
-      
+    
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {

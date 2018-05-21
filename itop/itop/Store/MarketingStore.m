@@ -25,7 +25,7 @@
     
     Marketing *markting = [[Marketing alloc]init];
     markting.title = [NSString stringWithFormat:@"渠道名称%ld",(long)index];
-    markting.placeholder = [NSString stringWithFormat:@"请输入渠道名称%ld",(long)index];
+    markting.placeholder = [NSString stringWithFormat:@"请输入渠道名称%ld 如新浪",(long)index];
     
     Marketing *markting1 = [[Marketing alloc]init];
     markting1.title = [NSString stringWithFormat:@"粉丝数量%ld",(long)index];

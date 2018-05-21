@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 
 typedef void (^SelectShearItemBlock)(NSInteger tag);
-
 @interface ShearView : UIView
 
--(void)setupShearItem;
 @property (nonatomic, copy)SelectShearItemBlock selectShearItme;
+@property (nonatomic, copy) void(^cancelBlock)(id obj);
+
+-(void)setupShearItemWithshearTepy:(ShearType)shearType;
+-(NSArray*)shearItemTitleArrayWithshearTepy:(ShearType)shearType;
+
 
 @end

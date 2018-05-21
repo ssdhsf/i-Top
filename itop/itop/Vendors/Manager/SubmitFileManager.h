@@ -49,6 +49,14 @@
 - (void)compressionAndTransferPicturesIfErrorShowErrorMessageWithViewController:(UIViewController*)showView andType:(NSString *)type;
 
 /**
+ *  提交压缩好的图片
+ *
+ *  @param image 需要提交的图片
+ */
+-(void)submitImageWithImage:(UIImage *)image;
+
+
+/**
  *  添加选择图片的View到当前的View
  *
  *  @param  view 调用该方法添加MessagePhotoView到View

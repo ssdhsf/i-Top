@@ -26,8 +26,8 @@
     for (NSDictionary *dic in menu) {
         
             H5List *h5Model = [[H5List alloc]initWithDictionary:dic error:nil];
+            h5Model.descrip = dic[@"description"];
             [sectionArray addObject:h5Model];
-
     }
     
 #ifdef DEBUG
@@ -101,6 +101,18 @@
                                  @"删除":@"zuo_icon_delete"};
             titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"数据",@"分享",@"复制链接",@"二维码",@"删除"];
             break;
+        case UserTypeMarketing:
+            configurationDic = @{@"编辑":@"zuo_icon_edit",
+                                 @"预览":@"zuo_icon_preview",
+                                 @"留资":@"zuo_icon_liuzi",
+                                 @"设置":@"zuo_icon_set",
+                                 @"数据":@"zuo_icon_data",
+                                 @"分享":@"zuo_icon_share",
+                                 @"复制链接":@"zuo_icon_link",
+                                 @"二维码":@"zuo_icon_code",
+                                 @"删除":@"zuo_icon_delete"};
+            titleArray = @[@"编辑",@"预览",@"留资",@"设置",@"数据",@"分享",@"复制链接",@"二维码",@"删除"];
+            break;
 
             
         default:
@@ -111,6 +123,19 @@
     return dic;
 }
 
-
+- (NSDictionary *)editMycaseConfigurationMenu{
+    
+   NSDictionary * configurationDic = @{@"添加":@"case_icon_add",
+                         @"编辑":@"zuo_icon_edit",
+                         @"预览":@"zuo_icon_preview",
+                         @"分享":@"zuo_icon_share",
+                         @"复制链接":@"zuo_icon_link",
+                         @"二维码":@"zuo_icon_code",
+                         @"删除":@"zuo_icon_delete"};
+    NSArray*titleArray = @[@"添加",@"编辑",@"预览",@"分享",@"复制链接",@"二维码",@"删除"];
+    NSDictionary * dic = @{@"config":configurationDic,@"title": titleArray};
+    
+    return dic;
+}
 
 @end

@@ -13,7 +13,8 @@
 + (instancetype)shearMyWorksStore;
 
 - (NSMutableArray *)configurationMenuWithMenu:(NSArray *)menu;
-- (NSMutableArray *)commentsListDropdownMenuConfigurationMenuWithMenu:(NSArray *)menu;
+- (NSMutableArray *)commentsListDropdownMenuConfigurationMenuWithMenu:(NSArray *)menu;//配置我的 作品编辑项
 - (NSDictionary *)editProductConfigurationMenuWithGetProductType:(UserType )userType;
+- (NSDictionary *)editMycaseConfigurationMenu; //配置我的案例编辑项
 
 @end
