@@ -70,6 +70,7 @@
 		7717E9A2206B878D0025DC73 /* DirectMessagesTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E99D206B878D0025DC73 /* DirectMessagesTableViewCell.xib */; };
 		7717E9A3206B878D0025DC73 /* DirectMessagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717E99F206B878D0025DC73 /* DirectMessagesViewController.m */; };
 		7717E9A4206B878D0025DC73 /* DirectMessagesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717E9A0206B878D0025DC73 /* DirectMessagesViewController.xib */; };
+		772C790820B264FA00E61D62 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 770B48BD20A9953000CD51A2 /* StoreKit.framework */; };
 		772F95772050023100F432D2 /* AppDelegate+UmenShear.m in Sources */ = {isa = PBXBuildFile; fileRef = 772F95762050023100F432D2 /* AppDelegate+UmenShear.m */; };
 		772F957920503D4900F432D2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957820503D4800F432D2 /* CoreGraphics.framework */; };
 		772F957B20503D5900F432D2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 772F957A20503D5900F432D2 /* libsqlite3.tbd */; };
@@ -1444,6 +1445,7 @@
 				77E00A6A20174F40004BBD49 /* CFNetwork.framework in Frameworks */,
 				77369CA9200F04660092AEAC /* libsqlite3.0.tbd in Frameworks */,
 				77369CA7200F04510092AEAC /* libz.tbd in Frameworks */,
+				772C790820B264FA00E61D62 /* StoreKit.framework in Frameworks */,
 				77369CA5200F04330092AEAC /* CoreTelephony.framework in Frameworks */,
 				93EE521CC76739AB8BAEF72A /* libPods-itop.a in Frameworks */,
 			);
@@ -2818,6 +2820,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {

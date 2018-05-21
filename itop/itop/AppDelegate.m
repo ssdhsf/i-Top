@@ -144,7 +144,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     
-    NSLog(@"1111");
+    NSLog(@"非活动");
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = [ChatViewController getUnreadNotificationCountAndChatCount];
 //    [JPUSHService setBadge: [ChatViewController getUnreadNotificationCountAndChatCount]];
 //    [[LZPushManager manager] syncBadge];
@@ -158,7 +158,12 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     
-    NSLog(@"222");
+    NSLog(@"进入后台");
+    
+    if ([[UserManager shareUserManager] isLogin]) {
+       [[LoginMannager sheardLoginMannager]stopTimer];
+    }
+    
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = [ChatViewController getUnreadNotificationCountAndChatCount];
 //    [JPUSHService setBadge: [ChatViewController getUnreadNotificationCountAndChatCount]];
 //    [[LZPushManager manager] syncBadge];
@@ -214,11 +219,20 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+    
+     NSLog(@"进入前台");
+    
+    if ([[UserManager shareUserManager] isLogin]) {
+        [[LoginMannager sheardLoginMannager]initTimer];
+    }
+    
     // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
 }
 
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    
+    NSLog(@"活动");
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 

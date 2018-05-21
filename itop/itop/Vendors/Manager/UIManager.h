@@ -36,8 +36,8 @@ typedef NS_ENUM(NSInteger, ShearType) { //首页Tag类型
 };
 
 typedef void (^BackOffBolck)(id parameter); //返回上一级回掉
-typedef void (^CommentPopularizeBackOffBolck)(id parameter); //返回上一级回掉
-typedef void (^UpdateHotBackOffBolck)(id parameter); //返回上一级回掉
+typedef void (^CommentPopularizeBackOffBolck)(id parameter); //评价推广返回上一级回掉
+typedef void (^UpdateHotBackOffBolck)(id parameter); //更新热点返回上一级回掉
 typedef void (^RealesHotBackOffBolck)(id parameter); //发布热点返回上一级回掉
 typedef void (^LoadingBackOffBolck)(id parameter); //加载完启动GIF返回上一级回掉
 typedef void (^SubmitInfomationBackOffBolck)(id parameter); //提交用户信息返回上一级回掉

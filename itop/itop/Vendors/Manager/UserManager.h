@@ -346,6 +346,9 @@ typedef void (^BalanceFailure)(id obj);
 typedef void (^DemandAuthoritySuccess)(id obj);
 typedef void (^DemandAuthorityFailure)(id obj);
 
+typedef void (^ContinueWithTokenSuccess)(id obj);
+typedef void (^ContinueWithTokenFailure)(id obj);
+
 typedef void (^ErrorFailure)(id obj);
 
 @class UserModel;
@@ -358,6 +361,10 @@ typedef void (^ErrorFailure)(id obj);
 /*----------------登录————————————————————————*/
 @property (nonatomic, copy) LoginSuccess loginSuccess;
 @property (nonatomic, copy) LoginFailure loginFailure;
+
+/*----------------登录————————————————————————*/
+@property (nonatomic, copy) ContinueWithTokenSuccess continueWithTokenSuccess;
+@property (nonatomic, copy) ContinueWithTokenFailure continueWithTokenFailure;
 
 /*----------------获取验证码————————————————————————*/
 @property (nonatomic, copy) VerificationSuccess verificationSuccess;
@@ -606,6 +613,15 @@ typedef void (^ErrorFailure)(id obj);
  *  @param password 密码
  */
 - (void)loginWithUserName:(NSString *)userName passWord:(NSString *)password;
+
+
+/**
+ *  续命  10分钟续一次
+ *
+ *  @param token 登陆时候返回的
+ *
+ */
+- (void)continueWithToken;
 
 /**
  *  微信授权后上传code到服务器

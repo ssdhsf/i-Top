@@ -100,6 +100,7 @@
         [[Global sharedSingleton]
          setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
          andValue:_passwordTF.text];
+         [[LoginMannager sheardLoginMannager]initTimer]; //续命
         
     } ;
 }

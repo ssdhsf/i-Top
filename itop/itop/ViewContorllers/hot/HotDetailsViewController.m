@@ -120,11 +120,13 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     
     [[UserManager shareUserManager]hotCommentWithHotDetailId:_hotDetail.article.id PageIndex:self.page_no PageCount:10];
     [UserManager shareUserManager].hotCommentSuccess = ^ (NSArray *arr){
-        
+       
+        [self steupTableView];
+        [self loadingHeardView];
+
+        self.originY = _headerView.height;
+        self.tipsMessage = @"没有评论";
         [self listDataWithListArray:[[HotDetailStore shearHotDetailStore]configurationMenuWithMenu:arr] page:self.page_no];
-        
-            [self steupTableView];
-            [self loadingHeardView];
     };
 }
 

@@ -123,6 +123,8 @@
         
         [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
         [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
+        [[LoginMannager sheardLoginMannager] stopTimer];
+        
         AppDelegate *app = ApplicationDelegate;
         app.tabBarController = nil;
 //        [[UserManager shareUserManager]loginOut];

@@ -140,7 +140,6 @@
     }
 }
 
-
 - (void)requestDataWithApi:(NSString *)api
                 parameters:(NSDictionary *)parameters
                 completion:(void (^)(id object))completion
@@ -151,8 +150,12 @@
  
             completion(resultObject);
             
-        } else {
-            //
+        } else if (code == TOKEN_FAILURE_RESULT || code == LOGIN_FAILURE_RESULT) {
+            
+            NSDictionary *dic = @{ERROR_CODE :@(code)};
+            [[NSNotificationCenter defaultCenter]postNotificationName:Notification_LogoutView object:self userInfo:dic];
+        }else{
+ 
             completion([NSError errorWithDomain:description code:code userInfo:nil]);
         }
     };
@@ -166,7 +169,6 @@
             NSDictionary *dic = @{ERROR_CODE :@(error.code)};
             [[NSNotificationCenter defaultCenter]postNotificationName:Notification_LogoutView object:self userInfo:dic];
         }
-
     };
     
     [self requestDataWithApi:api andRequestType:@"POST" andParameters:parameters completion:_completion failure:_failure];

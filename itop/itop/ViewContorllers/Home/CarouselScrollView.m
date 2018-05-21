@@ -128,7 +128,6 @@ static double kFGGScrollInterval = 5.0f;
     }
     _scroll.pagingEnabled=YES;
     _scroll.contentSize = CGSizeMake(page*ScreenWidth, self.bounds.size.height);
-    
     _scroll.showsHorizontalScrollIndicator = NO;
     for(int i = 0;i < _imageURLArray.count;i++){
         

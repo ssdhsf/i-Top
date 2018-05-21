@@ -139,6 +139,37 @@ _errorFailure(__id_obj); }
     }];
 }
 
+#pragma mark - 续命
+- (void)continueWithToken{
+    
+    SHOW_GET_DATA
+    NSString *api = @"/api/user/getuserstatus";
+    NSString *token = [[[self class]shareUserManager]crrentUserInfomation].token;
+    NSDictionary *parameters = @{@"token" : token};
+    [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
+        
+        HIDDEN_GET_DATA
+        if ([object isKindOfClass:[NSError class]]) {
+            
+            [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager]topViewController].view withError:object];
+            
+        } else {
+            
+            UserModel *user = [[UserModel alloc]initWithDictionary:object error:nil];
+            [[Global sharedSingleton]
+             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
+             andValue:[user toJSONString]];
+            
+            _continueWithTokenSuccess(user);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        HIDDEN_GET_DATA
+        SHOW_ERROR_MESSAGER(error);
+    }];
+}
+
 -(void)wechatLoginWithCallBackCode:(NSString *)code{
     
     SHOW_GET_DATA
@@ -698,7 +729,7 @@ _errorFailure(__id_obj); }
     
     //    SHOW_GET_DATA
     NSString *api = @"/api/tag/getlistbyparentid";
-    NSDictionary *parameters = @{@"tagType" : parent_id};
+    NSDictionary *parameters = @{@"parent_id" : parent_id};
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         

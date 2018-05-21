@@ -153,6 +153,7 @@ static NSString *const SetupHomeCellIdentifier = @"SetupHome";
         [UserManager shareUserManager].loginSuccess = ^ (id obj){
             
             [[LoginMannager sheardLoginMannager]clearLoginUserMassage];
+            [[LoginMannager sheardLoginMannager] stopTimer];
             
             [self.navigationController popToRootViewControllerAnimated:YES];
             [UIManager sharedUIManager].loginOutBackOffBolck (nil);

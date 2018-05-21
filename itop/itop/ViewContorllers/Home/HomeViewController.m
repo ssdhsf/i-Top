@@ -606,6 +606,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
 //    [[LoginMannager sheardLoginMannager]presentViewLoginViewController];
     [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
+    [[LoginMannager sheardLoginMannager] stopTimer];
     AppDelegate *app = ApplicationDelegate;
     app.tabBarController = nil;
     [[Global sharedSingleton]showToastInCenter:[[UIManager sharedUIManager] topViewController].view  withMessage:@"登录过期"];

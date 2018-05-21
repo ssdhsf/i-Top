@@ -253,21 +253,12 @@ static const NSString *PayProduct1998 = @"0008";
         //addPayment 将支付信息添加进苹果的支付队列后，苹果会自动完成后续的购买请求，在用户购买成功或者点击取消购买的选项后回调
     }
     
-//    [self requestProUpgradeProductData];
+//
 }
 
 //+ (id)paymentWithProductIdentifier:(NSString*)identifier{
 //    NS_DEPRECATED_IOS(3_0,5_0,"Use +paymentWithProduct: after fetching the available products using SKProductsRequest");
 //}
-
-- (void)requestProUpgradeProductData{
-    
-    NSLog(@"------请求升级数据---------");
-    NSSet *productIdentifiers = [NSSet setWithObject:@"com.productid"];
-    SKProductsRequest* productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:productIdentifiers];
-    productsRequest.delegate = self;
-    [productsRequest start];
-}
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
     
@@ -330,6 +321,12 @@ static const NSString *PayProduct1998 = @"0008";
     NSLog(@"-------paymentQueue----");
 }
 
+- (void)completeTransaction:(SKPaymentTransaction *)transaction{
+    NSLog(@"交易结束");
+    
+    
+    [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+}
 
 - (IBAction)charge:(UIButton *)sender {
     

@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ *  滚动时间间隔 可以自己修改
+ */
+static double continueTokenInterval = 10.0f;
+
 @interface LoginMannager : NSObject
 
 +(instancetype)sheardLoginMannager;
@@ -16,7 +21,12 @@
 //登出时清楚数据
 - (void)clearLoginUserMassage ;
 
+//续登陆
+- (void)continueWithToken;
 
+//定时器
+-(void)initTimer;
+-(void)stopTimer;
 //返回登录页面
 //- (void)presentViewLoginViewController;
 
