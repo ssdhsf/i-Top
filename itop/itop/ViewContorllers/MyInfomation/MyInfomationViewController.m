@@ -169,8 +169,8 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     
     if(![[UserManager shareUserManager]isLogin] && indexPath.section ==0){
         
-        [self showToastWithMessage:@"请登录"];
-        return;
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+//        return;
     }
     
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];

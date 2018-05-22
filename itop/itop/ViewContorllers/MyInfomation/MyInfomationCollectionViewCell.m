@@ -15,14 +15,14 @@
     self.itemImage.image = [UIImage imageNamed:myInfo.myInfoImageUrl];
     self.itemTitle.text = myInfo.myInfoTitle;
     
-    if ([myInfo.myInfoTitle isEqualToString:@"通知"]) {
+    if ([myInfo.myInfoTitle isEqualToString:@"通知"] && [[UserManager shareUserManager] crrentMessageCount] != nil) {
         JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.itemImage alignment:JSBadgeViewAlignmentTopRight];
             badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
             badgeView.badgeText = [NSString stringWithFormat:@"%@",[[UserManager shareUserManager] crrentMessageCount]] ;
             badgeView.size = CGSizeMake(10, 10);
         badgeView.badgeBackgroundColor = UIColorFromRGB(0xf9a5ee);
     }
-    if ([myInfo.myInfoTitle isEqualToString:@"关注"]) {
+    if ([myInfo.myInfoTitle isEqualToString:@"关注"] && [[UserManager shareUserManager] crrentFollowCount] != nil ) {
         JSBadgeView *badgeView = [[JSBadgeView alloc] initWithParentView:self.itemImage alignment:JSBadgeViewAlignmentTopRight];
         badgeView.badgeTextFont = [UIFont systemFontOfSize:9];
         badgeView.badgeText = [NSString stringWithFormat:@"%@",[[UserManager shareUserManager] crrentFollowCount]] ;

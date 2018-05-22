@@ -164,11 +164,11 @@
 
         completion(error);
         NSLog(@"%ld",error.code);
-        if (error.code == -1011) {
-            
-            NSDictionary *dic = @{ERROR_CODE :@(error.code)};
-            [[NSNotificationCenter defaultCenter]postNotificationName:Notification_LogoutView object:self userInfo:dic];
-        }
+//        if (error.code == -1011) {
+        
+//            NSDictionary *dic = @{ERROR_CODE :@(error.code)};
+//            [[NSNotificationCenter defaultCenter]postNotificationName:Notification_LogoutView object:self userInfo:dic];
+//        }
     };
     
     [self requestDataWithApi:api andRequestType:@"POST" andParameters:parameters completion:_completion failure:_failure];

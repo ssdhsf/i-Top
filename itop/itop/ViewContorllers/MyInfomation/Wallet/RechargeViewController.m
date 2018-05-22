@@ -207,7 +207,9 @@ static const NSString *PayProduct1998 = @"0008";
     
     NSLog(@"请求的产品%@",product);
     NSSet *nsset = [NSSet setWithArray:product];
-    SKProductsRequest *request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
+    SKProductsRequest
+    
+    *request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
     request.delegate = self;
     [request start];
 }

@@ -106,9 +106,10 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         };
         
         [UserManager shareUserManager].errorFailure = ^(id obj){
-          
-            [self.collectionView.header endRefreshing];
+            
+            [self collectionEndRefreshing];
         };
+
     };
 
 }
@@ -412,6 +413,9 @@ static NSString *const H5ListCellIdentifier = @"H5List";
         vc.otherUser_id = [NSString stringWithFormat:@"%@", _designerInfo.user_id];
         vc.otherUser_name = _designerInfo.nickname;
         [UIManager pushVC:vc];
+    } else {
+        
+        [self showToastWithMessage:@"会员等级不足,无法私信"];
     }
 }
 

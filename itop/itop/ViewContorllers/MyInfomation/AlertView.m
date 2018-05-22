@@ -210,8 +210,7 @@
 }
 
 #pragma mark - 回调 -设置只有2  -- > 确定才回调
-- (void)buttonEvent:(UIButton *)sender
-{
+- (void)buttonEvent:(UIButton *)sender{
 
 //    if ([self anySubViewScrolling:_pickView]) {
     if (sender.tag == 2) {
@@ -315,6 +314,35 @@
     [self.pickView reloadAllComponents];
     self.pickView.frame = CGRectMake(0, CGRectGetMaxY(self.titleLbl.frame)+XLSpace, self.pickView.width, self.pickView.height);
     self.msgLbl = [[UIView alloc]initWithFrame:self.pickView.frame];
+    switch (_pickViewType) { //默认选中第一行
+        case PickViewTypeAge:
+        case PickViewTypeSex:
+        case PickViewTypeCompnySize:
+            
+            _tempSelectItme = _superArray[0];
+            break;
+        case PickViewTypeProvince:
+            _province = self.superArray[0];
+            _city = self.subArray[0];
+            break;
+        case PickViewTypeIndustry:
+            
+            _superTag = self.superArray[0];
+            _subTag = self.subArray[0];
+            break;
+        case PickViewTypeField:
+            
+            _superTag = self.superArray[0];
+            break;
+        case PickViewTypeDesginer:
+            
+            _designer = self.superArray[0];
+            break;
+        case PickViewTypeProduct:
+            
+            _editCase = self.superArray[0];
+            break;
+    }
 }
 
 -(void)initDateView{
@@ -384,10 +412,10 @@
 
                 [self positioningIndustryWithindex:content];
                 break;
-             case PickViewTypeField:
-                
-                [self positioningFieldWithindex:content];
-                break;
+//             case PickViewTypeField:
+//
+//                [self positioningFieldWithindex:content];
+//                break;
             case PickViewTypeDesginer:
                 
                 [self positioningDesginerWithContent:content];
@@ -414,17 +442,19 @@
             
             index = [self.superArray indexOfObject:province];
             _subArray = province.cityArray;
+            _province = province;
         }
     }
     [self.pickView selectRow:index inComponent:0 animated:NO];
     
     if (arr.count > 1) {
         
-        for (Province *province in self.subArray ) {
+        for (Province *city in self.subArray ) {
             
-            if ([province.address isEqualToString:arr[1]]) {
+            if ([city.address isEqualToString:arr[1]]) {
                 
-                inde2 = [self.subArray indexOfObject:province];
+                inde2 = [self.subArray indexOfObject:city];
+                 _city = city;
             }
         }
         [self.pickView selectRow:inde2 inComponent:1 animated:NO];
@@ -443,6 +473,7 @@
             
             index = [_superArray indexOfObject:industry];
             self.subArray = industry.subTagArray;
+            _superTag = industry;
         }
     }
     [self.pickView selectRow:index inComponent:0 animated:NO];
@@ -454,6 +485,7 @@
             if ([industry.name isEqualToString:arr[1]]) {
                 
                 inde2 = [self.subArray indexOfObject:industry];
+                _subTag = industry;
             }
         }
         [self.pickView selectRow:inde2 inComponent:1 animated:NO];
@@ -461,23 +493,23 @@
 }
 
 #pragma mark 选择数据时将有数据的擅长领域赋给已选择的temp
--(void)positioningFieldWithindex:(NSString *)content{
-    NSInteger index = 0 ;
-
-    for (TagList *industry in _superArray ) {
-        
-        if ([industry.name isEqualToString:content]) {
-            
-            index = [_superArray indexOfObject:industry];
-        }
-    }
-    [self.pickView selectRow:index inComponent:0 animated:NO];
-}
+//-(void)positioningFieldWithindex:(NSString *)content{
+//    NSInteger index = 0 ;
+//
+//    for (TagList *industry in _superArray ) {
+//
+//        if ([industry.name isEqualToString:content]) {
+//
+//            index = [_superArray indexOfObject:industry];
+//        }
+//    }
+//    [self.pickView selectRow:index inComponent:0 animated:NO];
+//}
 
 #pragma mark 选择数据时将有数据的设计师赋给已选择的temp
 -(void)positioningDesginerWithContent:(NSString *)content{
+   
     NSInteger index = 0 ;
-    
     for (DesignerList *desginer in _superArray ) {
         
         if ([desginer.nickname isEqualToString:content]) {
@@ -490,8 +522,8 @@
 
 #pragma mark 选择数据时将有数据的设计师作品H5赋给已选择的temp
 -(void)positioningProductWithContent:(NSString *)content{
+   
     NSInteger index = 0 ;
-    
     for (H5List *h5 in _superArray ) {
         
         if ([h5.title isEqualToString:content]) {
@@ -566,35 +598,35 @@
     
     if (component==0){
     
-            switch (_pickViewType) {
-                case PickViewTypeAge:
-                case PickViewTypeSex:
-                case PickViewTypeCompnySize:
-                    
-                    _tempSelectItme = _superArray[row];
-                    
-                    break;
-                case PickViewTypeProvince:
-                    _province = self.superArray[row];
-                    NSLog(@"%ld",row);
-                    break;
-                case PickViewTypeIndustry:
-                    
-                    _superTag = self.superArray[row];
-                    break;
-                case PickViewTypeField:
-                    
-                    _superTag = self.superArray[row];
-                    break;
-                case PickViewTypeDesginer:
-                    
-                    _designer = self.superArray[row];
-                    break;
-                case PickViewTypeProduct:
-                    
-                    _editCase = self.superArray[row];
-                    break;
-            }
+//            switch (_pickViewType) {
+//                case PickViewTypeAge:
+//                case PickViewTypeSex:
+//                case PickViewTypeCompnySize:
+//
+//
+////                    _tempSelectItme = _superArray[row];
+//
+//                    break;
+//                case PickViewTypeProvince:
+////                    _province = self.superArray[row];
+//                    NSLog(@"%ld",row);
+//                    break;
+//                case PickViewTypeIndustry:
+//
+//                    break;
+//                case PickViewTypeField:
+//
+////                    _superTag = self.superArray[row];
+//                    break;
+//                case PickViewTypeDesginer:
+//
+////                    _designer = self.superArray[row];
+//                    break;
+//                case PickViewTypeProduct:
+//
+////                    _editCase = self.superArray[row];
+//                    break;
+//            }
         
         return self.superArray[row];
         
@@ -630,7 +662,6 @@
                 self.subArray =_province.cityArray;
                 [self.pickView reloadComponent:1];
                 [self.pickView selectRow:0 inComponent:1 animated:NO];
-//                [self pickerView:pickerView didSelectRow:[pickerView selectedRowInComponent:1] inComponent:1];
                 break;
                 
             case PickViewTypeIndustry:

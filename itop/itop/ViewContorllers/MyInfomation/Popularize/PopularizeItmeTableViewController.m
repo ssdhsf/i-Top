@@ -109,6 +109,11 @@ static NSString *const PopularizeCellIdentifier = @"Popularize";
             self.allItemLabel .text = [Global stringIsNullWithString:_popularizeAllCount.reward_count]? @"0" :_popularizeAllCount.reward_count;
         }
     };
+    
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+      
+        [self tableViewEndRefreshing];
+    };
 }
 
 -(void)refreshData{

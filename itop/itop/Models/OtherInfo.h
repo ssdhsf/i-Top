@@ -43,6 +43,8 @@
 //自营销
 @property (nonatomic, strong) NSString <Optional>*avg_score;
 @property (nonatomic, strong) NSString <Optional>*order_count;
+@property (nonatomic, strong) NSString <Optional>*remark;
+
 
 
 //"avg_score" = "5.2";

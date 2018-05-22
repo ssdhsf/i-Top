@@ -736,8 +736,14 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 }
 
 -(void)messageList{
-   
-    [UIManager showVC:@"MessageViewController"];
+    
+    if ([[UserManager shareUserManager]isLogin]) {
+       
+         [UIManager showVC:@"MessageViewController"];
+    } else{
+        
+        [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
+    }
 }
 
 -(void)loadinH5ListWithH5Type:(GetH5ListType)type index:(NSInteger)index title:(NSString *)title{

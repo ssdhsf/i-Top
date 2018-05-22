@@ -69,6 +69,10 @@ static NSString *const CustomRequirementsCellIdentifier = @"CustomRequirements";
         [self steupTableView];
         
     };
+    [UserManager shareUserManager].errorFailure = ^(id obj){
+        
+        [self tableViewEndRefreshing];
+    };
 }
 
 - (void)steupTableView{

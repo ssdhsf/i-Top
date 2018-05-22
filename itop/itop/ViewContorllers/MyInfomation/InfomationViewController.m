@@ -224,10 +224,11 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         }
         
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"所属行业"]) {
-            info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name, _subTag.name];
             
+            if (_superTag != nil) {
+               info.content = [NSString stringWithFormat:@"%@,%@",_superTag.name, _subTag.name];
+            }
         }
-        
         if (![Global stringIsNullWithString:info.content] && [info.title isEqualToString:@"性别"]) {
             _selectSex = [[InfomationStore shearInfomationStore]sexWithIndex:info.content] ;
         }
@@ -633,9 +634,18 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
 
     for (Infomation *info in self.dataArray) {
         
-        if ([info.title isEqualToString:@"擅长领域"] && ![Global stringIsNullWithString:tagString]) {
+        if ([info.title isEqualToString:@"擅长领域"] ) {
             
-            [otherInfoDic setObject:tagString forKey:info.sendKey];
+            if (![Global stringIsNullWithString:tagString]) {
+            
+                [otherInfoDic setObject:tagString forKey:info.sendKey];
+                
+            } else if(![Global stringIsNullWithString:_info.other_info.field]){
+                
+                [otherInfoDic setObject:_info.other_info.field forKey:info.sendKey];
+            } else {
+                [otherInfoDic setObject:@"" forKey:info.sendKey];
+            }
         }
     }
     return otherInfoDic;
@@ -660,10 +670,10 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
             for (ChannelList *channel in _channelList) {
                 
                 if ([Global stringIsNullWithString:channelJsonStr] ) {
-                    channelJsonStr = [NSString stringWithFormat:@"{name:%@,fans_count:%@,index_url:%@}",channel.name,channel.fans_count,channel.index_url];
+                    channelJsonStr = [NSString stringWithFormat:@"{\"name\":\"%@\",\"fans_count\":\"%@\",\"index_url\":\"%@\"}",channel.name,channel.fans_count,channel.index_url];
                 } else {
                     
-                    channelJsonStr =  [NSString stringWithFormat:@"%@,{name:%@,fans_count:%@,index_url:%@}",channelJsonStr,channel.name,channel.fans_count,channel.index_url];
+                    channelJsonStr =  [NSString stringWithFormat:@"%@,{\"name\":\"%@\",\"fans_count\":\"%@\",\"index_url\":%@}",channelJsonStr,channel.name,channel.fans_count,channel.index_url];
                 }
                 
 //                NSDictionary *dic = @{@"name":channel.name,@"fans_count":channel.fans_count,@"index_url":channel.fans_count};
@@ -678,6 +688,11 @@ static NSString *const InfomationCellIdentifier = @"LeaveDetail";
         if ([info.title isEqualToString:@"所属行业"] && _superTag ) {
             
             [otherInfoDic setObject:[NSString stringWithFormat:@"%@,%@",_superTag.id,_subTag.id] forKey:info.sendKey];
+        }
+        
+        if ([info.title isEqualToString:@"简介"] ) {
+            
+            [otherInfoDic setObject:info.content forKey:info.sendKey];
         }
     }
     
