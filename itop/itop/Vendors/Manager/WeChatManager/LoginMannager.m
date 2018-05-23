@@ -38,11 +38,6 @@
     
 }
 
-- (void)continueWithToken {
-    
-    
-}
-
 -(void)initTimer{
     
     if(_timer){
@@ -68,7 +63,6 @@
     [UserManager shareUserManager].continueWithTokenSuccess = ^(id obj){
       
         NSLog(@"续命成功");
-        
     };
     
     [UserManager shareUserManager].continueWithTokenFailure  = ^(id obj){

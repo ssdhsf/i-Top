@@ -79,7 +79,6 @@
             NSLog(@"%@",obj);
             [_verificationCodeButton scheduledGCDTimer];
         };
-        
     }else {
         
         [self showToastWithMessage:[NSString stringWithFormat:@"%ld后重发",[UserManager shareUserManager].timers]];
@@ -103,7 +102,21 @@
         [[UserManager shareUserManager]bindPhoneWithMobili:_accountTF.text verificationCode:_verificationCodeTF.text];
         [UserManager shareUserManager].bindPhoneSuccess = ^(id obj){
             
+//            [[LoginMannager sheardLoginMannager]initTimer]; //续命
+            if ( [UIManager appDelegate].tabBarController != nil) {
+                
+                [UIManager appDelegate].tabBarController = nil;
+            }
+            NSDictionary *dic = (NSDictionary *)obj;
+            UserModel *user = [[UserModel alloc]initWithDictionary:dic error:nil];
+            [[Global sharedSingleton]
+             setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
+             andValue:[user toJSONString]];
             [UIManager goMianViewController];
+            if (![Global stringIsNullWithString:user.token]) {  //有时候有时候没有
+                
+                [[LoginMannager sheardLoginMannager]initTimer]; //续命
+            }
         };
     } else {
         
@@ -118,15 +131,12 @@
 -(void)alertOperation{
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改手机号码成功，需要重新登陆" preferredStyle:UIAlertControllerStyleAlert];
-    //    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"继续提交" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
         
         [[UIManager sharedUIManager]LoginViewControllerWithLoginState:YES];
         [[LoginMannager sheardLoginMannager] clearLoginUserMassage];
         [[LoginMannager sheardLoginMannager] stopTimer];
-        
-        AppDelegate *app = ApplicationDelegate;
-        app.tabBarController = nil;
+        [UIManager appDelegate].tabBarController = nil;
 //        [[UserManager shareUserManager]loginOut];
 //        [UserManager shareUserManager].loginSuccess = ^ (id obj){
 //

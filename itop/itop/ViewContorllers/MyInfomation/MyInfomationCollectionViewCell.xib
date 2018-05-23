@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,11 +18,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="80" height="110"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的作品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAW-U4-zTf">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="我的作品" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAW-U4-zTf">
                         <rect key="frame" x="5" y="70" width="70" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="Ujb-rM-eRQ"/>
-                        </constraints>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -34,18 +32,21 @@
                             <constraint firstAttribute="width" constant="35" id="r1h-b7-Exj"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vof-7Y-wvP" customClass="JSBadgeView">
+                        <rect key="frame" x="59" y="67" width="10" height="10"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="Pc0-CF-kBj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="20" id="7xc-cZ-VoU"/>
-                <constraint firstItem="iAW-U4-zTf" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="DWC-Ua-8Ct"/>
                 <constraint firstItem="Pc0-CF-kBj" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="J1y-Cl-sKC"/>
-                <constraint firstAttribute="trailing" secondItem="iAW-U4-zTf" secondAttribute="trailing" constant="5" id="QXy-r0-G7P"/>
-                <constraint firstItem="iAW-U4-zTf" firstAttribute="top" secondItem="Pc0-CF-kBj" secondAttribute="bottom" constant="15" id="dXn-KE-X1Y"/>
             </constraints>
             <size key="customSize" width="100" height="111"/>
             <connections>
+                <outlet property="badgeView" destination="vof-7Y-wvP" id="2fP-qw-oGO"/>
                 <outlet property="itemImage" destination="Pc0-CF-kBj" id="421-Nj-WUM"/>
                 <outlet property="itemTitle" destination="iAW-U4-zTf" id="pTG-q0-d5D"/>
             </connections>

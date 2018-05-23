@@ -17,8 +17,6 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
 
 @interface ShearViewController ()<UMSocialShareMenuViewDelegate>
 
-//@property(nonatomic,strong)WebViewController *webVc;
-
 @property (nonatomic, assign) UMSocialPlatformType platform;
 @property (nonatomic, assign) UMS_SHARE_TYPE shear_type;
 @property (nonatomic, strong) NSDictionary *platfomrSupportTypeDict;

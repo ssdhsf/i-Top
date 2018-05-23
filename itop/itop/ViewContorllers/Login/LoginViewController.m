@@ -93,6 +93,7 @@
     [[UserManager shareUserManager]loginWithUserName:_accountTF.text passWord:_passwordTF.text];
     [UserManager shareUserManager].loginSuccess = ^(id obj){
         
+        [[LoginMannager sheardLoginMannager]initTimer]; //10分钟后续命
         [UIManager makeKeyAndVisible];
         [[Global sharedSingleton]
          setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERNAME
@@ -100,8 +101,10 @@
         [[Global sharedSingleton]
          setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_PASSWORD
          andValue:_passwordTF.text];
-         [[LoginMannager sheardLoginMannager]initTimer]; //续命
         
+        if (![Global stringIsNullWithString:[[UserManager shareUserManager]crrentUserInfomation].token]) {  //有时候有时候没有
+            [[LoginMannager sheardLoginMannager]initTimer]; //续命
+        }
     } ;
 }
 
@@ -185,17 +188,27 @@
                 [[Global sharedSingleton]
                  setUserDefaultsWithKey:WECHTLOGIN_CACHE_KEY
                  andValue:cacheKey];
-                UIViewController *vc = [UIManager viewControllerWithName:@"BindPhoneViewController"];
-                [self.navigationController pushViewController:vc animated:YES];
+                [UIManager  bindPhoneViewControllerWithBindPhoneType:BindPhoneTypeBind oldPhoneCode:nil];
                 [self hiddenNavigationController:NO];
             } else {
                 
+              
+                if ( [UIManager appDelegate].tabBarController != nil) {
+                    
+                    [UIManager appDelegate].tabBarController = nil;
+                }
                 NSDictionary *dic = (NSDictionary *)obj;
                 UserModel *user = [[UserModel alloc]initWithDictionary:dic error:nil];
                 [[Global sharedSingleton]
                  setUserDefaultsWithKey:UD_KEY_LAST_LOGIN_USERINFOMATION
                  andValue:[user toJSONString]];
                 [UIManager goMianViewController];
+                
+                if (![Global stringIsNullWithString:user.token]) {  //有时候  有时候没有
+                    
+                      [[LoginMannager sheardLoginMannager]initTimer]; //续命
+                }
+                
             }
             NSLog(@"%@",obj);
         };

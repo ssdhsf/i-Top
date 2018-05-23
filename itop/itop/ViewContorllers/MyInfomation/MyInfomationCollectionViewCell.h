@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *itemImage;
 @property (weak, nonatomic) IBOutlet UILabel *itemTitle;
+@property (weak, nonatomic) IBOutlet JSBadgeView *badgeView;
 
 - (void)setItmeOfModel:(MyInfomation*)myInfo;
 

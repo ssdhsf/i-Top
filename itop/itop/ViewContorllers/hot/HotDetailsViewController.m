@@ -412,9 +412,11 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
             if (sender.tag == H5ItemDetailType) {
                 
                 [_h5PraiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+                [_h5PraiseButton setTitle:[NSString stringWithFormat:@"%ld",[_h5PraiseButton.titleLabel.text integerValue] + 1] forState:UIControlStateNormal];
             } else {
                 
                 [_praiseButton setImage:[UIImage imageNamed:@"icon_good"] forState:UIControlStateNormal];
+                [_praiseButton setTitle:[NSString stringWithFormat:@"%ld",[_praiseButton.titleLabel.text integerValue] + 1] forState:UIControlStateNormal];
             }
         };
     } else {
@@ -612,6 +614,9 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
             make.height.mas_equalTo(40);
             make.width.mas_equalTo(25);
         }];
+        
+        _parent_id = nil;
+
     }else {
         
         [_commentTV resignFirstResponder];

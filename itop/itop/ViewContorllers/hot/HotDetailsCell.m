@@ -16,7 +16,6 @@
 - (void)setItmeOfModel:(HotComments*)hotComment{
     
     [self.userImageView sd_setImageWithURL:[NSURL URLWithString:hotComment.user_head_img] placeholderImage:PlaceholderImage];
-    
     self.userImageView.layer.cornerRadius = self.userImageView.height/2;
     self.userImageView.layer.masksToBounds = YES;
     self.userName.text = hotComment.user_name;

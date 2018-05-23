@@ -18,11 +18,12 @@ static double continueTokenInterval = 600.0f;
 +(instancetype)sheardLoginMannager;
 
 //- (NSDictionary *) parametersToApiWithUserName:(NSString *)userNameStr password:(NSString*)passwordStr;
+
 //登出时清楚数据
 - (void)clearLoginUserMassage ;
 
 //续登陆
-- (void)continueWithToken;
+- (void)automaticContinueToken;
 
 //定时器
 -(void)initTimer;

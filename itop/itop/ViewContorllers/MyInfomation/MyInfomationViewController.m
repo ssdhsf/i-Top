@@ -170,7 +170,6 @@ static NSString *const MyInfomationCellIdentifier = @"MyInfomation";
     if(![[UserManager shareUserManager]isLogin] && indexPath.section ==0){
         
         [[UIManager sharedUIManager]LoginViewControllerWithLoginState:NO];
-//        return;
     }
     
     MyInfomation*info = [_myInfomationDataSource itemAtIndexPath:indexPath];

@@ -552,7 +552,7 @@ static NSString* const UMS_WebLink = @"http://mobile.umeng.com/social";
     
     NSString *tagStr = [shearView shearItemTitleArrayWithshearTepy:_shearType][tag];
     
-    if ([tagStr isEqualToString:@"朋友圈"] || [tagStr isEqualToString:@"微信朋友"]) {
+    if ([tagStr isEqualToString:@"朋友圈"] || [tagStr isEqualToString:@"微信好友"]) {
         
         if (![WXApi isWXAppInstalled]) {
             
