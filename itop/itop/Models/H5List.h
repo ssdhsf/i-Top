@@ -36,7 +36,7 @@
 @property (nonatomic, strong) NSString <Optional>*share_description;
 @property (nonatomic, strong) NSString <Optional>*share_img;
 @property (nonatomic, strong) NSString <Optional>*share_title;
-@property (nonatomic, strong) NSString <Optional>*show;
+@property (nonatomic, strong) NSNumber <Optional>*show;
 @property (nonatomic, strong) NSString <Optional>*update_datetime;
 @property (nonatomic, strong) NSString <Optional>*url;
 @property (nonatomic, strong) NSString <Optional>*user_id;

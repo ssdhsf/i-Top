@@ -10,4 +10,18 @@
 
 @implementation H5List
 
+
+-(instancetype)initWithDictionary:(NSDictionary *)dict error:(NSError *__autoreleasing *)err{
+    
+    self = [super initWithDictionary:dict error:err];
+    Boolean show = (Boolean)dict[@"show"];
+    
+    if (show == true) {
+        self.show == @1;
+    } else {
+        
+        self.show == @0;
+    }
+    return self;
+}
 @end

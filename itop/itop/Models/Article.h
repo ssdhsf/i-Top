@@ -23,7 +23,7 @@
 @property (nonatomic, strong) NSString <Optional>*content;
 @property (nonatomic, strong) NSString <Optional>*price;
 @property (nonatomic, strong) NSNumber <Optional>*check_status;
-@property (nonatomic, strong) NSString <Optional>*show;
+@property (nonatomic, strong) NSNumber <Optional>*show;
 @property (nonatomic, strong) NSString <Optional>*praise_count;
 @property (nonatomic, strong) NSString <Optional>*collection_count;
 @property (nonatomic, strong) NSString <Optional>*browse_count;

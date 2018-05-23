@@ -199,6 +199,12 @@
 
 - (IBAction)selectItem:(UIButton *)sender {
    
+    if (_itemDetailType == H5ItemDetailType) {
+        
+        [_titleH5TV resignFirstResponder];
+    } else {
+         [_titleInfoTV resignFirstResponder];
+    }
     _selectButtonTag = sender.tag;
     [self showAlertViewWithItem:sender];
 }

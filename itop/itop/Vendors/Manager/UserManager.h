@@ -28,7 +28,7 @@ typedef NS_ENUM(NSInteger, H5ProductType) { //H5作品类型
     H5ProductTypeScenario = 1,//场景H5
     H5ProductTypeSinglePage,//单页
     H5ProductTypeVideo,//H5视频
-    H5ProductTypeCase,//案例
+    H5ProductTypeCase,//精品案例
     H5ProductTypeNoel//无
 };
 

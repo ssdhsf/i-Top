@@ -126,8 +126,14 @@ static NSString *const RecommendedCellIdentifier = @"Recommended";
     
     [super tableView:tableView didSelectRowAtIndexPath:indexPath];
     H5List *h5list = [_recommendedDataSource itemAtIndexPath:indexPath];
-    [UIManager hotDetailsViewControllerWithArticleId:h5list.id articleType:HotItemDetailType];
-//    _pushControl(h5list);
+    
+    if (_getArticleListType == GetArticleListTypeMyHot) {
+      
+        _pushControl(h5list);
+    } else {
+        [UIManager hotDetailsViewControllerWithArticleId:h5list.id articleType:HotItemDetailType];
+        
+    }
 }
 
 

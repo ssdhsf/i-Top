@@ -23,7 +23,7 @@
 			<key>protocol</key>
 			<string>http</string>
 			<key>host</key>
-			<string>192.168.7.100:8028</string>
+			<string>192.168.7.100:1000</string>
 		</dict>
 		<key>Product</key>
 		<dict>

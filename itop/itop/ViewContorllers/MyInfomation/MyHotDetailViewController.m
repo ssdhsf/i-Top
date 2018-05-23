@@ -114,13 +114,15 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         _hotDetail = [[HotDetails alloc]initWithDictionary:dic error:nil];
         self.page_no = 1;
         
-        if (_checkStatusType == CheckStatusTypeOK) {
+        if ([_hotDetail.article.check_status integerValue] == CheckStatusTypeOK) {
             
              [self refreshData];
             
         } else {
-            [self steupTableView];
-            [self loadingHeardView];
+            
+            [self loadDateToView];
+//            [self steupTableView];
+//            [self loadingHeardView];
         }
     };
 }
@@ -132,9 +134,35 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
         
         [self listDataWithListArray:[[HotDetailStore shearHotDetailStore]configurationMenuWithMenu:arr] page:self.page_no];
         
-        [self steupTableView];
-        [self loadingHeardView];
+        [self loadDateToView];
     };
+}
+
+-(void)loadDateToView{
+    
+    [self steupTableView];
+    [self loadingHeardView];
+    [self setupShelvesButtonState];
+}
+
+
+-(void)setupShelvesButtonState{
+    
+    NSString *stateStr = [NSString string];
+    if ([_hotDetail.article.show isEqualToNumber:@1]) {
+        
+        if ([_hotDetail.article.check_status integerValue] == CheckStatusTypeUnPass) {
+            
+            [_shelvesButton setImage:[UIImage imageNamed:@"zuo_icon_delete"] forState:UIControlStateNormal];
+            stateStr = @"删除";
+        } else {
+             stateStr = @"下架";
+        }
+    } else {
+            stateStr = @"上架";
+    }
+       NSAttributedString *state = [_shelvesButton.titleLabel.text setupAttributedString:10 color:[UIColor blackColor] string:stateStr];
+        [_shelvesButton setAttributedTitle:state forState:UIControlStateNormal];
 }
 
 -(void)loadingHeardView{
@@ -169,12 +197,12 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     CGFloat half = (float)ScreenWidth/2;
-    if (_checkStatusType == CheckStatusTypeUnPass) {
-        
-        [_shelvesButton setImage:[UIImage imageNamed:@"zuo_icon_delete"] forState:UIControlStateNormal];
-        [_shelvesButton setTitle:@"删除" forState:UIControlStateNormal];
-        _shelvesButton.tag = 2;
-    }
+//    if (_checkStatusType == CheckStatusTypeUnPass) {
+//
+//        [_shelvesButton setImage:[UIImage imageNamed:@"zuo_icon_delete"] forState:UIControlStateNormal];
+//        [_shelvesButton setTitle:@"删除" forState:UIControlStateNormal];
+//        _shelvesButton.tag = 2;
+//    }
     [self.editButton mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(0);
         make.width.mas_equalTo(half);
@@ -494,13 +522,16 @@ static NSString *const HotDetailCellIdentifier = @"HotDetail";
 
 - (IBAction)soldOut:(UIButton *)sender {
    
-    if (sender.tag == 1) {
+    if ([sender.titleLabel.text isEqualToString:@"上架"]) {
         
-        [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@0];
+        [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@1];
 
-    } else {
+    } else if([sender.titleLabel.text isEqualToString:@"下架"]) {
         
         [[UserManager shareUserManager] soldOutMyHotWithHotId:_hotDetail.article.id isShow:@0];
+    } else {
+       
+        [[UserManager shareUserManager] deleteMyHotWithHotId:_hotDetail.article.id];
     }
     
     [UserManager shareUserManager].hotStareSuccess = ^ (id obj){

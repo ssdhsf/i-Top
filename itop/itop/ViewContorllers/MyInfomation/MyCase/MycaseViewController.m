@@ -70,7 +70,15 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 -(void)initNavigationBarItems{
     
     [super initNavigationBarItems];
-    self.navigationItem.title = @"我的案例";
+    
+    if (_getCaseType == GetCaseTypeMyCase ) {
+        
+        self.navigationItem.title = @"我的案例";
+        [self setRightCustomBarItem:@"dingzhi_icon_add" action:@selector(addCase)];
+    } else {
+        
+        self.navigationItem.title = @"精品案例";
+    }
 }
 
 -(void)initView{
@@ -112,7 +120,14 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
 
 - (void)refreshData{
     
-    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType userId:nil isShow:NO];
+    BOOL isMyCase = NO;
+    if (_getCaseType == GetCaseTypeMyCase ) {
+        
+        isMyCase = NO;
+    } else {
+         isMyCase = YES;
+    }
+    [[UserManager shareUserManager]myCaseListWithPageIndex:self.page_no PageCount:10 getCaseType:_getCaseType userId:nil isShow:isMyCase];
     [UserManager shareUserManager].myCaseListSuccess = ^(NSArray * arr){
         
         if (arr.count == 0) {
@@ -356,6 +371,11 @@ static NSString *const MycaseCellIdentifier = @"Mycase";
         
         NSLog(@"%@",obj);
     };
+}
+
+-(void)addCase{
+    
+    [UIManager editCaseViewControllerIsEdit:NO editCase:nil];
 }
 
 -(void)alertOperation{

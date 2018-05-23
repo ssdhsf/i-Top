@@ -574,8 +574,9 @@ _errorFailure(__id_obj); }
     
     SHOW_GET_DATA
     NSString *api = @"/api/article/show";
+    NSString * show = [isShow isEqualToNumber:@1] ? @"true" : @"false";
     NSDictionary *parameters = @{@"id" : hot_id,
-                                 @"isShow": isShow};
+                                 @"isShow": show};
     
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
         
@@ -939,7 +940,8 @@ _errorFailure(__id_obj); }
             if (searchKey != nil) {
                [parameters setObject:searchKey forKey:@"Title"]; //搜索字段
             }
-             [parameters setObject:@"true" forKey:@"Show"];
+             [parameters setObject:@"true" forKey:@"Commend"];
+            [parameters setObject:@"true" forKey:@"Show"];
             break;
         case GetArticleListTypeFocus:
             api = @"/api/article/getcollection";

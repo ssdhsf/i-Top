@@ -76,22 +76,29 @@
         
         NSInteger timeLabelOriginX = CGRectGetMaxX(self.commentsLabel.frame)+10;
         self.timeLabel.frame = CGRectMake(timeLabelOriginX, oringinY, timeLabelTextWidth+5, 15);
-        switch ([recommended.check_status integerValue]) {
-            case 0:
-                self.stateLabel.text = @"未审核";
-                break;
-            case 1:
-                self.stateLabel.text = @"审核中";
-                break;
-            case 2:
-                self.stateLabel.text = @"通过";
-                break;
-            case 3:
-                self.stateLabel.text = @"审核不通过";
-                break;
-            default:
-                break;
+        
+        if ([recommended.show isEqualToNumber:@1]) {
+            switch ([recommended.check_status integerValue]) {
+                case 0:
+                    self.stateLabel.text = @"未审核";
+                    break;
+                case 1:
+                    self.stateLabel.text = @"审核中";
+                    break;
+                case 2:
+                    self.stateLabel.text = @"通过";
+                    break;
+                case 3:
+                    self.stateLabel.text = @"审核不通过";
+                    break;
+                default:
+                    break;
+            }
+        } else {
+
+            self.stateLabel.text = @"已下架";
         }
+    
         self.stateLabel.layer.masksToBounds = YES;
         self.stateLabel.layer.cornerRadius = 3;
         self.stateLabel.textColor = UIColorFromRGB(0xffffff);

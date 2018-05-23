@@ -9,6 +9,11 @@
 #import "RechargeViewController.h"
 #import "biddingPayViewController.h"
 
+//沙盒测试环境验证
+#define SANDBOX @"https://sandbox.itunes.apple.com/verifyReceipt"
+//正式环境验证
+#define AppStore @"https://buy.itunes.apple.com/verifyReceipt"
+
 static const NSString *PayProduct25 = @"0001";
 
 static const NSString *PayProduct50 = @"0002";
@@ -57,6 +62,8 @@ static const NSString *PayProduct1998 = @"0008";
     self.buttonArray = [NSMutableArray array];
     [self.tagArray addObjectsFromArray:@[@"25",@"50",@"98",@"198",@"488",@"798",@"998",@"1998"]];
     _moneyLabel.text = [NSString stringWithFormat:@"0元"];
+    
+    [self verifyPurchaseWithPaymentTransaction];
 }
 
 -(void)initView{
@@ -86,6 +93,9 @@ static const NSString *PayProduct1998 = @"0008";
     [_submitPayButton.layer addSublayer:DEFULT_BUTTON_CAGRADIENTLAYER(_submitPayButton)];
     _submitPayButton.layer.masksToBounds = YES;
     _submitPayButton.layer.cornerRadius = _submitPayButton.height/2;
+    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+    
 }
 
 -(void)addkeywordsViewWithkeywords:(NSArray *)keywords{
@@ -207,9 +217,7 @@ static const NSString *PayProduct1998 = @"0008";
     
     NSLog(@"请求的产品%@",product);
     NSSet *nsset = [NSSet setWithArray:product];
-    SKProductsRequest
-    
-    *request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
+    SKProductsRequest*request = [[SKProductsRequest alloc]initWithProductIdentifiers:nsset];
     request.delegate = self;
     [request start];
 }
@@ -325,8 +333,6 @@ static const NSString *PayProduct1998 = @"0008";
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
-    
-    
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
@@ -334,17 +340,72 @@ static const NSString *PayProduct1998 = @"0008";
     
     if ([SKPaymentQueue canMakePayments]) {
         
+        NSArray* transactions = [SKPaymentQueue defaultQueue].transactions;
+        if (transactions.count > 0) {
+            //检测是否有未完成的交易
+            SKPaymentTransaction* transaction = [transactions firstObject];
+            if (transaction.transactionState == SKPaymentTransactionStatePurchased) {
+                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                return;
+            }
+        }
         [self requestProductDataWithPayProductType:_selectPrice];
         NSLog(@"允许程序内付费购买");
-    }else
-    {
+    }else{
         NSLog(@"不允许程序内付费购买");
         UIAlertView *alerView =  [[UIAlertView alloc] initWithTitle:@"提示"
                                                             message:@"您的手机没有打开程序内付费购买"
                                                            delegate:nil cancelButtonTitle:NSLocalizedString(@"关闭",nil) otherButtonTitles:nil];
         [alerView show];
     }
+   
 }
+
+
+-(void)verifyPurchaseWithPaymentTransaction{
+    //从沙盒中获取交易凭证并且拼接成请求体数据
+    NSURL *receiptUrl=[[NSBundle mainBundle] appStoreReceiptURL];
+    NSData *receiptData=[NSData dataWithContentsOfURL:receiptUrl];
+    
+    NSString *receiptString=[receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];//转化为base64字符串
+    
+    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receiptString];//拼接请求数据
+    NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    
+    //创建请求到苹果官方进行购买验证
+    NSURL *url=[NSURL URLWithString:SANDBOX];
+    NSMutableURLRequest *requestM=[NSMutableURLRequest requestWithURL:url];
+    requestM.HTTPBody=bodyData;
+    requestM.HTTPMethod=@"POST";
+    //创建连接并发送同步请求
+    NSError *error=nil;
+    NSData *responseData=[NSURLConnection sendSynchronousRequest:requestM returningResponse:nil error:&error];
+    if (error) {
+        NSLog(@"验证购买过程中发生错误，错误信息：%@",error.localizedDescription);
+        return;
+    }
+    NSDictionary *dic=[NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingAllowFragments error:nil];
+    NSLog(@"%@",dic);
+    if([dic[@"status"] intValue]==0){
+        NSLog(@"购买成功！");
+        NSDictionary *dicReceipt= dic[@"receipt"];
+        NSDictionary *dicInApp=[dicReceipt[@"in_app"] firstObject];
+        NSString *productIdentifier= dicInApp[@"product_id"];//读取产品标识
+        //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
+        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//        if ([productIdentifier isEqualToString:@"123"]) {
+//            int purchasedCount = [defaults integerForKey:productIdentifier];//已购买数量
+//            [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount+1) forKey:productIdentifier];
+//        }else{
+//            [defaults setBool:YES forKey:productIdentifier];
+//        }
+        //在此处对购买记录进行存储，可以存储到开发商的服务器端
+    }else{
+        NSLog(@"购买失败，未通过验证！");
+    }
+}
+
 
 
 @end

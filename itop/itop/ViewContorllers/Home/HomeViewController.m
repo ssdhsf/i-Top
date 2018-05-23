@@ -239,7 +239,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
 
 -(void)loadingRecommendedH5List{
     
-    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeDefault PageIndex:1 PageCount:10 tagList:nil searchKey:nil isShow:YES];
+    [[UserManager shareUserManager]homeH5ListWithType:H5ProductTypeNoel PageIndex:1 PageCount:10 tagList:nil searchKey:nil isShow:YES];
 }
 
 -(void)loadingDesignerListWithIsNotification:(BOOL)isNotification{
@@ -272,7 +272,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
         
         NSInteger index ;
         switch ([type integerValue]) {
-            case H5ProductTypeDefault:
+            case H5ProductTypeNoel:
                 
                 index = 3;
                 break;
@@ -755,7 +755,7 @@ static NSString *const DesignerListCellIdentifier = @"DesignerList";
     } else {
         switch (index) {
             case 3:
-                h5Vc.h5ProductType = H5ProductTypeDefault;
+                h5Vc.h5ProductType = H5ProductTypeNoel;
                 break;
             case 5:
                 h5Vc.h5ProductType = H5ProductTypeScenario;

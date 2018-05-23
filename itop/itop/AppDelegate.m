@@ -145,7 +145,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
 - (void)applicationWillResignActive:(UIApplication *)application {
     
     NSLog(@"非活动");
-    if ([[UserManager shareUserManager] isLogin]) {
+    if ([[UserManager shareUserManager] isLogin] && ![Global stringIsNullWithString:[[UserManager shareUserManager]crrentUserInfomation].token]) {
         [[LoginMannager sheardLoginMannager]stopTimer];
     }
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = [ChatViewController getUnreadNotificationCountAndChatCount];
@@ -163,7 +163,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     NSLog(@"进入后台");
     
-    if ([[UserManager shareUserManager] isLogin]) {
+    if ([[UserManager shareUserManager] isLogin] && ![Global stringIsNullWithString:[[UserManager shareUserManager]crrentUserInfomation].token]) {
        [[LoginMannager sheardLoginMannager]stopTimer];
     }
     
@@ -224,7 +224,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
      NSLog(@"进入前台");
     
-    if ([[UserManager shareUserManager] isLogin]) {
+    if ([[UserManager shareUserManager] isLogin] && ![Global stringIsNullWithString:[[UserManager shareUserManager]crrentUserInfomation].token]) {
         
         [[LoginMannager sheardLoginMannager]automaticContinueToken];
         [[LoginMannager sheardLoginMannager]initTimer];
