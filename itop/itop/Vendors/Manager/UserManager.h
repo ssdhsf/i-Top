@@ -14,7 +14,6 @@ typedef NS_ENUM(NSInteger, ArticleType) { //文章类型
     ArticleTypeVideo,//H5视频
     ArticleTypeCommend,//推荐
     ArticleTypeLocal//本地
-    
 };
 
 typedef NS_ENUM(NSInteger, GetArticleListType) { //获取文章入口

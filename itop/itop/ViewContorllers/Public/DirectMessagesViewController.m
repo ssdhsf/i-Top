@@ -45,16 +45,16 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
     [self.tableView mas_makeConstraints:^(MASConstraintMaker *make){
         make.left.mas_equalTo(0);
         make.right.top.mas_equalTo(0);
-        make.bottom.mas_equalTo(-40);
+        make.bottom.mas_equalTo(kDevice_Is_iPhoneX ? -75 : -40);
     }];
-    
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     [self setupkeyBoardDidShowView];
 }
 
 -(void)initData{
     
     [super initData];
-    
+    self.showRefreshHeader = YES;
     [[UserManager shareUserManager]userMessageListWithId:_otherUser_id];
     [UserManager shareUserManager].messageListSuccess = ^(NSArray *arr){
       
@@ -145,17 +145,16 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
     CGRect keyboardRect = [value CGRectValue];
     //获取键盘高度
     int height = keyboardRect.size.height;
-    self.view.frame = CGRectMake(0, -height+64, ScreenWidth, ScreenHeigh-64);
+    self.view.frame = CGRectMake(0, -height+NAVIGATION_HIGHT, ScreenWidth, ScreenHeigh-NAVIGATION_HIGHT);
 }
 
 #pragma mark 键盘将要收起
 - (void)keyBoardWillHide:(NSNotification *)notification{
     
-    self.view.frame = CGRectMake(0, 64, ScreenWidth, ScreenHeigh-64);
+    self.view.frame = CGRectMake(0, NAVIGATION_HIGHT, ScreenWidth, ScreenHeigh-NAVIGATION_HIGHT);
 }
 
 - (IBAction)sendMessage:(UIButton *)sender {
-    
     
     if ([Global stringIsNullWithString:_messageTV.text]) {
         
@@ -167,7 +166,6 @@ static NSString *const DirectMessagesCellIdentifier = @"DirectMessages";
         
         NSLog(@"%@",obj);
     };
-    
     [_messageTV resignFirstResponder];
     
 //    if(self.dataArray.count == 0){

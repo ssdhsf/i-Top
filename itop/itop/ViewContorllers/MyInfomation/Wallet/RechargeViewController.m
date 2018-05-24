@@ -293,7 +293,8 @@ static const NSString *PayProduct1998 = @"0008";
                 
                 NSLog(@"交易完成");
                 
-                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+                [self completeTransaction:transaction];
+//                [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 
                 //                [self verifyTransactionResult];
                 
@@ -315,6 +316,7 @@ static const NSString *PayProduct1998 = @"0008";
                 
                 NSLog(@"交易失败");
                 
+                [self showToastWithMessage:@"充值失败，请稍后重试"];
                 //                [MyTaShowMessageView showMessage:@"交易失败！"];
                 
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
@@ -334,6 +336,14 @@ static const NSString *PayProduct1998 = @"0008";
 - (void)completeTransaction:(SKPaymentTransaction *)transaction{
     NSLog(@"交易结束");
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setObject:@"0" forKey:@"Pay_type"]; //支付类型  余额
+    [parameters setObject:@(PeyType_RECHARGE) forKey:@"Pay_scene"]; //支付场景
+//    [parameters setObject:_money forKey:@"Price"]; //支付价格
+    [[UserManager shareUserManager]payWithParameters:parameters];
+    [UserManager shareUserManager].paySuccess = ^(id obj){
+//        [self backOff];
+    };
 }
 
 - (IBAction)charge:(UIButton *)sender {
@@ -371,8 +381,6 @@ static const NSString *PayProduct1998 = @"0008";
     
     NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receiptString];//拼接请求数据
     NSData *bodyData = [bodyString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    
     //创建请求到苹果官方进行购买验证
     NSURL *url=[NSURL URLWithString:SANDBOX];
     NSMutableURLRequest *requestM=[NSMutableURLRequest requestWithURL:url];
@@ -393,7 +401,7 @@ static const NSString *PayProduct1998 = @"0008";
         NSDictionary *dicInApp=[dicReceipt[@"in_app"] firstObject];
         NSString *productIdentifier= dicInApp[@"product_id"];//读取产品标识
         //如果是消耗品则记录购买数量，非消耗品则记录是否购买过
-        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
+//        NSUserDefaults *defaults=[NSUserDefaults standardUserDefaults];
 //        if ([productIdentifier isEqualToString:@"123"]) {
 //            int purchasedCount = [defaults integerForKey:productIdentifier];//已购买数量
 //            [[NSUserDefaults standardUserDefaults] setInteger:(purchasedCount+1) forKey:productIdentifier];

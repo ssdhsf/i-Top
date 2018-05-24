@@ -1782,6 +1782,7 @@ _errorFailure(__id_obj); }
 
 -(void)userMessageListWithId:(NSString *)user_id{
     
+    SHOW_GET_DATA
     NSString *api = @"/api/usermessage/getlist";
     NSDictionary *parameters = @{@"id":user_id};
     [[InterfaceBase sheardInterfaceBase]requestDataWithApi:api parameters:parameters completion:^(id object) {
@@ -2455,9 +2456,6 @@ _errorFailure(__id_obj); }
         }
         
     } failure:^(NSError *error) {
-        
-        
-        
         HIDDEN_GET_DATA
         SHOW_ERROR_MESSAGER(error);
     }];
